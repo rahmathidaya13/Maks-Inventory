@@ -27,9 +27,9 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_brg' => 'required|string|max:255',
-            'tipe_brg' => 'required|string|max:255',
-            'harga_brg' => 'required|integer',
+            'nama_brg' => 'required',
+            'tipe_brg' => 'required',
+            'harga_brg' => 'required',
         ]);
         $barang = new BarangModel();
         $barang->nama_barang = $request->input('nama_brg');
