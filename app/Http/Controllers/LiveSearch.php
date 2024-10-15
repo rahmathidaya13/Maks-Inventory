@@ -15,8 +15,8 @@ class LiveSearch extends Controller
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->latest()->get();
         } else {
-            // $barang = BarangModel::latest()->get();
+            $barang = BarangModel::latest()->get();
         }
-        return view('Barang.partials.table_item', ['barang' => $barang]);
+        return view('Barang.partials.table_item', compact('barang'));
     }
 }

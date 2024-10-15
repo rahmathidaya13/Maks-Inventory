@@ -28,6 +28,7 @@ Route::controller(BarangController::class)->group(function(){
     Route::post('/list-item/store', 'store')->name('list.store');
     Route::put('/list-item/update/{id}', 'update')->name('list.update');
     Route::get('/list-item/show/{id}', 'show')->name('list.show');
+    Route::get('/list-item/delete/{id}', 'destroy')->name('list.delete');
 });
 Route::get("/item/search", [LiveSearch::class, 'searchItem'])->name('search');
 

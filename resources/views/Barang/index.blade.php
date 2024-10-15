@@ -72,7 +72,7 @@
         });
 
         // live search
-        $(document).on("keyup","#keyword",function(e) {
+        $(document).on("keyup", "#keyword", function(e) {
             e.preventDefault();
             let query = $(this).val();
             // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
@@ -113,6 +113,24 @@
                     $("#harga_brg").val(jqXHR.responseJSON.harga_barang);
                 }
             );
+        });
+        // uji coba
+        $(document).on("click", ".hapus", function() {
+            let id = $(this).data('id');
+            if (confirm('Apakah kamu yakin ingin menghapus data ini?')) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/list-item/delete/" + id,
+                    data: {
+                        _token: '{{ csrf_token() }}', // Menyertakan token CSRF
+                    },
+                    success: function(response) {
+                        alert('Item berhasil dihapus.');
+                        $('#table_items tr[data-id="' + id + '"]').remove();
+                    }
+                });
+            }
+
         });
     </script>
 @endsection
