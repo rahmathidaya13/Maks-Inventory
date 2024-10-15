@@ -9,18 +9,14 @@ class LiveSearch extends Controller
 {
     public function searchItem(Request $request)
     {
-        if ($request->ajax()) {
-            $query = $request->get('query');
-            if ($query != "") {
-                BarangModel::where("nama_barang", "like", "{$query}")
-                    ->orderBy("nama_barang", "asc")->get();
-            } else {
-                $data = BarangModel::orderBy(
-                    'nama_barang',
-                    'asc'
-                );
-            }
-            return response()->json($data, 200);
+        $query = $request->get('query');
+        if ($query != "") {
+            $barang =  BarangModel::where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->latest()->get();
+        } else {
+            // $barang = BarangModel::latest()->get();
         }
+        return view('Barang.partials.table_item', ['barang' => $barang]);
     }
 }
