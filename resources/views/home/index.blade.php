@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('title','Home')
+@section('breadcrumb', 'Dashboard')
+@section('icon', 'fas fa-tachometer-alt')
 @section('content')
 <div class="row">
     <div class="col-lg-3 col-6">

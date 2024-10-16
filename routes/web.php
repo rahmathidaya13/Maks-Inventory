@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\ImportAction;
+use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,8 +30,10 @@ Route::controller(BarangController::class)->group(function(){
     Route::post('/list-item/store', 'store')->name('list.store');
     Route::put('/list-item/update/{id}', 'update')->name('list.update');
     Route::get('/list-item/show/{id}', 'show')->name('list.show');
-    Route::get('/list-item/delete/{id}', 'destroy')->name('list.delete');
+    Route::delete('/list-item/delete/{id}', 'destroy')->name('list.delete');
 });
-Route::get("/item/search", [LiveSearch::class, 'searchItem'])->name('search');
+Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
+Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
+Route::post("/import/file", [ImportAction::class, 'importFile'])->name( 'import.file');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
