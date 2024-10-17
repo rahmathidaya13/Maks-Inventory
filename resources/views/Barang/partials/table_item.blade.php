@@ -4,14 +4,14 @@
     $startNumbering = ($currentPage - 1) * $perPage;
 @endphp
 @foreach ($barang as $data)
-    <tr>
+    <tr id="barang_item{{$data->id_barang}}">
         <td class="text-center">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="selected" id="selected">
+                <input class="form-check-input selected" type="checkbox" name="ids" id="ids" data-id="{{ $data->id_barang }}">
                 <label class="form-check-label"></label>
               </div>
         </td>
-        <td>{{ $startNumbering + $loop->iteration }}</td>
+        <td id="number">{{ $startNumbering + $loop->iteration }}</td>
         <td class="nama-barang">{{ $data->nama_barang }}</td>
         <td class="tipe-barang">{{ $data->tipe_barang }}</td>
         <td>{{ 'Rp ' . number_format($data->harga_barang, 0, ',', '.') }}</td>
@@ -32,6 +32,6 @@
 
 @empty($data)
     <tr>
-        <td colspan="5" class="text-center">Barang tidak ditemukan</td>
+        <td colspan="15" class="text-center">Barang tidak ditemukan</td>
     </tr>
 @endempty

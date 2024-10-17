@@ -36,20 +36,28 @@
                                 <option value="100">100</option>
                             </select>
                         </div>
+                        <div class="ml-2">
+                            <button id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Delete
+                                all</button>
+                        </div>
                     </div>
                     <div class="input-group input-group-sm w-25">
                         <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
                     </div>
-                    {{-- <div class="">
-                    </div> --}}
+
+
                 </div>
 
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
+                    <table id="" class="table table-hover text-nowrap">
                         <thead>
                             <tr>
-                                <th class="text-center"><button id="delete_all" class="btn btn-sm btn-warning"
-                                        type="button"><i class="fas fa-trash"></i></button></th>
+                                <th class="text-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll">
+                                        <label class="form-check-label"></label>
+                                    </div>
+                                </th>
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
@@ -109,22 +117,28 @@
             $(document).on("keyup", "#keyword", function(e) {
                 e.preventDefault();
                 let query = $(this).val();
-                // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-                $("tbody").load("/item/search?query=" + encodeURIComponent(query), function() {
-                    $("tbody .nama-barang, .tipe-barang").each(function() {
-                        let text = $(this).text();
-                        if (query) {
-                            // Ganti teks yang cocok dengan teks yang disorot
-                            let regex = new RegExp('(' + query + ')', 'gi');
-                            let highlightedText = text.replace(regex,
-                                '<span class="highlight">$1</span>');
-                            $(this).html(highlightedText); // Ganti dengan teks yang disorot
-                        } else {
-                            $(this).html(text); // Kembalikan ke teks asli
-                        }
+                if (query === "") {
+                    window.history.pushState("{}", "", "/list-item");
+                    location.reload();
+                } else {
+                    // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
+                    $("tbody").load("/item/search?query=" + encodeURIComponent(query), function() {
+                        $("tbody .nama-barang, .tipe-barang").each(function() {
+                            let text = $(this).text();
+                            if (query) {
+                                // Ganti teks yang cocok dengan teks yang disorot
+                                let regex = new RegExp('(' + query + ')', 'gi');
+                                let highlightedText = text.replace(regex,
+                                    '<span class="highlight">$1</span>');
+                                $(this).html(
+                                    highlightedText); // Ganti dengan teks yang disorot
+                            } else {
+                                $(this).html(text); // Kembalikan ke teks asli
+                            }
 
+                        });
                     });
-                });
+                }
 
             });
 
@@ -132,7 +146,6 @@
                 e.preventDefault();
                 // this variable data
                 let id = $(this).data('id');
-                console.log(id);
                 $("#form_item")[0].reset();
                 $(".modal-title span").text('Ubah Data Barang')
                 $(".modal-title i").removeClass('fas fa-plus-square').addClass('fas fa-edit');
@@ -170,6 +183,7 @@
                     }
                 });
             });
+
             // set limit row
             $(document).on("change", "#offset", function() {
                 let offset = $(this).val();
@@ -192,6 +206,88 @@
                 $("#file-name").text(file.name);
 
             });
+
+            $(document).on("click", "#selectAll", function() {
+                $(".selected").prop("checked", $(this).prop("checked"));
+            });
+
+            // multiple deleted
+            $(document).on("click", "#delete_all", function(e) {
+                e.preventDefault();
+                let selectedItem = $(".selected:checked");
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Item yang dipilih akan dihapus!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        if (selectedItem.length > 0) {
+                            // map to selected item
+                            let ids = selectedItem.map(function() {
+                                return $(this).data("id");
+                            }).get();
+                            $.ajax({
+                                url: "{{ route('deleteAll') }}",
+                                type: "DELETE",
+                                data: {
+                                    ids: ids,
+                                    _token: "{{ csrf_token() }}"
+                                },
+                                success: function(response) {
+                                    Swal.fire({
+                                        position: "center",
+                                        icon: "success",
+                                        title: `${ids.length} Item berhasil dihapus.`,
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    }).then(() => {
+                                        location.reload();
+
+                                        // lakukan perulangan dalam array dan ambil row berdasarkan id
+                                        // ids.forEach(function(id) {
+                                        //     $("#barang_item" + id)
+                                        //         .remove();
+                                        // });
+                                        // // lakukan didalam perulangan untuk merefresh no tabel
+                                        // $("table tbody tr").each(function(
+                                        //     index) {
+                                        //     $(this).find("#number")
+                                        //         .text(index + 1)
+                                        // });
+                                        // // load data setiap kali ada yang terhapus sesuaikan dengan set offset 10
+                                        // $("tbody").load(
+                                        //     "/item/offset?offset=" + 10);
+                                    });
+                                },
+                                error: function(xhr) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Terjadi kesalahan',
+                                        text: 'Saat menghapus item.',
+                                    });
+                                }
+                            });
+                        } else {
+                            alert("Silakan pilih item yang ingin dihapus.");
+                        }
+                    }
+                });
+                // console.log(id);
+                // $("input:checkbox[name=ids]:checked").each(function() {
+                //     ids.push($(this).val());
+                // });
+            });
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
 @endsection

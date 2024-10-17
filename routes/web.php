@@ -34,6 +34,8 @@ Route::controller(BarangController::class)->group(function(){
 });
 Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
 Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
+Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
+
 Route::post("/import/file", [ImportAction::class, 'importFile'])->name( 'import.file');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id_barang')->primary();
             $table->string('nama_barang');
             $table->string('tipe_barang');
-            $table->string('harga_barang');
+            $table->string('harga_barang')->default(0);
             $table->timestamps();
         });
     }

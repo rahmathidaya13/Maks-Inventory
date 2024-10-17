@@ -83,4 +83,5 @@ class BarangController extends Controller
         $barang->delete();
         return redirect()->route('list.index')->with('success', 'Barang Berhasil Dihapus');
     }
+
 }
