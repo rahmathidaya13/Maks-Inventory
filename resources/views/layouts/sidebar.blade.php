@@ -42,6 +42,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('barang_masuk.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-clipboard-check"></i>
+              <p>
+                Barang Masuk
+              </p>
+            </a>
+          </li>
 
 
 

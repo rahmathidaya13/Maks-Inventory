@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangMasuk;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
@@ -31,6 +32,10 @@ Route::controller(BarangController::class)->group(function(){
     Route::put('/list-item/update/{id}', 'update')->name('list.update');
     Route::get('/list-item/show/{id}', 'show')->name('list.show');
     Route::delete('/list-item/delete/{id}', 'destroy')->name('list.delete');
+});
+Route::controller(BarangMasuk::class)->group(function(){
+    Route::get('/barang_masuk', 'index')->name('barang_masuk.index');
+    Route::post('/barang_masuk/store', 'store')->name('barang_masuk.store');
 });
 Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
 Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
