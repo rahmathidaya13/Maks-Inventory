@@ -36,7 +36,7 @@ class BarangController extends Controller
         $barang->tipe_barang = $request->input('tipe_brg');
         $barang->harga_barang = $request->input('harga_brg');
         $barang->save();
-        return redirect()->route('list.index')->with('success', 'Barang Berhasil Ditambahkan');
+        return back()->with('success', 'Barang Berhasil Ditambahkan');
     }
 
     /**
@@ -71,7 +71,7 @@ class BarangController extends Controller
         $barang->tipe_barang = $request->input('tipe_brg');
         $barang->harga_barang = $request->input('harga_brg');
         $barang->update();
-        return redirect()->route('list.index')->with('success', 'Data Barang Berhasil Diubah');
+        return back()->with('success', 'Data Barang Berhasil Diubah');
     }
 
     /**
@@ -81,7 +81,7 @@ class BarangController extends Controller
     {
         $barang = BarangModel::findOrFail($id);
         $barang->delete();
-        return redirect()->route('list.index')->with('success', 'Barang Berhasil Dihapus');
+        return back()->with('success', 'Barang Berhasil Dihapus');
     }
 
 }

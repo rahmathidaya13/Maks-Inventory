@@ -14,8 +14,8 @@ class BarangMasuk extends Controller
     public function index()
     {
         $allItem = BarangModel::all();
-        $barang_masuk = BarangMasukModel::latest()->get();
-        return view('BarangMasuk.index', compact('barang_masuk','allItem'));
+        $barang_masuk = BarangMasukModel::latest()->paginate(10);
+        return view('BarangMasuk.index', compact('barang_masuk', 'allItem'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BarangMasuk extends Controller
         $barangMasuk->asal_gudang = $request->input('asal_gdg');
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
         $barangMasuk->save();
-        return redirect()->route('barang_masuk.index')->with('success', 'Penambahan Barang Masuk Berhasil');
+        return back()->with('success', 'Penambahan Barang Masuk Berhasil');
     }
 
     /**
@@ -56,7 +56,11 @@ class BarangMasuk extends Controller
      */
     public function show(string $id)
     {
-        //
+        $barangMasuk = BarangMasukModel::findOrFail($id);
+        return response()->json(['success' => 'Fetching success', 'result'=>$barangMasuk], 200, [
+            'Content-Type' => 'application/json',
+            'X-Content-Type-Options' => 'nosniff',
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -78,8 +82,5 @@ class BarangMasuk extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy(string $id) {}
 }

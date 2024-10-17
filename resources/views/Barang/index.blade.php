@@ -36,18 +36,15 @@
                                 <option value="100">100</option>
                             </select>
                         </div>
-                        <div class="ml-2">
-                            <button id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Delete
-                                all</button>
-                        </div>
                     </div>
                     <div class="input-group input-group-sm w-25">
                         <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
                     </div>
-
-
                 </div>
-
+                <div class="px-3 d-flex">
+                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Delete
+                        all</button>
+                </div>
                 <div class="card-body table-responsive p-0">
                     <table id="" class="table table-hover text-nowrap">
                         <thead>
