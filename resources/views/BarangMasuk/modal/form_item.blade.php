@@ -1,4 +1,4 @@
-<div class="modal fade" id="staticBackdrop1" data-backdrop="static" data-keyboard="false" tabindex="-1"
+<div class="modal fade" id="staticBackdrop-brg_masuk1" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -24,8 +24,8 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="nama_brg">Nama Barang</label>
-                            <select class="select2 form-control" name="nama_brg" id="nama_brg">
+                            <label for="nama_barang">Nama Barang</label>
+                            <select class="select2 form-control" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Barang</option>
                                 @foreach ($allItem as $row)
                                 <option data-id="{{ $row->id_barang }}" value="{{ $row->nama_barang }}">
@@ -35,8 +35,8 @@
                               </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="tipe_brg">Tipe Barang</label>
-                            <select class="select2 form-control" name="tipe_brg" id="tipe_brg">
+                            <label for="tipe_barang_masuk">Tipe Barang</label>
+                            <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
                                 <option value="">Pilih Tipe Barang</option>
                                 @foreach ($allItem as $row)
                                 <option value="{{ $row->tipe_barang }}">
@@ -61,7 +61,7 @@
                             <label for="status">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="stok">Stok</option>
-                                <option value="konsumen">Konsumen</option>
+                                <option value="customer">Customer</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">

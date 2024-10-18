@@ -19,7 +19,7 @@
                     <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk" id="import_item_list"
                         class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
 
-                    <button data-toggle="modal" data-target="#staticBackdrop1" id="add_item_list"
+                    <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" id="add_item_list"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang Masuk</button>
                 @endif
             </div>

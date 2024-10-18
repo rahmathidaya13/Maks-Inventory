@@ -33,7 +33,7 @@
     $(document).ready(function() {
         //Initialize Select2 Elements
         $('.select2').select2({
-            dropdownParent: $('#staticBackdrop1')
+            dropdownParent: $('#staticBackdrop-brg_masuk1')
         })
 
         //Initialize Select2 Elements

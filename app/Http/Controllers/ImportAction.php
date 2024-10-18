@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Imports\BarangImport;
 use App\Imports\BarangMasukImport;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,16 +50,33 @@ class ImportAction extends Controller
         //         'import_brg_masuk.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
         //     ]
         // );
+
         // if ($validator->fails()) {
         //     return back()->withErrors($validator)->withInput();  // redirect back with errors.
         // }
-        $files = $request->file('import_brg_masuk');
-        Excel::import(new BarangMasukImport, $files);
-        // try {
 
-        //     return back()->with('success', 'File imported successfully');
-        // } catch (\Exception $err) {
-        //     return back()->with('error', $err->getMessage());
-        // }
+        $files = $request->file('import_brg_masuk');
+        $fileType = in_array($files->getClientOriginalExtension(),['xls','xlsx']) ? 'excel' : 'csv';
+        try {
+            DB::beginTransaction();
+            // Nonaktifkan foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            // Proses impor file menggunakan Laravel Excel
+            Excel::import(new BarangMasukImport($fileType), $files);
+
+            // Aktifkan kembali foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            DB::commit();
+            return back()->with('success', 'File imported successfully');
+        } catch (\Exception $err) {
+
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+
+            // Aktifkan kembali foreign key checks jika ada error
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            return back()->with('error', $err->getMessage());
+        }
     }
 }

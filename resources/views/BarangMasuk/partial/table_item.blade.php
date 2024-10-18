@@ -27,7 +27,7 @@
                     <i class="fas fa-eye"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a data-toggle="modal" data-target="#staticBackdrop1" data-id="{{ $data->id_brg_masuk }}"
+                    <a data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" data-id="{{ $data->id_brg_masuk }}"
                         class="dropdown-item ubah_barang_masuk" href="#"><i class="fas fa-edit"></i> Ubah</a>
                     <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}" data-id="{{ $data->id_brg_masuk }}" class="dropdown-item hapus_brg_masuk" href="#"><i
                             class="fas fa-trash"></i> Hapus</a>

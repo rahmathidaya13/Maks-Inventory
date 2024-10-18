@@ -18,14 +18,14 @@ $(document).on("click", "#act_keluar, #act_close", function (e) {
     if ($("#barangmasuk").length) {
         $("#barangmasuk")[0].reset("");
     }
-    $("#nama_brg").trigger("change");
+    $("#nama_barang").trigger("change");
     $("#tipe_brg").trigger("change");
     $("input[name='_method']").remove();
     $("#barangmasuk").attr("action", "#");
 });
 
 // get name dan get id_barangmasuk
-$(document).on("change", "#nama_brg", function (e) {
+$(document).on("change", "#nama_barang", function (e) {
     e.preventDefault();
     let selected = $(this).find(":selected");
     let dataId = selected.data("id");
@@ -65,14 +65,13 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         '<input type="hidden" name="_method" value="PUT">'
     );
     $("#barangmasuk").attr("action", "/barang_masuk/update/" + id);
-
     $.getJSON("/barang_masuk/detail/" + id, function (data, textStatus, jqXHR) {
-        console.log(data);
+        // console.log(data);
         $("#id_barang").val(data.result.id_barang);
         $("#tgl_brg_masuk").val(data.result.tgl_brg_masuk);
         $("#no_warehouse").val(data.result.no_warehouse);
-        $("#nama_brg").val(data.result.nama_barang).trigger("change");
-        $("#tipe_brg").val(data.result.tipe_barang).trigger("change");
+        $("#nama_barang").val(data.result.nama_barang).trigger("change");
+        $("#tipe_barang_masuk").val(data.result.tipe_barang).trigger("change");
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);
         $("#status").val(data.result.status);
@@ -85,7 +84,7 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
     });
 });
 
-// jika dipilih semua maka akan menandai checkbox
+// jika dipilih semua maka akan menandai item checkbox
 $(document).on("click", "#selectAllItem", function () {
     $(".selected_").prop("checked", $(this).prop("checked"));
 });
@@ -128,7 +127,7 @@ $(document).on("click", ".hapus_brg_masuk", function () {
 $(document).on("change", "#status", function (e) {
     e.preventDefault();
     let value = $(this).val();
-    if (value == "konsumen") {
+    if (value == "customer") {
         $("#konsumen").prop("readonly", false).val("");
     } else {
         $("#konsumen").prop("readonly", true).val("-");

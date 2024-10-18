@@ -104,6 +104,7 @@
     </div>
     @include('BarangMasuk.modal.form_import')
     @include('Barang.modal.form_item')
+    @include('BarangMasuk.modal.form_item')
     <script>
         $(document).ready(function() {
 
