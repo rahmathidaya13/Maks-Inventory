@@ -9,7 +9,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
 
 class LiveAction extends Controller
 {
-    public $Search = '';
     public function searchItem(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -47,8 +46,4 @@ class LiveAction extends Controller
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
     }
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
 }

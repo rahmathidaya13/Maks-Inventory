@@ -80,7 +80,7 @@ $(document).on("click", "#selectAllItem", function () {
 // jika dipilih  maka akan mengaktifkan button delete all
 $(document).on("change", ".selected_,#selectAllItem", function () {
     // Deteksi perubahan pada checkbox
-    let checked = $(".selected_:checked").length;
+    let checked = $(".selected_:checked").phlength;
     if (checked > 0) {
         // Jika ada checkbox yang dipilih, aktifkan tombol
         $("#delete_all").prop("disabled", false);
@@ -92,6 +92,21 @@ $(document).on("change", ".selected_,#selectAllItem", function () {
 
 $(document).on("click", ".hapus_brg_masuk", function () {
     let id = $(this).data("id");
-    let ids = $("#barang_masuk_"+id);
-
+    let form = $("#delete_items_" + id);
+    console.log(form);
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: "Apakah kamu yakin?",
+        text: "Data barang ini akan dihapus!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
 });

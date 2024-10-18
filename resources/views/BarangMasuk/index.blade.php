@@ -6,7 +6,9 @@
     <div class="row">
         <div class="col-lg-12 col-12">
             @if ($errors->any())
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-ban"></i> Alert!</h5>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -15,17 +17,16 @@
                 </div>
             @endif
             @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong> <i class="fas fa-check-circle"></i> {{ $message }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                    {{ $message }}
                 </div>
             @endif
             <div class="callout callout-warning">
                 <h5><i class="fas fa-exclamation-triangle"></i> Pemberitahuan !</h5>
                 <h6 class="w-75">
-                    Jika barang yang dicari saat ini tidak tersedia, silahkan tambahkan dahulu barang, tipe dan harga di
+                    Jika barang yang dicari saat ini tidak tersedia, silahkan tambahkan dahulu nama barang, tipe dan harga di
                     daftar
                     barang.
                     <div class="mt-2">
@@ -67,7 +68,8 @@
                             <tr>
                                 <th class="text-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="selectAllItem" id="selectAllItem">
+                                        <input class="form-check-input" type="checkbox" name="selectAllItem"
+                                            id="selectAllItem">
                                         <label class="form-check-label"></label>
                                     </div>
                                 </th>

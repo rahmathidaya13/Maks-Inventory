@@ -6,6 +6,7 @@
     <!-- Small boxes (Stat box) -->
     <div class="row">
         <div class="col-lg-12 col-12">
+            {{-- alert --}}
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -23,7 +24,7 @@
                     </button>
                 </div>
             @endif
-
+            {{-- end alert --}}
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center p-3">
                     <div class="d-flex align-items-center">
