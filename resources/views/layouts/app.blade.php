@@ -18,4 +18,5 @@
         </div>
     </footer>
 </div>
+@include('layouts.modal-profile.profile')
 @include('layouts.footer')

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('tipe_barang');
             $table->string('asal_gudang');
             $table->integer('jumlah_barang');
+            $table->enum('status',['stok','konsumen'])->default('stok');
+            $table->string('nama_konsumen');
             $table->timestamps();
         });
     }

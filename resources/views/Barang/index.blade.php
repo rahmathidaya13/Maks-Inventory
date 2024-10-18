@@ -8,22 +8,32 @@
         <div class="col-lg-12 col-12">
             {{-- alert --}}
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong> <i class="fas fa-check-circle"></i> {{ $message }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                {{ $message }}
+            </div>
+        @endif
+        <div class="callout callout-info">
+            <h5><i class="fas fa-info-circle"></i> Pemberitahuan</h5>
+            <h6 class="w-75">
+                Jika barang yang dicari saat ini tidak tersedia, silahkan tambahkan dahulu nama barang, tipe dan harga di
+                daftar
+                barang.
+
+            </h6>
+        </div>
             {{-- end alert --}}
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center p-3">
@@ -43,8 +53,7 @@
                     </div>
                 </div>
                 <div class="px-3 d-flex">
-                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Delete
-                        all</button>
+                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Hapus</button>
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table id="" class="table table-hover text-nowrap">

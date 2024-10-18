@@ -39,6 +39,8 @@ class BarangMasuk extends Controller
                 'tipe_brg' => 'required | string | max:150',
                 'asal_gdg' => 'required | string | max:150',
                 'jumlah_brg' => 'required | integer|min:1',
+                'status' => 'required | string',
+                'konsumen' => 'required | string | max:100',
             ],
             [
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
@@ -53,7 +55,10 @@ class BarangMasuk extends Controller
                 'asal_gdg.max' => 'Asal gudang tidak boleh lebih dari 150 karakter.',
                 'jumlah_brg.required' => 'Jumlah barang wajib diisi.',
                 'jumlah_brg.integer' => 'Jumlah barang harus berupa angka yang valid.',
-                'jumlah_brg.min' => 'Jumlah barang minimal adalah 1.'
+                'jumlah_brg.min' => 'Jumlah barang minimal adalah 1.',
+                'status.required' => 'Status wajib dipilih.',
+                'konsumen.required' => 'Nama konsumen wajib diisi.',
+                'konsumen.max' => 'Nama konsumen tidak boleh lebih dari 100 Karakter',
             ]
         );
         $barangMasuk = new BarangMasukModel();
@@ -64,6 +69,8 @@ class BarangMasuk extends Controller
         $barangMasuk->tipe_barang = $request->input('tipe_brg');
         $barangMasuk->asal_gudang = $request->input('asal_gdg');
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
+        $barangMasuk->status = $request->input('status');
+        $barangMasuk->nama_konsumen = $request->input('konsumen');
         $barangMasuk->save();
         return back()->with('success', "Penambahan " . request('nama_brg') . " - " . request('tipe_brg') . " "  . "Berhasil ditambahkan");
     }
@@ -101,6 +108,8 @@ class BarangMasuk extends Controller
                 'tipe_brg' => 'required | string | max:150',
                 'asal_gdg' => 'required | string | max:150',
                 'jumlah_brg' => 'required | integer|min:1',
+                'status' => 'required | string',
+                'konsumen' => 'required | string | max:100',
             ],
             [
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
@@ -115,7 +124,10 @@ class BarangMasuk extends Controller
                 'asal_gdg.max' => 'Asal gudang tidak boleh lebih dari 150 karakter.',
                 'jumlah_brg.required' => 'Jumlah barang wajib diisi.',
                 'jumlah_brg.integer' => 'Jumlah barang harus berupa angka yang valid.',
-                'jumlah_brg.min' => 'Jumlah barang minimal adalah 1.'
+                'jumlah_brg.min' => 'Jumlah barang minimal adalah 1.',
+                'status.required' => 'Status wajib dipilih.',
+                'konsumen.required' => 'Nama konsumen wajib diisi.',
+                'konsumen.max' => 'Nama konsumen tidak boleh lebih dari 100 Karakter',
             ]
         );
         $barangMasuk = BarangMasukModel::findOrFail($id);
@@ -126,6 +138,8 @@ class BarangMasuk extends Controller
         $barangMasuk->tipe_barang = $request->input('tipe_brg');
         $barangMasuk->asal_gudang = $request->input('asal_gdg');
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
+        $barangMasuk->status = $request->input('status');
+        $barangMasuk->nama_konsumen = $request->input('konsumen');
         $barangMasuk->update();
         return back()->with('success', "Pembaharuan " . request('nama_brg') . " - " . request('tipe_brg') . " " . "Berhasil diperbaharui");
     }

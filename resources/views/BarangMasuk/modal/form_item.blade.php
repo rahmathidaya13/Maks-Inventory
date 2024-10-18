@@ -56,6 +56,19 @@
                             <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg">
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="status">Status</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value="stok">Stok</option>
+                                <option value="konsumen">Konsumen</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="konsumen">Nama Konsumen</label>
+                            <input readonly type="text" class="form-control" name="konsumen" id="konsumen" value="-">
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">

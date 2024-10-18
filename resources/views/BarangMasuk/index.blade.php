@@ -24,21 +24,18 @@
                 </div>
             @endif
             <div class="callout callout-warning">
-                <h5><i class="fas fa-exclamation-triangle"></i> Pemberitahuan !</h5>
+                <h5><i class="fas fa-info-circle"></i> Informasi </h5>
                 <h6 class="w-75">
-                    Jika barang yang dicari saat ini tidak tersedia, silahkan tambahkan dahulu nama barang, tipe dan harga di
-                    daftar
-                    barang.
+                    Tidak menemukan barang yang diinginkan?
+                    Silahkan tambahkan informasi barang seperti nama, tipe, dan harga melalui link berikut.
                     <div class="mt-2">
                         <a id="add_item" data-toggle="modal" data-target="#staticBackdrop"
-                            class="text-decoration-none text-primary" href="#"><i class="fas fa-plus-square"></i>
+                            class="text-primary" href="#">
                             Tambah Barang</a>
                     </div>
                 </h6>
             </div>
-            <div>
 
-            </div>
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center p-3">
                     <div class="d-flex align-items-center">
@@ -58,8 +55,8 @@
                     </div>
                 </div>
                 <div class="ml-2">
-                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i> Delete
-                        all</button>
+                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+                        Hapus</button>
                 </div>
 
                 <div class="card-body table-responsive p-0">
@@ -80,6 +77,8 @@
                                 <th>Tipe Barang</th>
                                 <th>Asal Gudang</th>
                                 <th>Jumlah Barang</th>
+                                <th>Status</th>
+                                <th>Nama Konsumen</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

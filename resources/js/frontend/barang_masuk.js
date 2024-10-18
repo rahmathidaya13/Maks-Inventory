@@ -1,3 +1,4 @@
+// button untuk menambahkan barang masuk
 $(document).on("click", "#add_item_list", function (e) {
     e.preventDefault();
     $("#barangmasuk")[0].reset();
@@ -10,6 +11,8 @@ $(document).on("click", "#add_item_list", function (e) {
     $("#barangmasuk").attr("action", "/barang_masuk/store");
     $("input[name='_method']").remove();
 });
+
+// fungsi untuk button keluar modal dan mereset form
 $(document).on("click", "#act_keluar, #act_close", function (e) {
     e.preventDefault();
     if ($("#barangmasuk").length) {
@@ -28,6 +31,7 @@ $(document).on("change", "#nama_brg", function (e) {
     let dataId = selected.data("id");
     $("#id_barang").val(dataId);
 });
+
 // set input hanya terima angka saja
 $("#jumlah_brg").on("input", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
@@ -45,6 +49,7 @@ $(document).on("click", "#add_item", function (e) {
     $("input[name='_method']").remove();
 });
 
+// fungsi untuk button edit barang masuk
 $(document).on("click", ".ubah_barang_masuk", function (e) {
     e.preventDefault();
     // this variable data
@@ -70,6 +75,13 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         $("#tipe_brg").val(data.result.tipe_barang).trigger("change");
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);
+        $("#status").val(data.result.status);
+        let konsumen = $("#konsumen").val(data.result.nama_konsumen);
+        if(konsumen.val() !== '-'){
+            $("#konsumen").prop("readonly", false);
+        }else{
+            $("#konsumen").prop("readonly", true);
+        }
     });
 });
 
@@ -80,7 +92,7 @@ $(document).on("click", "#selectAllItem", function () {
 // jika dipilih  maka akan mengaktifkan button delete all
 $(document).on("change", ".selected_,#selectAllItem", function () {
     // Deteksi perubahan pada checkbox
-    let checked = $(".selected_:checked").phlength;
+    let checked = $(".selected_:checked").length;
     if (checked > 0) {
         // Jika ada checkbox yang dipilih, aktifkan tombol
         $("#delete_all").prop("disabled", false);
@@ -90,14 +102,15 @@ $(document).on("change", ".selected_,#selectAllItem", function () {
     }
 });
 
+// button hapus satu file
 $(document).on("click", ".hapus_brg_masuk", function () {
     let id = $(this).data("id");
+    let getNameType = $(this).data("name-type");
     let form = $("#delete_items_" + id);
-    console.log(form);
     // Show SweetAlert confirmation dialog
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: "Data barang ini akan dihapus!",
+        text: `${getNameType} ini akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -109,4 +122,15 @@ $(document).on("click", ".hapus_brg_masuk", function () {
             form.submit();
         }
     });
+});
+
+// trigger element status untuk aktifkan input nama konsumen
+$(document).on("change", "#status", function (e) {
+    e.preventDefault();
+    let value = $(this).val();
+    if (value == "konsumen") {
+        $("#konsumen").prop("readonly", false).val("");
+    } else {
+        $("#konsumen").prop("readonly", true).val("-");
+    }
 });
