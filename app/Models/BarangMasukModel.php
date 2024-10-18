@@ -20,5 +20,7 @@ class BarangMasukModel extends Model
         'tipe_barang',
         'asal_gudang',
         'jumlah_barang',
+        'status',
+        'nama_konsumen',
     ];
 }

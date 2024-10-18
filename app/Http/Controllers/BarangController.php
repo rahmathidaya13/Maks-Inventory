@@ -26,11 +26,20 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_brg' => 'required',
-            'tipe_brg' => 'required',
-            'harga_brg' => 'required',
-        ]);
+        $request->validate(
+            [
+                'nama_brg' => 'required|string|max:150',
+                'tipe_brg' => 'required|string|max:150',
+                'harga_brg' => 'required|string',
+            ],
+            [
+                'nama_brg.required' => 'Nama barang wajib diisi',
+                'nama_brg.max' => 'Nama barang maksimal 150 karakter',
+                'tipe_brg.required' => 'Tipe barang wajib diisi',
+                'tipe_brg.max' => 'Tipe barang maksimal 150 karakter',
+                'harga_brg.required' => 'Harga barang wajib diisi',
+            ]
+        );
         $barang = new BarangModel();
         $barang->nama_barang = $request->input('nama_brg');
         $barang->tipe_barang = $request->input('tipe_brg');
@@ -45,7 +54,15 @@ class BarangController extends Controller
     public function show(string $id)
     {
         $barang = BarangModel::findOrFail($id);
-        return response()->json($barang, 200);
+        return response()->json(
+            ['success' => 'Fetching success', 'result' => $barang],
+            200,
+            [
+                'Content-Type' => 'application/json',
+                'X-Content-Type-Options' => 'nosniff',
+            ],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK
+        );
     }
 
     /**
@@ -61,11 +78,20 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama_brg' => 'required',
-            'tipe_brg' => 'required',
-            'harga_brg' => 'required',
-        ]);
+        $request->validate(
+            [
+                'nama_brg' => 'required|string|max:150',
+                'tipe_brg' => 'required|string|max:150',
+                'harga_brg' => 'required|string',
+            ],
+            [
+                'nama_brg.required' => 'Nama barang wajib diisi',
+                'nama_brg.max' => 'Nama barang maksimal 150 karakter',
+                'tipe_brg.required' => 'Tipe barang wajib diisi',
+                'tipe_brg.max' => 'Tipe barang maksimal 150 karakter',
+                'harga_brg.required' => 'Harga barang wajib diisi',
+            ]
+        );
         $barang = BarangModel::findOrFail($id);
         $barang->nama_barang = $request->input('nama_brg');
         $barang->tipe_barang = $request->input('tipe_brg');
@@ -81,7 +107,6 @@ class BarangController extends Controller
     {
         $barang = BarangModel::findOrFail($id);
         $barang->delete();
-        return back()->with('success', 'Barang Berhasil Dihapus');
+        return back()->with('success', 'Data barang '.$barang->nama_barang.' - '.$barang->tipe_barang.' '.'Berhasil Dihapus');
     }
-
 }

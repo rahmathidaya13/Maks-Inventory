@@ -62,7 +62,7 @@ class BarangMasuk extends Controller
             ]
         );
         $barangMasuk = new BarangMasukModel();
-        $barangMasuk->id_barang = $request->input('id_barang');
+        $barangMasuk->id_barang = $request->input('id_barang') ?? uuid_create();
         $barangMasuk->tgl_brg_masuk = $request->input('tgl_brg_masuk');
         $barangMasuk->no_warehouse = $request->input('no_warehouse');
         $barangMasuk->nama_barang = $request->input('nama_brg');

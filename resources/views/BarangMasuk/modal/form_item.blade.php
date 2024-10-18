@@ -15,11 +15,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="tgl_brg_masuk">Tgl. Barang Masuk</label>
-                            <input type="date" class="form-control" name="tgl_brg_masuk" id="tgl_brg_masuk">
+                            <input type="date" class="form-control" name="tgl_brg_masuk" id="tgl_brg_masuk" value="{{ old('tgl_brg_masuk') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="no_warehouse">No. Warehouse</label>
-                            <input type="text" class="form-control" name="no_warehouse" id="no_warehouse">
+                            <input type="text" class="form-control" name="no_warehouse" id="no_warehouse" value="{{ old('no_warehouse') }}">
                         </div>
                     </div>
                     <div class="form-row">
@@ -49,11 +49,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="asal_gdg">Asal Gudang</label>
-                            <input type="text" class="form-control" name="asal_gdg" id="asal_gdg" value="Gudang Pusat">
+                            <input type="text" class="form-control" name="asal_gdg" id="asal_gdg" value="Gudang Pusat" value="{{ old('asal_gdg') }}">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="jumlah_brg">Jumlah Barang</label>
-                            <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg">
+                            <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg" value="{{ old('jumlah_brg') }}">
                         </div>
                     </div>
                     <div class="form-row">

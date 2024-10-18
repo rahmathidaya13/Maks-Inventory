@@ -40,10 +40,13 @@ Route::controller(BarangMasuk::class)->group(function(){
     Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show');
     Route::delete('/barang_masuk/delete/{id}', 'destroy')->name('barang_masuk.delete');
 });
+// khusus untuk live action
 Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
 Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
 Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
 
+// khusus untuk import file dan export file
 Route::post("/import/file", [ImportAction::class, 'importFile'])->name( 'import.file');
+Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name( 'import.barangMasuk');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

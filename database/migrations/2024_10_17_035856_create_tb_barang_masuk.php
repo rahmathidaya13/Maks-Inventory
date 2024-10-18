@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('tb_barang_masuk', function (Blueprint $table) {
             $table->uuid('id_brg_masuk')->primary();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
-            $table->date('tgl_brg_masuk');
+            $table->string('tgl_brg_masuk');
             $table->string('no_warehouse');
             $table->string('nama_barang');
             $table->string('tipe_barang');
             $table->string('asal_gudang');
-            $table->integer('jumlah_barang');
+            $table->string('jumlah_barang');
             $table->enum('status',['stok','konsumen'])->default('stok');
             $table->string('nama_konsumen');
             $table->timestamps();

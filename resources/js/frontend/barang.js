@@ -56,6 +56,7 @@ $(document).on("keyup", "#keyword", function (e) {
     }
 });
 
+// button edit
 $(document).on("click", ".ubah", function (e) {
     e.preventDefault();
     // this variable data
@@ -71,20 +72,21 @@ $(document).on("click", ".ubah", function (e) {
     $("#form_item").attr("action", "/list-item/update/" + id);
 
     $.getJSON("/list-item/show/" + id, function (data, textStatus, jqXHR) {
-        $("#nama_brg").val(jqXHR.responseJSON.nama_barang);
-        $("#tipe_brg").val(jqXHR.responseJSON.tipe_barang);
-        $("#harga_brg").val(jqXHR.responseJSON.harga_barang);
+        $("#nama_brg").val(data.result.nama_barang);
+        $("#tipe_brg").val(data.result.tipe_barang);
+        $("#harga_brg").val(data.result.harga_barang);
     });
 });
 
 // hapuss button
 $(document).on("click", ".hapus", function () {
     let id = $(this).data("id");
+    let getName = $(this).data("name-type");
     let form = $("#delete_item_" + id);
     // Show SweetAlert confirmation dialog
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: "Data barang ini akan dihapus!",
+        text: `Data barang ${getName} akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -93,7 +95,8 @@ $(document).on("click", ".hapus", function () {
         cancelButtonText: "Batal",
     }).then((result) => {
         if (result.isConfirmed) {
-            form.submit(); // Submit the form if user confirms
+            // Submit the form if user confirms
+            form.submit();
         }
     });
 });
@@ -138,21 +141,6 @@ $(document).on("click", "#delete_all", function (e) {
                             timer: 1500,
                         }).then(() => {
                             location.reload();
-
-                            // lakukan perulangan dalam array dan ambil row berdasarkan id
-                            // ids.forEach(function(id) {
-                            //     $("#barang_item" + id)
-                            //         .remove();
-                            // });
-                            // // lakukan didalam perulangan untuk merefresh no tabel
-                            // $("table tbody tr").each(function(
-                            //     index) {
-                            //     $(this).find("#number")
-                            //         .text(index + 1)
-                            // });
-                            // // load data setiap kali ada yang terhapus sesuaikan dengan set offset 10
-                            // $("tbody").load(
-                            //     "/item/offset?offset=" + 10);
                         });
                     },
                     error: function (xhr) {
@@ -169,6 +157,7 @@ $(document).on("click", "#delete_all", function (e) {
         }
     });
 });
+
 // set limit row
 $(document).on("change", "#offset", function () {
     let offset = $(this).val();
@@ -177,6 +166,7 @@ $(document).on("change", "#offset", function () {
         $(".pagination").html(data.pagination);
     });
 });
+// end set limit
 
 // preview file imports
 $(document).on("change", "#imports", function (e) {
@@ -195,7 +185,7 @@ $(document).on("click", "#selectAll", function () {
     $(".selected").prop("checked", $(this).prop("checked"));
 });
 
-// jika dipilih  maka akan mengaktifkan button delete all
+// jika dipilih maka akan mengaktifkan button delete all
 $(document).on("change", ".selected,#selectAll", function () {
     // Deteksi perubahan pada checkbox
     let checked = $(".selected:checked").length;
@@ -208,3 +198,32 @@ $(document).on("change", ".selected,#selectAll", function () {
     }
 });
 
+// format angka input teks agara dapat menjadi format mata uang indonesia
+$(document).on("keyup", "#harga_brg", function () {
+    let value = $(this).val();
+    let formated = value.replace(/[^,\d]/g, "");
+    $(this).val(formatCurrency(formated));
+});
+
+function formatCurrency(angka) {
+    let number_string, split, sisa, rupiah, ribuan, separator;
+    // regex style untuk ubah format teks menjadi angka saja
+    number_string = angka.replace(/[^,\d]/g, "").toString();
+    split = number_string.split(",");
+    sisa = split[0].length % 3;
+    rupiah = split[0].substr(0, sisa);
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+    return rupiah;
+}
+
+$(document).on("submit","#form_item", function () {
+    let formatValue = $("#harga_brg").val();
+    let unFormated = formatValue.replace(/\./g, "");
+    $("#harga_brg").val(unFormated);
+});
+// end formated value
