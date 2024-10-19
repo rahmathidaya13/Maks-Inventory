@@ -18,7 +18,7 @@ class BarangImport implements ToModel,WithHeadingRow
         return new BarangModel([
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],
-            'harga_barang' => $row['harga_barang'],
+            'harga_barang' => floatval($row['harga_barang']),
         ]);
     }
 }

@@ -39,24 +39,26 @@ class ImportAction extends Controller
 
     public function importBarangMasuk(Request $request)
     {
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'import_brg_masuk' => 'required|file|mimes:xls,xlsx,csv|max:11120'
-        //     ],
-        //     [
-        //         'import_brg_masuk.required' => 'File impor wajib diunggah',
-        //         'import_brg_masuk.mimes' => 'File harus berformat Excel (xls, xlsx) atau CSV',
-        //         'import_brg_masuk.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
-        //     ]
-        // );
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'import_brg_masuk' => 'required|file|mimes:xls,xlsx,csv|max:11120'
+            ],
+            [
+                'import_brg_masuk.required' => 'File impor wajib diunggah',
+                'import_brg_masuk.mimes' => 'File harus berformat Excel (xls, xlsx) atau CSV',
+                'import_brg_masuk.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
+            ]
+        );
 
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)->withInput();  // redirect back with errors.
-        // }
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();  // redirect back with errors.
+        }
 
         $files = $request->file('import_brg_masuk');
         $fileType = in_array($files->getClientOriginalExtension(),['xls','xlsx']) ? 'excel' : 'csv';
+
+        // Mulai transaksi
         try {
             DB::beginTransaction();
             // Nonaktifkan foreign key checks

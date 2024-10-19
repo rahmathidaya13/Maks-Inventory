@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +26,22 @@ class LiveAction extends Controller
         }
         return view('Barang.partials.table_item', compact('barang', 'query'));
     }
+    public function searchBrgMasuk(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
+
+        $query = $request->get('query');
+        if (!empty($query)) {
+            $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->latest()->paginate(10)->appends(['query' => $query]);;
+        } else {
+            $barang_masuk = BarangMasukModel::latest()->paginate(10);
+        }
+        return view('BarangMasuk.partial.table_item', compact('barang_masuk', 'query'));
+    }
 
     public function filterData(Request $request)
     {
@@ -35,11 +52,29 @@ class LiveAction extends Controller
         }
         return view('Barang.index', compact('barang'));
     }
+    public function filterBrgMasuk(Request $request)
+    {
+        $offset = $request->get('limit');
+        $barang_masuk = BarangMasukModel::latest()->paginate($offset);
+        if ($request->ajax()) {
+            return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
+        }
+        return view('BarangMasuk.index', compact('barang_masuk'));
+    }
 
     public function deletedAll(Request $request)
     {
         $ids = $request->ids;
         BarangModel::whereIn('id_barang', $ids)->delete();
+        return response()->json(['success' => 'Data barang berhasil terhapus'], 200, [
+            'Content-Type' => 'application/json',
+            'X-Content-Type-Options' => 'nosniff',
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+    }
+    public function deletedAllBrgMasuk(Request $request)
+    {
+        $ids = $request->get('ids');
+        BarangMasukModel::whereIn('id_brg_masuk', $ids)->delete();
         return response()->json(['success' => 'Data barang berhasil terhapus'], 200, [
             'Content-Type' => 'application/json',
             'X-Content-Type-Options' => 'nosniff',

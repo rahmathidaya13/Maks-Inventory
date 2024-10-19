@@ -13,18 +13,24 @@ $(document).on("click", "#add_item_list", function (e) {
 });
 
 // fungsi untuk button keluar modal dan mereset form
-$(document).on("click", "#act_keluar, #act_close", function (e) {
+$(document).on("click", "#act_close", "#act_keluar", function (e) {
     e.preventDefault();
     if ($("#barangmasuk").length) {
-        $("#barangmasuk")[0].reset("");
+        $("#barangmasuk")[0].reset();
     }
     $("#nama_barang").trigger("change");
     $("#tipe_brg").trigger("change");
     $("input[name='_method']").remove();
     $("#barangmasuk").attr("action", "#");
+
+    if ($("#import_brg_masuk").length) {
+        $("#brg_masuk")[0].reset();
+    }
+    $("#preview").attr("src", "assets/icon/iconupload.jpg");
+    $("#file-name").text("File not found");
 });
 
-// get name dan get id_barangmasuk
+// get name dan get id_barang
 $(document).on("change", "#nama_barang", function (e) {
     e.preventDefault();
     let selected = $(this).find(":selected");
@@ -101,6 +107,63 @@ $(document).on("change", ".selected_,#selectAllItem", function () {
     }
 });
 
+// multiple deleted Data
+$(document).on("click", "#delete_all", function (e) {
+    e.preventDefault();
+    let selectedItem = $(".selected_:checked");
+    let csrfToken = $('meta[name="csrf-token"]').attr("content");
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: `${selectedItem.length} Item yang dipilih akan dihapus!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (selectedItem.length > 0) {
+                // map to selected item
+                let ids = selectedItem
+                    .map(function () {
+                        return $(this).data("id");
+                    })
+                    .get();
+                    console.log(ids);
+                $.ajax({
+                    url: "/delete/barang_masuk",
+                    type: "DELETE",
+                    data: {
+                        ids: ids,
+                        _token: csrfToken,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: `${ids.length} Item berhasil dihapus.`,
+                            showConfirmButton: false,
+                            timer: 1500,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Terjadi kesalahan",
+                            text: "Saat menghapus item.",
+                        });
+                    },
+                });
+            } else {
+                alert("Silakan pilih item yang ingin dihapus.");
+            }
+        }
+    });
+});
+
 // button hapus satu file
 $(document).on("click", ".hapus_brg_masuk", function () {
     let id = $(this).data("id");
@@ -132,4 +195,59 @@ $(document).on("change", "#status", function (e) {
     } else {
         $("#konsumen").prop("readonly", true).val("-");
     }
+});
+
+// fungsi untuk pencarian data langsung
+$(document).on("keyup","#keyword_brg_masuk", function (e) {
+    e.preventDefault();
+    let query = $(this).val();
+    if (query === "") {
+        window.history.pushState("{}", "", "/barang_masuk");
+        location.reload();
+    } else {
+        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
+        $("tbody").load(
+            "/barang_masuk/search?query=" + encodeURIComponent(query),
+            function () {
+                $("tbody .nama_brg_masuk, .tipe_brg_masuk").each(function () {
+                    let text = $(this).text();
+                    if (query) {
+                        // Ganti teks yang cocok dengan teks yang disorot
+                        let regex = new RegExp("(" + query + ")", "gi");
+                        let highlightedText = text.replace(
+                            regex,
+                            '<span class="highlight">$1</span>'
+                        );
+                        $(this).html(highlightedText); // Ganti dengan teks yang disorot
+                    } else {
+                        $(this).html(text); // Kembalikan ke teks asli
+                    }
+                });
+            }
+        );
+    }
+});
+
+
+// filter data
+$(document).on("change", "#filter_brg_masuk", function () {
+    let limit = $(this).val();
+    $("tbody").load("/barang_masuk/filter?limit=" + limit, function (data) {
+        $(this).html(data.table);
+        $(".pagination").html(data.pagination);
+    });
+});
+// end filter data
+
+// preview file imports
+$(document).on("change", "#import_brg_masuk", function (e) {
+    let file = e.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (data) {
+            $("#preview").attr("src", "assets/icon/excel.png");
+        };
+        reader.readAsDataURL(file);
+    }
+    $("#file-name").text(file.name);
 });

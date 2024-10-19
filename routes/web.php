@@ -42,8 +42,11 @@ Route::controller(BarangMasuk::class)->group(function(){
 });
 // khusus untuk live action
 Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
+Route::get("/barang_masuk/search", [LiveAction::class, 'searchBrgMasuk'])->name('barang_masuk');
 Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
+Route::get("/barang_masuk/filter", [LiveAction::class, 'filterBrgMasuk'])->name('barang_masuk.filter');
 Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
+Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
 
 // khusus untuk import file dan export file
 Route::post("/import/file", [ImportAction::class, 'importFile'])->name( 'import.file');

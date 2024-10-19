@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><i class="fas fa-upload"></i> <span>Upload File</span></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="act_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

@@ -29,8 +29,8 @@
                     Tidak menemukan barang yang diinginkan?
                     Silahkan tambahkan informasi barang seperti nama, tipe, dan harga melalui link berikut.
                     <div class="mt-2">
-                        <a id="add_item" data-toggle="modal" data-target="#staticBackdrop"
-                            class="text-primary" href="#">
+                        <a id="add_item" data-toggle="modal" data-target="#staticBackdrop" class="text-primary"
+                            href="#">
                             Tambah Barang</a>
                     </div>
                 </h6>
@@ -41,7 +41,7 @@
                     <div class="d-flex align-items-center">
                         <span class="mr-2">Tampilkan hasil: </span>
                         <div class="input-group input-group-sm" style="width: 75px">
-                            <select class="form-control form-control-sm" name="offset" id="offset">
+                            <select class="form-control form-control-sm" name="filter_brg_masuk" id="filter_brg_masuk">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
@@ -51,7 +51,7 @@
 
                     </div>
                     <div class="input-group input-group-sm w-25">
-                        <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
+                        <input type="search" name="keyword_brg_masuk" id="keyword_brg_masuk" class="form-control" placeholder="Search">
                     </div>
                 </div>
                 <div class="ml-2">
@@ -76,7 +76,7 @@
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
                                 <th>Asal Gudang</th>
-                                <th>Jumlah Barang</th>
+                                <th>Jumlah</th>
                                 <th>Status</th>
                                 <th>Nama Konsumen</th>
                                 <th>Aksi</th>
@@ -88,13 +88,14 @@
 
                     </table>
                     <div class="d-flex justify-content-between p-3">
-                        {{-- <div>
-                        Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai <b>{{ $barang_masuk->lastItem() }}</b> dari
-                        <b>{{ $barang_masuk->total() }}</b> item
-                    </div>
-                    <div>
-                        {{ $barang_masuk->links() }}
-                    </div> --}}
+                        <div>
+                            Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
+                            <b>{{ $barang_masuk->lastItem() }}</b> dari
+                            <b>{{ $barang_masuk->total() }}</b> item
+                        </div>
+                        <div>
+                            {{ $barang_masuk->links() }}
+                        </div>
                     </div>
 
                 </div>
@@ -105,9 +106,4 @@
     @include('BarangMasuk.modal.form_import')
     @include('Barang.modal.form_item')
     @include('BarangMasuk.modal.form_item')
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
 @endsection

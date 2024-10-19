@@ -1,3 +1,19 @@
+function formatCurrency(angka) {
+    let number_string, split, sisa, rupiah, ribuan, separator;
+    // regex style untuk ubah format teks menjadi angka saja
+    number_string = angka.toString().replace(/[^,\d]/g, '');
+    split = number_string.split(",");
+    sisa = split[0].length % 3;
+    rupiah = split[0].substr(0, sisa);
+    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+    if (ribuan) {
+        separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+    }
+    return rupiah;
+}
+
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
     $("#form_item")[0].reset();
@@ -74,7 +90,7 @@ $(document).on("click", ".ubah", function (e) {
     $.getJSON("/list-item/show/" + id, function (data, textStatus, jqXHR) {
         $("#nama_brg").val(data.result.nama_barang);
         $("#tipe_brg").val(data.result.tipe_barang);
-        $("#harga_brg").val(data.result.harga_barang);
+        $("#harga_brg").val(formatCurrency(data.result.harga_barang));
     });
 });
 
@@ -180,6 +196,7 @@ $(document).on("change", "#imports", function (e) {
     }
     $("#file-name").text(file.name);
 });
+
 // jika dipilih semua maka akan menandai checkbox
 $(document).on("click", "#selectAll", function () {
     $(".selected").prop("checked", $(this).prop("checked"));
@@ -205,21 +222,7 @@ $(document).on("keyup", "#harga_brg", function () {
     $(this).val(formatCurrency(formated));
 });
 
-function formatCurrency(angka) {
-    let number_string, split, sisa, rupiah, ribuan, separator;
-    // regex style untuk ubah format teks menjadi angka saja
-    number_string = angka.replace(/[^,\d]/g, "").toString();
-    split = number_string.split(",");
-    sisa = split[0].length % 3;
-    rupiah = split[0].substr(0, sisa);
-    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-    if (ribuan) {
-        separator = sisa ? "." : "";
-        rupiah += separator + ribuan.join(".");
-    }
-    return rupiah;
-}
 
 $(document).on("submit","#form_item", function () {
     let formatValue = $("#harga_brg").val();

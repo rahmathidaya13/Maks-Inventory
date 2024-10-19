@@ -40,10 +40,12 @@ class BarangController extends Controller
                 'harga_brg.required' => 'Harga barang wajib diisi',
             ]
         );
+        $replace = str_replace(".","",$request->input('harga_brg'));
+        $convert = floatval($replace);
         $barang = new BarangModel();
         $barang->nama_barang = $request->input('nama_brg');
         $barang->tipe_barang = $request->input('tipe_brg');
-        $barang->harga_barang = $request->input('harga_brg');
+        $barang->harga_barang = $convert;
         $barang->save();
         return back()->with('success', 'Barang Berhasil Ditambahkan');
     }
@@ -78,6 +80,7 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $request->validate(
             [
                 'nama_brg' => 'required|string|max:150',
@@ -92,10 +95,13 @@ class BarangController extends Controller
                 'harga_brg.required' => 'Harga barang wajib diisi',
             ]
         );
+        $replace = str_replace(".","",$request->input('harga_brg'));
+        $convert = floatval($replace);
+
         $barang = BarangModel::findOrFail($id);
         $barang->nama_barang = $request->input('nama_brg');
         $barang->tipe_barang = $request->input('tipe_brg');
-        $barang->harga_barang = $request->input('harga_brg');
+        $barang->harga_barang = $convert;
         $barang->update();
         return back()->with('success', 'Data Barang Berhasil Diubah');
     }
