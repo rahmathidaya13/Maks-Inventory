@@ -30,7 +30,7 @@ $(document).on("click", "#act_close", "#act_keluar", function (e) {
     $("#file-name").text("File not found");
 });
 
-// get name dan get id_barang
+// get name and get id_barang
 $(document).on("change", "#nama_barang", function (e) {
     e.preventDefault();
     let selected = $(this).find(":selected");
@@ -82,11 +82,9 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         $("#jumlah_brg").val(data.result.jumlah_barang);
         $("#status").val(data.result.status);
         let konsumen = $("#konsumen").val(data.result.nama_konsumen);
-        if(konsumen.val() !== '-'){
-            $("#konsumen").prop("readonly", false);
-        }else{
-            $("#konsumen").prop("readonly", true);
-        }
+        konsumen.val() !== "-"
+            ? $("#konsumen").prop("readonly", false)
+            : $("#konsumen").prop("readonly", true);
     });
 });
 
@@ -94,21 +92,19 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
 $(document).on("click", "#selectAllItem", function () {
     $(".selected_").prop("checked", $(this).prop("checked"));
 });
+
 // jika dipilih  maka akan mengaktifkan button delete all
 $(document).on("change", ".selected_,#selectAllItem", function () {
     // Deteksi perubahan pada checkbox
     let checked = $(".selected_:checked").length;
-    if (checked > 0) {
-        // Jika ada checkbox yang dipilih, aktifkan tombol
-        $("#delete_all").prop("disabled", false);
-    } else {
-        // Jika tidak ada checkbox yang dipilih, nonaktifkan tombol
-        $("#delete_all").prop("disabled", true);
-    }
+    // Jika ada checkbox yang dipilih, aktifkan tombol
+    checked > 0
+        ? $("#delete_all_brg_masuk").prop("disabled", false)
+        : $("#delete_all_brg_masuk").prop("disabled", true);
 });
 
 // multiple deleted Data
-$(document).on("click", "#delete_all", function (e) {
+$(document).on("click", "#delete_all_brg_masuk", function (e) {
     e.preventDefault();
     let selectedItem = $(".selected_:checked");
     let csrfToken = $('meta[name="csrf-token"]').attr("content");
@@ -130,7 +126,7 @@ $(document).on("click", "#delete_all", function (e) {
                         return $(this).data("id");
                     })
                     .get();
-                    console.log(ids);
+                console.log(ids);
                 $.ajax({
                     url: "/delete/barang_masuk",
                     type: "DELETE",
@@ -198,7 +194,7 @@ $(document).on("change", "#status", function (e) {
 });
 
 // fungsi untuk pencarian data langsung
-$(document).on("keyup","#keyword_brg_masuk", function (e) {
+$(document).on("keyup", "#keyword_brg_masuk", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {
@@ -227,7 +223,6 @@ $(document).on("keyup","#keyword_brg_masuk", function (e) {
         );
     }
 });
-
 
 // filter data
 $(document).on("change", "#filter_brg_masuk", function () {

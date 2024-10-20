@@ -23,8 +23,8 @@
         <td>{{ $data->nama_konsumen }}</td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-secondary" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-eye"></i>
+                <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
                 </button>
                 <div class="dropdown-menu">
                     <a data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" data-id="{{ $data->id_brg_masuk }}"

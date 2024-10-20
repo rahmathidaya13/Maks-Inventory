@@ -26,8 +26,8 @@
                   data-accordion="false">
                   <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                  <li class="nav-item">
-                      <a href="{{ route('dashboard') }}" class="nav-link">
+                  <li class="nav-item ">
+                      <a href="{{ route('dashboard') }}" class="nav-link {{ Route::is('dashboard') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
                           <p>
                               Dashboard
@@ -36,7 +36,7 @@
                   </li>
                   <li class="nav-header">TRANSAKSI</li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="#" class="nav-link ">
                           <i class="fas fa-money-check-alt"></i>
                           <p>
                               Transaksi Penjualan
@@ -46,7 +46,7 @@
                   <li class="nav-header">BARANG</li>
 
                   <li class="nav-item">
-                      <a href="{{ route('list.index') }}" class="nav-link">
+                      <a href="{{ route('list.index') }}" class="nav-link {{ Route::is('list.index') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-box"></i>
                           <p>
                               Daftar Barang
@@ -54,10 +54,18 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ route('barang_masuk.index') }}" class="nav-link">
+                      <a href="{{ route('barang_masuk.index') }}" class="nav-link {{ Route::is('barang_masuk.index') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-clipboard-check"></i>
                           <p>
                               Barang Masuk
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('stok.index') }}" class="nav-link {{ Route::is('stok.index') ? 'active' : '' }}">
+                          <i class="nav-icon fas fa-boxes"></i>
+                          <p>
+                              Stok Barang
                           </p>
                       </a>
                   </li>
@@ -66,14 +74,6 @@
                           <i class="nav-icon fas fa-truck-loading"></i>
                           <p>
                               Barang Keluar
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
-                          <i class="nav-icon fas fa-boxes"></i>
-                          <p>
-                              Stok Barang
                           </p>
                       </a>
                   </li>

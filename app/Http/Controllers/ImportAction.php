@@ -24,9 +24,7 @@ class ImportAction extends Controller
                 'imports.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
             ]
         );
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();  // redirect back with errors.
-        }
+
         $files = $request->file('imports');
         try {
 
@@ -42,7 +40,7 @@ class ImportAction extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'import_brg_masuk' => 'required|file|mimes:xls,xlsx,csv|max:11120'
+                'import_brg_masuk' => 'required|file|mimes:csv,xls,xlsx|max:11120'
             ],
             [
                 'import_brg_masuk.required' => 'File impor wajib diunggah',
@@ -50,10 +48,6 @@ class ImportAction extends Controller
                 'import_brg_masuk.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
             ]
         );
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();  // redirect back with errors.
-        }
 
         $files = $request->file('import_brg_masuk');
         $fileType = in_array($files->getClientOriginalExtension(),['xls','xlsx']) ? 'excel' : 'csv';

@@ -5,6 +5,7 @@ use App\Http\Controllers\BarangMasuk;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
+use App\Http\Controllers\StokBarangController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 Auth::routes();
@@ -39,6 +40,13 @@ Route::controller(BarangMasuk::class)->group(function(){
     Route::put('/barang_masuk/update/{id}', 'update')->name('barang_masuk.update');
     Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show');
     Route::delete('/barang_masuk/delete/{id}', 'destroy')->name('barang_masuk.delete');
+});
+Route::controller(StokBarangController::class)->group(function(){
+    Route::get('/stok', 'index')->name('stok.index');
+    Route::post('/stok/store', 'store')->name('stok.store');
+    Route::put('/stok/update/{id}', 'update')->name('stok.update');
+    Route::get('/stok/detail/{id}', 'show')->name('stok.show');
+    Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete');
 });
 // khusus untuk live action
 Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');

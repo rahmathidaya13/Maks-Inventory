@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="ml-2">
-                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+                    <button disabled id="delete_all_brg_masuk" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                         Hapus</button>
                 </div>
 

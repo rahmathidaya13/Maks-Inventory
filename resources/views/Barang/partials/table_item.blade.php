@@ -17,17 +17,23 @@
         <td class="tipe-barang">{{ $data->tipe_barang }}</td>
         <td>{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
         <td>
-            <button id="ubah" data-toggle="modal" data-target="#staticBackdrop" data-id="{{ $data->id_barang }}"
-                type="button" class="btn btn-info btn-sm ubah"><i class="fas fa-edit"></i>
-                <span>Ubah</span></button>
-            <button data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}"
-                data-id="{{ $data->id_barang }}" class="btn btn-danger btn-sm hapus"><i class="fas fa-trash"></i>
-                <span>Hapus</span></button>
-            <form id="delete_item_{{ $data->id_barang }}" action="{{ route('list.delete', $data->id_barang) }}"
-                method="POST" class="d-inline">
-                @csrf
-                @method('DELETE')
-            </form>
+            <div class="dropdown">
+                <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a id="ubah" data-toggle="modal" data-target="#staticBackdrop" data-id="{{ $data->id_barang }}"
+                        class="dropdown-item ubah" href="#"><i class="fas fa-edit"></i> Ubah</a>
+                    <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}" data-id="{{ $data->id_barang }}" class="dropdown-item hapus" href="#"><i
+                            class="fas fa-trash"></i> Hapus</a>
+                    <form id="delete_item_{{ $data->id_barang }}"
+                        action="{{ route('list.delete', $data->id_barang) }}" method="POST"
+                        class="d-inline">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                </div>
+            </div>
         </td>
     </tr>
 @endforeach
