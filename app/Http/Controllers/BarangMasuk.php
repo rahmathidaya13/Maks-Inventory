@@ -170,6 +170,25 @@ class BarangMasuk extends Controller
         );
 
         $barangMasuk = BarangMasukModel::findOrFail($id);
+        $selisih = $request->input('jumlah_brg') - $barangMasuk->jumlah_barang;
+        // Jika status 'stok', lakukan update stok
+        if ($barangMasuk->status == 'stok') {
+            // Cari stok barang berdasarkan id_barang_masuk
+            $stokBarang = StokBarangModel::where('id_brg_masuk', $barangMasuk->id_brg_masuk)
+                ->first();
+
+            if ($stokBarang) {
+                // Update nama, tipe barang, dan tanggal jika ada perubahan
+                $stokBarang->nama_barang = $request->input('nama_barang');
+                $stokBarang->tipe_barang = $request->input('tipe_barang_masuk');
+                $stokBarang->tanggal = $request->input('tgl_brg_masuk');
+
+                // Update stok_akhir sesuai selisih
+                $stokBarang->stok_akhir += $selisih;
+                $stokBarang->stok_saat_ini = $stokBarang->stok_akhir;
+                $stokBarang->save();
+            }
+        }
         $barangMasuk->id_barang = $request->input('id_barang');
         $barangMasuk->tgl_brg_masuk = $request->input('tgl_brg_masuk');
         $barangMasuk->no_warehouse = $request->input('no_warehouse');
@@ -181,45 +200,6 @@ class BarangMasuk extends Controller
         $barangMasuk->nama_konsumen = $request->input('konsumen');
         $barangMasuk->update();
 
-        // Hanya update stok jika status adalah 'stok'
-        if ($request->status == 'stok') {
-
-            $getId = BarangMasukModel::where('id_barang', $request->input('id_barang'))->first();
-            $stokBarang = StokBarangModel::findOrFail($barangMasuk->id_brg_masuk);
-            // $stokBarang->id_barang = $getId_brg_masuk->id_barang;
-            $stokBarang->id_barang = $getId->id_barang;
-            $stokBarang->tanggal = $request->input('tgl_brg_masuk');
-            $stokBarang->nama_barang = $request->input('nama_barang');
-            $stokBarang->tipe_barang = $request->input('tipe_barang_masuk');
-            $stokBarang->stok_akhir = $request->input('jumlah_brg');
-            $stokBarang->stok_saat_ini = $stokBarang->stok_akhir;
-            $stokBarang->status = $request->input('status');
-            $stokBarang->update();
-
-            // if ($stokBarang) {
-            //     $stokBarang->stok_akhir = $request->input('jumlah_brg');  // Sesuaikan stok akhir dengan selisih
-            //     $stokBarang->stok_saat_ini = $stokBarang->stok_akhir; // Update stok_sekarang
-            // } else {
-            //     // Jika stok untuk tanggal tersebut belum ada, buat stok baru
-            //     // Ambil stok akhir dari transaksi sebelumnya untuk dijadikan stok awal
-            //     $stokSebelumnya = StokBarangModel::where('id_brg_masuk', $getId_brg_masuk->id_brg_masuk)
-            //         ->where('id_barang', $request->input('id_barang'))
-            //         ->orderBy('tanggal', 'desc')
-            //         ->first();
-
-            //     $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
-
-            //     $stokBarang->id_barang = $request->input('id_barang');
-            //     $stokBarang->id_brg_masuk = $getId_brg_masuk->id_brg_masuk;
-            //     $stokBarang->tanggal = $request->input('tgl_brg_masuk');
-            //     $stokBarang->nama_barang = $request->input('nama_barang');
-            //     $stokBarang->tipe_barang = $request->input('tipe_barang_masuk');
-            //     $stokBarang->stok_awal = $stokAwal;
-            //     $stokBarang->stok_akhir = $stokAwal + $request->input('jumlah_brg');
-            //     $stokBarang->stok_saat_ini = $stokBarang->stok_akhir;
-            //     $stokBarang->status = $request->input('status');
-            // }
-        }
         return back()->with('success', "Pembaharuan " . request('nama_barang') . " - " . request('tipe_barang_masuk') . " " . "Berhasil diperbaharui");
     }
 

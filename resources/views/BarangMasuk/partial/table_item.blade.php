@@ -18,7 +18,9 @@
         <td class="nama_brg_masuk">{{ $data->nama_barang }}</td>
         <td class="tipe_brg_masuk">{{ $data->tipe_barang }}</td>
         <td>{{ $data->asal_gudang }}</td>
-        <td class="text-right">{{ $data->jumlah_barang }}</td>
+        <td class="text-right">
+            <button disabled class="btn btn-sm btn-danger btn-block"><i class="fas fa-sync-alt mr-1"></i> {{ $data->jumlah_barang }}</button>
+        </td>
         <td>{{ $data->status }}</td>
         <td>{{ $data->nama_konsumen }}</td>
         <td>
@@ -29,7 +31,8 @@
                 <div class="dropdown-menu">
                     <a data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" data-id="{{ $data->id_brg_masuk }}"
                         class="dropdown-item ubah_barang_masuk" href="#"><i class="fas fa-edit"></i> Ubah</a>
-                    <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}" data-id="{{ $data->id_brg_masuk }}" class="dropdown-item hapus_brg_masuk" href="#"><i
+                    <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}"
+                        data-id="{{ $data->id_brg_masuk }}" class="dropdown-item hapus_brg_masuk" href="#"><i
                             class="fas fa-trash"></i> Hapus</a>
                     <form id="delete_items_{{ $data->id_brg_masuk }}"
                         action="{{ route('barang_masuk.delete', $data->id_brg_masuk) }}" method="POST"

@@ -12,7 +12,7 @@ class StokBarangController extends Controller
      */
     public function index()
     {
-        $stok = StokBarangModel::latest()->paginate(10);
+        $stok = StokBarangModel::paginate(10);
         return view('StokBarang.index', compact('stok'));
     }
 

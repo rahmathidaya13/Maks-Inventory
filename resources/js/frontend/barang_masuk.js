@@ -19,7 +19,7 @@ $(document).on("click", "#act_close", "#act_keluar", function (e) {
         $("#barangmasuk")[0].reset();
     }
     $("#nama_barang").trigger("change");
-    $("#tipe_brg").trigger("change");
+    $("#tipe_barang_masuk").trigger("change");
     $("input[name='_method']").remove();
     $("#barangmasuk").attr("action", "#");
 
