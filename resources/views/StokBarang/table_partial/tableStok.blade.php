@@ -16,10 +16,10 @@
         <td>{{ \Carbon\Carbon::parse( $data->tanggal)->translatedFormat('l, d F Y') }}</td>
         <td>{{ $data->nama_barang }}</td>
         <td>{{ $data->tipe_barang }}</td>
-        <td class="text-right">{{ $data->stok_awal }}</td>
-        <td class="text-right">{{ $data->stok_akhir }}</td>
-        <td class="text-right">{{ $data->stok_saat_ini }}</td>
-        <td>{{ $data->keterangan ?? '-' }}</td>
+        <td class="text-center">{{ $data->stok_awal }}</td>
+        <td class="text-center">{{ $data->barang_masuk }}</td>
+        <td class="text-center">{{ $data->barang_keluar }}</td>
+        <td class="text-center">{{ $data->stok_akhir }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">

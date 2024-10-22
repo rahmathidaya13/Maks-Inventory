@@ -39,11 +39,10 @@
                         @csrf
                         @method('DELETE')
                     </form>
-                    @if ($data->keterangan == 'dibuat')
-                        <a data-toggle="modal" data-target="#modal-update-stok" data-id="{{ $data->id_brg_masuk }}"
-                            class="dropdown-item perbarui_stok" href="#"><i class="fas fa-sync-alt"></i> Perbarui
-                            Stok</a>
-                    @endif
+                    <a data-toggle="modal" data-target="#modal-update-stok" data-date="{{ $data->tgl_brg_masuk }}"
+                        data-id="{{ $data->id_barang }}" class="dropdown-item perbarui_stok" href="#"><i
+                            class="fas fa-sync-alt"></i> Perbarui
+                        Stok</a>
                 </div>
             </div>
         </td>

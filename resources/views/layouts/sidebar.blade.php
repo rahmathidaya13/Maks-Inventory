@@ -36,7 +36,7 @@
                   </li>
                   <li class="nav-header">TRANSAKSI</li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link ">
+                      <a href="{{ route('transaksi.index') }}" class="nav-link ">
                           <i class="fas fa-money-check-alt"></i>
                           <p>
                               Transaksi Penjualan

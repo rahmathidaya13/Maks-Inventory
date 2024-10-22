@@ -36,9 +36,10 @@ class StokBarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id, $date)
     {
-        $stokBarang = StokBarangModel::where('id_brg_masuk',$id)->first();
+        $stokBarang = StokBarangModel::where('id_barang',  $id)
+            ->whereDate('tanggal', $date)->first();
         return response()->json(['success' => 'Fetching success', 'result' => $stokBarang], 200, [
             'Content-Type' => 'application/json',
             'X-Content-Type-Options' => 'nosniff',

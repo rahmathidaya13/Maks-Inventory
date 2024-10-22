@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tb_stok_barang', function (Blueprint $table) {
             $table->uuid('id_stok')->primary();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
-            $table->foreignUuid('id_brg_masuk')->references('id_brg_masuk')->on('tb_barang_masuk')->cascadeOnDelete();
             $table->date('tanggal');
             $table->string('nama_barang');
             $table->string('tipe_barang');
@@ -22,8 +21,6 @@ return new class extends Migration
             $table->integer('barang_masuk');
             $table->integer('barang_keluar');
             $table->integer('stok_akhir');
-            $table->string('status');
-            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }
