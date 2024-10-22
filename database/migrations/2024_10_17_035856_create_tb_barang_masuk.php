@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('asal_gudang');
             $table->integer('jumlah_barang');
             $table->enum('status',['stok','customer'])->default('stok');
+            $table->enum('keterangan',['dibuat','diperbarui'])->default('dibuat');
             $table->string('nama_konsumen');
             $table->timestamps();
         });

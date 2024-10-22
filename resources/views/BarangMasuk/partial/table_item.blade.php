@@ -18,8 +18,7 @@
         <td class="nama_brg_masuk">{{ $data->nama_barang }}</td>
         <td class="tipe_brg_masuk">{{ $data->tipe_barang }}</td>
         <td>{{ $data->asal_gudang }}</td>
-        <td class="text-right">
-            <button disabled class="btn btn-sm btn-danger btn-block"><i class="fas fa-sync-alt mr-1"></i> {{ $data->jumlah_barang }}</button>
+        <td class="text-right"> {{ $data->jumlah_barang }}
         </td>
         <td>{{ $data->status }}</td>
         <td>{{ $data->nama_konsumen }}</td>
@@ -40,6 +39,11 @@
                         @csrf
                         @method('DELETE')
                     </form>
+                    @if ($data->keterangan == 'dibuat')
+                        <a data-toggle="modal" data-target="#modal-update-stok" data-id="{{ $data->id_brg_masuk }}"
+                            class="dropdown-item perbarui_stok" href="#"><i class="fas fa-sync-alt"></i> Perbarui
+                            Stok</a>
+                    @endif
                 </div>
             </div>
         </td>

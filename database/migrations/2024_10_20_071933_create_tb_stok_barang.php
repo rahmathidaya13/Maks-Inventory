@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->string('tipe_barang');
             $table->integer('stok_awal');
+            $table->integer('barang_masuk');
+            $table->integer('barang_keluar');
             $table->integer('stok_akhir');
-            $table->integer('stok_saat_ini');
             $table->string('status');
             $table->string('keterangan')->nullable();
             $table->timestamps();

@@ -48,7 +48,7 @@
                         Hapus</button>
                 </div>
                 <div class="card-body table-responsive p-0">
-                    <table id="" class="table table-hover text-nowrap">
+                    <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th class="text-center">

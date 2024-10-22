@@ -13,22 +13,32 @@ $(document).on("click", "#add_item_list", function (e) {
 });
 
 // fungsi untuk button keluar modal dan mereset form
-$(document).on("click", "#act_close", "#act_keluar", function (e) {
-    e.preventDefault();
-    if ($("#barangmasuk").length) {
-        $("#barangmasuk")[0].reset();
-    }
-    $("#nama_barang").trigger("change");
-    $("#tipe_barang_masuk").trigger("change");
-    $("input[name='_method']").remove();
-    $("#barangmasuk").attr("action", "#");
+$(document).on(
+    "click",
+    ".act_stok_close ,#act_stok_close,#act_close,#act_keluar",
+    function (e) {
+        e.preventDefault();
+        if ($("#barangmasuk").length > 0) {
+            $("#barangmasuk")[0].reset();
+        }
+        $("#nama_barang").trigger("change");
+        $("#tipe_barang_masuk").trigger("change");
+        $("input[name='_method']").remove();
+        $("#barangmasuk").attr("action", "#");
 
-    if ($("#import_brg_masuk").length) {
-        $("#brg_masuk")[0].reset();
+        if ($("#brg_masuk").length > 0) {
+            $("#brg_masuk")[0].reset();
+        }
+        $("#preview").attr("src", "assets/icon/iconupload.jpg");
+        $("#file-name").text("File not found");
+
+        if ($("#update_form_stok").length > 0) {
+            $("#update_form_stok")[0].reset();
+        }
+        $("#update_form_stok").attr('action', '#');
+        // console.log($("#update_form_stok").length);
     }
-    $("#preview").attr("src", "assets/icon/iconupload.jpg");
-    $("#file-name").text("File not found");
-});
+);
 
 // get name and get id_barang
 $(document).on("change", "#nama_barang", function (e) {
@@ -245,4 +255,48 @@ $(document).on("change", "#import_brg_masuk", function (e) {
         reader.readAsDataURL(file);
     }
     $("#file-name").text(file.name);
+});
+
+$(document).on("click", ".perbarui_stok", function () {
+    let id = $(this).data("id");
+    console.log(id);
+    $("#update_form_stok")[0].reset();
+    $("#update_form_stok").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
+
+    $.getJSON("barang_masuk/detail/" + id, function (data, textStatus, jqXHR) {
+        // console.log(data);
+        $("input[name='id_masuk_brg']")
+            .val(data.result.id_brg_masuk)
+            .attr("readonly", true);
+        $("input[name='jumlah_barang_masuk']").val(data.result.jumlah_barang);
+        //
+    });
+
+
+    // $.getJSON("/stok/detail/" + id, function (data, textStatus, jqXHR) {
+    //     // console.log(data);
+    //     $("input[name='id_stok']")
+    //         .val(data.result.id_stok)
+    //         .attr("readonly", true);
+    //     $("#update_form_stok").attr("action", "/stok/update/" + data.result.id_stok);
+
+    //     $("input[name='jumlah_stok_awal']")
+    //         .val(data.result.stok_awal)
+    //         .attr("readonly", true);
+    //     $("input[name='jumlah_stok_akhir']")
+    //         .val(data.result.stok_akhir)
+    //         .attr("readonly", true);
+    //     $("input[name='jumlah_stok_tersedia']")
+    //         .val(data.result.stok_saat_ini)
+    //         .attr("readonly", true);
+
+    //     $("#stok_update:first td").eq(0).text(data.result.tanggal);
+    //     $("#stok_update:first td").eq(1).text(data.result.nama_barang);
+    //     $("#stok_update:first td").eq(2).text(data.result.tipe_barang);
+    //     $("#stok_update:first td").eq(3).text(data.result.stok_awal);
+    //     $("#stok_update:first td").eq(4).text(data.result.stok_akhir);
+    //     $("#stok_update:first td").eq(5).text(data.result.stok_saat_ini);
+    // });
 });

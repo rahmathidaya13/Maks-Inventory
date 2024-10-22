@@ -106,4 +106,5 @@
     @include('BarangMasuk.modal.form_import')
     @include('Barang.modal.form_item')
     @include('BarangMasuk.modal.form_item')
+    @include('StokBarang.modal.UpdateFormStok')
 @endsection

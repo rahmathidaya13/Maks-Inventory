@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasukModel;
 use App\Models\StokBarangModel;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,11 @@ class StokBarangController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $stokBarang = StokBarangModel::where('id_brg_masuk',$id)->first();
+        return response()->json(['success' => 'Fetching success', 'result' => $stokBarang], 200, [
+            'Content-Type' => 'application/json',
+            'X-Content-Type-Options' => 'nosniff',
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
     }
 
     /**
@@ -53,7 +58,10 @@ class StokBarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($id);
+        // $barangMasuk = BarangMasukModel::where('id_brg_masuk', $request->)
+        // $stokBarang = StokBarangModel::where('id_stok', $request->input('id_stok'))->first();
+        // $stokBarang->stok -= $request->input('stok_keluar');
     }
 
     /**
