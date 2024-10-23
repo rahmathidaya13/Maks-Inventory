@@ -23,4 +23,13 @@ class BarangMasukModel extends Model
         'status',
         'nama_konsumen',
     ];
+    public $incrementing = false;
+
+    public function barang(){
+        return $this->belongsTo(BarangModel::class, 'id_barang');
+    }
+    public function stokBarang(){
+        return $this->hasMany(StokBarangModel::class, 'id_barang');
+    }
+
 }

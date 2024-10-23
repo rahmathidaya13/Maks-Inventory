@@ -11,16 +11,18 @@
             <div class="modal-body">
                 <form id="form_transaksi" action="#" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="id_barang">
+                    <input type="hidden" name="id_stok">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="transaksi">Tgl. Transaksi</label>
                             <input type="date" class="form-control" name="transaksi" id="transaksi"
-                                value="{{ old('transaksi') }}" >
+                                value="{{ old('transaksi') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="kode_transaksi">Kode Transaksi</label>
                             <input type="text" class="form-control" name="kode_transaksi" id="kode_transaksi"
-                                value="{{ old('kode_transaksi') }}" placeholder="ex: DO.2024.08.00331">
+                                value="{{ old('kode_transaksi') }}" placeholder="ex: SI/SO.2024.08.00331">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="nama_konsumen">Nama Konsumen</label>
@@ -49,32 +51,42 @@
                         <div class="form-group col-md-4">
                             <label for="nama_brg_transaksi">Nama Barang</label>
                             <select class="form-control select2" name="nama_brg_transaksi" id="nama_brg_transaksi">
+                                <option value="">Pilih Barang</option>
                                 @foreach ($DaftarBarang as $data)
-                                <option
-                                data-name="{{ $data->nama_barang }}"
-                                data-type="{{ $data->tipe_barang }}"
-                                data-price="{{ $data->harga_barang }}"
-                                value="{{ $data->nama_barang }}"> {{ $data->nama_barang }} - {{ $data->tipe_barang }}</option>
+                                    <option data-id="{{ $data->id_barang }}" data-name="{{ $data->nama_barang }}" data-type="{{ $data->tipe_barang }}"
+                                        data-price="{{ $data->harga_barang }}"
+                                        @foreach ($data->stokBarang as $rows)
+                                        data-stok="{{ $rows->stok_akhir }}"
+                                        @endforeach
+                                        value="{{ $data->nama_barang }}">
+                                        {{ $data->nama_barang }} - {{ $data->tipe_barang }}</option>
+                                        <option value="">{{ $data->stok_akhir }}</option>
                                 @endforeach
                             </select>
 
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tipe_brg_transaksi">Tipe Barang</label>
-                            <input readonly type="text" class="form-control" name="tipe_brg_transaksi" id="tipe_brg_transaksi"
-                                >
+                            <input readonly type="text" class="form-control" name="tipe_brg_transaksi"
+                                id="tipe_brg_transaksi">
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
-                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
-                                id="jumlah_brg_transaksi" value="{{ old('jumlah_brg_transaksi') }}">
-                        </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="harga_brg_transaksi">Harga Barang</label>
                             <input readonly type="text" class="form-control" name="harga_brg_transaksi"
                                 id="harga_brg_transaksi">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
+                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
+                                id="jumlah_brg_transaksi" value="0">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="stok">Stok</label>
+                            <input type="text" class="form-control" name="stok"
+                                id="stok" value="0">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="status_pembayaran">Status Pembayaran</label>
@@ -83,17 +95,18 @@
                                 <option value="lunas">Lunas</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="total_pembayaran">Total Pembayaran</label>
-                            <input type="text" class="form-control" name="total_pembayaran" id="total_pembayaran"
-                                value="{{ old('total_pembayaran') }}">
-                        </div>
+
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
+                            <label for="total_pembayaran">Total Pembayaran</label>
+                            <input type="text" class="form-control" name="total_pembayaran" id="total_pembayaran"
+                                value="0">
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="selisih">Selisih Pembayaran</label>
                             <input readonly type="text" class="form-control" name="selisih" id="selisih"
-                                value="{{ old('selisih') }}">
+                                value="0">
                         </div>
                     </div>
 

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('tb_transaksi_penjualan', function (Blueprint $table) {
             $table->uuid('id_transaksi')->primary();
+            $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
+            $table->foreignUuid('id_stok')->references('id_stok')->on('tb_stok_barang')->cascadeOnDelete();
             $table->date('tgl_transaksi');
             $table->string('kode_transaksi');
             $table->string('nama_konsumen');
@@ -23,6 +25,7 @@ return new class extends Migration
             $table->string('tipe_barang');
             $table->integer('jumlah_barang');
             $table->decimal('harga_barang',10,2);
+            $table->integer('stok');
             $table->enum('status_pembayaran',['dp','lunas'])->default('dp');
             $table->decimal('total_pembayaran',10,2);
             $table->decimal('selisih_pembayaran',10,2);

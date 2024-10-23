@@ -22,4 +22,14 @@ class StokBarangModel extends Model
         'barang_masuk',
         'barang_keluar',
     ];
+    public $incrementing = false;
+
+    public function barangMasuk(){
+        return $this->belongsTo(BarangMasukModel::class, 'id_brg_masuk');
+    }
+
+    public function barang(){
+        return $this->belongsTo(BarangModel::class, 'id_barang');
+    }
 }
+

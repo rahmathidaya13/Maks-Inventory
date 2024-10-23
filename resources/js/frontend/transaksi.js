@@ -1,10 +1,11 @@
-function formatCurrency(angka) {
-    var formatRupiah = new Intl.NumberFormat("id-ID", {
+function Currency(angka) {
+    return new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
-        minimumFractionDigits: 0, // Ubah jika ingin ada pecahan
-    }).format(angka).replace(/Rp\s/g, '');
-    return formatRupiah;
+        minimumFractionDigits: 0,
+    })
+        .format(angka)
+        .replace(/Rp\s/g, "");
 }
 
 $(document).on("click", "#add_transaksi", function (e) {
@@ -24,18 +25,18 @@ $(document).on("change", "select[name='nama_brg_transaksi']", function () {
     let selected = $(this).find("option:selected");
     $("input[name='tipe_brg_transaksi']").val(selected.data("type"));
     $("input[name='harga_brg_transaksi']").val(
-        formatCurrency(selected.data("price"))
+        Currency(selected.data("price"))
     );
-});
-$(document).on("input", "#harga_brg_transaksi", function () {
-    let value = $(this).val();
-    let formated = value.replace(/[^,\d]/g, "");
-    $(this).val(formatCurrency(formated));
+    $("input[name='id_barang']").val(selected.data("id"));
+    $("input[name='stok']").val(selected.data("stok"));
 });
 
-// $(document).on("submit", "#form_transaksi", function () {
-//     let formatValue = $("#harga_brg_transaksi").val();
-//     let unFormated = formatValue.replace(/\./g, "");
-//     console.log(unFormated);
-//     $("#harga_brg_transaksi").val(unFormated);
-// });
+$("#jumlah_brg_transaksi,#stok").on("input", function () {
+    this.value = this.value.replace(/[^0-9]/g, "");
+});
+
+$(document).on("keyup", "#total_pembayaran", function () {
+    let value = $(this).val();
+    let formated = value.replace(/[^,\d]/g, "");
+    $(this).val(Currency(formated));
+});
