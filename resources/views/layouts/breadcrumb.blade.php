@@ -31,6 +31,16 @@
 
                     <button data-toggle="modal" data-target="#staticBackdrop_stok_barang" id="add_stok"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Stok</button>
+                @elseif (Route::is('transaksi.index'))
+
+                    <button id="export_stok_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
+                        Export</button>
+
+                    <button data-toggle="modal" data-target="#staticBackdrop_transaksi_import" id="transaksi_import"
+                        class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
+
+                    <button data-toggle="modal" data-target="#staticBackdrop_transaksi" id="add_transaksi"
+                        class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat Transaksi</button>
                 @endif
             </div>
         </div>

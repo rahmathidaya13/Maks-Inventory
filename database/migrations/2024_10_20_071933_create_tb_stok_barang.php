@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_stok_barang', function (Blueprint $table) {
             $table->uuid('id_stok')->primary();
+            $table->foreignUuid('id_brg_masuk')->references('id_brg_masuk')->on('tb_barang_masuk')->cascadeOnDelete();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
             $table->date('tanggal');
             $table->string('nama_barang');

@@ -4,4 +4,5 @@
 @section('icon', 'fas fa-money-bill-wave')
 @section('content')
 
+@include('transaksi.modal.formTransaksi')
 @endsection

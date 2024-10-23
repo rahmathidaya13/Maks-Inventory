@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangModel;
+use App\Models\StokBarangModel;
+use App\Models\TransaksiModel;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -11,7 +14,10 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('transaksi.index');
+        $DaftarBarang = BarangModel::all();
+        $stokBarang = StokBarangModel::all();
+        $daftarTransaksi = TransaksiModel::paginate(10);
+        return view('transaksi.index', compact( 'DaftarBarang','stokBarang','daftarTransaksi'));
     }
 
     /**
@@ -27,7 +33,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

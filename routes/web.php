@@ -40,7 +40,7 @@ Route::controller(BarangMasuk::class)->group(function(){
     Route::post('/barang_masuk/store', 'store')->name('barang_masuk.store');
     Route::put('/barang_masuk/update/{id}', 'update')->name('barang_masuk.update');
     Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show');
-    Route::delete('/barang_masuk/delete/{id}', 'destroy')->name('barang_masuk.delete');
+    Route::delete('/barang_masuk/delete/{id}/{date}', 'destroy')->name('barang_masuk.delete');
 });
 Route::controller(StokBarangController::class)->group(function(){
     Route::get('/stok', 'index')->name('stok.index');
@@ -51,6 +51,10 @@ Route::controller(StokBarangController::class)->group(function(){
 });
 Route::controller(TransaksiController::class)->group(function(){
     Route::get('/transaksi', 'index')->name('transaksi.index');
+    Route::post('/transaksi/store', 'store')->name('transaksi.store');
+    Route::put('/transaksi/update/{id}', 'update')->name('transaksi.update');
+    Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
+    Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
 
 });
 // khusus untuk live action

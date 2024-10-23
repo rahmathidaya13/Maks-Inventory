@@ -1,3 +1,15 @@
+function ConvertDate(dates) {
+    let day, month, year, dateOriginParsed, Formated;
+    dateOriginParsed = new Date(dates);
+
+    day = String(dateOriginParsed.getDate()).padStart(2, "0");
+    month = String(dateOriginParsed.getMonth() + 1).padStart(2, "0");
+    year = dateOriginParsed.getFullYear();
+
+    Formated = day + "/" + month + "/" + year;
+    return Formated;
+}
+
 // button untuk menambahkan barang masuk
 $(document).on("click", "#add_item_list", function (e) {
     e.preventDefault();
@@ -35,7 +47,7 @@ $(document).on(
         if ($("#update_form_stok").length > 0) {
             $("#update_form_stok")[0].reset();
         }
-        $("#update_form_stok").attr('action', '#');
+        $("#update_form_stok").attr("action", "#");
         // console.log($("#update_form_stok").length);
     }
 );
@@ -173,12 +185,14 @@ $(document).on("click", "#delete_all_brg_masuk", function (e) {
 // button hapus satu file
 $(document).on("click", ".hapus_brg_masuk", function () {
     let id = $(this).data("id");
+    let dates = $(this).data("date");
+    console.log();
     let getNameType = $(this).data("name-type");
     let form = $("#delete_items_" + id);
     // Show SweetAlert confirmation dialog
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: `${getNameType} ini akan dihapus!`,
+        text: `Barang tanggal ${ConvertDate(dates)} ${getNameType} ini akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -274,29 +288,31 @@ $(document).on("click", ".perbarui_stok", function () {
     //     //
     // });
 
+    $.getJSON(
+        "/stok/detail/" + id + "/" + date,
+        function (data, textStatus, jqXHR) {
+            console.log(data);
+            // $("input[name='id_stok']")
+            //     .val(data.result.id_stok)
+            //     .attr("readonly", true);
+            // $("#update_form_stok").attr("action", "/stok/update/" + data.result.id_stok);
 
-    $.getJSON("/stok/detail/" + id + "/" + date, function (data, textStatus, jqXHR) {
-        console.log(data);
-        // $("input[name='id_stok']")
-        //     .val(data.result.id_stok)
-        //     .attr("readonly", true);
-        // $("#update_form_stok").attr("action", "/stok/update/" + data.result.id_stok);
+            // $("input[name='jumlah_stok_awal']")
+            //     .val(data.result.stok_awal)
+            //     .attr("readonly", true);
+            // $("input[name='jumlah_stok_akhir']")
+            //     .val(data.result.stok_akhir)
+            //     .attr("readonly", true);
+            // $("input[name='jumlah_stok_tersedia']")
+            //     .val(data.result.stok_saat_ini)
+            //     .attr("readonly", true);
 
-        // $("input[name='jumlah_stok_awal']")
-        //     .val(data.result.stok_awal)
-        //     .attr("readonly", true);
-        // $("input[name='jumlah_stok_akhir']")
-        //     .val(data.result.stok_akhir)
-        //     .attr("readonly", true);
-        // $("input[name='jumlah_stok_tersedia']")
-        //     .val(data.result.stok_saat_ini)
-        //     .attr("readonly", true);
-
-        // $("#stok_update:first td").eq(0).text(data.result.tanggal);
-        // $("#stok_update:first td").eq(1).text(data.result.nama_barang);
-        // $("#stok_update:first td").eq(2).text(data.result.tipe_barang);
-        // $("#stok_update:first td").eq(3).text(data.result.stok_awal);
-        // $("#stok_update:first td").eq(4).text(data.result.stok_akhir);
-        // $("#stok_update:first td").eq(5).text(data.result.stok_saat_ini);
-    });
+            // $("#stok_update:first td").eq(0).text(data.result.tanggal);
+            // $("#stok_update:first td").eq(1).text(data.result.nama_barang);
+            // $("#stok_update:first td").eq(2).text(data.result.tipe_barang);
+            // $("#stok_update:first td").eq(3).text(data.result.stok_awal);
+            // $("#stok_update:first td").eq(4).text(data.result.stok_akhir);
+            // $("#stok_update:first td").eq(5).text(data.result.stok_saat_ini);
+        }
+    );
 });

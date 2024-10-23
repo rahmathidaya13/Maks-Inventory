@@ -55,7 +55,7 @@ class LiveAction extends Controller
     public function filterBrgMasuk(Request $request)
     {
         $offset = $request->get('limit');
-        $barang_masuk = BarangMasukModel::latest()->paginate($offset);
+        $barang_masuk = BarangMasukModel::paginate($offset);
         if ($request->ajax()) {
             return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
         }

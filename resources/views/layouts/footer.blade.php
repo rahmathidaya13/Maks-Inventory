@@ -32,9 +32,11 @@
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements
-        $('.select2').select2({
-            dropdownParent: $('#staticBackdrop-brg_masuk1')
-        })
+        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi").on('shown.bs.modal', function() {
+            $('.select2').select2({
+                dropdownParent: $(this) // This makes it dynamic for the modal that is opened
+            });
+        });
 
         //Initialize Select2 Elements
         $('.select2bs4').select2({
