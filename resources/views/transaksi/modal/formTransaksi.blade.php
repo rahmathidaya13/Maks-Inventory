@@ -62,7 +62,7 @@
                         <div class="form-group col-md-4">
                             <label for="tipe_brg_transaksi">Tipe Barang</label>
                             <input readonly type="text" class="form-control" name="tipe_brg_transaksi" id="tipe_brg_transaksi"
-                                value="{{ old('tipe_brg_transaksi') }}">
+                                >
                         </div>
                         <div class="form-group col-md-4">
                             <label for="jumlah_brg_transaksi">Jumlah Barang</label>
@@ -74,7 +74,7 @@
                         <div class="form-group col-md-4">
                             <label for="harga_brg_transaksi">Harga Barang</label>
                             <input readonly type="text" class="form-control" name="harga_brg_transaksi"
-                                id="harga_brg_transaksi" value="{{ old('harga_brg_transaksi') }}">
+                                id="harga_brg_transaksi">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="status_pembayaran">Status Pembayaran</label>

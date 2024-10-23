@@ -33,7 +33,9 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $b = $request->harga_brg_transaksi;
+
+        dd($b);
     }
 
     /**
