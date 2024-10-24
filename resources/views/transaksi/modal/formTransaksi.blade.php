@@ -103,13 +103,13 @@
                             <input type="text" class="form-control" name="diskon" id="diskon">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="harga_diskon">Harga Diskon</label>
-                            <input readonly type="text" class="form-control" name="harga_diskon" id="harga_diskon">
+                            <label for="pembayaran">Pembayaran</label>
+                            <input type="text" class="form-control" name="pembayaran" id="pembayaran"
+                                >
                         </div>
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
-                            <input type="text" class="form-control" name="total_pembayaran" id="total_pembayaran"
-                                value="0">
+                            <input readonly type="text" class="form-control" name="total_pembayaran" id="total_pembayaran">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="selisih">Selisih Pembayaran</label>

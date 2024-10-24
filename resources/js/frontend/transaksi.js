@@ -36,12 +36,13 @@ $(document).on("change", "select[name='nama_brg_transaksi']", function () {
     $("input[name='stok']").val(selected.data("stok") ?? 0);
 });
 
-$(document).on("input", "#total_pembayaran", function () {
-    let hargaBarang = $("input[name='harga_brg_transaksi']").val();
-    let totalPemBayaran = $(this).val();
+$(document).on("input", "#pembayaran", function () {
+    // let hargaBarang = parseCurrency($("input[name='harga_brg_transaksi']").val());
+    let total_pembayaran = parseCurrency($("#total_pembayaran").val());
+    let pembayaran = parseCurrency($(this).val());
 
     // Hilangkan format mata uang dan lakukan operasi pengurangan
-    let selisih = parseCurrency(hargaBarang) - parseCurrency(totalPemBayaran);
+    let selisih = total_pembayaran - pembayaran;
     // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
     if (selisih < 0) {
         selisih = 0;
@@ -57,8 +58,23 @@ $("#jumlah_brg_transaksi,#stok,#diskon,#harga_diskon").on("input", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
 });
 
-$(document).on("keyup", "#total_pembayaran", function () {
+$(document).on("keyup", "#pembayaran", function () {
     let value = $(this).val();
     let formated = value.replace(/[^,\d]/g, "");
     $(this).val(Currency(formated));
+});
+
+$(document).on("input", "#diskon", function () {
+    let hargaBarang = parseCurrency(
+        $("input[name='harga_brg_transaksi']").val()
+    );
+    let total_pembayaran = parseCurrency($("#total_pembayaran").val());
+    let diskon = parseCurrency($(this).val());
+    let pembayaran = hargaBarang - hargaBarang * (diskon / 100);
+
+    pembayaran < 0 ? 0 : pembayaran;
+    let final = pembayaran - total_pembayaran;
+    final = isNaN(final) || final < 0 ? 0 : final;
+    $("#total_pembayaran").val(Currency(pembayaran));
+    $("#selisih").val(Currency(final));
 });
