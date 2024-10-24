@@ -72,7 +72,6 @@ class BarangMasuk extends Controller
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
         $barangMasuk->status = $request->input('status');
         $barangMasuk->nama_konsumen = $request->input('konsumen');
-        $barangMasuk->keterangan = 'dibuat';
         $barangMasuk->save();
 
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk
@@ -181,7 +180,6 @@ class BarangMasuk extends Controller
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
         $barangMasuk->status = $request->input('status');
         $barangMasuk->nama_konsumen = $request->input('konsumen');
-        $barangMasuk->keterangan = 'dibuat';
         $barangMasuk->update();
 
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk

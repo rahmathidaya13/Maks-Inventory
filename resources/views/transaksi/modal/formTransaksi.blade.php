@@ -53,14 +53,14 @@
                             <select class="form-control select2" name="nama_brg_transaksi" id="nama_brg_transaksi">
                                 <option value="">Pilih Barang</option>
                                 @foreach ($DaftarBarang as $data)
-                                    <option data-id="{{ $data->id_barang }}" data-name="{{ $data->nama_barang }}" data-type="{{ $data->tipe_barang }}"
-                                        data-price="{{ $data->harga_barang }}"
+                                    <option data-id="{{ $data->id_barang }}" data-name="{{ $data->nama_barang }}"
+                                        data-type="{{ $data->tipe_barang }}" data-price="{{ $data->harga_barang }}"
                                         @foreach ($data->stokBarang as $rows)
-                                        data-stok="{{ $rows->stok_akhir }}"
-                                        @endforeach
+                                        data-id-stok="{{ $rows->id_stok }}"
+                                        data-stok="{{ $rows->stok_akhir }}" @endforeach
                                         value="{{ $data->nama_barang }}">
                                         {{ $data->nama_barang }} - {{ $data->tipe_barang }}</option>
-                                        <option value="">{{ $data->stok_akhir }}</option>
+                                    <option value="">{{ $data->stok_akhir }}</option>
                                 @endforeach
                             </select>
 
@@ -81,12 +81,12 @@
                         <div class="form-group col-md-4">
                             <label for="jumlah_brg_transaksi">Jumlah Barang</label>
                             <input type="text" class="form-control" name="jumlah_brg_transaksi"
-                                id="jumlah_brg_transaksi" value="0">
+                                id="jumlah_brg_transaksi">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="stok">Stok</label>
-                            <input type="text" class="form-control" name="stok"
-                                id="stok" value="0">
+                            <input readonly type="text" class="form-control" name="stok" id="stok"
+                                value="0">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="status_pembayaran">Status Pembayaran</label>
@@ -98,6 +98,14 @@
 
                     </div>
                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="diskon">Diskon</label>
+                            <input type="text" class="form-control" name="diskon" id="diskon">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="harga_diskon">Harga Diskon</label>
+                            <input readonly type="text" class="form-control" name="harga_diskon" id="harga_diskon">
+                        </div>
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
                             <input type="text" class="form-control" name="total_pembayaran" id="total_pembayaran"

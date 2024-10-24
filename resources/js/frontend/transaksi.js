@@ -8,6 +8,11 @@ function Currency(angka) {
         .replace(/Rp\s/g, "");
 }
 
+// Fungsi untuk menghilangkan format titik dan ubah ke integer
+function parseCurrency(value) {
+    // Jika value kosong atau tidak valid, kembalikan 0
+    return value ? parseInt(value.replace(/\./g, "")) : 0; // Hapus titik dan ubah ke angka
+}
 $(document).on("click", "#add_transaksi", function (e) {
     e.preventDefault();
     $("#form_transaksi")[0].reset();
@@ -28,10 +33,27 @@ $(document).on("change", "select[name='nama_brg_transaksi']", function () {
         Currency(selected.data("price"))
     );
     $("input[name='id_barang']").val(selected.data("id"));
-    $("input[name='stok']").val(selected.data("stok"));
+    $("input[name='stok']").val(selected.data("stok") ?? 0);
 });
 
-$("#jumlah_brg_transaksi,#stok").on("input", function () {
+$(document).on("input", "#total_pembayaran", function () {
+    let hargaBarang = $("input[name='harga_brg_transaksi']").val();
+    let totalPemBayaran = $(this).val();
+
+    // Hilangkan format mata uang dan lakukan operasi pengurangan
+    let selisih = parseCurrency(hargaBarang) - parseCurrency(totalPemBayaran);
+    // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
+    if (selisih < 0) {
+        selisih = 0;
+    }
+    // Pastikan jika selisih NaN atau tidak valid, di-set ke 0
+    selisih = isNaN(selisih) ? 0 : selisih;
+    $("input[name='selisih']").val(Currency(selisih));
+    console.log(selisih);
+});
+
+// ubah format input text hanya bisa terima angka saja
+$("#jumlah_brg_transaksi,#stok,#diskon,#harga_diskon").on("input", function () {
     this.value = this.value.replace(/[^0-9]/g, "");
 });
 
