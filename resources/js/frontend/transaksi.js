@@ -77,4 +77,10 @@ $(document).on("input", "#diskon", function () {
     final = isNaN(final) || final < 0 ? 0 : final;
     $("#total_pembayaran").val(Currency(pembayaran));
     $("#selisih").val(Currency(final));
+
+    if ($(this).val().length > 0) {
+        $("#pembayaran").prop("readonly", false);
+    } else {
+        $("#pembayaran").prop("readonly", true);
+    }
 });

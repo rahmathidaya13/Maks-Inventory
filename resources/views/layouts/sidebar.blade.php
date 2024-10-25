@@ -79,11 +79,14 @@
                   </li>
                   <li class="nav-header">AKUN</li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a onclick="event.preventDefault();document.getElementById('logout-form').submit();" href="{{ route('logout') }}" class="nav-link">
                         <i class="fas fa-sign-out-alt"></i>
                         <p>
                             Keluar
                         </p>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
                     </a>
                 </li>
 

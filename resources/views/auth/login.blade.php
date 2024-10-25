@@ -1,49 +1,49 @@
-@section('title','Login')
+@section('title', 'Login')
 @include('layouts.header')
-<main class="d-flex w-100">
-    <div class="container d-flex flex-column">
-        <div class="row vh-100">
-            <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto d-table h-100">
-                <div class="d-table-cell align-middle">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <h1 class="h1"><b>MAKS</b><span class="bg-black px-2">INVENTORY</span></h1>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Masuk untuk menggunakan aplikasi ini</p>
 
-                    <div class="text-center mt-4">
-                        <h1 class="h2">Welcome back!</h1>
-                        <p class="lead">
-                            Sign in to your account to continue
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="m-sm-3">
-                                <form>
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input class="form-control form-control-lg" type="email" name="email" placeholder="Enter your email" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" />
-                                    </div>
-                                    <div>
-                                        <div class="form-check align-items-center">
-                                            <input id="customControlInline" type="checkbox" class="form-check-input" value="remember-me" name="remember-me" checked>
-                                            <label class="form-check-label text-small" for="customControlInline">Remember me</label>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid gap-2 mt-3">
-                                        <a href="index.html" class="btn btn-lg btn-primary">Sign in</a>
-                                    </div>
-                                </form>
-                            </div>
+            <form action="{{ route('login') }}" method="post">
+                @csrf
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
                     </div>
-                    <div class="text-center mb-3">
-                        Don't have an account? <a href="pages-sign-up.html">Sign up</a>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span id="show_pass" class="fas fa-eye"></span>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                </div>
+            </form>
+
+
+            <p class="mb-0 text-center">
+                Belum punya akun? <a href="{{ route('register') }}" class="text-center">Daftar</a>
+            </p>
         </div>
+        <!-- /.card-body -->
     </div>
-</main>
+    <!-- /.card -->
+</div>
 @include('layouts.footer')

@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
-                            <input type="text" class="form-control" name="pembayaran" id="pembayaran"
+                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran"
                                 >
                         </div>
                         <div class="form-group col-md-4">

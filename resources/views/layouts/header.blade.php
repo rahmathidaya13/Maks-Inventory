@@ -47,4 +47,4 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed {{ Route::is('login') ? 'login-page' : '' }} {{ Route::is('register') ? 'register-page' : '' }}">
