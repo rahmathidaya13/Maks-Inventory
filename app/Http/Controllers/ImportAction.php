@@ -13,14 +13,13 @@ class ImportAction extends Controller
 {
     public function importFile(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
+        $request->validate(
             [
-                'imports' => 'required|file|mimes:xls,xlsx,csv|max:11120'
+                'imports' => 'required|file|mimes:xls,xlsx|max:11120'
             ],
             [
                 'imports.required' => 'File impor wajib diunggah',
-                'imports.mimes' => 'File harus berformat Excel (xls, xlsx) atau CSV',
+                'imports.mimes' => 'File harus berformat Excel xls, xlsx',
                 'imports.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
             ]
         );
@@ -37,20 +36,19 @@ class ImportAction extends Controller
 
     public function importBarangMasuk(Request $request)
     {
-        $validator = Validator::make(
-            $request->all(),
+        $request->validate(
             [
-                'import_brg_masuk' => 'required|file|mimes:csv,xls,xlsx|max:11120'
+                'import_brg_masuk' => 'required|file|mimes:xls,xlsx|max:11120'
             ],
             [
                 'import_brg_masuk.required' => 'File impor wajib diunggah',
-                'import_brg_masuk.mimes' => 'File harus berformat Excel (xls, xlsx) atau CSV',
+                'import_brg_masuk.mimes' => 'File harus berformat Excel xls, xlsx',
                 'import_brg_masuk.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
             ]
         );
 
         $files = $request->file('import_brg_masuk');
-        $fileType = in_array($files->getClientOriginalExtension(),['xls','xlsx']) ? 'excel' : 'csv';
+        $fileType = in_array($files->getClientOriginalExtension(), ['xls', 'xlsx']) ? 'excel' : 'csv';
 
         // Mulai transaksi
         try {

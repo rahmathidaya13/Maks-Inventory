@@ -39,6 +39,18 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
+            'email.string' => 'Email harus berupa Alphabet.',
+            'password.string' => 'Password harus berupa Alphabet.',
+        ]);
+    }
     protected function authenticated(Request $request, $user)
     {
         if ($user->role === 'admin') {

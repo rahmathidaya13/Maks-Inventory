@@ -54,14 +54,24 @@ class RegisterController extends Controller
         $this->create($request->all());
         $this->guard()->logout();
 
-        return redirect('/')->with('success','Pendaftaran Berhasil');
+        return redirect('/login')->with('success','Pendaftaran Berhasil');
      }
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ],[
+            'email.unique' => 'Email sudah terdaftar',
+            'password.confirmed' => 'Password dan Konfirmasi Password harus sama',
+            'name.required' => 'Nama wajib diisi',
+            'name.max' => 'Nama maksimal 50 karakter',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Email harus valid',
+            'email.max' => 'Email maksimal 50 karakter',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Password minimal 8 karakter',
         ]);
     }
 
@@ -78,5 +88,11 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        session()->flash('success','Pendaftaran berhasil! Silahkan masuk.');
+        return redirect()->route('login');
     }
 }

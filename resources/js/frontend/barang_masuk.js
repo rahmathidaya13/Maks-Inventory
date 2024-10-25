@@ -148,7 +148,6 @@ $(document).on("click", "#delete_all_brg_masuk", function (e) {
                         return $(this).data("id");
                     })
                     .get();
-                console.log(ids);
                 $.ajax({
                     url: "/delete/barang_masuk",
                     type: "DELETE",

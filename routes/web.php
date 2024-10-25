@@ -7,6 +7,7 @@ use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,10 @@ Route::middleware(['auth','role:admin'])->group(function () {
         Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
         Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
 
+    });
+    Route::controller(UserController::class)->group(function(){
+        Route::put('/profile/update/{id}', 'update')->name('profile.update');
+        Route::get('/profile/show/{id}', 'show')->name('profile.show');
     });
     // khusus untuk live action
     Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');

@@ -11,8 +11,8 @@
             <div class="modal-body">
                 <form id="form_transaksi" action="#" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="id_barang">
-                    <input type="hidden" name="id_stok">
+                    <input type="hidden" name="id_barang" id="id_barang">
+                    <input type="hidden" name="id_stok" id="id_stok">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="transaksi">Tgl. Transaksi</label>
@@ -91,7 +91,7 @@
                         <div class="form-group col-md-4">
                             <label for="status_pembayaran">Status Pembayaran</label>
                             <select class="form-control" name="status_pembayaran" id="status_pembayaran">
-                                <option value="dp">Dana Pertama (DP)</option>
+                                <option value="dana pertama">Dana Pertama (DP)</option>
                                 <option value="lunas">Lunas</option>
                             </select>
                         </div>
@@ -99,7 +99,7 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="diskon">Diskon</label>
+                            <label for="diskon">Diskon %</label>
                             <input type="text" class="form-control" name="diskon" id="diskon">
                         </div>
                         <div class="form-group col-md-4">

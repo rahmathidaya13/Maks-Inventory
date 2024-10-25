@@ -33,7 +33,8 @@ $(document).on("change", "select[name='nama_brg_transaksi']", function () {
         Currency(selected.data("price"))
     );
     $("input[name='id_barang']").val(selected.data("id"));
-    $("input[name='stok']").val(selected.data("stok") ?? 0);
+    $("input[name='stok']").val(selected.data("stok"));
+    $("input[name='id_stok']").val(selected.data("id-stok"));
 });
 
 $(document).on("input", "#pembayaran", function () {
@@ -83,4 +84,41 @@ $(document).on("input", "#diskon", function () {
     } else {
         $("#pembayaran").prop("readonly", true);
     }
+});
+
+$(document).on("click", ".ubah_transaksi", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+
+    $("#form_transaksi")[0].reset();
+    $(".modal-title span").text("Ubah Data Transaksi");
+    $(".modal-title i")
+        .removeClass("fas fa-plus-square")
+        .addClass("fas fa-edit ");
+    $("#transaksi_aksi span").text("Ubah");
+    $("#transaksi_aksi i").removeClass("fas fa-save").addClass("fas fa-edit");
+    $("#form_transaksi").attr("action", `/transaksi/update/${id}`);
+    $("#form_transaksi").prepend('<input type="hidden" name="_method" value="PUT">');
+
+    $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
+        console.log(data);
+        $("#id_barang").val(data.result.id_barang);
+        $("#id_stok").val(data.result.id_stok);
+        $("#transaksi").val(data.result.tgl_transaksi);
+        $("#kode_transaksi").val(data.result.kode_transaksi);
+        $("#nama_konsumen").val(data.result.nama_konsumen);
+        $("#nohp").val(data.result.no_handphone);
+        $("#alamat").val(data.result.alamat);
+        $("#sales").val(data.result.nama_sales);
+        $("#nama_brg_transaksi").val(data.result.nama_barang);
+        $("#tipe_brg_transaksi").val(data.result.tipe_barang);
+        $("#harga_brg_transaksi").val(data.result.harga_barang);
+        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
+        $("#stok").val(data.result.stok);
+        $("#status_pembayaran").val(data.result.status_pembayaran);
+        $("#diskon").val(data.result.diskon);
+        $("#pembayaran").val(data.result.pembayaran);
+        $("#total_pembayaran").val(data.result.total_pembayaran);
+        $("#selisih").val(data.result.selisih_pembayaran);
+    });
 });

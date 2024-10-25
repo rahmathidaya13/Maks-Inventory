@@ -17,8 +17,8 @@ class TransaksiController extends Controller
     {
         $DaftarBarang = BarangModel::all();
         $stokBarang = StokBarangModel::all();
-        $daftarTransaksi = TransaksiModel::paginate(10);
-        return view('transaksi.index', compact('DaftarBarang', 'stokBarang', 'daftarTransaksi'));
+        $transaksi = TransaksiModel::paginate(10);
+        return view('transaksi.index', compact('DaftarBarang', 'stokBarang', 'transaksi'));
     }
 
     /**
@@ -26,7 +26,7 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,28 +34,89 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        $jumlah_barang = (int)$request->input('jumlah_brg_transaksi');
+        // validate data
+        $request->validate(
+            [
+                'transaksi' => 'required|date',
+                'kode_transaksi' => 'required|string|max:20',
+                'nama_konsumen' => 'required|string|max:100',
+                'nohp' => 'required|digits_between:10,13', // validasi nomor telepon
+                'alamat' => 'required|string|max:255',
+                'sales' => 'required|string|max:100',
+                'nama_brg_transaksi' => 'required|string|max:255',
+                'tipe_brg_transaksi' => 'required|string|max:100',
+                'diskon' => 'nullable|integer|min:0|max:100',
+                'jumlah_brg_transaksi' => 'required|integer|min:1',
+                'harga_brg_transaksi' => 'required|string', // validasi string karena akan diformat ulang
+                'stok' => 'required|integer|min:0',
+                'status_pembayaran' => 'required|string',
+                'total_pembayaran' => 'required|string',
+                'pembayaran' => 'required|string',
+                'selisih' => 'nullable|string',
+            ],
+            [
+                'transaksi.required' => 'Tanggal transaksi wajib diisi.',
+                'transaksi.date' => 'Format tanggal transaksi tidak valid.',
+                'kode_transaksi.required' => 'Kode transaksi wajib diisi.',
+                'kode_transaksi.max' => 'Kode transaksi maksimal 20 karakter.',
+                'nama_konsumen.required' => 'Nama konsumen wajib diisi.',
+                'nama_konsumen.max' => 'Nama konsumen maksimal 100 karakter.',
+                'nohp.required' => 'Nomor telepon wajib diisi.',
+                'nohp.digits_between' => 'Nomor telepon harus terdiri dari 10 sampai 13 digit.',
+                'alamat.required' => 'Alamat wajib diisi.',
+                'alamat.max' => 'Alamat maksimal 255 karakter.',
+                'sales.required' => 'Nama sales wajib diisi.',
+                'sales.max' => 'Nama sales maksimal 100 karakter.',
+                'nama_brg_transaksi.required' => 'Nama barang wajib diisi.',
+                'nama_brg_transaksi.max' => 'Nama barang maksimal 255 karakter.',
+                'tipe_brg_transaksi.required' => 'Tipe barang wajib diisi.',
+                'tipe_brg_transaksi.max' => 'Tipe barang maksimal 100 karakter.',
+                'diskon.integer' => 'Diskon harus berupa angka.',
+                'diskon.min' => 'Diskon tidak boleh kurang dari 0%.',
+                'diskon.max' => 'Diskon tidak boleh lebih dari 100%.',
+                'jumlah_brg_transaksi.required' => 'Jumlah barang wajib diisi.',
+                'jumlah_brg_transaksi.integer' => 'Jumlah barang harus berupa angka.',
+                'jumlah_brg_transaksi.min' => 'Jumlah barang minimal 1.',
+                'harga_brg_transaksi.required' => 'Harga barang wajib diisi.',
+                'stok.required' => 'Stok barang wajib diisi.',
+                'stok.integer' => 'Stok barang harus berupa angka.',
+                'stok.min' => 'Stok barang tidak boleh negatif.',
+                'status_pembayaran.required' => 'Status pembayaran wajib diisi.',
+                'total_pembayaran.required' => 'Total pembayaran wajib diisi.',
+                'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
+
+            ]
+        );
+
+        $jumlah_barang = (int) $request->input('jumlah_brg_transaksi');
         $harga_barang = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('harga_brg_transaksi'));
         $total_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran'));
         $selisih_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih'));
+        $pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran'));
 
-        dd($harga_barang,$total_pembayaran,$selisih_pembayaran,$jumlah_barang);
-        // $transaksi = new TransaksiModel();
-        // $transaksi->tgl_transaksi = $request->input('transaksi');
-        // $transaksi->kode_transaksi = $request->input('kode_transaksi');
-        // $transaksi->nama_konsumen = $request->input('nama_konsumen');
-        // $transaksi->no_handphone = $request->input('nohp');
-        // $transaksi->alamat = $request->input('alamat');
-        // $transaksi->nama_sales = $request->input('sales');
-        // $transaksi->nama_barang = $request->input('nama_brg_transaksi');
-        // $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
-        // $transaksi->jumlah_barang = $request->input('jumlah_brg_transaksi');
-        // $transaksi->harga_barang = $harga_barang;
-        // $transaksi->status_pembayaran = $request->input('status_pembayaran');
-        // $transaksi->total_pembayaran = $request->input('total_pembayaran');
-        // $transaksi->selisih_pembayaran = $request->input('selisih');
-        // $transaksi->save();
-        // return back()->with('success', 'Transaksi Berhasil Dibuat');
+
+        // sava data
+        $transaksi = new TransaksiModel();
+        $transaksi->id_barang = $request->input('id_barang');
+        $transaksi->id_stok = $request->input('id_stok');
+        $transaksi->tgl_transaksi = $request->input('transaksi');
+        $transaksi->kode_transaksi = $request->input('kode_transaksi');
+        $transaksi->nama_konsumen = $request->input('nama_konsumen');
+        $transaksi->no_handphone = $request->input('nohp');
+        $transaksi->alamat = $request->input('alamat');
+        $transaksi->nama_sales = $request->input('sales');
+        $transaksi->nama_barang = $request->input('nama_brg_transaksi');
+        $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
+        $transaksi->diskon = (int) $request->input('diskon');
+        $transaksi->jumlah_barang = $jumlah_barang;
+        $transaksi->stok = (int) $request->input('stok');
+        $transaksi->harga_barang = $harga_barang;
+        $transaksi->status_pembayaran = $request->input('status_pembayaran');
+        $transaksi->total_pembayaran = $total_pembayaran;
+        $transaksi->pembayaran = $pembayaran;
+        $transaksi->selisih_pembayaran = $selisih_pembayaran;
+        $transaksi->save();
+        return back()->with('success', 'Transaksi Berhasil Dibuat');
     }
 
     /**
@@ -63,7 +124,16 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $transaksi = TransaksiModel::findOrFail($id);
+        return response()->json(
+            ['success' => 'Fetching success', 'result' => $transaksi],
+            200,
+            [
+                'Content-Type' => 'application/json',
+                'X-Content-Type-Options' => 'nosniff',
+            ],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK
+        );
     }
 
     /**

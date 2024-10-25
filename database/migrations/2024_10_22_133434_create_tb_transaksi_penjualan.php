@@ -25,9 +25,9 @@ return new class extends Migration
             $table->string('tipe_barang');
             $table->integer('jumlah_barang');
             $table->decimal('harga_barang',10,2);
+            $table->enum('status_pembayaran',['dana pertama','lunas'])->default('dana pertama');
+            $table->integer('diskon');
             $table->integer('stok');
-            $table->enum('status_pembayaran',['dp','lunas'])->default('dp');
-            $table->decimal('diskon',10,2);
             $table->decimal('pembayaran',10,2);
             $table->decimal('total_pembayaran',10,2);
             $table->decimal('selisih_pembayaran',10,2);

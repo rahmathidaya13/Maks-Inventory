@@ -10,11 +10,11 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                  <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                  <img src="{{ asset('assets/profile/'.Auth::user()->photo) }}" class="img-circle elevation-2 profile"
                       alt="User Image">
               </div>
               <div class="info">
-                  <a data-toggle="modal" data-target="#modal-default-profile" href="#" class="d-block">Alexander Pierce</a>
+                  <a id="profile-action" data-toggle="modal" data-target="#modal-default-profile" href="#" data-id="{{ Auth::user()->id }}" class="d-block">{{ ucwords(Auth::user()->name) }}</a>
               </div>
           </div>
 

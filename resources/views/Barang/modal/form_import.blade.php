@@ -17,7 +17,7 @@
                             <img id="preview" class="img-fluid img-thumbnail" width="200"
                                 src="{{ asset('assets/icon/iconupload.jpg') }}" alt="">
                             <input type="file" class="d-none" name="imports" id="imports"
-                                accept=".xls, .xlsx,.csv">
+                                accept=".xls,.xlsx">
                         </label>
                     </div>
                     <div id="file-name" class="text-center mt-2">File not found</div>
