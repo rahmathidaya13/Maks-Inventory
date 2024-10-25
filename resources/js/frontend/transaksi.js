@@ -8,6 +8,18 @@ function Currency(angka) {
         .replace(/Rp\s/g, "");
 }
 
+function ConvertDate(dates) {
+    let day, month, year, dateOriginParsed, Formated;
+    dateOriginParsed = new Date(dates);
+
+    day = String(dateOriginParsed.getDate()).padStart(2, "0");
+    month = String(dateOriginParsed.getMonth() + 1).padStart(2, "0");
+    year = dateOriginParsed.getFullYear();
+
+    Formated = day + "/" + month + "/" + year;
+    return Formated;
+}
+
 // Fungsi untuk menghilangkan format titik dan ubah ke integer
 function parseCurrency(value) {
     // Jika value kosong atau tidak valid, kembalikan 0
@@ -98,7 +110,9 @@ $(document).on("click", ".ubah_transaksi", function (e) {
     $("#transaksi_aksi span").text("Ubah");
     $("#transaksi_aksi i").removeClass("fas fa-save").addClass("fas fa-edit");
     $("#form_transaksi").attr("action", `/transaksi/update/${id}`);
-    $("#form_transaksi").prepend('<input type="hidden" name="_method" value="PUT">');
+    $("#form_transaksi").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
 
     $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
         console.log(data);
@@ -120,5 +134,29 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#pembayaran").val(data.result.pembayaran);
         $("#total_pembayaran").val(data.result.total_pembayaran);
         $("#selisih").val(data.result.selisih_pembayaran);
+    });
+});
+
+$(document).on("click", ".hapus_transaksi", function () {
+    let id = $(this).data("id");
+    let customer = $(this).data("customer");
+    let kode = $(this).data("code");
+    let tanggal = ConvertDate($(this).data("date"));
+    let form = $("#delete_transaksi_" + id);
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: "Apakah kamu yakin?",
+        text: `Data transaksi ( ${tanggal} - ${kode} - ${customer} ) akan dihapus!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the form if user confirms
+            form.submit();
+        }
     });
 });
