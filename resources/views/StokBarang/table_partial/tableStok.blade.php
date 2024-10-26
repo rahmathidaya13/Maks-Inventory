@@ -20,7 +20,6 @@
         <td class="text-center">{{ $data->barang_masuk }}</td>
         <td class="text-center">{{ $data->barang_keluar }}</td>
         <td class="text-center">{{ $data->stok_akhir }}</td>
-        <td class="text-center">{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">

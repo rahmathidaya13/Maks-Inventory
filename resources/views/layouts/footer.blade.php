@@ -36,6 +36,8 @@
             $('.select2').select2({
                 dropdownParent: $(this) // This makes it dynamic for the modal that is opened
             });
+            $("#nama_brg_transaksi").trigger('change');
+            $("#status_pembayaran").trigger('change');
         });
 
         //Initialize Select2 Elements

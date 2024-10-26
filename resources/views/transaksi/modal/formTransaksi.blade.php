@@ -79,37 +79,44 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
+                            <label for="status_pembayaran">Status Pembayaran</label>
+                            <select class="form-control" name="status_pembayaran" id="status_pembayaran">
+                                <option value="belum lunas">Belum Lunas/DP</option>
+                                <option value="lunas">Lunas</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="dp">Dana Pertama (DP)</label>
+                            <input readonly type="text" class="form-control" name="dp" id="dp">
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="jumlah_brg_transaksi">Jumlah Barang</label>
-                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
+                            <input readonly type="text" class="form-control" name="jumlah_brg_transaksi"
                                 id="jumlah_brg_transaksi">
                         </div>
+
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="stok">Stok</label>
                             <input readonly type="text" class="form-control" name="stok" id="stok"
                                 value="0">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="status_pembayaran">Status Pembayaran</label>
-                            <select class="form-control" name="status_pembayaran" id="status_pembayaran">
-                                <option value="dana pertama">Dana Pertama (DP)</option>
-                                <option value="lunas">Lunas</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
                             <label for="diskon">Diskon %</label>
-                            <input type="text" class="form-control" name="diskon" id="diskon">
+                            <input readonly type="text" class="form-control" name="diskon" id="diskon">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
-                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran"
-                                >
+                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
-                            <input readonly type="text" class="form-control" name="total_pembayaran" id="total_pembayaran">
+                            <input readonly type="text" class="form-control" name="total_pembayaran"
+                                id="total_pembayaran">
+                            <input type="hidden" id="hasil">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="selisih">Selisih Pembayaran</label>
@@ -117,7 +124,6 @@
                                 value="0">
                         </div>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
