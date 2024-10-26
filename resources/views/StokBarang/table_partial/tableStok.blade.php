@@ -12,27 +12,31 @@
                 <label class="form-check-label"></label>
             </div>
         </td>
-        <td >{{ $startNumbering + $loop->iteration }}</td>
-        <td>{{ \Carbon\Carbon::parse( $data->tanggal)->translatedFormat('l, d F Y') }}</td>
+        <td>{{ $startNumbering + $loop->iteration }}</td>
+        <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
         <td>{{ $data->nama_barang }}</td>
         <td>{{ $data->tipe_barang }}</td>
         <td class="text-center">{{ $data->stok_awal }}</td>
         <td class="text-center">{{ $data->barang_masuk }}</td>
         <td class="text-center">{{ $data->barang_keluar }}</td>
         <td class="text-center">{{ $data->stok_akhir }}</td>
+        <td class="text-center">{{ \Carbon\Carbon::parse($data->created_at)->diffForHumans() }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a id="ubah_stok" data-toggle="modal" data-target="#staticBackdrop_stok_barang" data-id="{{ $data->id_stok }}"
-                        class="dropdown-item ubah_stok" href="#"><i class="fas fa-edit"></i> Ubah</a>
-                    <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}" data-id="{{ $data->id_stok }}" class="dropdown-item hapus_stok" href="#"><i
+                    <a id="ubah_stok" data-toggle="modal" data-target="#staticBackdrop_stok_barang"
+                        data-id="{{ $data->id_stok }}" class="dropdown-item ubah_stok" href="#"><i
+                            class="fas fa-edit"></i> Ubah</a>
+
+
+                    <a data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}"
+                        data-id="{{ $data->id_stok }}" class="dropdown-item hapus_stok" href="#"><i
                             class="fas fa-trash"></i> Hapus</a>
-                    <form id="delete_stok_{{ $data->id_stok }}"
-                        action="{{ route('stok.delete', $data->id_stok) }}" method="POST"
-                        class="d-inline">
+                    <form id="delete_stok_{{ $data->id_stok }}" action="{{ route('stok.delete', $data->id_stok) }}"
+                        method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                     </form>

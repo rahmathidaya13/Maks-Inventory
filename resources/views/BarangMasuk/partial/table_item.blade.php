@@ -31,20 +31,17 @@
                     <a data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" data-id="{{ $data->id_brg_masuk }}"
                         class="dropdown-item ubah_barang_masuk" href="#"><i class="fas fa-edit"></i> Ubah</a>
 
-                    <a data-date="{{ $data->tgl_brg_masuk }}" data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}"
+                    <a data-date="{{ $data->tgl_brg_masuk }}"
+                        data-name-type="{{ $data->nama_barang }} - {{ $data->tipe_barang }}"
                         data-id="{{ $data->id_brg_masuk }}" class="dropdown-item hapus_brg_masuk" href="#"><i
                             class="fas fa-trash"></i> Hapus</a>
 
                     <form id="delete_items_{{ $data->id_brg_masuk }}"
-                        action="{{ route('barang_masuk.delete', [$data->id_brg_masuk,$data->tgl_brg_masuk]) }}" method="POST"
-                        class="d-inline">
+                        action="{{ route('barang_masuk.delete', [$data->id_brg_masuk, $data->tgl_brg_masuk]) }}"
+                        method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                     </form>
-                    <a data-toggle="modal" data-target="#modal-update-stok" data-date="{{ $data->tgl_brg_masuk }}"
-                        data-id="{{ $data->id_barang }}" class="dropdown-item perbarui_stok" href="#"><i
-                            class="fas fa-sync-alt"></i> Perbarui
-                        Stok</a>
                 </div>
             </div>
         </td>

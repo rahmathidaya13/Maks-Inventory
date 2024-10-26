@@ -46,7 +46,7 @@
                         is-invalid
                     @enderror" name="password" id="password" placeholder="Password">
                     <div class="input-group-append">
-                        <div class="input-group-text">
+                        <div class="input-group-text password-text">
                             <span class="fas fa-eye password"></span>
                         </div>
                     </div>

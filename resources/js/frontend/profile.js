@@ -3,7 +3,12 @@ $(document).on("click", "#profile-action", function () {
     $.getJSON(`/profile/show/${id}`, function (data) {
         $("#name-user").val(data.result.name);
         $("#email-user").val(data.result.email).prop("readOnly", true);
-        $(".modal-profile").attr("src", "assets/profile/" + data.result.photo);
+        $(".modal-profile").attr(
+            "src",
+            data.result.photo
+                ? "assets/profile/" + data.result.photo
+                : "assets/icon/user.svg"
+        );
     });
 });
 

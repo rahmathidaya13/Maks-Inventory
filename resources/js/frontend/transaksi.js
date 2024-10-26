@@ -101,7 +101,6 @@ $(document).on("input", "#diskon", function () {
 $(document).on("click", ".ubah_transaksi", function (e) {
     e.preventDefault();
     let id = $(this).data("id");
-
     $("#form_transaksi")[0].reset();
     $(".modal-title span").text("Ubah Data Transaksi");
     $(".modal-title i")
@@ -124,12 +123,11 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#nohp").val(data.result.no_handphone);
         $("#alamat").val(data.result.alamat);
         $("#sales").val(data.result.nama_sales);
-        $("#nama_brg_transaksi").val(data.result.nama_barang);
+        $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
         $("#tipe_brg_transaksi").val(data.result.tipe_barang);
         $("#harga_brg_transaksi").val(data.result.harga_barang);
         $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
-        $("#stok").val(data.result.stok);
-        $("#status_pembayaran").val(data.result.status_pembayaran);
+        $("#status_pembayaran").val(data.result.status_pembayaran).trigger("change");
         $("#diskon").val(data.result.diskon);
         $("#pembayaran").val(data.result.pembayaran);
         $("#total_pembayaran").val(data.result.total_pembayaran);

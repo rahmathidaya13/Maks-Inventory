@@ -28,7 +28,6 @@ class TransaksiModel extends Model
         'total_pembayaran',
         'selisih_pembayaran',
         'diskon',
-        'stok',
         'pembayaran',
     ];
     public $incrementing = false;
@@ -37,6 +36,8 @@ class TransaksiModel extends Model
         return $this->belongsTo(BarangModel::class,'id_barang');
     }
     public function stokBarang(){
-        return $this->belongsTo(StokBarangModel::class,'id_barang');
+        return $this->belongsTo(StokBarangModel::class,'id_barang')
+        ->orderBy('created_at', 'desc');
+        ;
     }
 }

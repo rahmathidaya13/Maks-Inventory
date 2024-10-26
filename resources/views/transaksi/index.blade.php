@@ -78,16 +78,16 @@
                 </tbody>
 
             </table>
-            {{-- <div class="d-flex justify-content-between p-3">
+            <div class="d-flex justify-content-between p-3">
                 <div>
-                    Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
-                    <b>{{ $barang_masuk->lastItem() }}</b> dari
-                    <b>{{ $barang_masuk->total() }}</b> item
+                    Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai
+                    <b>{{ $transaksi->lastItem() }}</b> dari
+                    <b>{{ $transaksi->total() }}</b> item
                 </div>
                 <div>
-                    {{ $barang_masuk->links() }}
+                    {{ $transaksi->links() }}
                 </div>
-            </div> --}}
+            </div>
 
         </div>
         <!-- /.card-body -->

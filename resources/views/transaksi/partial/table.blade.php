@@ -37,12 +37,12 @@
                     <a id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
                         data-id="{{ $data->id_transaksi }}" class="dropdown-item ubah_transaksi" href="#"><i
                             class="fas fa-edit"></i> Ubah</a>
+
                     <a data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
                         data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
                         class="dropdown-item hapus_transaksi" href="#"><i class="fas fa-trash"></i> Hapus</a>
                     <form id="delete_transaksi_{{ $data->id_transaksi }}"
-                        action="{{ route('transaksi.delete', $data->id_transaksi) }}"
-                        method="POST" class="d-inline">
+                        action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                     </form>

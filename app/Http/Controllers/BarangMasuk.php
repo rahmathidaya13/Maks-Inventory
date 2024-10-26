@@ -220,7 +220,6 @@ class BarangMasuk extends Controller
             // Simpan stok yang diperbarui
             $stokBarang->save();
         }
-
         return back()->with('success', "Pembaharuan " . request('nama_barang') . " - " . request('tipe_barang_masuk') . " " . "Berhasil diperbaharui");
     }
 
