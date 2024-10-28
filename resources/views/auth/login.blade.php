@@ -9,7 +9,7 @@
     @if ($message = Session::get('success'))
         <div class="alert alert-success alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{ $message }}
+            <i class="fas fa-check"></i> {{ $message }}
         </div>
     @endif
     <div class="card card-outline card-primary">
@@ -29,7 +29,7 @@
                     </div>
                     <input type="email" class="form-control @error('email')
                         is-invalid
-                    @enderror" name="email" id="email" placeholder="Email">
+                    @enderror" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

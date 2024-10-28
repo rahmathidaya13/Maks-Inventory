@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body over overflow-auto" style="height: 450px">
                 <form id="form_transaksi" action="#" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id_barang" id="id_barang">
@@ -103,12 +103,12 @@
                                 value="0">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="diskon">Diskon %</label>
-                            <input readonly type="text" class="form-control" name="diskon" id="diskon">
-                        </div>
-                        <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
                             <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="diskon">Diskon %</label>
+                            <input readonly type="text" class="form-control" name="diskon" id="diskon">
                         </div>
                     </div>
                     <div class="form-row">

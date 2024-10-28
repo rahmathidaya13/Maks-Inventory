@@ -1,3 +1,4 @@
+@section('title', 'Register')
 @include('layouts.header')
 <div class="register-box">
     <div class="card card-outline card-primary">
@@ -17,7 +18,7 @@
                     </div>
                     <input type="text" class="form-control @error('name')
                         is-invalid
-                    @enderror" name="name" id="name" placeholder="Name">
+                    @enderror" name="name" id="name" placeholder="Name" value="{{ old('name') }}">
                     @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -32,7 +33,7 @@
                     </div>
                     <input type="email" class="form-control @error('email')
                         is-invalid
-                    @enderror" name="email" id="email" placeholder="Email">
+                    @enderror" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
