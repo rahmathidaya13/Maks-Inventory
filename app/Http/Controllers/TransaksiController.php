@@ -50,6 +50,7 @@ class TransaksiController extends Controller
                 'total_pembayaran' => 'required|string',
                 'pembayaran' => 'required|string',
                 'selisih' => 'nullable|string',
+                'dp' => 'required|string',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -80,6 +81,7 @@ class TransaksiController extends Controller
                 'status_pembayaran.required' => 'Status pembayaran wajib diisi.',
                 'total_pembayaran.required' => 'Total pembayaran wajib diisi.',
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
+                'dp.required' => 'Dana pertama wajib diisi.',
 
             ]
         );
@@ -90,7 +92,7 @@ class TransaksiController extends Controller
         $total_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran'));
         $selisih_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih'));
         $pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran'));
-
+        $dana_pertama = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dp'));
 
         // save data
         $transaksi = new TransaksiModel();
@@ -111,12 +113,13 @@ class TransaksiController extends Controller
         $transaksi->total_pembayaran = $total_pembayaran;
         $transaksi->pembayaran = $pembayaran;
         $transaksi->selisih_pembayaran = $selisih_pembayaran;
+        $transaksi->dana_pertama = $dana_pertama;
         $transaksi->save();
 
 
 
         $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
-            ->orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
         $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
@@ -185,6 +188,7 @@ class TransaksiController extends Controller
                 'total_pembayaran' => 'required|string',
                 'pembayaran' => 'required|string',
                 'selisih' => 'nullable|string',
+                'dp' => 'required|string',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -215,7 +219,7 @@ class TransaksiController extends Controller
                 'status_pembayaran.required' => 'Status pembayaran wajib diisi.',
                 'total_pembayaran.required' => 'Total pembayaran wajib diisi.',
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
-
+                'dp.required' => 'Dana pertama wajib diisi.',
             ]
         );
 
@@ -224,6 +228,7 @@ class TransaksiController extends Controller
         $total_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran'));
         $selisih_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih'));
         $pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran'));
+        $dana_pertama = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dp'));
 
 
         // update data
@@ -245,19 +250,20 @@ class TransaksiController extends Controller
         $transaksi->total_pembayaran = $total_pembayaran;
         $transaksi->pembayaran = $pembayaran;
         $transaksi->selisih_pembayaran = $selisih_pembayaran;
-        $transaksi->save();
+        $transaksi->dana_pertama = $dana_pertama;
+        $transaksi->update();
 
         // dd($transaksi->jumlah_barang);
         $stokBarang = StokBarangModel::where('id_stok', $request->input('id_stok'))
             ->where('id_barang', $request->input('id_barang'))
-            ->whereDate('tanggal', $request->input('transaksi'))
+            ->whereDate('created_at', 'desc')
             ->first();
         if ($stokBarang) {
             $stokBarang->barang_keluar = $transaksi->jumlah_barang;
             $stokBarang->stok_akhir = $stokBarang->stok_awal - $stokBarang->barang_keluar;
         } else {
             $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
-                ->orderBy('tanggal', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->first();
             $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 

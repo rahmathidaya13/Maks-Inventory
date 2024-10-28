@@ -103,12 +103,12 @@
                                 value="0">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="pembayaran">Pembayaran</label>
-                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
-                        </div>
-                        <div class="form-group col-md-4">
                             <label for="diskon">Diskon %</label>
                             <input readonly type="text" class="form-control" name="diskon" id="diskon">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="pembayaran">Pembayaran</label>
+                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
                         </div>
                     </div>
                     <div class="form-row">

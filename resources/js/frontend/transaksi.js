@@ -87,7 +87,6 @@ $(document).on("change", "#nama_brg_transaksi", function () {
     $("input[name='id_barang']").val(selected.data("id"));
     $("input[name='stok']").val(selected.data("stok"));
     $("input[name='id_stok']").val(selected.data("id-stok"));
-
 });
 
 $(document).on("input", "#pembayaran", function () {
@@ -167,8 +166,10 @@ $(document).on("input", "#jumlah_brg_transaksi", function () {
     $("#total_pembayaran").val(Currency(count));
     if (!jumlah_barang > 0 || !jumlah_barang === "") {
         $("#pembayaran").prop("readonly", true);
+        $("#diskon").prop("readonly", true);
     } else {
         $("#pembayaran").prop("readonly", false);
+        $("#diskon").prop("readonly", false);
     }
 });
 
@@ -180,10 +181,11 @@ $(document).on("change", "#status_pembayaran", function () {
         $("#jumlah_brg_transaksi").prop("readonly", true);
 
         $("#dp").prop("readonly", false);
+        $("#dp").val(0);
         // $("#diskon").prop("readonly", false);
     } else {
         $("#jumlah_brg_transaksi").prop("readonly", false);
-
+        $("#dp").val(0);
         $("#jumlah_brg_transaksi").val("");
         $("#dp").prop("readonly", true);
         // $("#diskon").prop("readonly", true);

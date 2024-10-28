@@ -29,6 +29,7 @@ class TransaksiModel extends Model
         'selisih_pembayaran',
         'diskon',
         'pembayaran',
+        'dana_pertama',
     ];
     public $incrementing = false;
 

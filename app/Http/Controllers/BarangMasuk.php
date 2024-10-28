@@ -79,7 +79,7 @@ class BarangMasuk extends Controller
             // Cari stok untuk barang yang sesuai dengan id_barang dan id_brg_masuk
             $stokBarang = StokBarangModel::where('id_brg_masuk', $barangMasuk->id_brg_masuk)
                 ->where('id_barang', $request->input('id_barang'))
-                ->whereDate('tanggal', $request->input('tgl_brg_masuk'))
+                ->whereDate('created_at', 'desc')
                 ->first();
             if ($stokBarang) {
                 // Jika stok sudah ada, tambahkan jumlah barang masuk
@@ -88,7 +88,7 @@ class BarangMasuk extends Controller
             } else {
                 // Cari stok barang sebelumnya berdasarkan barang terakhir (id_barang)
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
-                    ->orderBy('tanggal', 'desc')
+                    ->orderBy('created_at', 'desc')
                     ->first();
                 // Tentukan stok awal dari stok sebelumnya
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
@@ -200,7 +200,7 @@ class BarangMasuk extends Controller
             } else {
                 // Buat stok baru jika belum ada
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
-                    ->orderBy('tanggal', 'desc')
+                    ->orderBy('created_at', 'desc')
                     ->first();
                 // Tentukan stok awal dari stok sebelumnya
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
