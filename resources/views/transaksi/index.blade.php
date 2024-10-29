@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="ml-2">
-            <button disabled id="delete_all_stok" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+            <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                 Hapus</button>
         </div>
 
@@ -50,7 +50,7 @@
                     <tr>
                         <th class="text-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="select_all_stok" id="select_all_stok">
+                                <input class="form-check-input" type="checkbox" name="select_all_transaksi" id="select_all_transaksi">
                                 <label class="form-check-label"></label>
                             </div>
                         </th>

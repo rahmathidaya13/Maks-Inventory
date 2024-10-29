@@ -21,6 +21,7 @@ class StokBarangModel extends Model
         'stok_akhir',
         'barang_masuk',
         'barang_keluar',
+        'keterangan',
     ];
     public $incrementing = false;
 

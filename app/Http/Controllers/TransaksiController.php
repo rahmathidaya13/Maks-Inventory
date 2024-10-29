@@ -133,6 +133,7 @@ class TransaksiController extends Controller
         $stokBarang->barang_masuk = 0;
         $stokBarang->barang_keluar = $jumlah_barang;
         $stokBarang->stok_akhir = $stokAwal - $jumlah_barang;
+        $stokBarang->keterangan = 'barang terjual';
         $stokBarang->save();
 
 
@@ -251,6 +252,7 @@ class TransaksiController extends Controller
         $transaksi->pembayaran = $pembayaran;
         $transaksi->selisih_pembayaran = $selisih_pembayaran;
         $transaksi->dana_pertama = $dana_pertama;
+
         $transaksi->update();
 
         // dd($transaksi->jumlah_barang);
@@ -277,6 +279,7 @@ class TransaksiController extends Controller
             $stokBarang->barang_masuk = 0;
             $stokBarang->barang_keluar = $transaksi->jumlah_barang;
             $stokBarang->stok_akhir = $stokAwal - $transaksi->jumlah_barang;
+            $stokBarang->keterangan = 'barang terjual';
         }
         $stokBarang->save();
 

@@ -65,18 +65,122 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#sales").val(data.result.nama_sales);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
         $("#tipe_brg_transaksi").val(data.result.tipe_barang);
-        $("#harga_brg_transaksi").val(data.result.harga_barang);
-        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
+        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
+        $("#jumlah_brg_transaksi")
+            .val(data.result.jumlah_barang)
+            .prop("readonly", data.result.jumlah_barang > 0 ? false : true);
         $("#status_pembayaran")
             .val(data.result.status_pembayaran)
             .trigger("change");
-        $("#diskon").val(data.result.diskon);
-        $("#pembayaran").val(data.result.pembayaran);
-        $("#total_pembayaran").val(data.result.total_pembayaran);
-        $("#selisih").val(data.result.selisih_pembayaran);
+        $("#diskon")
+            .val(parseInt(data.result.diskon))
+            .prop("readonly", data.result.diskon > 0 ? false : true);
+        $("#dp").val(Currency(data.result.dana_pertama));
+        $("#pembayaran")
+            .val(Currency(data.result.pembayaran))
+            .prop("readonly", data.result.pembayaran > 0 ? false : true);
+        $("#total_pembayaran").val(Currency(data.result.total_pembayaran));
+        $("#selisih").val(Currency(data.result.selisih_pembayaran));
     });
 });
 
+$(document).on("click", ".hapus_transaksi", function () {
+    let id = $(this).data("id");
+    let customer = $(this).data("customer");
+    let kode = $(this).data("code");
+    let tanggal = ConvertDate($(this).data("date"));
+    let form = $("#delete_transaksi_" + id);
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: "Apakah kamu yakin?",
+        text: `Data transaksi ( ${tanggal} - ${kode} - ${customer} ) akan dihapus!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the form if user confirms
+            form.submit();
+        }
+    });
+});
+
+// trigger button hapus semua item pada tabel
+$(document).on("click", "#select_all_transaksi", function () {
+    $(".selected").prop("checked", $(this).prop("checked"));
+});
+
+$(document).on("click", "#delete_all_transaksi", function (e) {
+    e.preventDefault();
+    let selectedItem = $(".selected:checked");
+    let csrfToken = $('meta[name="csrf-token"]').attr("content");
+    Swal.fire({
+        title: "Apakah Anda yakin?",
+        text: `${selectedItem.length} Item yang dipilih akan dihapus!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (selectedItem.length > 0) {
+                // map to selected item
+                let ids = selectedItem
+                    .map(function () {
+                        return $(this).data("id");
+                    })
+                    .get();
+                $.ajax({
+                    url: "/delete/transaksi",
+                    type: "DELETE",
+                    data: {
+                        ids: ids,
+                        _token: csrfToken,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: `${ids.length} Item berhasil dihapus.`,
+                            showConfirmButton: false,
+                            timer: 1500,
+                        }).then(() => {
+                            location.reload();
+                        });
+                    },
+                    error: function (xhr) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Terjadi kesalahan",
+                            text: "Saat menghapus item.",
+                        });
+                    },
+                });
+            } else {
+                alert("Silakan pilih item yang ingin dihapus.");
+            }
+        }
+    });
+});
+$(document).on("change", ".selected,#select_all_transaksi", function () {
+    // Deteksi perubahan pada checkbox
+    let checked = $(".selected:checked").length;
+    if (checked > 0) {
+        // Jika ada checkbox yang dipilih, aktifkan tombol
+        $("#delete_all_transaksi").prop("disabled", false);
+    } else {
+        // Jika tidak ada checkbox yang dipilih, nonaktifkan tombol
+        $("#delete_all_transaksi").prop("disabled", true);
+    }
+});
+// end trigger button hapus semua
+
+// aksi untuk element input dan select
 $(document).on("change", "#nama_brg_transaksi", function () {
     let selected = $(this).find("option:selected");
     let value = selected.val();
@@ -132,30 +236,6 @@ $(document).on("input", "#diskon", function () {
     }
 });
 
-$(document).on("click", ".hapus_transaksi", function () {
-    let id = $(this).data("id");
-    let customer = $(this).data("customer");
-    let kode = $(this).data("code");
-    let tanggal = ConvertDate($(this).data("date"));
-    let form = $("#delete_transaksi_" + id);
-    // Show SweetAlert confirmation dialog
-    Swal.fire({
-        title: "Apakah kamu yakin?",
-        text: `Data transaksi ( ${tanggal} - ${kode} - ${customer} ) akan dihapus!`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Ya, hapus!",
-        cancelButtonText: "Batal",
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Submit the form if user confirms
-            form.submit();
-        }
-    });
-});
-
 $(document).on("input", "#jumlah_brg_transaksi", function () {
     let jumlah_barang = parseInt($(this).val());
     let harga_barang = parseCurrency($("#harga_brg_transaksi").val());
@@ -177,16 +257,13 @@ $(document).on("change", "#status_pembayaran", function () {
     let selected = $(this).find("option:selected");
     let value = selected.val();
     if (value !== "lunas") {
-        $("#jumlah_brg_transaksi").val(0);
         $("#jumlah_brg_transaksi").prop("readonly", true);
-
         $("#dp").prop("readonly", false);
         $("#dp").val(0);
         // $("#diskon").prop("readonly", false);
     } else {
         $("#jumlah_brg_transaksi").prop("readonly", false);
         $("#dp").val(0);
-        $("#jumlah_brg_transaksi").val("");
         $("#dp").prop("readonly", true);
         // $("#diskon").prop("readonly", true);
     }
@@ -202,3 +279,4 @@ $(document).on("input", "#dp", function () {
         $("#jumlah_brg_transaksi").prop("readonly", true);
     }
 });
+// end aksi untuk element input dan select

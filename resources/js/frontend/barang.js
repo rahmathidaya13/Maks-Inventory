@@ -122,7 +122,6 @@ $(document).on("click", ".hapus", function () {
 $(document).on("click", "#delete_all", function (e) {
     e.preventDefault();
     let selectedItem = $(".selected:checked");
-    console.log(selectedItem);
     let csrfToken = $('meta[name="csrf-token"]').attr("content");
     Swal.fire({
         title: "Apakah Anda yakin?",

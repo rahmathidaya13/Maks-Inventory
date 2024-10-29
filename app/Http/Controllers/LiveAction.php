@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
+use App\Models\StokBarangModel;
+use App\Models\TransaksiModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
@@ -80,5 +82,23 @@ class LiveAction extends Controller
             'X-Content-Type-Options' => 'nosniff',
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
     }
+    public function deleteAllTransactions(Request $request)
+    {
+        $ids = $request->get('ids');
+        TransaksiModel::whereIn('id_transaksi', $ids)->delete();
+        return response()->json(['success' => 'Data transaksi berhasil terhapus'], 200, [
+            'Content-Type' => 'application/json',
+            'X-Content-Type-Options' => 'nosniff',
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+    }
 
+    public function deleteAllStok(Request $request)
+    {
+        $ids = $request->get('ids');
+        StokBarangModel::whereIn('id_stok', $ids)->delete();
+        return response()->json(['success' => 'Data Stok berhasil terhapus'], 200, [
+            'Content-Type' => 'application/json',
+            'X-Content-Type-Options' => 'nosniff',
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+    }
 }
