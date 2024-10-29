@@ -32,7 +32,7 @@
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements
-        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi").on('shown.bs.modal', function() {
+        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang").on('shown.bs.modal', function() {
             $('.select2').select2({
                 dropdownParent: $(this) // This makes it dynamic for the modal that is opened
             });

@@ -68,3 +68,43 @@ $(document).on("click", "#delete_all_stok", function (e) {
         }
     });
 });
+$(document).on("click", "#stok_out, #stok_close", function (e) {
+    e.preventDefault();
+    $("input[name='_method']").remove();
+    $("#stokBarangForm").attr("action", "#");
+    $("#stokBarangForm")[0].reset();
+});
+
+$(document).on("click", "#add_stok_barang", function (e) {
+    e.preventDefault();
+    $("#stokBarangForm")[0].reset();
+    $(".modal-title span").text("Buat Stok Baru");
+    $(".modal-title i")
+        .removeClass("fas fa-edit")
+        .addClass("fas fa-plus-square");
+    $("#stok_save span").text("Simpan");
+    $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
+    $("#stokBarangForm").attr("action", "/stok/store");
+    $("input[name='_method']").remove();
+});
+
+$(document).on("change", "#nama_barang", function () {
+    let selected = $(this).find("option:selected");
+    let getId = selected.data("id");
+    let getFirstStok = selected.data("first-stok");
+    let getLastStok = selected.data("last-stok");
+    let stok_in = selected.data("stok-in");
+    let stok_out = selected.data("stok-out");
+    // $("input[name='id_barang']").val(selected.data("id"));
+
+    $("#tipe_barang").val("");
+    $("#tipe_barang option").each(function () {
+        if ($(this).data("id") === getId) {
+            $(this).prop("selected", true).trigger("change");
+        }
+    });
+    $("#stok_awal").val(getFirstStok ?? 0);
+    $("#stok_akhir").val(getLastStok ?? 0);
+    $("#brg_masuk").val(stok_in ?? 0);
+    $("#brg_keluar").val(stok_out ?? 0);
+});

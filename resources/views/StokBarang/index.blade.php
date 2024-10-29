@@ -92,4 +92,5 @@
         </div>
     </div>
 </div>
+@include('StokBarang.modal.stokForm')
 @endsection
