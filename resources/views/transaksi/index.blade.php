@@ -58,19 +58,14 @@
                         <th>Tanggal</th>
                         <th>Kode Transaksi</th>
                         <th>Konsumen</th>
-                        <th>No. Handphone</th>
-                        <th>Alamat</th>
                         <th>Sales</th>
                         <th>Barang</th>
                         <th>Tipe Barang</th>
                         <th>Jumlah Barang</th>
                         <th>Harga Barang</th>
                         <th>Status Pembayaran</th>
-                        <th>Diskon</th>
-                        <th>Pembayaran</th>
                         <th>Total Bayar</th>
-                        <th>Selisih Pembayaran</th>
-                        <th>Aksi</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

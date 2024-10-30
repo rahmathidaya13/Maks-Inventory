@@ -16,36 +16,40 @@
         <td class="align-middle">{{ \Carbon\Carbon::parse($data->tgl_transaksi)->translatedFormat('l, d F Y') }}</td>
         <td class="align-middle">{{ $data->kode_transaksi }}</td>
         <td class="align-middle">{{ $data->nama_konsumen }}</td>
-        <td class="align-middle">{{ $data->no_handphone }}</td>
-        <td class="text-wrap align-middle">{{ $data->alamat }}</td>
         <td class="align-middle">{{ $data->nama_sales }}</td>
         <td class="text-wrap align-middle">{{ $data->nama_barang }}</td>
         <td class="align-middle">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
         <td class="align-middle">{{ $data->status_pembayaran }}</td>
-        <td class="text-center align-middle">{{ $data->diskon }}</td>
-        <td class="align-middle">{{ 'Rp ' . number_format((int) $data->pembayaran, 0, ',', '.') }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->total_pembayaran, 0, ',', '.') }}</td>
-        <td class="align-middle">{{ 'Rp ' . number_format((int) $data->selisih_pembayaran, 0, ',', '.') }}</td>
         <td class="align-middle">
-            <div class="dropdown">
-                <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
-                <div class="dropdown-menu">
-                    <a id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
-                        data-id="{{ $data->id_transaksi }}" class="dropdown-item ubah_transaksi" href="#"><i
-                            class="fas fa-edit"></i> Ubah</a>
+            <div class="d-flex justify-content-between">
+                @if ($data->status_pembayaran !== 'lunas')
+                    <button class="btn btn-primary btn-sm mx-0" type="button">
+                        Pelunasan
+                    </button>
+                @endif
+                <div class="dropdown">
+                    <button class="btn btn-info btn-sm mx-1" type="button" data-toggle="dropdown"
+                        aria-expanded="false">
+                        Detail
+                    </button>
+                    <div class="dropdown-menu">
+                        <a id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
+                            data-id="{{ $data->id_transaksi }}" class="dropdown-item ubah_transaksi" href="#"><i
+                                class="fas fa-edit"></i> Ubah</a>
 
-                    <a data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
-                        data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
-                        class="dropdown-item hapus_transaksi" href="#"><i class="fas fa-trash"></i> Hapus</a>
-                    <form id="delete_transaksi_{{ $data->id_transaksi }}"
-                        action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                    </form>
+                        <a data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
+                            data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
+                            class="dropdown-item hapus_transaksi" href="#"><i class="fas fa-trash"></i> Hapus</a>
+                        <form id="delete_transaksi_{{ $data->id_transaksi }}"
+                            action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST"
+                            class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
                 </div>
             </div>
         </td>

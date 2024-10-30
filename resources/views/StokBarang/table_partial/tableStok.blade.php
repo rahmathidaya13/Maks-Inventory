@@ -13,7 +13,7 @@
             </div>
         </td>
         <td>{{ $startNumbering + $loop->iteration }}</td>
-        <td>{{ \Carbon\Carbon::parse($data->created_at)->translatedFormat('l, d F Y, H:i') }}</td>
+        <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
         <td>{{ $data->nama_barang }}</td>
         <td>{{ $data->tipe_barang }}</td>
         <td class="text-center">{{ $data->stok_awal }}</td>
