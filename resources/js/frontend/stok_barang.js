@@ -108,3 +108,49 @@ $(document).on("change", "#nama_barang", function () {
     $("#brg_masuk").val(stok_in ?? 0);
     $("#brg_keluar").val(stok_out ?? 0);
 });
+
+$(document).on("click", ".ubah_stok", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+    $("#stokBarangForm")[0].reset();
+    $(".modal-title span").text("Ubah Data Stok");
+    $(".modal-title i")
+        .removeClass("fas fa-plus-square")
+        .addClass("fas fa-edit ");
+    $("#stok_save span").text("Ubah");
+    $("#stok_save i").removeClass("fas fa-save").addClass("fas fa-edit");
+    $("#stokBarangForm").attr("action", `/stok/update/${id}`);
+    $("#stokBarangForm").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
+    console.log(id);
+    $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
+        $("#id_barang").val(data.result.id_barang);
+        $("#tgl").val(data.result.tanggal);
+        $("#nama_barang").val(data.result.nama_barang).trigger("change");
+        $("#tipe_barang").val(data.result.tipe_barang).trigger("change");
+        $("#jumlah_barang").val(data.result.stok_akhir);
+        $("#keterangan").val(data.result.keterangan);
+    });
+});
+
+$(document).on("click", ".hapus_stok", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+    let form = $(`#delete_stok_${id}`);
+    Swal.fire({
+        title: "Apakah kamu yakin?",
+        text: `Data Stok ini akan dihapus!`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya, hapus!",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Submit the form if user confirms
+            form.submit();
+        }
+    });
+});

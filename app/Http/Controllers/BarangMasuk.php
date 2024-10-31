@@ -84,7 +84,7 @@ class BarangMasuk extends Controller
                 ->first();
             if ($stokBarang) {
                 // Jika stok sudah ada, tambahkan jumlah barang masuk
-                $stokBarang->barang_masuk += $request->input('jumlah_brg');
+                $stokBarang->barang_masuk = $request->input('jumlah_brg');
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             } else {
                 // Cari stok barang sebelumnya berdasarkan barang terakhir (id_barang)

@@ -51,6 +51,7 @@ class TransaksiController extends Controller
                 'pembayaran' => 'required|string',
                 'selisih' => 'nullable|string',
                 'dp' => 'required|string',
+                'status_transaksi' => 'required|string',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -82,6 +83,7 @@ class TransaksiController extends Controller
                 'total_pembayaran.required' => 'Total pembayaran wajib diisi.',
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
                 'dp.required' => 'Dana pertama wajib diisi.',
+                'status_transaksi.required' => 'Transkasi belum dipilih',
 
             ]
         );
@@ -114,6 +116,7 @@ class TransaksiController extends Controller
         $transaksi->pembayaran = $pembayaran;
         $transaksi->selisih_pembayaran = $selisih_pembayaran;
         $transaksi->dana_pertama = $dana_pertama;
+        $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->save();
 
 
@@ -176,9 +179,39 @@ class TransaksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function repayment(Request $request, string $id)
     {
-        //
+
+        $dp = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dana_pertama'));
+        $total_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran'));
+        $selisih_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih_pembayaran'));
+        $pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran'));
+
+
+        $transaksi = TransaksiModel::where('id_transaksi', $id)->first();
+
+        $pelunasan = TransaksiModel::findOrFail($id);
+        $pelunasan->id_barang = $transaksi->id_barang;
+        $pelunasan->id_stok = $transaksi->id_stok;
+        $pelunasan->tgl_transaksi = $request->input('tgl_pelunasan');
+        $pelunasan->kode_transaksi = $request->input('kode_transaksi');
+        $pelunasan->nama_konsumen = $request->input('konsumen');
+        $pelunasan->no_handphone = $request->input('hp');
+        $pelunasan->alamat = $request->input('alamat');
+        $pelunasan->nama_sales = $transaksi->nama_sales;
+        $pelunasan->nama_barang = $transaksi->nama_barang;
+        $pelunasan->tipe_barang = $transaksi->tipe_barang;
+        $pelunasan->diskon = $transaksi->diskon;
+        $pelunasan->jumlah_barang = $transaksi->jumlah_barang;
+        $pelunasan->harga_barang = $transaksi->harga_barang;
+        $pelunasan->status_pembayaran = $request->input('sttus_pembayaran');
+        $pelunasan->total_pembayaran = $total_pembayaran;
+        $pelunasan->pembayaran = $pembayaran;
+        $pelunasan->selisih_pembayaran = $selisih_pembayaran;
+        $pelunasan->dana_pertama = $dp;
+        $pelunasan->status_transaksi = $request->input('stts_transaksi');
+        $pelunasan->update();
+        return back()->with('success', 'Pelunasan Berhasil Dibuat');
     }
 
     /**
@@ -271,7 +304,7 @@ class TransaksiController extends Controller
         $transaksi->pembayaran = $pembayaran;
         $transaksi->selisih_pembayaran = $selisih_pembayaran;
         $transaksi->dana_pertama = $dana_pertama;
-
+        $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->update();
 
         // dd($transaksi->jumlah_barang);

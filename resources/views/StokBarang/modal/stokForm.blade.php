@@ -1,6 +1,6 @@
 <div class="modal fade" id="staticBackdrop_stok_barang" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content bg-light">
             <div class="modal-header">
                 <h4 class="modal-title"><i></i> <span></span></h4>
@@ -12,13 +12,13 @@
                 <form id="stokBarangForm" action="#" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id_barang" id="id_barang">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                    <div class="">
+                        <div class="form-group">
                             <label for="tgl">Tanggal</label>
                             <input type="date" class="form-control" name="tgl" id="tgl"
                                 value="{{ old('tgl') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group">
                             <label for="nama_barang">Nama Barang</label>
                             <select class="form-control select2" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Nama Barang</option>
@@ -35,7 +35,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group">
                             <label for="tipe_barang">Tipe Barang</label>
                             <select class="form-control select2" name="tipe_barang" id="tipe_barang">
                                 <option value="">Pilih Tipe Barang</option>
@@ -45,34 +45,17 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="stok_awal">Stok Awal</label>
-                            <input type="text" class="form-control" name="stok_awal" id="stok_awal"
-                                value="{{ old('stok_awal') }}">
+
+                        <div class="form-group">
+                            <label for="jumlah_barang">Jumlah Barang</label>
+                            <input type="text" class="form-control" name="jumlah_barang" id="jumlah_barang"
+                                value="{{ old('jumlah_barang') }}">
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="barang_masuk">Barang Masuk</label>
-                            <input type="text" class="form-control" name="barang_masuk" id="barang_masuk"
-                                value="{{ old('barang_masuk') }}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="barang_keluar">Barang Keluar</label>
-                            <input type="text" class="form-control" name="barang_keluar" id="barang_keluar"
-                                value="{{ old('barang_keluar') }}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="stok_akhir">Stok Akhir</label>
-                            <input type="text" class="form-control" name="stok_akhir" id="stok_akhir"
-                                value="{{ old('stok_akhir') }}">
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group">
                             <label for="keterangan">Keterangan</label>
                             <input type="text" class="form-control" name="keterangan" id="keterangan"
                                 value="{{ old('keterangan') }}">
                         </div>
-
                     </div>
 
                 </form>

@@ -280,3 +280,20 @@ $(document).on("input", "#dp", function () {
     }
 });
 // end aksi untuk element input dan select
+
+$(document).on("click",".pelunasan", function () {
+    let id = $(this).data("id");
+    $("#pelunasan")[0].reset();
+    $("#pelunasan").attr("action", `/transaksi/repayment/${id}`);
+    $.getJSON(`/transaksi/detail/${id}`,
+        function (data, textStatus, jqXHR) {
+            console.log(data);
+            $("input[name=konsumen]").val(data.result.nama_konsumen).prop("readonly", true);
+            $("input[name=hp]").val(data.result.no_handphone).prop("readonly", true)
+            $("input[name=alamat]").val(data.result.alamat).prop("readonly", true)
+            $("input[name=dana_pertama]").val(Currency(data.result.dana_pertama)).prop("readonly", true)
+            $("input[name=total_pembayaran]").val(Currency(data.result.total_pembayaran)).prop("readonly", true)
+            $("input[name=selisih_pembayaran]").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true)
+        }
+    );
+});

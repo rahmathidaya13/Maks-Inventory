@@ -51,13 +51,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/stok', 'index')->name('stok.index');
         Route::post('/stok/store', 'store')->name('stok.store');
         Route::put('/stok/update/{id}', 'update')->name('stok.update');
-        Route::get('/stok/detail/{id}/{date}', 'show')->name('stok.show');
+        Route::get('/stok/detail/{id}', 'show')->name('stok.show');
         Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete');
     });
     Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', 'index')->name('transaksi.index');
         Route::post('/transaksi/store', 'store')->name('transaksi.store');
         Route::put('/transaksi/update/{id}', 'update')->name('transaksi.update');
+        Route::put('/transaksi/repayment/{id}', 'repayment')->name('transaksi.repayment');
         Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
         Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
     });

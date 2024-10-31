@@ -88,4 +88,5 @@
         <!-- /.card-body -->
     </div>
     @include('transaksi.modal.formTransaksi')
+    @include('transaksi.modal.formPelunasan')
 @endsection

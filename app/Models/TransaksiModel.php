@@ -30,15 +30,17 @@ class TransaksiModel extends Model
         'diskon',
         'pembayaran',
         'dana_pertama',
+        'status_transaksi',
     ];
     public $incrementing = false;
 
-    public function barang(){
-        return $this->belongsTo(BarangModel::class,'id_barang');
+    public function barang()
+    {
+        return $this->belongsTo(BarangModel::class, 'id_barang');
     }
-    public function stokBarang(){
-        return $this->belongsTo(StokBarangModel::class,'id_barang')
-        ->orderBy('created_at', 'desc');
-        ;
+    public function stokBarang()
+    {
+        return $this->belongsTo(StokBarangModel::class, 'id_barang')
+            ->orderBy('created_at', 'desc');;
     }
 }

@@ -21,12 +21,18 @@
         <td class="align-middle">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
-        <td class="align-middle">{{ $data->status_pembayaran }}</td>
+        <td class="align-middle text-center">
+            @if ($data->status_pembayaran == 'lunas')
+                <span class="badge badge-success">{{ ucwords($data->status_pembayaran) }}</span>
+            @else
+                <span class="badge badge-danger">{{ ucwords($data->status_pembayaran) }}</span>
+            @endif
+        </td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->total_pembayaran, 0, ',', '.') }}</td>
         <td class="align-middle">
             <div class="d-flex justify-content-between">
                 @if ($data->status_pembayaran !== 'lunas')
-                    <button class="btn btn-primary btn-sm mx-0" type="button">
+                    <button data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan" type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan">
                         Pelunasan
                     </button>
                 @endif

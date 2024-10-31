@@ -90,13 +90,21 @@
                             <input readonly type="text" class="form-control" name="dp" id="dp">
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
-                            <input readonly type="text" class="form-control" name="jumlah_brg_transaksi"
-                                id="jumlah_brg_transaksi">
+                            <label for="status_transaksi">Status Transaksi</label>
+                            <select class="form-control" name="status_transaksi" id="status_transaksi">
+                                <option value="">Pilih Status Transaksi</option>
+                                <option value="tunai">Tunai</option>
+                                <option value="non tunai">Non Tunai</option>
+                            </select>
                         </div>
 
                     </div>
                     <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
+                            <input readonly type="text" class="form-control" name="jumlah_brg_transaksi"
+                                id="jumlah_brg_transaksi">
+                        </div>
                         <div class="form-group col-md-4">
                             <label for="stok">Stok</label>
                             <input readonly type="text" class="form-control" name="stok" id="stok"
@@ -106,12 +114,12 @@
                             <label for="diskon">Diskon %</label>
                             <input readonly type="text" class="form-control" name="diskon" id="diskon">
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
                             <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
                             <input readonly type="text" class="form-control" name="total_pembayaran"
