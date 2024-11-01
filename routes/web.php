@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasuk;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\LiveAction;
@@ -46,6 +47,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/barang_masuk/update/{id}', 'update')->name('barang_masuk.update');
         Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show');
         Route::delete('/barang_masuk/delete/{id}/{date}', 'destroy')->name('barang_masuk.delete');
+    });
+    Route::controller(BarangKeluarController::class)->group(function () {
+        Route::get('/barang_keluar', 'index')->name('barang_keluar.index');
     });
     Route::controller(StokBarangController::class)->group(function () {
         Route::get('/stok', 'index')->name('stok.index');

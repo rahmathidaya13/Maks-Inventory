@@ -28,6 +28,7 @@ function parseCurrency(value) {
 $(document).on("click", "#add_transaksi", function (e) {
     e.preventDefault();
     $("#form_transaksi")[0].reset();
+    $("#pelunasan")[0].reset();
     $(".modal-title span").text("Buat Transaksi");
     $(".modal-title i")
         .removeClass("fas fa-edit")
@@ -42,6 +43,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
     e.preventDefault();
     let id = $(this).data("id");
     $("#form_transaksi")[0].reset();
+    $("#pelunasan")[0].reset();
     $(".modal-title span").text("Ubah Data Transaksi");
     $(".modal-title i")
         .removeClass("fas fa-plus-square")
@@ -71,6 +73,9 @@ $(document).on("click", ".ubah_transaksi", function (e) {
             .prop("readonly", data.result.jumlah_barang > 0 ? false : true);
         $("#status_pembayaran")
             .val(data.result.status_pembayaran)
+            .trigger("change");
+        $("#status_transaksi")
+            .val(data.result.status_transaksi)
             .trigger("change");
         $("#diskon")
             .val(parseInt(data.result.diskon))
@@ -107,6 +112,19 @@ $(document).on("click", ".hapus_transaksi", function () {
         }
     });
 });
+
+$(document).on(
+    "click",
+    "#act_close_pelunasan, #keluar_pelunasan, #act_close_keluar,#keluar_transaksi",
+    function (e) {
+        e.preventDefault();
+        $("#form_transaksi")[0].reset();
+        $("#pelunasan")[0].reset();
+        $("#pelunasan").attr("action", "#");
+        $("#form_transaksi").attr("action", "#");
+        $("input[name='_method']").remove();
+    }
+);
 
 // trigger button hapus semua item pada tabel
 $(document).on("click", "#select_all_transaksi", function () {
@@ -196,7 +214,8 @@ $(document).on("change", "#nama_brg_transaksi", function () {
 $(document).on("input", "#pembayaran", function () {
     let pembayaran = parseCurrency($(this).val());
     let total_pembayaran = parseCurrency($("#total_pembayaran").val());
-
+    let dp = $("#dp").val();
+    console.log(object);
     // Hilangkan format mata uang dan lakukan operasi pengurangan
     let selisih = total_pembayaran - pembayaran;
     // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
@@ -229,11 +248,11 @@ $(document).on("input", "#diskon", function () {
     let hargaDiskon = hasil - hasil * (diskon / 100);
     $("#total_pembayaran").val(Currency(hargaDiskon));
     console.log(hargaDiskon);
-    if ($(this).val().length > 0) {
-        $("#pembayaran").prop("readonly", false);
-    } else {
-        $("#pembayaran").prop("readonly", true);
-    }
+    // if ($(this).val().length > 0) {
+    //     $("#pembayaran").prop("readonly", false);
+    // } else {
+    //     $("#pembayaran").prop("readonly", true);
+    // }
 });
 
 $(document).on("input", "#jumlah_brg_transaksi", function () {
@@ -244,27 +263,23 @@ $(document).on("input", "#jumlah_brg_transaksi", function () {
     count = isNaN(count) ? 0 : count;
     $("#hasil").val(Currency(count));
     $("#total_pembayaran").val(Currency(count));
-    if (!jumlah_barang > 0 || !jumlah_barang === "") {
-        $("#pembayaran").prop("readonly", true);
-        $("#diskon").prop("readonly", true);
-    } else {
-        $("#pembayaran").prop("readonly", false);
-        $("#diskon").prop("readonly", false);
-    }
+    // if (!jumlah_barang > 0 || !jumlah_barang === "") {
+    //     $("#pembayaran").prop("readonly", true);
+    //     $("#diskon").prop("readonly", true);
+    // } else {
+    //     $("#pembayaran").prop("readonly", false);
+    //     $("#diskon").prop("readonly", false);
+    // }
 });
 
 $(document).on("change", "#status_pembayaran", function () {
     let selected = $(this).find("option:selected");
     let value = selected.val();
     if (value !== "lunas") {
-        $("#jumlah_brg_transaksi").prop("readonly", true);
-        $("#dp").prop("readonly", false);
         $("#dp").val(0);
         // $("#diskon").prop("readonly", false);
     } else {
-        $("#jumlah_brg_transaksi").prop("readonly", false);
         $("#dp").val(0);
-        $("#dp").prop("readonly", true);
         // $("#diskon").prop("readonly", true);
     }
 });
@@ -273,27 +288,40 @@ $(document).on("input", "#dp", function () {
     let value = $(this).val();
     let formated = value.replace(/[^,\d]/g, "");
     $(this).val(Currency(formated));
-    if (value.length > 0) {
-        $("#jumlah_brg_transaksi").prop("readonly", false);
-    } else {
-        $("#jumlah_brg_transaksi").prop("readonly", true);
-    }
+    console.log(formated);
 });
 // end aksi untuk element input dan select
 
-$(document).on("click",".pelunasan", function () {
+$(document).on("click", ".pelunasan", function () {
     let id = $(this).data("id");
+    $("#form_transaksi")[0].reset();
     $("#pelunasan")[0].reset();
     $("#pelunasan").attr("action", `/transaksi/repayment/${id}`);
-    $.getJSON(`/transaksi/detail/${id}`,
-        function (data, textStatus, jqXHR) {
-            console.log(data);
-            $("input[name=konsumen]").val(data.result.nama_konsumen).prop("readonly", true);
-            $("input[name=hp]").val(data.result.no_handphone).prop("readonly", true)
-            $("input[name=alamat]").val(data.result.alamat).prop("readonly", true)
-            $("input[name=dana_pertama]").val(Currency(data.result.dana_pertama)).prop("readonly", true)
-            $("input[name=total_pembayaran]").val(Currency(data.result.total_pembayaran)).prop("readonly", true)
-            $("input[name=selisih_pembayaran]").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true)
-        }
-    );
+    $("#pelunasan").prepend('<input type="hidden" name="_method" value="PUT">');
+    $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
+        console.log(data);
+        $("#id_barang").val(data.result.id_barang);
+        $("#id_stok").val(data.result.id_stok);
+        $("#transaksi").val(data.result.tgl_transaksi);
+        $("#kode_transaksi").val(data.result.kode_transaksi);
+        $("#nama_konsumen").val(data.result.nama_konsumen);
+        $("#nohp").val(data.result.no_handphone);
+        $("#alamat").val(data.result.alamat);
+        $("#sales").val(data.result.nama_sales);
+        $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
+        $("#tipe_brg_transaksi").val(data.result.tipe_barang);
+        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
+        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
+        $("#status_pembayaran")
+            .val(data.result.status_pembayaran)
+            .trigger("change");
+        $("#status_transaksi")
+            .val(data.result.status_transaksi)
+            .trigger("change");
+        $("#diskon").val(parseInt(data.result.diskon));
+        $("#dp").val(Currency(data.result.dana_pertama));
+        $("#pembayaran").val(0);
+        $("#total_pembayaran").val(Currency(data.result.total_pembayaran));
+        $("#selisih").val(Currency(data.result.selisih_pembayaran));
+    });
 });

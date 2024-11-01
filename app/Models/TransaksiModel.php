@@ -43,4 +43,7 @@ class TransaksiModel extends Model
         return $this->belongsTo(StokBarangModel::class, 'id_barang')
             ->orderBy('created_at', 'desc');;
     }
+    public function barangkeluar(){
+        return $this->hasMany(BarangKeluarModel::class, 'id_barang_keluar');
+    }
 }

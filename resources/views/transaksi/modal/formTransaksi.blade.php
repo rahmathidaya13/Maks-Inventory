@@ -4,7 +4,7 @@
         <div class="modal-content bg-light">
             <div class="modal-header">
                 <h4 class="modal-title"><i></i> <span></span></h4>
-                <button id="act_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="act_close_keluar" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -86,8 +86,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="dp">Dana Pertama (DP)</label>
-                            <input readonly type="text" class="form-control" name="dp" id="dp">
+                            <label for="dp">Dana Pertama (DP) - Min: 50%</label>
+                            <input type="text" class="form-control" name="dp" id="dp" value="{{ old('dp') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="status_transaksi">Status Transaksi</label>
@@ -102,34 +102,34 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="jumlah_brg_transaksi">Jumlah Barang</label>
-                            <input readonly type="text" class="form-control" name="jumlah_brg_transaksi"
-                                id="jumlah_brg_transaksi">
+                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
+                                id="jumlah_brg_transaksi" value="{{ old('jumlah_brg_transaksi') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="stok">Stok</label>
                             <input readonly type="text" class="form-control" name="stok" id="stok"
-                                value="0">
+                                value="{{ old('stok') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="diskon">Diskon %</label>
-                            <input readonly type="text" class="form-control" name="diskon" id="diskon">
+                            <input type="text" class="form-control" name="diskon" id="diskon" value="{{ old('diskon') }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
-                            <input readonly type="text" class="form-control" name="pembayaran" id="pembayaran">
+                            <input type="text" class="form-control" name="pembayaran" id="pembayaran" value="{{ old('pembayaran') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
                             <input readonly type="text" class="form-control" name="total_pembayaran"
-                                id="total_pembayaran">
+                                id="total_pembayaran" value="{{ old('total_pembayaran') }}">
                             <input type="hidden" id="hasil">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="selisih">Selisih Pembayaran</label>
                             <input readonly type="text" class="form-control" name="selisih" id="selisih"
-                                value="0">
+                                value="{{ old('selisih') }}">
                         </div>
                     </div>
                 </form>

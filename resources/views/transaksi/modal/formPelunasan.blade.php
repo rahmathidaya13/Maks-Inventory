@@ -4,14 +4,13 @@
         <div class="modal-content bg-light">
             <div class="modal-header">
                 <h4 class="modal-title"><i></i> <span>Pelunasan</span></h4>
-                <button id="act_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="act_close_pelunasan" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body over overflow-auto" style="height: 450px">
                 <form action="#" method="POST" role="form" id="pelunasan">
                     @csrf
-                    @method('PUT')
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="tgl_pelunasan">Tgl. Pelunasan</label>
@@ -81,7 +80,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="keluar_transaksi" type="button" class="btn btn-default"
+                <button id="keluar_pelunasan" type="button" class="btn btn-default"
                     data-dismiss="modal">keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('pelunasan').submit();"
                     id="transaksi_aksi" type="button" class="btn btn-primary"><i class="fas fa-edit"></i>

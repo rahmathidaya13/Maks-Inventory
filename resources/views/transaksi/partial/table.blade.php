@@ -32,7 +32,7 @@
         <td class="align-middle">
             <div class="d-flex justify-content-between">
                 @if ($data->status_pembayaran !== 'lunas')
-                    <button data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan" type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan">
+                    <button data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan" type="button" data-toggle="modal" data-target="#staticBackdrop_transaksi">
                         Pelunasan
                     </button>
                 @endif

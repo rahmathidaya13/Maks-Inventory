@@ -74,7 +74,7 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link">
+                      <a href="{{ route('barang_keluar.index') }}" class="nav-link {{ Route::is('barang_keluar.index') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-truck-loading"></i>
                           <p>
                               Barang Keluar
