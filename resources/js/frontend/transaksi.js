@@ -214,17 +214,17 @@ $(document).on("change", "#nama_brg_transaksi", function () {
 $(document).on("input", "#pembayaran", function () {
     let pembayaran = parseCurrency($(this).val());
     let total_pembayaran = parseCurrency($("#total_pembayaran").val());
-    let dp = $("#dp").val();
-    console.log(object);
-    // Hilangkan format mata uang dan lakukan operasi pengurangan
-    let selisih = total_pembayaran - pembayaran;
-    // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
-    if (selisih < 0) {
-        selisih = 0;
-    }
-    // Pastikan jika selisih NaN atau tidak valid, di-set ke 0
-    selisih = isNaN(selisih) ? 0 : selisih;
-    $("input[name='selisih']").val(Currency(selisih));
+    // let dp = $("#dp").val();
+    // // // Hilangkan format mata uang dan lakukan operasi pengurangan
+    // // let selisih = total_pembayaran - pembayaran;
+    // // // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
+    // // if (selisih < 0) {
+    // //     selisih = 0;
+    // // }
+    // // Pastikan jika selisih NaN atau tidak valid, di-set ke 0
+    // selisih = isNaN(selisih) ? 0 : selisih;
+    // $("input[name='selisih']").val(Currency(selisih));
+    $(this).val(Currency(pembayaran));
 });
 
 // ubah format input text hanya bisa terima angka saja
@@ -235,24 +235,26 @@ $("#jumlah_brg_transaksi,#stok,#diskon,#harga_diskon,#dp").on(
     }
 );
 
-$(document).on("keyup", "#pembayaran", function () {
-    let value = $(this).val();
-    let formated = value.replace(/[^,\d]/g, "");
-    $(this).val(Currency(formated));
-    console.log(value);
-});
+// $(document).on("keyup", "#pembayaran", function () {
+//     let value = $(this).val();
+//     let formated = value.replace(/[^,\d]/g, "");
+//     $(this).val(Currency(formated));
+// });
 
 $(document).on("input", "#diskon", function () {
     let diskon = parseCurrency($(this).val());
     let hasil = parseCurrency($("#hasil").val());
+    let dp = parseCurrency($("#dp").val());
     let hargaDiskon = hasil - hasil * (diskon / 100);
+
     $("#total_pembayaran").val(Currency(hargaDiskon));
+
+    let selisih = hargaDiskon - dp;
+    if (selisih < 0 || diskon === 0) {
+        selisih = 0;
+    }
+    $("#selisih").val(Currency(selisih));
     console.log(hargaDiskon);
-    // if ($(this).val().length > 0) {
-    //     $("#pembayaran").prop("readonly", false);
-    // } else {
-    //     $("#pembayaran").prop("readonly", true);
-    // }
 });
 
 $(document).on("input", "#jumlah_brg_transaksi", function () {
@@ -277,18 +279,34 @@ $(document).on("change", "#status_pembayaran", function () {
     let value = selected.val();
     if (value !== "lunas") {
         $("#dp").val(0);
-        // $("#diskon").prop("readonly", false);
+        $("#dp").prop("readonly", false);
+        $("#selisih").val(0);
     } else {
         $("#dp").val(0);
-        // $("#diskon").prop("readonly", true);
+        $("#dp").prop("readonly", true);
+        $("#selisih").val(0);
     }
 });
 
 $(document).on("input", "#dp", function () {
-    let value = $(this).val();
-    let formated = value.replace(/[^,\d]/g, "");
-    $(this).val(Currency(formated));
-    console.log(formated);
+    let dpValue = $(this).val();
+    let dpFormatted = parseCurrency(dpValue); // Mengonversi input ke format angka
+
+    let total_pembayaran = parseCurrency($("#total_pembayaran").val()); // Mengambil total pembayaran dalam format angka
+
+    // Menghitung selisih antara total pembayaran dan DP
+    let count = total_pembayaran - dpFormatted;
+    if (dpFormatted === 0) {
+        count = isNaN(count) ? count : 0;
+    } else {
+        count = isNaN(count) ? 0 : count;
+    }
+    console.log(count);
+    // Format kembali nilai DP dan selisih sebelum menampilkan
+    $(this).val(Currency(dpFormatted)); // Format DP sebagai mata uang
+    $("#selisih").val(Currency(count)); // Tampilkan selisih yang diformat sebagai mata uang
+
+    console.log(count);
 });
 // end aksi untuk element input dan select
 
@@ -302,24 +320,22 @@ $(document).on("click", ".pelunasan", function () {
         console.log(data);
         $("#id_barang").val(data.result.id_barang);
         $("#id_stok").val(data.result.id_stok);
-        $("#transaksi").val(data.result.tgl_transaksi);
-        $("#kode_transaksi").val(data.result.kode_transaksi);
-        $("#nama_konsumen").val(data.result.nama_konsumen);
-        $("#nohp").val(data.result.no_handphone);
-        $("#alamat").val(data.result.alamat);
-        $("#sales").val(data.result.nama_sales);
+        $("#nama_konsumen").val(data.result.nama_konsumen).prop("readOnly", true);
+        $("#nohp").val(data.result.no_handphone).prop("readOnly", true);
+        $("#alamat").val(data.result.alamat).prop("readOnly", true);
+        $("#sales").val(data.result.nama_sales).prop("readOnly", true);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
-        $("#tipe_brg_transaksi").val(data.result.tipe_barang);
-        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
-        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
+        $("#tipe_brg_transaksi").val(data.result.tipe_barang).prop("readOnly", true);
+        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang)).prop("readOnly", true);
+        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang).prop("readOnly", true);
         $("#status_pembayaran")
             .val(data.result.status_pembayaran)
             .trigger("change");
         $("#status_transaksi")
             .val(data.result.status_transaksi)
             .trigger("change");
-        $("#diskon").val(parseInt(data.result.diskon));
-        $("#dp").val(Currency(data.result.dana_pertama));
+        $("#diskon").val(parseInt(data.result.diskon)).prop("readOnly", true);
+        $("#dp").val(Currency(data.result.dana_pertama)).prop("readOnly", true);
         $("#pembayaran").val(0);
         $("#total_pembayaran").val(Currency(data.result.total_pembayaran));
         $("#selisih").val(Currency(data.result.selisih_pembayaran));

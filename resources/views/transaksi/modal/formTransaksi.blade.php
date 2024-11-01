@@ -86,9 +86,18 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="dp">Dana Pertama (DP) - Min: 50%</label>
-                            <input type="text" class="form-control" name="dp" id="dp" value="{{ old('dp') }}">
+                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
+                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
+                                id="jumlah_brg_transaksi" value="{{ old('jumlah_brg_transaksi') }}">
                         </div>
+                        <div class="form-group col-md-4">
+                            <label for="dp">Dana Pertama (DP) - Min: 50%</label>
+                            <input type="text" class="form-control" name="dp" id="dp"
+                                value="{{ old('dp') }}">
+                        </div>
+
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="status_transaksi">Status Transaksi</label>
                             <select class="form-control" name="status_transaksi" id="status_transaksi">
@@ -97,14 +106,6 @@
                                 <option value="non tunai">Non Tunai</option>
                             </select>
                         </div>
-
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="jumlah_brg_transaksi">Jumlah Barang</label>
-                            <input type="text" class="form-control" name="jumlah_brg_transaksi"
-                                id="jumlah_brg_transaksi" value="{{ old('jumlah_brg_transaksi') }}">
-                        </div>
                         <div class="form-group col-md-4">
                             <label for="stok">Stok</label>
                             <input readonly type="text" class="form-control" name="stok" id="stok"
@@ -112,13 +113,15 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="diskon">Diskon %</label>
-                            <input type="text" class="form-control" name="diskon" id="diskon" value="{{ old('diskon') }}">
+                            <input type="text" class="form-control" name="diskon" id="diskon"
+                                value="{{ old('diskon') }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="pembayaran">Pembayaran</label>
-                            <input type="text" class="form-control" name="pembayaran" id="pembayaran" value="{{ old('pembayaran') }}">
+                            <input type="text" class="form-control" name="pembayaran" id="pembayaran"
+                                value="{{ old('pembayaran') }}">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="total_pembayaran">Total Pembayaran</label>
