@@ -133,6 +133,7 @@
                             <label for="selisih">Selisih Pembayaran</label>
                             <input readonly type="text" class="form-control" name="selisih" id="selisih"
                                 value="{{ old('selisih') }}">
+                                <input type="hidden" id="selisih_pembayaran">
                         </div>
                     </div>
                 </form>

@@ -29,14 +29,19 @@ $(document).on("click", "#add_transaksi", function (e) {
     e.preventDefault();
     $("#form_transaksi")[0].reset();
     $("#pelunasan")[0].reset();
+
     $(".modal-title span").text("Buat Transaksi");
-    $(".modal-title i")
-        .removeClass("fas fa-edit")
-        .addClass("fas fa-plus-square");
+    $(".modal-title i").removeClass("fas fa-edit")
+    $(".modal-title i").removeClass("fas fa-money-bill-wave")
+    $(".modal-title i").addClass("fas fa-plus-square");
     $("#transaksi_aksi span").text("Simpan");
-    $("#transaksi_aksi i").removeClass("fas fa-edit").addClass("fas fa-save");
+    $("#transaksi_aksi i").removeClass("fas fa-edit")
+    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave")
+    $("#transaksi_aksi i").addClass("fas fa-save");
+
     $("#form_transaksi").attr("action", "/transaksi/store");
     $("input[name='_method']").remove();
+    // $("input").prop("readonly", false);
 });
 
 $(document).on("click", ".ubah_transaksi", function (e) {
@@ -44,16 +49,22 @@ $(document).on("click", ".ubah_transaksi", function (e) {
     let id = $(this).data("id");
     $("#form_transaksi")[0].reset();
     $("#pelunasan")[0].reset();
+
     $(".modal-title span").text("Ubah Data Transaksi");
-    $(".modal-title i")
-        .removeClass("fas fa-plus-square")
-        .addClass("fas fa-edit ");
+    $(".modal-title i").removeClass("fas fa-edit")
+    $(".modal-title i").removeClass("fas fa-money-bill-wave")
+    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").addClass("fas fa-edit");
     $("#transaksi_aksi span").text("Ubah");
-    $("#transaksi_aksi i").removeClass("fas fa-save").addClass("fas fa-edit");
-    $("#form_transaksi").attr("action", `/transaksi/store`);
-    // $("#form_transaksi").prepend(
-    //     '<input type="hidden" name="_method" value="PUT">'
-    // );
+    $("#transaksi_aksi i").removeClass("fas fa-edit")
+    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave")
+    $("#transaksi_aksi i").removeClass("fas fa-save")
+    $("#transaksi_aksi i").addClass("fas fa-edit");
+
+    $("#form_transaksi").attr("action", `/transaksi/update/${id}`);
+    $("#form_transaksi").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
 
     $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
         console.log(data);
@@ -214,16 +225,6 @@ $(document).on("change", "#nama_brg_transaksi", function () {
 $(document).on("input", "#pembayaran", function () {
     let pembayaran = parseCurrency($(this).val());
     let total_pembayaran = parseCurrency($("#total_pembayaran").val());
-    // let dp = $("#dp").val();
-    // // // Hilangkan format mata uang dan lakukan operasi pengurangan
-    // // let selisih = total_pembayaran - pembayaran;
-    // // // Jika total pembayaran lebih besar dari harga barang, jadikan selisih 0
-    // // if (selisih < 0) {
-    // //     selisih = 0;
-    // // }
-    // // Pastikan jika selisih NaN atau tidak valid, di-set ke 0
-    // selisih = isNaN(selisih) ? 0 : selisih;
-    // $("input[name='selisih']").val(Currency(selisih));
     $(this).val(Currency(pembayaran));
 });
 
@@ -250,9 +251,10 @@ $(document).on("input", "#diskon", function () {
     $("#total_pembayaran").val(Currency(hargaDiskon));
 
     let selisih = hargaDiskon - dp;
-    if (selisih < 0 || diskon === 0) {
-        selisih = 0;
-    }
+    // if (selisih < 0 || diskon === 0) {
+    //     selisih = 0;
+    // }
+    selisih = isNaN(selisih) ? 0 : selisih;
     $("#selisih").val(Currency(selisih));
     console.log(hargaDiskon);
 });
@@ -274,20 +276,6 @@ $(document).on("input", "#jumlah_brg_transaksi", function () {
     // }
 });
 
-$(document).on("change", "#status_pembayaran", function () {
-    let selected = $(this).find("option:selected");
-    let value = selected.val();
-    if (value !== "lunas") {
-        $("#dp").val(0);
-        $("#dp").prop("readonly", false);
-        $("#selisih").val(0);
-    } else {
-        $("#dp").val(0);
-        $("#dp").prop("readonly", true);
-        $("#selisih").val(0);
-    }
-});
-
 $(document).on("input", "#dp", function () {
     let dpValue = $(this).val();
     let dpFormatted = parseCurrency(dpValue); // Mengonversi input ke format angka
@@ -301,43 +289,66 @@ $(document).on("input", "#dp", function () {
     } else {
         count = isNaN(count) ? 0 : count;
     }
-    console.log(count);
-    // Format kembali nilai DP dan selisih sebelum menampilkan
     $(this).val(Currency(dpFormatted)); // Format DP sebagai mata uang
     $("#selisih").val(Currency(count)); // Tampilkan selisih yang diformat sebagai mata uang
-
-    console.log(count);
 });
 // end aksi untuk element input dan select
 
 $(document).on("click", ".pelunasan", function () {
     let id = $(this).data("id");
     $("#form_transaksi")[0].reset();
+
+    $(".modal-title span").text("Pelunasan");
+    $(".modal-title i").removeClass("fas fa-edit")
+    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").addClass("fas fa-money-bill-wave");
+    $("#transaksi_aksi span").text("Lunasi");
+    $("#transaksi_aksi i").removeClass("fas fa-edit")
+    $("#transaksi_aksi i").removeClass("fas fa-save")
+    $("#transaksi_aksi i").addClass("fas fa-money-bill-wave");
+
     $("#pelunasan")[0].reset();
     $("#pelunasan").attr("action", `/transaksi/repayment/${id}`);
     $("#pelunasan").prepend('<input type="hidden" name="_method" value="PUT">');
     $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
-        console.log(data);
+        $(document).on("input", "#pembayaran", function () {
+            let pembayaran = parseCurrency($(this).val()); // Mengambil nilai pembayaran dari input
+            let selisih = parseCurrency($("#selisih_pembayaran").val()); // Mengambil nilai selisih dari input
+            if (pembayaran === 0) {
+                $("#selisih").val(Currency(selisih));
+            } else {
+                let count = selisih - pembayaran;
+                if (count < 0) {
+                    count = 0;
+                }
+                $("#selisih").val(Currency(count));
+            }
+
+            // Format kembali nilai pembayaran
+            $(this).val(Currency(pembayaran));
+        });
         $("#id_barang").val(data.result.id_barang);
         $("#id_stok").val(data.result.id_stok);
-        $("#nama_konsumen").val(data.result.nama_konsumen).prop("readOnly", true);
-        $("#nohp").val(data.result.no_handphone).prop("readOnly", true);
-        $("#alamat").val(data.result.alamat).prop("readOnly", true);
-        $("#sales").val(data.result.nama_sales).prop("readOnly", true);
+        $("#nama_konsumen").val(data.result.nama_konsumen);
+
+        $("#nohp").val(data.result.no_handphone);
+        $("#alamat").val(data.result.alamat);
+        $("#sales").val(data.result.nama_sales);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
-        $("#tipe_brg_transaksi").val(data.result.tipe_barang).prop("readOnly", true);
-        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang)).prop("readOnly", true);
-        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang).prop("readOnly", true);
+        $("#tipe_brg_transaksi").val(data.result.tipe_barang);
+        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
+        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
         $("#status_pembayaran")
             .val(data.result.status_pembayaran)
             .trigger("change");
         $("#status_transaksi")
             .val(data.result.status_transaksi)
             .trigger("change");
-        $("#diskon").val(parseInt(data.result.diskon)).prop("readOnly", true);
-        $("#dp").val(Currency(data.result.dana_pertama)).prop("readOnly", true);
+        $("#diskon").val(parseInt(data.result.diskon));
+        $("#dp").val(Currency(data.result.dana_pertama));
         $("#pembayaran").val(0);
         $("#total_pembayaran").val(Currency(data.result.total_pembayaran));
         $("#selisih").val(Currency(data.result.selisih_pembayaran));
+        $("#selisih_pembayaran").val(Currency(data.result.selisih_pembayaran));
     });
 });
