@@ -5,13 +5,6 @@
 @endphp
 @foreach ($barang_keluar as $data)
     <tr id="stok_barang_{{ $data->id_barang_keluar }}">
-        <td class="text-center">
-            <div class="form-check">
-                <input class="form-check-input selected" type="checkbox" name="id_barang_keluar_all"
-                    id="id_barang_keluar_all" data-id="{{ $data->id_barang_keluar }}">
-                <label class="form-check-label"></label>
-            </div>
-        </td>
         <td>{{ $startNumbering + $loop->iteration }}</td>
         <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
         <td>{{ $data->kode_transaksi }}</td>

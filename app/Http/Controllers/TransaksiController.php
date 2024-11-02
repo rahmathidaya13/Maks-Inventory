@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluarModel;
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Models\TransaksiModel;
@@ -118,6 +119,56 @@ class TransaksiController extends Controller
         $transaksi->dana_pertama = $dana_pertama;
         $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->save();
+
+
+        if ($transaksi->status_pembayaran == 'lunas') {
+            $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                ->whereDate('tanggal', $request->input('transaksi'))
+                ->first();
+            if ($stokBarang) {
+                $stokBarang->barang_keluar += $jumlah_barang;
+                $stokBarang->stok_akhir -= $jumlah_barang;
+                $stokBarang->save();
+            } else {
+                $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                    ->orderBy('tanggal', 'desc')
+                    ->first();
+
+                // cek kondisi barang masuk jika ada ditangall yang sama disimpan jika tidak buat 0
+                $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $request->input('transaksi'))
+                    ?
+                    $stokSebelumnya->barang_masuk
+                    : 0;
+
+                $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
+
+                $stokBarang = new StokBarangModel();
+                $stokBarang->id_brg_masuk = null;
+                $stokBarang->id_barang = $request->input('id_barang');
+                $stokBarang->tanggal = $request->input('transaksi');
+                $stokBarang->nama_barang = $request->input('nama_brg_transaksi');
+                $stokBarang->tipe_barang = $request->input('tipe_brg_transaksi');
+                $stokBarang->stok_awal = $stokAwal;
+                $stokBarang->barang_masuk =  $barangMasuk;
+                $stokBarang->barang_keluar = $jumlah_barang;
+                $stokBarang->stok_akhir = $stokAwal - $jumlah_barang;
+                $stokBarang->keterangan = 'barang terjual';
+                $stokBarang->save();
+            }
+            $barangKeluar = new BarangKeluarModel();
+            $barangKeluar->id_transaksi = $transaksi->id_transaksi;
+            $barangKeluar->id_barang = $request->input('id_barang');
+            $barangKeluar->tanggal = $request->input('transaksi');
+            $barangKeluar->kode_transaksi = $request->input('kode_transaksi');
+            $barangKeluar->nama_konsumen = $request->input('nama_konsumen');
+            $barangKeluar->no_handphone = $request->input('nohp');
+            $barangKeluar->alamat = $request->input('alamat');
+            $barangKeluar->nama_barang = $request->input('nama_brg_transaksi');
+            $barangKeluar->tipe_barang = $request->input('tipe_brg_transaksi');
+            $barangKeluar->jumlah_barang = $jumlah_barang;
+            $barangKeluar->save();
+        }
+
         return back()->with('success', 'Transaksi Berhasil Dibuat');
     }
 
@@ -151,8 +202,8 @@ class TransaksiController extends Controller
 
 
         $transaksi = TransaksiModel::where('id_transaksi', $id)
-        ->orderBy('tgl_transaksi', 'desc')
-        ->first();
+            ->orderBy('tgl_transaksi', 'desc')
+            ->first();
 
         $pelunasan = new TransaksiModel();
         $pelunasan->id_barang = $transaksi->id_barang;
@@ -248,6 +299,10 @@ class TransaksiController extends Controller
 
         // update data
         $transaksi = TransaksiModel::findOrFail($id);
+
+        $old_jumlah_barang = $transaksi->jumlah_barang;
+
+
         $transaksi->id_barang = $request->input('id_barang');
         $transaksi->id_stok = $request->input('id_stok');
         $transaksi->tgl_transaksi = $request->input('transaksi');
@@ -268,6 +323,60 @@ class TransaksiController extends Controller
         $transaksi->dana_pertama = $dana_pertama;
         $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->update();
+        if ($transaksi->status_pembayaran == 'lunas') {
+            $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                ->whereDate('tanggal', $request->input('transaksi'))
+                ->first();
+            if ($stokBarang) {
+                if ($transaksi->status_pembayaran == 'belum lunas' && $$request->input('status_pembayaran')) {
+                    $stokBarang->barang_keluar -= $old_jumlah_barang;
+                    $stokBarang->barang_keluar += $jumlah_barang;
+                    $stokBarang->stok_akhir = $stokBarang->stok_awal - $stokBarang->barang_keluar;
+                    $stokBarang->save();
+                }
+            } else {
+                $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                    ->orderBy('tanggal', 'desc')
+                    ->first();
+
+                $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
+
+                // cek kondisi barang masuk jika ada ditangall yang sama disimpan jika tidak buat 0
+                $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $request->input('transaksi'))
+                    ?
+                    $stokSebelumnya->barang_masuk
+                    : 0;
+
+                $stokBarang = new StokBarangModel();
+                $stokBarang->id_brg_masuk = null;
+                $stokBarang->id_barang = $request->input('id_barang');
+                $stokBarang->tanggal = $request->input('transaksi');
+                $stokBarang->nama_barang = $request->input('nama_brg_transaksi');
+                $stokBarang->tipe_barang = $request->input('tipe_brg_transaksi');
+                $stokBarang->stok_awal = $stokAwal;
+                $stokBarang->barang_masuk = $barangMasuk;
+                $stokBarang->barang_keluar = $jumlah_barang;
+                $stokBarang->stok_akhir = $stokAwal - $transaksi->jumlah_barang;
+                $stokBarang->keterangan = 'barang terjual';
+                $stokBarang->save();
+            }
+            $barangKeluar = BarangKeluarModel::where('id_transaksi', $transaksi->id_transaksi)
+                ->where('id_barang', $request->input('id_barang'))
+                ->where('nama_barang', $request->input('nama_brg_transaksi'))
+                ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
+                ->whereDate('tanggal', $request->input('transaksi'))
+                ->first();
+            $barangKeluar->id_barang = $request->input('id_barang');
+            $barangKeluar->tanggal = $request->input('transaksi');
+            $barangKeluar->kode_transaksi = $request->input('kode_transaksi');
+            $barangKeluar->nama_konsumen = $request->input('nama_konsumen');
+            $barangKeluar->no_handphone = $request->input('nohp');
+            $barangKeluar->alamat = $request->input('alamat');
+            $barangKeluar->nama_barang = $request->input('nama_brg_transaksi');
+            $barangKeluar->tipe_barang = $request->input('tipe_brg_transaksi');
+            $barangKeluar->jumlah_barang = $jumlah_barang;
+            $barangKeluar->update();
+        }
         return back()->with('success', 'Perubahan Data Transaksi Berhasil');
     }
 

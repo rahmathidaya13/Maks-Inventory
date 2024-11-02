@@ -222,9 +222,22 @@ $(document).on("change", "#nama_brg_transaksi", function () {
     $("input[name='id_stok']").val(selected.data("id-stok"));
 });
 
+$(document).on("change","#status_pembayaran", function () {
+    let selected = $(this).find("option:selected");
+    let value = selected.val();
+    // $("input[name='status_pembayaran']").val(value);
+    if(value !== 'lunas'){
+        $("#dp").prop("readonly", false);
+        $("#dp").val(0);
+    }else{
+        $("#dp").prop("readonly", true);
+    }
+});
+
 $(document).on("input", "#pembayaran", function () {
     let pembayaran = parseCurrency($(this).val());
     let total_pembayaran = parseCurrency($("#total_pembayaran").val());
+    pembayaran = isNaN(pembayaran) ? 0 : pembayaran;
     $(this).val(Currency(pembayaran));
 });
 
