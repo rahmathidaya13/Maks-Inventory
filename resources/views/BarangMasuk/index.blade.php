@@ -54,15 +54,15 @@
                         <input type="search" name="keyword_brg_masuk" id="keyword_brg_masuk" class="form-control" placeholder="Search">
                     </div>
                 </div>
-                <div class="ml-2">
+                <div class="ml-2 mb-2">
                     <button disabled id="delete_all_brg_masuk" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                         Hapus</button>
                 </div>
 
-                <div class="card-body table-responsive p-0">
-                    <table id="" class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
+                <div class="card-body table-responsive p-3">
+                    <table id="" class="table table-hover text-nowrap table-sm table-bordered">
+                        <thead class="text-center">
+                            <tr class="table-primary">
                                 <th class="text-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="selectAllItem"
@@ -87,7 +87,7 @@
                         </tbody>
 
                     </table>
-                    <div class="d-flex justify-content-between p-3">
+                    <div class="d-flex justify-content-between p-0 pt-2">
                         <div>
                             Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
                             <b>{{ $barang_masuk->lastItem() }}</b> dari
@@ -107,4 +107,5 @@
     @include('Barang.modal.form_item')
     @include('BarangMasuk.modal.form_item')
     {{-- @include('StokBarang.modal.UpdateFormStok') --}}
+    @include('BarangMasuk.modal.print_date')
 @endsection

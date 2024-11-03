@@ -17,7 +17,6 @@ class TransaksiController extends Controller
     public function index()
     {
         $DaftarBarang = BarangModel::all();
-        // $stokBarang = StokBarangModel::all();
         $transaksi = TransaksiModel::paginate(10);
         return view('transaksi.index', compact('DaftarBarang', 'transaksi'));
     }

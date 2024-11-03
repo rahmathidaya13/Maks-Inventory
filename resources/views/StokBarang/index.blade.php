@@ -43,15 +43,15 @@
                     <input type="search" name="keyword_stok" id="keyword_stok" class="form-control" placeholder="Search">
                 </div>
             </div>
-            <div class="ml-2">
+            <div class="ml-2 mb-2">
                 <button disabled id="delete_all_stok" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                     Hapus</button>
             </div>
 
-            <div class="card-body table-responsive p-0">
-                <table id="" class="table table-hover text-nowrap">
+            <div class="card-body table-responsive p-2">
+                <table id="" class="table table-hover table-bordered text-nowrap table-sm">
                     <thead>
-                        <tr>
+                        <tr class="text-center table-success">
                             <th class="text-center">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="select_all_stok"
@@ -76,16 +76,16 @@
                     </tbody>
 
                 </table>
-                {{-- <div class="d-flex justify-content-between p-3">
+                <div class="d-flex justify-content-between p-0 pt-2">
                     <div>
-                        Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
-                        <b>{{ $barang_masuk->lastItem() }}</b> dari
-                        <b>{{ $barang_masuk->total() }}</b> item
+                        Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
+                        <b>{{ $stok->lastItem() }}</b> dari
+                        <b>{{ $stok->total() }}</b> item
                     </div>
                     <div>
-                        {{ $barang_masuk->links() }}
+                        {{ $stok->links() }}
                     </div>
-                </div> --}}
+                </div>
 
             </div>
             <!-- /.card-body -->
@@ -93,4 +93,5 @@
     </div>
 </div>
 @include('StokBarang.modal.stokForm')
+@include('StokBarang.modal.importStok')
 @endsection

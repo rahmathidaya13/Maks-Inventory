@@ -21,6 +21,16 @@
             {{ $message }}
         </div>
     @endif
+    <div class="callout callout-info">
+        <h5><i class="fas fa-info-circle"></i> Informasi </h5>
+        <h6 class="w-75">
+            Pastikan sebelum melakukan transaksi nama Barang sudah terdaftar di data barang, Jika belum tambahkan pada link dibawah ini.
+            <div class="mt-2">
+                <a id="add_item" data-toggle="modal" data-target="#staticBackdrop" class="text-primary" href="#">
+                    Tambah Barang</a>
+            </div>
+        </h6>
+    </div>
     <div class="card">
         <div class="d-flex justify-content-between align-items-center p-3">
             <div class="d-flex align-items-center">
@@ -50,7 +60,8 @@
                     <tr>
                         <th class="text-center">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="select_all_transaksi" id="select_all_transaksi">
+                                <input class="form-check-input" type="checkbox" name="select_all_transaksi"
+                                    id="select_all_transaksi">
                                 <label class="form-check-label"></label>
                             </div>
                         </th>
@@ -89,4 +100,5 @@
     </div>
     @include('transaksi.modal.formTransaksi')
     @include('transaksi.modal.formPelunasan')
+    @include('Barang.modal.form_item')
 @endsection

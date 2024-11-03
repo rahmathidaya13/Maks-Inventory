@@ -68,11 +68,13 @@ $(document).on("click", "#delete_all_stok", function (e) {
         }
     });
 });
-$(document).on("click", "#stok_out, #stok_close", function (e) {
+$(document).on("click", "#stok_out, #stok_close,#act_import_stok", function (e) {
     e.preventDefault();
     $("input[name='_method']").remove();
     $("#stokBarangForm").attr("action", "#");
     $("#stokBarangForm")[0].reset();
+    $("#preview").attr("src", "assets/icon/iconupload.jpg");
+    $("#file-name").text("File not found");
 });
 
 $(document).on("click", "#add_stok_barang", function (e) {
@@ -153,4 +155,16 @@ $(document).on("click", ".hapus_stok", function (e) {
             form.submit();
         }
     });
+});
+
+$(document).on("change", "#import_stok_form", function (e) {
+    let file = e.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (data) {
+            $("#preview").attr("src", "assets/icon/excel.png");
+        };
+        reader.readAsDataURL(file);
+    }
+    $("#file-name").text(file.name);
 });

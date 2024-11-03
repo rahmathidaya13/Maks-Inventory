@@ -63,7 +63,6 @@
                                     <option value="">{{ $data->stok_akhir }}</option>
                                 @endforeach
                             </select>
-
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tipe_brg_transaksi">Tipe Barang</label>
@@ -133,7 +132,7 @@
                             <label for="selisih">Selisih Pembayaran</label>
                             <input readonly type="text" class="form-control" name="selisih" id="selisih"
                                 value="{{ old('selisih') }}">
-                                <input type="hidden" id="selisih_pembayaran">
+                            <input type="hidden" id="selisih_pembayaran">
                         </div>
                     </div>
                 </form>

@@ -43,15 +43,15 @@
                         <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
                     </div>
                 </div>
-                <div class="px-3 d-flex">
+                <div class="px-3 d-flex mb-2">
                     <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                         Hapus</button>
                 </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
+                <div class="card-body table-responsive p-3">
+                    <table class="table table-hover text-wrap table-bordered table-sm">
                         <thead>
-                            <tr>
-                                <th class="text-center">
+                            <tr class="table-primary text-center">
+                                <th>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll">
                                         <label class="form-check-label"></label>
@@ -69,7 +69,7 @@
                         </tbody>
 
                     </table>
-                    <div class="d-flex justify-content-between p-3">
+                    <div class="d-flex justify-content-between p-0 pt-2">
                         <div>
                             Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
                             <b>{{ $barang->total() }}</b> item

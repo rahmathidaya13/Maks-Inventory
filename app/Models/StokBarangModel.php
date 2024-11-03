@@ -25,12 +25,13 @@ class StokBarangModel extends Model
     ];
     public $incrementing = false;
 
-    public function barangMasuk(){
+    public function barangMasuk()
+    {
         return $this->belongsTo(BarangMasukModel::class, 'id_brg_masuk');
     }
 
-    public function barang(){
-        return $this->belongsTo(BarangModel::class, 'id_barang');
+    public function barang()
+    {
+        return $this->belongsTo(BarangModel::class);
     }
 }
-

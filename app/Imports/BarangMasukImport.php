@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\Models\BarangMasukModel;
+use App\Models\BarangModel;
 use Maatwebsite\Excel\Concerns\ToModel;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -23,13 +24,25 @@ class BarangMasukImport implements ToModel, WithHeadingRow
     }
     public function model(array $row)
     {
-        if ($this->fileType == 'excel') {
-            $get_date = Carbon::instance(Date::excelToDateTimeObject($row['tanggal_barang_masuk']))->format('Y-m-d');
-        } elseif ($this->fileType == 'csv') {
-            $get_date = Carbon::parse($row['tanggal_barang_masuk'])->format('Y-m-d');
+        // $fromExcel = $row['tanggal_barang_masuk'];
+        // $dateTime = Date::excelToDateTimeObject($fromExcel);
+        // $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
+        $barang = BarangModel::where('nama_barang', $row['nama_barang'])
+            ->where('tipe_barang', $row['tipe_barang'])
+            ->first();
+        if (!$barang) {
+            $barang = BarangModel::create([
+                'nama_barang' => $row['nama_barang'],
+                'tipe_barang' => $row['tipe_barang'],
+                'harga_barang' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
+        // $dateNow = Carbon::now()->format('Y-m-d');
+        $get_date = Carbon::parse($row['tanggal_barang_masuk'])->format('Y-m-d');
         return new BarangMasukModel([
-            'id_barang' => uuid_create(),
+            'id_barang' => $barang->id_barang,
             'tgl_brg_masuk' => $get_date,
             'no_warehouse' => $row['no_warehouse'],
             'nama_barang' => $row['nama_barang'],
@@ -39,5 +52,10 @@ class BarangMasukImport implements ToModel, WithHeadingRow
             'status' => $row['status'],
             'nama_konsumen' => $row['customer'],
         ]);
+        // dd($formatedDate);
+    }
+    public function headingRow(): int
+    {
+        return 3;
     }
 }

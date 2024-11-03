@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tb_stok_barang', function(Blueprint $table){
+        Schema::table('tb_stok_barang', function (Blueprint $table) {
             $table->uuid('id_brg_masuk')->nullable()->change();
+            $table->uuid('id_barang')->nullable()->change();
         });
     }
 

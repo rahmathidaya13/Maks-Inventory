@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\BarangImport;
 use App\Imports\BarangMasukImport;
+use App\Imports\StokImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
@@ -58,6 +59,43 @@ class ImportAction extends Controller
 
             // Proses impor file menggunakan Laravel Excel
             Excel::import(new BarangMasukImport($fileType), $files);
+
+            // Aktifkan kembali foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            DB::commit();
+            return back()->with('success', 'File imported successfully');
+        } catch (\Exception $err) {
+
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+
+            // Aktifkan kembali foreign key checks jika ada error
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            return back()->with('error', $err->getMessage());
+        }
+    }
+
+    public function importStokBarang(Request $request)
+    {
+        $request->validate(
+            [
+                'import_stok_form' => 'required|file|mimes:xls,xlsx|max:11120'
+            ],
+            [
+                'import_stok_form.required' => 'File impor wajib diunggah',
+                'import_stok_form.mimes' => 'File harus berformat Excel xls, xlsx',
+                'import_stok_form.max' => 'Ukuran file tidak boleh lebih dari 11 MB',
+            ]
+        );
+
+        $files = $request->file('import_stok_form');
+        try {
+            DB::beginTransaction();
+            // Nonaktifkan foreign key checks
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+            // Proses impor file menggunakan Laravel Excel
+            Excel::import(new StokImport, $files);
 
             // Aktifkan kembali foreign key checks
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

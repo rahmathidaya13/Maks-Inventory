@@ -84,8 +84,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // khusus untuk import file dan export file
     Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file');
     Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk');
+    Route::post("/import/stok", [ImportAction::class, 'importStokBarang'])->name('import.stok');
 
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
+    Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
+    Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
     Route::get('/view/barang', [ExportAction::class, 'viewItem'])->name('view.barang');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

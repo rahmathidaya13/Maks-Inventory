@@ -4,23 +4,23 @@
     $startNumbering = ($currentPage - 1) * $perPage;
 @endphp
 @foreach ($stok as $data)
-    <tr id="stok_barang_{{ $data->id_stok }}">
-        <td class="text-center">
+    <tr class="text-center" id="stok_barang_{{ $data->id_stok }}">
+        <td class="align-middle">
             <div class="form-check">
                 <input class="form-check-input selected" type="checkbox" name="id_stok_all" id="id_stok_all"
                     data-id="{{ $data->id_stok }}">
                 <label class="form-check-label"></label>
             </div>
         </td>
-        <td>{{ $startNumbering + $loop->iteration }}</td>
-        <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
-        <td>{{ $data->nama_barang }}</td>
-        <td>{{ $data->tipe_barang }}</td>
-        <td class="text-center">{{ $data->stok_awal }}</td>
-        <td class="text-center">{{ $data->barang_masuk }}</td>
-        <td class="text-center">{{ $data->barang_keluar }}</td>
-        <td class="text-center">{{ $data->stok_akhir }}</td>
-        <td class="text-center">{{ ucwords($data->keterangan) }}</td>
+        <td class="align-middle">{{ $startNumbering + $loop->iteration }}</td>
+        <td class="align-middle">{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
+        <td class="align-middle">{{ $data->nama_barang }}</td>
+        <td class="align-middle">{{ $data->tipe_barang }}</td>
+        <td class="text-center align-middle">{{ $data->stok_awal }}</td>
+        <td class="text-center align-middle">{{ $data->barang_masuk }}</td>
+        <td class="text-center align-middle">{{ $data->barang_keluar }}</td>
+        <td class="text-center align-middle">{{ $data->stok_akhir }}</td>
+        <td class="text-center align-middle">{{ ucwords($data->keterangan) }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
