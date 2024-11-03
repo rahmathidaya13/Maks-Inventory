@@ -31,12 +31,12 @@ $(document).on("click", "#add_transaksi", function (e) {
     $("#pelunasan")[0].reset();
 
     $(".modal-title span").text("Buat Transaksi");
-    $(".modal-title i").removeClass("fas fa-edit")
-    $(".modal-title i").removeClass("fas fa-money-bill-wave")
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-money-bill-wave");
     $(".modal-title i").addClass("fas fa-plus-square");
     $("#transaksi_aksi span").text("Simpan");
-    $("#transaksi_aksi i").removeClass("fas fa-edit")
-    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave")
+    $("#transaksi_aksi i").removeClass("fas fa-edit");
+    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave");
     $("#transaksi_aksi i").addClass("fas fa-save");
 
     $("#form_transaksi").attr("action", "/transaksi/store");
@@ -51,14 +51,14 @@ $(document).on("click", ".ubah_transaksi", function (e) {
     $("#pelunasan")[0].reset();
 
     $(".modal-title span").text("Ubah Data Transaksi");
-    $(".modal-title i").removeClass("fas fa-edit")
-    $(".modal-title i").removeClass("fas fa-money-bill-wave")
-    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-money-bill-wave");
+    $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-edit");
     $("#transaksi_aksi span").text("Ubah");
-    $("#transaksi_aksi i").removeClass("fas fa-edit")
-    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave")
-    $("#transaksi_aksi i").removeClass("fas fa-save")
+    $("#transaksi_aksi i").removeClass("fas fa-edit");
+    $("#transaksi_aksi i").removeClass("fas fa-money-bill-wave");
+    $("#transaksi_aksi i").removeClass("fas fa-save");
     $("#transaksi_aksi i").addClass("fas fa-edit");
 
     $("#form_transaksi").attr("action", `/transaksi/update/${id}`);
@@ -222,14 +222,14 @@ $(document).on("change", "#nama_brg_transaksi", function () {
     $("input[name='id_stok']").val(selected.data("id-stok"));
 });
 
-$(document).on("change","#status_pembayaran", function () {
+$(document).on("change", "#status_pembayaran", function () {
     let selected = $(this).find("option:selected");
     let value = selected.val();
     // $("input[name='status_pembayaran']").val(value);
-    if(value !== 'lunas'){
+    if (value !== "lunas") {
         $("#dp").prop("readonly", false);
         $("#dp").val(0);
-    }else{
+    } else {
         $("#dp").prop("readonly", true);
     }
 });
@@ -312,56 +312,46 @@ $(document).on("click", ".pelunasan", function () {
     $("#form_transaksi")[0].reset();
 
     $(".modal-title span").text("Pelunasan");
-    $(".modal-title i").removeClass("fas fa-edit")
-    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-money-bill-wave");
-    $("#transaksi_aksi span").text("Lunasi");
-    $("#transaksi_aksi i").removeClass("fas fa-edit")
-    $("#transaksi_aksi i").removeClass("fas fa-save")
-    $("#transaksi_aksi i").addClass("fas fa-money-bill-wave");
+    $("#aksi_pelunasan span").text("Lunasi");
+    $("#aksi_pelunasan i").removeClass("fas fa-edit");
+    $("#aksi_pelunasan i").removeClass("fas fa-save");
+    $("#aksi_pelunasan i").addClass("fas fa-money-bill-wave");
 
-    $("#pelunasan")[0].reset();
     $("#pelunasan").attr("action", `/transaksi/repayment/${id}`);
-    $("#pelunasan").prepend('<input type="hidden" name="_method" value="PUT">');
+    $("#pelunasan").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
+
     $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
-        $(document).on("input", "#pembayaran", function () {
+        $(document).on("input", "#pembayaran_pelunasan", function () {
             let pembayaran = parseCurrency($(this).val()); // Mengambil nilai pembayaran dari input
-            let selisih = parseCurrency($("#selisih_pembayaran").val()); // Mengambil nilai selisih dari input
+            let selisih = parseCurrency($("#r_selisih").val()); // Mengambil nilai selisih dari input
             if (pembayaran === 0) {
-                $("#selisih").val(Currency(selisih));
+                $("#selisih_pembayaran_").val(Currency(selisih));
             } else {
                 let count = selisih - pembayaran;
                 if (count < 0) {
                     count = 0;
                 }
-                $("#selisih").val(Currency(count));
+                $("#selisih_pembayaran_").val(Currency(count));
             }
 
             // Format kembali nilai pembayaran
             $(this).val(Currency(pembayaran));
         });
-        $("#id_barang").val(data.result.id_barang);
-        $("#id_stok").val(data.result.id_stok);
-        $("#nama_konsumen").val(data.result.nama_konsumen);
 
-        $("#nohp").val(data.result.no_handphone);
-        $("#alamat").val(data.result.alamat);
-        $("#sales").val(data.result.nama_sales);
-        $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
-        $("#tipe_brg_transaksi").val(data.result.tipe_barang);
-        $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
-        $("#jumlah_brg_transaksi").val(data.result.jumlah_barang);
-        $("#status_pembayaran")
-            .val(data.result.status_pembayaran)
-            .trigger("change");
-        $("#status_transaksi")
-            .val(data.result.status_transaksi)
-            .trigger("change");
-        $("#diskon").val(parseInt(data.result.diskon));
-        $("#dp").val(Currency(data.result.dana_pertama));
-        $("#pembayaran").val(0);
-        $("#total_pembayaran").val(Currency(data.result.total_pembayaran));
-        $("#selisih").val(Currency(data.result.selisih_pembayaran));
-        $("#selisih_pembayaran").val(Currency(data.result.selisih_pembayaran));
+        $("#konsumen").val(data.result.nama_konsumen).prop("readonly", true);
+
+        $("#hp").val(data.result.no_handphone).prop("readonly", true);
+        $("#alamat_konsumen").val(data.result.alamat).prop("readonly", true);
+        $("#dana_pertama")
+            .val(Currency(data.result.dana_pertama))
+            .prop("readonly", true);
+        $("#hb").val(Currency(data.result.harga_barang)).prop("readonly", true);
+        $("#selisih_pembayaran_").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true);
+        $("#r_selisih").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true);
     });
 });

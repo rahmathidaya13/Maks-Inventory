@@ -86,9 +86,4 @@
     </div>
     @include('Barang.modal.form_item')
     @include('Barang.modal.form_import')
-    <script>
-        $(document).ready(function() {
-
-        });
-    </script>
 @endsection

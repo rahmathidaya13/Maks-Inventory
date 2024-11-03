@@ -56,20 +56,20 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ route('barang_masuk.index') }}"
-                          class="nav-link {{ Route::is('barang_masuk.index') ? 'active' : '' }}">
-                          <i class="nav-icon fas fa-clipboard-check"></i>
-                          <p>
-                              Barang Masuk
-                          </p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
                       <a href="{{ route('stok.index') }}"
                           class="nav-link {{ Route::is('stok.index') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-boxes"></i>
                           <p>
                               Stok Barang
+                          </p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{{ route('barang_masuk.index') }}"
+                          class="nav-link {{ Route::is('barang_masuk.index') ? 'active' : '' }}">
+                          <i class="nav-icon fas fa-clipboard-check"></i>
+                          <p>
+                              Barang Masuk
                           </p>
                       </a>
                   </li>

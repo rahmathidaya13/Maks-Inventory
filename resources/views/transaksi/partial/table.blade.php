@@ -30,33 +30,33 @@
         </td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->total_pembayaran, 0, ',', '.') }}</td>
         <td class="align-middle">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-center">
                 @if ($data->status_pembayaran !== 'lunas')
-                    <button data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan" type="button" data-toggle="modal" data-target="#staticBackdrop_transaksi">
-                        Pelunasan
+                    <button title="Pelunasan" data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan rounded-0" type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan">
+                        <i class="fas fa-money-bill"></i>
                     </button>
                 @endif
-                <div class="dropdown">
+                <a title="Ubah" id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
+                    data-id="{{ $data->id_transaksi }}" class="btn btn-sm btn-warning ubah_transaksi mx-1 rounded-0" href="#"><i
+                        class="fas fa-edit"></i></a>
+
+                <a title="Hapus" data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
+                    data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
+                    class="btn btn-sm btn-danger hapus_transaksi mx-0 rounded-0" href="#"><i class="fas fa-trash"></i> </a>
+                <form id="delete_transaksi_{{ $data->id_transaksi }}"
+                    action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST"
+                    class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                {{-- <div class="dropdown">
                     <button class="btn btn-info btn-sm mx-1" type="button" data-toggle="dropdown"
                         aria-expanded="false">
                         Detail
                     </button>
                     <div class="dropdown-menu">
-                        <a id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
-                            data-id="{{ $data->id_transaksi }}" class="dropdown-item ubah_transaksi" href="#"><i
-                                class="fas fa-edit"></i> Ubah</a>
-
-                        <a data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
-                            data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
-                            class="dropdown-item hapus_transaksi" href="#"><i class="fas fa-trash"></i> Hapus</a>
-                        <form id="delete_transaksi_{{ $data->id_transaksi }}"
-                            action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST"
-                            class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                        </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </td>
     </tr>

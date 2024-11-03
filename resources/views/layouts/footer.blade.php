@@ -38,6 +38,8 @@
             });
             $("#nama_brg_transaksi").trigger('change');
             $("#status_pembayaran").trigger('change');
+            $("#stts_pembayaran").trigger('change');
+
         });
 
         //Initialize Select2 Elements

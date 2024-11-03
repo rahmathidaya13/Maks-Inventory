@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasuk;
+use App\Http\Controllers\ExportAction;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
@@ -83,5 +84,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // khusus untuk import file dan export file
     Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file');
     Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk');
+
+    Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
+    Route::get('/view/barang', [ExportAction::class, 'viewItem'])->name('view.barang');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

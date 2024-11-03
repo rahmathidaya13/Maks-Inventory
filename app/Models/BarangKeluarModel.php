@@ -13,6 +13,7 @@ class BarangKeluarModel extends Model
     protected $primaryKey = 'id_barang_keluar';
     protected $fillable = [
         'id_transaksi',
+        'id_barang',
         'tanggal',
         'kode_transaksi',
         'nama_konsumen',

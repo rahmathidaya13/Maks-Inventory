@@ -6,8 +6,8 @@
             </div>
             <div class="col-5 text-right">
                 @if (Route::is('list.index'))
-                    <button id="export_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
-                        Export</button>
+                    <a href="{{ route('export.barang') }}" id="export_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
+                        Export</a>
                     <button data-toggle="modal" data-target="#staticBackdrop2" id="import"
                         class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
                     <button data-toggle="modal" data-target="#staticBackdrop" id="add_item"
