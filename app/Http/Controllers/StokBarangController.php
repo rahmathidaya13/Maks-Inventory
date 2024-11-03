@@ -118,26 +118,27 @@ class StokBarangController extends Controller
         $stok = StokBarangModel::findOrFail($id);
 
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
             ->where('tgl_brg_masuk', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $barang_keluar = TransaksiModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
             ->where('tgl_transaksi', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $stokSebelumnya = StokBarangModel::where('nama_barang',  $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('tanggal', '<', $request->input('tgl'))
             ->orderBy('tanggal', 'desc')
             ->first();
         $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
         if ($stok->tanggal === $request->input('tgl')) {
-            $stok->barang_masuk = $barang_masuk;
-            $stok->barang_keluar = $barang_keluar;
-            $stok->stok_akhir = $stok->stok_awal +  $request->input('jumlah_barang');
+            $stok->barang_masuk += $barang_masuk - $stok->barang_masuk;
+            $stok->barang_keluar += $barang_keluar - $stok->barang_keluar;
+            $stok->stok_akhir = ($stok->stok_awal +  $request->input('jumlah_barang')) - $stok->barang_keluar;
             $stok->keterangan = $request->input('keterangan');
             $stok->update();
             return back()->with('success', 'Stok berhasil diperbarui');
@@ -157,7 +158,7 @@ class StokBarangController extends Controller
             $stok->barang_masuk = $barang_masuk;
             $stok->barang_keluar = $barang_keluar;
             $stok->stok_awal = $stokAwal;
-            $stok->stok_akhir = $stokAwal + $request->input('jumlah_barang');
+            $stok->stok_akhir = $stokAwal + $barang_masuk - $barang_keluar;
             $stok->keterangan = $request->input('keterangan') ??  $stok->keterangan;
             $stok->update();
         }

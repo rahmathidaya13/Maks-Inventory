@@ -36,7 +36,7 @@ class StokImport implements ToModel, WithHeadingRow
         // dd($row);
         return new StokBarangModel([
             'id_barang' => $barang->id_barang,
-            'id_brg_masuk' => uuid_create(),
+            'id_brg_masuk' => null,
             'tanggal' => $get_date,
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],

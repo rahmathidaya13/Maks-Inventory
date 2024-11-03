@@ -80,11 +80,11 @@ class BarangMasuk extends Controller
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
                 ->where('nama_barang', $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang_masuk'))
-                ->whereDate('tanggal', $request->input('tgl_brg_masuk'))
+                ->where('tanggal', $request->input('tgl_brg_masuk'))
                 ->first();
             if ($stokBarang) {
                 // Jika stok sudah ada, tambahkan jumlah barang masuk
-                $stokBarang->barang_masuk = $request->input('jumlah_brg');
+                $stokBarang->barang_masuk += $request->input('jumlah_brg');
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             } else {
                 // Cari stok barang sebelumnya berdasarkan barang terakhir (id_barang)
@@ -188,7 +188,7 @@ class BarangMasuk extends Controller
         if ($barangMasuk->status === 'stok') {
             // Cari stok untuk barang yang sesuai dengan id_barang dan id_brg_masuk
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
-                ->whereDate('tanggal', $request->input('tgl_brg_masuk'))
+                ->where('tanggal', $request->input('tgl_brg_masuk'))
                 ->first();
 
             // Hitung selisih barang masuk
@@ -223,8 +223,8 @@ class BarangMasuk extends Controller
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'barang masuk';
             }
-            // Simpan stok yang diperbarui
             $stokBarang->save();
+            // Simpan stok yang diperbarui
         }
         return back()->with('success', "Pembaharuan " . request('nama_barang') . " - " . request('tipe_barang_masuk') . " " . "Berhasil diperbaharui");
     }
