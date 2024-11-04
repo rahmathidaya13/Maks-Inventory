@@ -56,7 +56,8 @@ class StokBarangController extends Controller
         if ($stokChek) {
             $stokChek->barang_masuk = $barang_masuk;
             $stokChek->barang_keluar = $barang_keluar;
-            $stokChek->stok_akhir += $request->input('jumlah_barang');
+            $stokChek->stok_awal += $request->input('jumlah_barang');
+            $stokChek->stok_akhir = ($stokChek->stok_awal + $stokChek->barang_masuk) - $stokChek->barang_keluar;
             $stokChek->keterangan = $request->input('keterangan') ?? $stokChek->keterangan;
             $stokChek->save();
             return back()->with('success', 'Penambahan stok baru berhasil dibuat');
@@ -138,7 +139,8 @@ class StokBarangController extends Controller
         if ($stok->tanggal === $request->input('tgl')) {
             $stok->barang_masuk += $barang_masuk - $stok->barang_masuk;
             $stok->barang_keluar += $barang_keluar - $stok->barang_keluar;
-            $stok->stok_akhir = ($stok->stok_awal + ($request->input('jumlah_barang') -  $stok->barang_masuk)) - $stok->barang_keluar;
+            $stok->stok_awal += $request->input('jumlah_barang');
+            $stok->stok_akhir = ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
             $stok->keterangan = $request->input('keterangan');
             $stok->update();
             return back()->with('success', 'Stok berhasil diperbarui');
@@ -158,7 +160,7 @@ class StokBarangController extends Controller
             $stok->barang_masuk = $barang_masuk;
             $stok->barang_keluar = $barang_keluar;
             $stok->stok_awal = $stokAwal;
-            $stok->stok_akhir = $stokAwal + $barang_masuk - $barang_keluar;
+            $stok->stok_akhir = ($stokAwal + $barang_masuk) - $barang_keluar;
             $stok->keterangan = $request->input('keterangan') ??  $stok->keterangan;
             $stok->update();
         }

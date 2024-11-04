@@ -30,6 +30,6 @@ class BarangImport implements ToModel, WithHeadingRow
     }
     public function headingRow(): int
     {
-        return 3;
+        return 4;
     }
 }

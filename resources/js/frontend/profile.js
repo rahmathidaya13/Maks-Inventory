@@ -18,7 +18,7 @@ $(document).on("change", "#photo-user", function (e) {
         let reader = new FileReader();
         reader.onload = function (data) {
             $(".modal-profile").attr("src", data.target.result);
-            console.log();
+            // console.log();
         };
         reader.readAsDataURL(file);
     }

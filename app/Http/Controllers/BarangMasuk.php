@@ -85,7 +85,7 @@ class BarangMasuk extends Controller
             if ($stokBarang) {
                 // Jika stok sudah ada, tambahkan jumlah barang masuk
                 $stokBarang->barang_masuk += $request->input('jumlah_brg');
-                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
+                $stokBarang->stok_akhir = ($stokBarang->stok_awal +  $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             } else {
                 // Cari stok barang sebelumnya berdasarkan barang terakhir (id_barang)
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
@@ -101,10 +101,10 @@ class BarangMasuk extends Controller
                 $stokBarang->tanggal = $request->input('tgl_brg_masuk');
                 $stokBarang->nama_barang = $request->input('nama_barang');
                 $stokBarang->tipe_barang = $request->input('tipe_barang_masuk');
-                $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->barang_masuk = $request->input('jumlah_brg');
                 $stokBarang->barang_keluar =  0;
-                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
+                $stokBarang->stok_awal =  $stokAwal;
+                $stokBarang->stok_akhir =  ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'barang masuk';
             }
             $stokBarang->save();
@@ -188,18 +188,14 @@ class BarangMasuk extends Controller
         if ($barangMasuk->status === 'stok') {
             // Cari stok untuk barang yang sesuai dengan id_barang dan id_brg_masuk
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                ->where('nama_barang', $request->input('nama_barang'))
+                ->where('tipe_barang', $request->input('tipe_barang_masuk'))
                 ->where('tanggal', $request->input('tgl_brg_masuk'))
                 ->first();
 
             // Hitung selisih barang masuk
             $selisihBarangMasuk = $request->input('jumlah_brg') - $jumlahBarangSebelum;
             if ($stokBarang) {
-                // Tambahkan atau kurangi selisih barang masuk dari stok
-                // $stokBarang->barang_masuk += $selisihBarangMasuk;
-
-                // // Hitung ulang stok akhir
-                // $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
-
                 $stokBarang->barang_masuk += $selisihBarangMasuk;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             } else {
@@ -208,7 +204,7 @@ class BarangMasuk extends Controller
                     ->orderBy('tanggal', 'desc')
                     ->first();
                 // Tentukan stok awal dari stok sebelumnya
-                $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
+                $stok_ = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
                 // Buat record stok baru dengan barang masuk dan stok awal yang diperoleh
                 $stokBarang = new StokBarangModel();
@@ -217,10 +213,10 @@ class BarangMasuk extends Controller
                 $stokBarang->tanggal = $request->input('tgl_brg_masuk');
                 $stokBarang->nama_barang = $request->input('nama_barang');
                 $stokBarang->tipe_barang = $request->input('tipe_barang_masuk');
-                $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->barang_masuk = $request->input('jumlah_brg');
                 $stokBarang->barang_keluar =  0;
-                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
+                $stokBarang->stok_awal =   $stok_;
+                $stokBarang->stok_akhir =  ($stok_ + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'barang masuk';
             }
             $stokBarang->save();

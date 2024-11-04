@@ -14,11 +14,11 @@
         </td>
         <td class="align-middle">{{ $startNumbering + $loop->iteration }}</td>
         <td class="align-middle">{{ \Carbon\Carbon::parse($data->tgl_transaksi)->translatedFormat('l, d F Y') }}</td>
-        <td class="align-middle">{{ $data->kode_transaksi }}</td>
-        <td class="align-middle">{{ $data->nama_konsumen }}</td>
+        <td class="align-middle kode_transaksi">{{ $data->kode_transaksi }}</td>
+        <td class="align-middle nama_konsumen">{{ $data->nama_konsumen }}</td>
         <td class="align-middle">{{ $data->nama_sales }}</td>
-        <td class="text-wrap align-middle">{{ $data->nama_barang }}</td>
-        <td class="align-middle">{{ $data->tipe_barang }}</td>
+        <td class="text-wrap align-middle nama_barang_transaksi">{{ $data->nama_barang }}</td>
+        <td class="align-middle tipe_barang_transaksi">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
         <td class="align-middle text-center">

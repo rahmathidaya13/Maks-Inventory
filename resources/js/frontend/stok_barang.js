@@ -68,14 +68,18 @@ $(document).on("click", "#delete_all_stok", function (e) {
         }
     });
 });
-$(document).on("click", "#stok_out, #stok_close,#act_import_stok", function (e) {
-    e.preventDefault();
-    $("input[name='_method']").remove();
-    $("#stokBarangForm").attr("action", "#");
-    $("#stokBarangForm")[0].reset();
-    $("#preview").attr("src", "assets/icon/iconupload.jpg");
-    $("#file-name").text("File not found");
-});
+$(document).on(
+    "click",
+    "#stok_out, #stok_close,#act_import_stok",
+    function (e) {
+        e.preventDefault();
+        $("input[name='_method']").remove();
+        $("#stokBarangForm").attr("action", "#");
+        $("#stokBarangForm")[0].reset();
+        $("#preview").attr("src", "assets/icon/iconupload.jpg");
+        $("#file-name").text("File not found");
+    }
+);
 
 $(document).on("click", "#add_stok_barang", function (e) {
     e.preventDefault();
@@ -167,4 +171,54 @@ $(document).on("change", "#import_stok_form", function (e) {
         reader.readAsDataURL(file);
     }
     $("#file-name").text(file.name);
+});
+
+$(document).on("change", "#filter_stok", function (e) {
+    e.preventDefault();
+    let offset = $(this).val();
+    console.log(offset);
+    $("tbody").load("/stok/filter?offset=" + offset, function (data) {
+        $(this).html(data.table);
+        $(".pagination").html(data.pagination);
+    });
+});
+
+// live search
+$(document).on("keyup", "#keyword_stok", function (e) {
+    e.preventDefault();
+    let query = $(this).val().trim();
+    console.log(query);
+    if (query === "") {
+        $("tbody").load(
+            "/stok/search?query=" + encodeURIComponent(query),
+            function (data) {
+                // Kembali ke halaman stok tanpa hasil pencarian
+                window.history.pushState({}, "", "/stok");
+                $(".pagination").html(data.pagination);
+                console.log(data);
+            }
+        );
+        // location.reload();
+    } else {
+        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
+        $("tbody").load(
+            "/stok/search?query=" + encodeURIComponent(query),
+            function () {
+                $("tbody .nama_brg_stok, .tipe_brg_stok").each(function () {
+                    let text = $(this).text();
+                    if (query) {
+                        // Ganti teks yang cocok dengan teks yang disorot
+                        let regex = new RegExp("(" + query + ")", "gi");
+                        let highlightedText = text.replace(
+                            regex,
+                            '<span class="highlight">$1</span>'
+                        );
+                        $(this).html(highlightedText); // Ganti dengan teks yang disorot
+                    } else {
+                        $(this).html(text); // Kembalikan ke teks asli
+                    }
+                });
+            }
+        );
+    }
 });

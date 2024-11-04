@@ -1,7 +1,7 @@
 function formatCurrency(angka) {
     let number_string, split, sisa, rupiah, ribuan, separator;
     // regex style untuk ubah format teks menjadi angka saja
-    number_string = angka.toString().replace(/[^,\d]/g, '');
+    number_string = angka.toString().replace(/[^,\d]/g, "");
     split = number_string.split(",");
     sisa = split[0].length % 3;
     rupiah = split[0].substr(0, sisa);
@@ -46,8 +46,14 @@ $(document).on("keyup", "#keyword", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {
-        window.history.pushState("{}", "", "/list-item");
-        location.reload();
+        $("tbody").load(
+            `/item/search?query=${encodeURIComponent(query)}`,
+            function () {
+                // Kembali ke halaman stok tanpa hasil pencarian
+                window.history.pushState({}, "", "/list-item");
+            }
+        );
+        // location.reload();
     } else {
         // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
         $("tbody").load(
@@ -222,9 +228,7 @@ $(document).on("keyup", "#harga_brg", function () {
     $(this).val(formatCurrency(formated));
 });
 
-
-
-$(document).on("submit","#form_item", function () {
+$(document).on("submit", "#form_item", function () {
     let formatValue = $("#harga_brg").val();
     let unFormated = formatValue.replace(/\./g, "");
     $("#harga_brg").val(unFormated);

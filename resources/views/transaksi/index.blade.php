@@ -36,7 +36,7 @@
             <div class="d-flex align-items-center">
                 <span class="mr-2">Tampilkan hasil: </span>
                 <div class="input-group input-group-sm" style="width: 75px">
-                    <select class="form-control form-control-sm" name="filter_stok" id="filter_stok">
+                    <select class="form-control form-control-sm" name="filter_transaksi" id="filter_transaksi">
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="50">50</option>
@@ -46,7 +46,7 @@
 
             </div>
             <div class="input-group input-group-sm w-25">
-                <input type="search" name="keyword_stok" id="keyword_stok" class="form-control" placeholder="Search">
+                <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control" placeholder="Search">
             </div>
         </div>
         <div class="ml-2">
@@ -96,7 +96,6 @@
             </div>
 
         </div>
-        <!-- /.card-body -->
     </div>
     @include('transaksi.modal.formTransaksi')
     @include('transaksi.modal.formPelunasan')

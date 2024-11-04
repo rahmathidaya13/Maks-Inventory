@@ -321,9 +321,7 @@ $(document).on("click", ".pelunasan", function () {
     $("#aksi_pelunasan i").addClass("fas fa-money-bill-wave");
 
     $("#pelunasan").attr("action", `/transaksi/repayment/${id}`);
-    $("#pelunasan").prepend(
-        '<input type="hidden" name="_method" value="PUT">'
-    );
+    $("#pelunasan").prepend('<input type="hidden" name="_method" value="PUT">');
 
     $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
         $(document).on("input", "#pembayaran_pelunasan", function () {
@@ -351,7 +349,59 @@ $(document).on("click", ".pelunasan", function () {
             .val(Currency(data.result.dana_pertama))
             .prop("readonly", true);
         $("#hb").val(Currency(data.result.harga_barang)).prop("readonly", true);
-        $("#selisih_pembayaran_").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true);
-        $("#r_selisih").val(Currency(data.result.selisih_pembayaran)).prop("readonly", true);
+        $("#selisih_pembayaran_")
+            .val(Currency(data.result.selisih_pembayaran))
+            .prop("readonly", true);
+        $("#r_selisih")
+            .val(Currency(data.result.selisih_pembayaran))
+            .prop("readonly", true);
     });
+});
+
+$(document).on("change", "#filter_transaksi", function (e) {
+    e.preventDefault();
+    let offset = $(this).val();
+    $("tbody").load("/transaksi/filter?offset=" + offset, function (data) {
+        $(this).html(data.table);
+        $(".pagination").html(data.pagination);
+    });
+});
+
+// fungsi untuk pencarian data langsung
+$(document).on("keyup", "#keyword_transaksi", function (e) {
+    e.preventDefault();
+    let query = $(this).val();
+    if (query === "") {
+        $("tbody").load(
+            `/transaksi/search?query=${encodeURIComponent(query)}`,
+            function () {
+                // Kembali ke halaman stok tanpa hasil pencarian
+                window.history.pushState({}, "", "/transaksi");
+            }
+        );
+        // location.reload();
+    } else {
+        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
+        $("tbody").load(
+            "/transaksi/search?query=" + encodeURIComponent(query),
+            function () {
+                $(
+                    "tbody .kode_transaksi, .nama_konsumen,.nama_barang_transaksi,.tipe_barang_transaksi"
+                ).each(function () {
+                    let text = $(this).text();
+                    if (query) {
+                        // Ganti teks yang cocok dengan teks yang disorot
+                        let regex = new RegExp("(" + query + ")", "gi");
+                        let highlightedText = text.replace(
+                            regex,
+                            '<span class="highlight">$1</span>'
+                        );
+                        $(this).html(highlightedText); // Ganti dengan teks yang disorot
+                    } else {
+                        $(this).html(text); // Kembalikan ke teks asli
+                    }
+                });
+            }
+        );
+    }
 });

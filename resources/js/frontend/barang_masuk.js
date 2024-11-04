@@ -221,8 +221,14 @@ $(document).on("keyup", "#keyword_brg_masuk", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {
-        window.history.pushState("{}", "", "/barang_masuk");
-        location.reload();
+        $("tbody").load(
+            `/barang_masuk/search?query=${encodeURIComponent(query)}`,
+            function () {
+                // Kembali ke halaman stok tanpa hasil pencarian
+                window.history.pushState({}, "", "/barang_masuk");
+            }
+        );
+        // location.reload();
     } else {
         // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
         $("tbody").load(

@@ -28,6 +28,22 @@ class LiveAction extends Controller
         }
         return view('Barang.partials.table_item', compact('barang', 'query'));
     }
+    public function stokSearch(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
+
+        $query = $request->get('query');
+        if (!empty($query)) {
+            $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->latest()->paginate(10)->appends(['query' => $query]);;
+        } else {
+            $stok = StokBarangModel::latest()->paginate(10);
+        }
+        return view('StokBarang.table_partial.tableStok', compact('stok', 'query'));
+    }
     public function searchBrgMasuk(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,6 +59,23 @@ class LiveAction extends Controller
             $barang_masuk = BarangMasukModel::latest()->paginate(10);
         }
         return view('BarangMasuk.partial.table_item', compact('barang_masuk', 'query'));
+    }
+    public function transaksiSearch(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
+
+        $query = $request->get('query');
+        if (!empty($query)) {
+            $transaksi =  TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+                ->latest()->paginate(10)->appends(['query' => $query]);;
+        } else {
+            $transaksi = TransaksiModel::latest()->paginate(10);
+        }
+        return view('transaksi.partial.table',  compact('transaksi', 'query'));
     }
 
     public function filterData(Request $request)
@@ -62,6 +95,15 @@ class LiveAction extends Controller
             return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
         }
         return view('BarangMasuk.index', compact('barang_masuk'));
+    }
+    public function transaksiFilter(Request $request)
+    {
+        $offset = $request->get('offset');
+        $transaksi = TransaksiModel::paginate($offset);
+        if ($request->ajax()) {
+            return view('transaksi.partial.table', compact('transaksi'))->render();
+        }
+        return view('transaksi.index', compact('transaksi'));
     }
 
     public function deletedAll(Request $request)
@@ -100,5 +142,15 @@ class LiveAction extends Controller
             'Content-Type' => 'application/json',
             'X-Content-Type-Options' => 'nosniff',
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+    }
+
+    public function stokFilter(Request $request)
+    {
+        $offset = $request->get('offset');
+        $stok = StokBarangModel::paginate($offset);
+        if ($request->ajax()) {
+            return view('StokBarang.table_partial.tableStok', compact('stok'))->render();
+        }
+        return view('StokBarang.index', compact('stok'));
     }
 }

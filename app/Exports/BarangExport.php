@@ -49,7 +49,8 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
     public function styles(Worksheet $sheet)
     {
         //  Merge cell A1 sampai C1 untuk judul
-        $sheet->mergeCells('A1:C1');
+        $sheet->mergeCells('A1:C2');
+        // $sheet->mergeCells('A2:C2');
 
         // // Set judul di A1
         // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
@@ -64,9 +65,18 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ],
         ]);
+        // $sheet->getStyle('A2')->applyFromArray([
+        //     'font' => [
+        //         'bold' => true,
+        //         'size' => 16,
+        //     ],
+        //     'alignment' => [
+        //         'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+        //     ],
+        // ]);
 
         // Styling untuk header tabel
-        $sheet->getStyle('A3:C3')->applyFromArray([
+        $sheet->getStyle('A4:C4')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => '000000'],
@@ -74,7 +84,7 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
             ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                'startColor' => ['argb' => 'ffe333'], // Warna background hijau
+                'startColor' => ['argb' => 'ABBA7C'], // Warna background
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -82,10 +92,10 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
 
         ]);
 
-        $sheet->getStyle('A3:C3')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:C4')->getAlignment()->setWrapText(true);
 
         // Set border untuk seluruh tabel mulai dari baris
-        $sheet->getStyle('A3:C' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:C' . $sheet->getHighestRow())->applyFromArray([
             'font' => [
                 'size' => 12,
             ],
@@ -102,7 +112,7 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
 
 
         // Style untuk baris ganjil (Zebra striping)
-        for ($row = 4; $row <= $sheet->getHighestRow(); $row += 2) {
+        for ($row = 5; $row <= $sheet->getHighestRow(); $row += 2) {
             $sheet->getStyle("A$row:C$row")->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,

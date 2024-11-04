@@ -122,14 +122,18 @@ class TransaksiController extends Controller
 
         if ($transaksi->status_pembayaran == 'lunas') {
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                ->where('nama_barang', $request->input('nama_brg_transaksi'))
+                ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
                 ->whereDate('tanggal', $request->input('transaksi'))
                 ->first();
             if ($stokBarang) {
                 $stokBarang->barang_keluar += $jumlah_barang;
-                $stokBarang->stok_akhir -= $jumlah_barang;
+                $stokBarang->stok_akhir -= $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                    ->where('nama_barang', $request->input('nama_brg_transaksi'))
+                    ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
 
@@ -139,7 +143,7 @@ class TransaksiController extends Controller
                     $stokSebelumnya->barang_masuk
                     : 0;
 
-                $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
+                $stok_ = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
                 $stokBarang = new StokBarangModel();
                 $stokBarang->id_brg_masuk = null;
@@ -147,10 +151,10 @@ class TransaksiController extends Controller
                 $stokBarang->tanggal = $request->input('transaksi');
                 $stokBarang->nama_barang = $request->input('nama_brg_transaksi');
                 $stokBarang->tipe_barang = $request->input('tipe_brg_transaksi');
-                $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->barang_masuk =  $barangMasuk;
                 $stokBarang->barang_keluar = $jumlah_barang;
-                $stokBarang->stok_akhir = $stokAwal - $jumlah_barang;
+                $stokBarang->stok_awal = $stok_;
+                $stokBarang->stok_akhir = $stok_ - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'barang terjual';
                 $stokBarang->save();
             }
@@ -199,10 +203,6 @@ class TransaksiController extends Controller
         $selisih_pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih_pembayaran_'));
         $pembayaran = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran_pelunasan'));
 
-
-        // $transaksi = TransaksiModel::where('id_transaksi', $id)
-        //     ->orderBy('tgl_transaksi', 'desc')
-        //     ->first();
         $getAllTransaksi = TransaksiModel::findOrFail($id);
 
         $old_jumlah_barang = $getAllTransaksi->jumlah_barang;
@@ -231,18 +231,22 @@ class TransaksiController extends Controller
         $transaksi->pembayaran = $pembayaran;
         $transaksi->save();
 
+
         if ($transaksi->status_pembayaran == 'lunas') {
-            $stokBarang = StokBarangModel::where('id_barang', $transaksi->id_barang)
-                ->whereDate('tanggal', $transaksi->tgl_transaksi)
+            $stokBarang = StokBarangModel::where('id_barang', $getAllTransaksi->id_barang)
+                ->where('nama_barang', $getAllTransaksi->nama_barang)
+                ->where('tipe_barang', $getAllTransaksi->tipe_barang)
+                ->whereDate('tanggal', $getAllTransaksi->tgl_transaksi)
                 ->first();
             if ($stokBarang) {
-                $stokBarang->barang_keluar -= $old_jumlah_barang;
-                $stokBarang->barang_keluar += $getAllTransaksi->jumlah_barang;
-                $stokBarang->stok_akhir = $stokBarang->stok_awal - $stokBarang->barang_keluar;
+                $stokBarang->barang_keluar = $getAllTransaksi->jumlah_barang;
+                $stokBarang->stok_akhir -= $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
-                $stokSebelumnya = StokBarangModel::where('id_barang', $transaksi->id_barang)
-                    ->orderBy('tanggal', 'desc')
+                $stokSebelumnya = StokBarangModel::where('id_barang', $getAllTransaksi->id_barang)
+                    ->where('nama_barang', $getAllTransaksi->nama_barang)
+                    ->where('tipe_barang', $getAllTransaksi->tipe_barang)
+                    ->whereDate('tanggal', $getAllTransaksi->tgl_transaksi)
                     ->first();
 
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
@@ -255,20 +259,17 @@ class TransaksiController extends Controller
 
                 $stokBarang = new StokBarangModel();
                 $stokBarang->id_brg_masuk = null;
-                $stokBarang->id_barang = $transaksi->id_barang;
-                $stokBarang->tanggal = $transaksi->tgl_transaksi;
-                $stokBarang->nama_barang = $transaksi->nama_barang;
-                $stokBarang->tipe_barang = $transaksi->tipe_barang;
+                $stokBarang->id_barang = $getAllTransaksi->id_barang;
+                $stokBarang->tanggal = $getAllTransaksi->tgl_transaksi;
+                $stokBarang->nama_barang = $getAllTransaksi->nama_barang;
+                $stokBarang->tipe_barang = $getAllTransaksi->tipe_barang;
                 $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->barang_masuk = $barangMasuk;
                 $stokBarang->barang_keluar = $getAllTransaksi->jumlah_barang;
-                $stokBarang->stok_akhir = $stokAwal - $transaksi->jumlah_barang;
+                $stokBarang->stok_akhir = $stokAwal - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'barang terjual';
                 $stokBarang->save();
             }
-            // $barangKeluar = BarangKeluarModel::where('id_transaksi', $transaksi->id_transaksi)
-            //     ->whereDate('tanggal', $transaksi->tanggal)
-            //     ->first();
             $barangKeluar = new BarangKeluarModel();
             $barangKeluar->id_transaksi = $transaksi->id_transaksi;
             $barangKeluar->id_barang = $transaksi->id_barang;

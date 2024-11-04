@@ -74,8 +74,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // khusus untuk live action
     Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
     Route::get("/barang_masuk/search", [LiveAction::class, 'searchBrgMasuk'])->name('barang_masuk');
+    Route::get("/stok/search", [LiveAction::class, 'stokSearch'])->name('stok.search');
+    Route::get("/transaksi/search", [LiveAction::class, 'transaksiSearch'])->name('transaksi.search');
+
     Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
     Route::get("/barang_masuk/filter", [LiveAction::class, 'filterBrgMasuk'])->name('barang_masuk.filter');
+    Route::get("/stok/filter", [LiveAction::class, 'stokFilter'])->name('stok.filter');
+    Route::get("/transaksi/filter", [LiveAction::class, 'transaksiFilter'])->name('transaksi.filter');
+
     Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
     Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
     Route::delete("/delete/transaksi", [LiveAction::class, 'deleteAllTransactions'])->name('deleteAllTransactions');
