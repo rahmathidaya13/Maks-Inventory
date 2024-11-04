@@ -29,7 +29,7 @@
     <tbody>
         @foreach ($barang_masuk as $data)
             <tr>
-                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-Y')  }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y')  }}</td>
                 <td>{{ $data->no_warehouse }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>

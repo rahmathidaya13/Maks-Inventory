@@ -77,10 +77,14 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get("/stok/search", [LiveAction::class, 'stokSearch'])->name('stok.search');
     Route::get("/transaksi/search", [LiveAction::class, 'transaksiSearch'])->name('transaksi.search');
 
+    // for limit requet endpont 100 page
     Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
     Route::get("/barang_masuk/filter", [LiveAction::class, 'filterBrgMasuk'])->name('barang_masuk.filter');
     Route::get("/stok/filter", [LiveAction::class, 'stokFilter'])->name('stok.filter');
     Route::get("/transaksi/filter", [LiveAction::class, 'transaksiFilter'])->name('transaksi.filter');
+
+    // for filter with date
+    Route::post("/stok/filter/date", [LiveAction::class, 'filterDateStok'])->name('date.filter.stok');
 
     Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
     Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');

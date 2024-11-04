@@ -4,7 +4,7 @@
     $startNumbering = ($currentPage - 1) * $perPage;
 @endphp
 @foreach ($stok as $data)
-    <tr class="text-center" id="stok_barang_{{ $data->id_stok }}">
+    <tr class="text-center stok_barang" id="stok_barang_{{ $data->id_stok }}">
         <td class="align-middle">
             <div class="form-check">
                 <input class="form-check-input selected" type="checkbox" name="id_stok_all" id="id_stok_all"

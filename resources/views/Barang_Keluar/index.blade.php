@@ -43,10 +43,10 @@
                 </div>
             </div>
 
-            <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                    <thead>
-                        <tr>
+            <div class="card-body table-responsive p-3">
+                <table class="table table-hover table-bordered text-wrap table-sm">
+                    <thead class="table-warning">
+                        <tr class="text-center">
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Kode Transaksi</th>

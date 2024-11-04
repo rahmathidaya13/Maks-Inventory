@@ -176,7 +176,6 @@ $(document).on("change", "#import_stok_form", function (e) {
 $(document).on("change", "#filter_stok", function (e) {
     e.preventDefault();
     let offset = $(this).val();
-    console.log(offset);
     $("tbody").load("/stok/filter?offset=" + offset, function (data) {
         $(this).html(data.table);
         $(".pagination").html(data.pagination);
@@ -187,7 +186,6 @@ $(document).on("change", "#filter_stok", function (e) {
 $(document).on("keyup", "#keyword_stok", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
-    console.log(query);
     if (query === "") {
         $("tbody").load(
             "/stok/search?query=" + encodeURIComponent(query),
@@ -195,7 +193,6 @@ $(document).on("keyup", "#keyword_stok", function (e) {
                 // Kembali ke halaman stok tanpa hasil pencarian
                 window.history.pushState({}, "", "/stok");
                 $(".pagination").html(data.pagination);
-                console.log(data);
             }
         );
         // location.reload();
@@ -221,4 +218,46 @@ $(document).on("keyup", "#keyword_stok", function (e) {
             }
         );
     }
+});
+
+$(document).on("click", "#set_filter_stok", function (e) {
+    e.preventDefault();
+    let start_date = $("#start_date_filter_stok").val();
+    let end_date = $("#end_date_filter_stok").val();
+    // filter tanggal
+    $.ajax({
+        type: "POST",
+        url: "/stok/filter/date",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            start_date: start_date,
+            end_date: end_date,
+        },
+        success: function (data) {
+            // console.log(data);
+            $("tbody").html(data);
+            $(".pagination").html(data.pagination);
+        },
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                let errorMessage = "";
+
+                if (errors.start_date) {
+                    errorMessage += errors.start_date[0] + "<br>";
+                }
+                if (errors.end_date) {
+                    errorMessage += errors.end_date[0] + "<br>";
+                }
+
+                // Tampilkan pesan error menggunakan SweetAlert
+                Swal.fire({
+                    icon: "warning",
+                    title: "Validasi tanggal gagal",
+                    // html: "Masukan tanggal yang valid", // Tampilkan error dalam format HTML
+                    confirmButtonText: "OK",
+                });
+            }
+        },
+    });
 });

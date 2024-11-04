@@ -191,7 +191,9 @@ $(document).on("click", ".hapus_brg_masuk", function () {
     // Show SweetAlert confirmation dialog
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: `Barang tanggal ${ConvertDate(dates)} ${getNameType} ini akan dihapus!`,
+        text: `Barang tanggal ${ConvertDate(
+            dates
+        )} ${getNameType} ini akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -320,4 +322,13 @@ $(document).on("click", ".perbarui_stok", function () {
             // $("#stok_update:first td").eq(5).text(data.result.stok_saat_ini);
         }
     );
+});
+
+$(document).on("click", "#export_barang_masuk", function (e) {
+    e.preventDefault();
+    $("#barangmasuk")[0].reset();
+    $(".modal-title span").text("Export Barang Masuk");
+    $(".modal-title i").removeClass("fas fa-edit")
+    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").addClass("fas fa-file-export");
 });

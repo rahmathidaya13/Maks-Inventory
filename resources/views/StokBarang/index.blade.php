@@ -37,10 +37,18 @@
                             <option value="100">100</option>
                         </select>
                     </div>
-
                 </div>
-                <div class="input-group input-group-sm w-25">
-                    <input type="search" name="keyword_stok" id="keyword_stok" class="form-control" placeholder="Search">
+                <div class="d-flex align-items-center">
+                    <div class="mx-3">
+                        <div class="input-group input-group-sm">
+                            <input type="date" name="start_date_filter_stok" id="start_date_filter_stok" class="form-control mx-1">
+                            <input type="date" name="end_date_filter_stok" id="end_date_filter_stok" class="form-control mx-2">
+                            <button id="set_filter_stok" type="submit" class="btn btn-sm btn-primary">Set</button>
+                        </div>
+                    </div>
+                    <div class="input-group input-group-sm w-50">
+                        <input type="search" name="keyword_stok" id="keyword_stok" class="form-control" placeholder="Search">
+                    </div>
                 </div>
             </div>
             <div class="ml-2 mb-2">
