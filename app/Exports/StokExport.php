@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+
 class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
 {
     /**
@@ -129,4 +130,6 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
             ]);
         }
     }
+
+
 }

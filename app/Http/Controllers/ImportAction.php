@@ -49,7 +49,7 @@ class ImportAction extends Controller
         );
 
         $files = $request->file('import_brg_masuk');
-        $fileType = in_array($files->getClientOriginalExtension(), ['xls', 'xlsx']) ? 'excel' : 'csv';
+        // $fileType = in_array($files->getClientOriginalExtension(), ['xls', 'xlsx']) ? 'excel' : 'csv';
 
         // Mulai transaksi
         try {
@@ -58,7 +58,7 @@ class ImportAction extends Controller
             DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
             // Proses impor file menggunakan Laravel Excel
-            Excel::import(new BarangMasukImport($fileType), $files);
+            Excel::import(new BarangMasukImport, $files);
 
             // Aktifkan kembali foreign key checks
             DB::statement('SET FOREIGN_KEY_CHECKS=1;');

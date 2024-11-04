@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Exports\BarangExport;
 use App\Exports\StokExport;
 use App\Models\BarangMasukModel;
+use App\Models\StokBarangModel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportAction extends Controller
@@ -27,5 +28,12 @@ class ExportAction extends Controller
     public function exportStok()
     {
         return Excel::download(new StokExport, 'Stok Barang.xlsx');
+    }
+
+    public function viewstok()
+    {
+        return view('StokBarang.print.index', [
+           'stok' => StokBarangModel::all(),
+        ]);
     }
 }

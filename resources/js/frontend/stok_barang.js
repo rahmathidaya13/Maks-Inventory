@@ -131,7 +131,7 @@ $(document).on("click", ".ubah_stok", function (e) {
         $("#tgl").val(data.result.tanggal);
         $("#nama_barang").val(data.result.nama_barang).trigger("change");
         $("#tipe_barang").val(data.result.tipe_barang).trigger("change");
-        $("#jumlah_barang").val(data.result.stok_akhir);
+        // $("#jumlah_barang").val(data.result.stok_akhir);
         $("#keterangan").val(data.result.keterangan);
     });
 });

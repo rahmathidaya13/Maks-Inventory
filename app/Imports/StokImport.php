@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\StokBarangModel;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class StokImport implements ToModel, WithHeadingRow
 {
@@ -18,7 +19,11 @@ class StokImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $get_date = Carbon::parse($row['tanggal'])->format('Y-m-d');
+        $fromExcel = $row['tanggal'];
+        $dateTime = Date::excelToDateTimeObject($fromExcel);
+        $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
+        // $get_date = Carbon::parse($row['tanggal'])->format('Y-m-d');
+        $get_date = Carbon::parse($formatedDate)->format('Y-m-d');
 
         // ambil data barang untuk di relasikan dengan stok barang ketika di import
         $barang = BarangModel::where('nama_barang', $row['nama_barang'])
@@ -37,7 +42,7 @@ class StokImport implements ToModel, WithHeadingRow
         return new StokBarangModel([
             'id_barang' => $barang->id_barang,
             'id_brg_masuk' => null,
-            'tanggal' => $get_date,
+            'tanggal' => $formatedDate,
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],
             'stok_awal' => $row['stok_awal'],

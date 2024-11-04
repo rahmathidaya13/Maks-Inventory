@@ -17,16 +17,15 @@ class BarangMasukImport implements ToModel, WithHeadingRow
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    private $fileType;
-    public function __construct($fileType)
-    {
-        $this->fileType = $fileType;
-    }
+
     public function model(array $row)
     {
-        // $fromExcel = $row['tanggal_barang_masuk'];
-        // $dateTime = Date::excelToDateTimeObject($fromExcel);
-        // $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
+        $fromExcel = $row['tanggal_barang_masuk'];
+        $dateTime = Date::excelToDateTimeObject($fromExcel);
+        $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
+        // $get_date = Carbon::parse($row['tanggal'])->format('Y-m-d');
+        $get_date = Carbon::parse($formatedDate)->format('Y-m-d');
+
         $barang = BarangModel::where('nama_barang', $row['nama_barang'])
             ->where('tipe_barang', $row['tipe_barang'])
             ->first();
@@ -40,7 +39,6 @@ class BarangMasukImport implements ToModel, WithHeadingRow
             ]);
         }
         // $dateNow = Carbon::now()->format('Y-m-d');
-        $get_date = Carbon::parse($row['tanggal_barang_masuk'])->format('Y-m-d');
         return new BarangMasukModel([
             'id_barang' => $barang->id_barang,
             'tgl_brg_masuk' => $get_date,

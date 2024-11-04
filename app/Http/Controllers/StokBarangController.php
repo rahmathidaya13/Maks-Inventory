@@ -138,7 +138,7 @@ class StokBarangController extends Controller
         if ($stok->tanggal === $request->input('tgl')) {
             $stok->barang_masuk += $barang_masuk - $stok->barang_masuk;
             $stok->barang_keluar += $barang_keluar - $stok->barang_keluar;
-            $stok->stok_akhir = ($stok->stok_awal +  $request->input('jumlah_barang')) - $stok->barang_keluar;
+            $stok->stok_akhir = ($stok->stok_awal + ($request->input('jumlah_barang') -  $stok->barang_masuk)) - $stok->barang_keluar;
             $stok->keterangan = $request->input('keterangan');
             $stok->update();
             return back()->with('success', 'Stok berhasil diperbarui');

@@ -89,6 +89,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
     Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
     Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
-    Route::get('/view/barang', [ExportAction::class, 'viewItem'])->name('view.barang');
+    Route::get('/view/stok', [ExportAction::class, 'viewstok'])->name('view.stok');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
