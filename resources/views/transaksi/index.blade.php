@@ -49,15 +49,15 @@
                 <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control" placeholder="Search">
             </div>
         </div>
-        <div class="ml-2">
+        <div class="ml-2 mb-2">
             <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                 Hapus</button>
         </div>
 
-        <div class="card-body table-responsive p-0">
-            <table id="" class="table table-hover text-nowrap">
-                <thead>
-                    <tr>
+        <div class="card-body table-responsive p-2">
+            <table id="" class="table table-hover text-nowrap table-sm table-bordered">
+                <thead class="table-info">
+                    <tr class="text-center">
                         <th class="text-center">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="select_all_transaksi"

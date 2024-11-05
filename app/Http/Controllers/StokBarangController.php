@@ -34,6 +34,22 @@ class StokBarangController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'tipe_barang' => 'required|string|max:255',
+            'tgl' => 'required|date',  // Pastikan tanggal valid
+            'jumlah_barang' => 'required|integer|min:1',  // Pastikan jumlah barang minimal 1
+            'keterangan' => 'nullable|string|max:255',  // Keterangan bersifat opsional
+        ], [
+            'nama_barang.required' => 'Nama barang harus dipilih.',
+            'tipe_barang.required' => 'Tipe barang harus dipilih.',
+            'tgl.required' => 'Tanggal barang masuk harus diisi.',
+            'tgl.date' => 'Format tanggal tidak valid.',
+            'jumlah_barang.required' => 'Jumlah barang harus diisi.',
+            'jumlah_barang.integer' => 'Jumlah barang harus berupa angka.',
+            'jumlah_barang.min' => 'Jumlah barang minimal 1.',
+        ]);
 
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
@@ -116,6 +132,23 @@ class StokBarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Validasi input
+        $request->validate([
+            'nama_barang' => 'required|string|max:255',
+            'tipe_barang' => 'required|string|max:255',
+            'tgl' => 'required|date',
+            'jumlah_barang' => 'required|integer|min:1',
+            'keterangan' => 'nullable|string|max:255',
+        ], [
+            'nama_barang.required' => 'Nama barang harus dipilih.',
+            'tipe_barang.required' => 'Tipe barang harus dipilih.',
+            'tgl.required' => 'Tanggal barang masuk harus diisi.',
+            'tgl.date' => 'Format tanggal tidak valid.',
+            'jumlah_barang.required' => 'Jumlah barang harus diisi.',
+            'jumlah_barang.integer' => 'Jumlah barang harus berupa angka.',
+            'jumlah_barang.min' => 'Jumlah barang minimal 1.',
+        ]);
+
         $stok = StokBarangModel::findOrFail($id);
 
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
