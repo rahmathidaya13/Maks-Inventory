@@ -54,6 +54,7 @@ class BarangMasukExport implements FromView, WithHeadings, WithStyles, ShouldAut
     {
         //  Merge cell A1 sampai C1 untuk judul
         $sheet->mergeCells('A1:H1');
+        $sheet->mergeCells('A2:H2');
         // // Set judul di A1
         // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
         // Styling untuk judul
@@ -66,9 +67,18 @@ class BarangMasukExport implements FromView, WithHeadings, WithStyles, ShouldAut
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ],
         ]);
+        $sheet->getStyle('A2')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'size' => 14,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+        ]);
 
         // Styling untuk header tabel
-        $sheet->getStyle('A3:H3')->applyFromArray([
+        $sheet->getStyle('A4:H4')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => '000000'],
@@ -84,10 +94,10 @@ class BarangMasukExport implements FromView, WithHeadings, WithStyles, ShouldAut
 
         ]);
 
-        $sheet->getStyle('A3:H3')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:H4')->getAlignment()->setWrapText(true);
 
         // Set border untuk seluruh tabel mulai dari baris
-        $sheet->getStyle('A3:H' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:H' . $sheet->getHighestRow())->applyFromArray([
             'font' => [
                 'size' => 12,
             ],
@@ -107,7 +117,7 @@ class BarangMasukExport implements FromView, WithHeadings, WithStyles, ShouldAut
 
 
         // Style untuk baris ganjil (Zebra striping)
-        for ($row = 4; $row <= $sheet->getHighestRow(); $row += 2) {
+        for ($row = 5; $row <= $sheet->getHighestRow(); $row += 2) {
             $sheet->getStyle("A$row:H$row")->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -116,5 +126,4 @@ class BarangMasukExport implements FromView, WithHeadings, WithStyles, ShouldAut
             ]);
         }
     }
-
 }

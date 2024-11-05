@@ -21,12 +21,18 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
     // {
     //     return StokBarangModel::all();
     // }
+    protected $start_date;
+    protected $end_date;
 
+    public function __construct($start_date, $end_date)
+    {
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
+    }
     public function view(): View
     {
         return view('StokBarang.print.index', [
-            'stok' => StokBarangModel::all(),
-
+            'stok' => StokBarangModel::whereBetween('tanggal', [$this->start_date, $this->end_date])->get(),
         ]);
     }
 
@@ -130,6 +136,4 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
             ]);
         }
     }
-
-
 }

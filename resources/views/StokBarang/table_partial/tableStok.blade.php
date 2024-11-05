@@ -16,9 +16,9 @@
         <td class="align-middle">{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
         <td class="align-middle nama_brg_stok">{{ $data->nama_barang }}</td>
         <td class="align-middle tipe_brg_stok">{{ $data->tipe_barang }}</td>
+        <td class="text-center align-middle">{{ $data->stok_awal }}</td>
         <td class="text-center align-middle">{{ $data->barang_masuk }}</td>
         <td class="text-center align-middle">{{ $data->barang_keluar }}</td>
-        <td class="text-center align-middle">{{ $data->stok_awal }}</td>
         <td class="text-center align-middle">{{ $data->stok_akhir }}</td>
         <td class="text-center align-middle">{{ ucwords($data->keterangan) }}</td>
         <td>

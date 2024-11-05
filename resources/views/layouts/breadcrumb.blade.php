@@ -22,8 +22,8 @@
                     <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" id="add_item_list"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang Masuk</button>
                 @elseif (Route::is('stok.index'))
-                    <a href="{{ route('export.stok') }}" id="export_stok_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
-                        Export</a>
+                    <button data-toggle="modal" data-target="#staticBackdrop_filter_date_brg_masuk" id="export_stok_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
+                        Export</button>
 
 
                     <button data-toggle="modal" data-target="#staticBackdrop_stok_barang_import" id="import_stok"

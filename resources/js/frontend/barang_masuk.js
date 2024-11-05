@@ -14,6 +14,8 @@ function ConvertDate(dates) {
 $(document).on("click", "#add_item_list", function (e) {
     e.preventDefault();
     $("#barangmasuk")[0].reset();
+    $("#brg_masuk")[0].reset();
+
     $(".modal-title span").text("Tambah Barang Masuk");
     $(".modal-title i")
         .removeClass("fas fa-edit")
@@ -69,6 +71,10 @@ $("#jumlah_brg").on("input", function () {
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
     $("#form_item")[0].reset();
+    $("#brg_masuk")[0].reset();
+    $("#barangmasuk")[0].reset();
+    $("#filter_date")[0].reset();
+
     $(".modal-title span").text("Tambah Barang");
     $(".modal-title i").removeClass("fas fa-edit").addClass("fas fa-box");
     $("#aksi_brg_masuk span").text("Simpan");
@@ -327,8 +333,65 @@ $(document).on("click", ".perbarui_stok", function () {
 $(document).on("click", "#export_barang_masuk", function (e) {
     e.preventDefault();
     $("#barangmasuk")[0].reset();
+    $("#brg_masuk")[0].reset();
+    $("#filter_date")[0].reset();
     $(".modal-title span").text("Export Barang Masuk");
-    $(".modal-title i").removeClass("fas fa-edit")
-    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-file-export");
 });
+
+$(document).on("click", "#set_brg_masuk", function (e) {
+    e.preventDefault();
+    let start_date = $("#start_date_brg_masuk").val();
+    let end_date = $("#end_date_brg_masuk").val();
+    // filter tanggal
+    $.ajax({
+        type: "POST",
+        url: "/barang_masuk/filter/date",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            start_date: start_date,
+            end_date: end_date,
+        },
+        success: function (data) {
+            // console.log(data);
+            $("tbody").html(data);
+            $(".pagination").html(data.pagination);
+        },
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                let errorMessage = "";
+
+                if (errors.start_date) {
+                    errorMessage += errors.start_date[0] + "<br>";
+                }
+                if (errors.end_date) {
+                    errorMessage += errors.end_date[0] + "<br>";
+                }
+
+                // Tampilkan pesan error menggunakan SweetAlert
+                Swal.fire({
+                    icon: "warning",
+                    title: "Validasi tanggal gagal",
+                    // html: "Masukan tanggal yang valid", // Tampilkan error dalam format HTML
+                    confirmButtonText: "OK",
+                });
+            }
+        },
+    });
+});
+
+$(document).on("click", "#import_item_list", function (e) {
+    e.preventDefault();
+    $("#barangmasuk")[0].reset();
+    $("#brg_masuk")[0].reset();
+    $("#filter_date")[0].reset();
+    $(".modal-title span").text("Upload File");
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").addClass("fas fa-file-upload");
+});
+
+

@@ -25,15 +25,17 @@ class ExportAction extends Controller
         return Excel::download(new BarangMasukExport($start_date, $end_date), 'Barang Masuk.xlsx');
     }
 
-    public function exportStok()
+    public function exportStok(Request $request)
     {
-        return Excel::download(new StokExport, 'Stok Barang.xlsx');
+        $start_date = $request->get('start_date_stok');
+        $end_date = $request->get('end_date_stok');
+        return Excel::download(new StokExport($start_date, $end_date), 'Stok Barang.xlsx');
     }
 
     public function viewstok()
     {
         return view('StokBarang.print.index', [
-           'stok' => StokBarangModel::all(),
+            'stok' => StokBarangModel::all(),
         ]);
     }
 }

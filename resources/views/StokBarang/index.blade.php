@@ -71,9 +71,9 @@
                             <th>Tanggal</th>
                             <th>Nama Barang</th>
                             <th>Tipe Barang</th>
+                            <th>Stok Awal</th>
                             <th>Barang Masuk</th>
                             <th>Barang Keluar</th>
-                            <th>Stok Awal</th>
                             <th>Stok Akhir</th>
                             <th>Keterangan</th>
                             <th>Aksi</th>
@@ -102,4 +102,5 @@
 </div>
 @include('StokBarang.modal.stokForm')
 @include('StokBarang.modal.importStok')
+@include('StokBarang.modal.print_date')
 @endsection

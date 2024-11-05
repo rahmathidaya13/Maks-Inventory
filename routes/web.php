@@ -85,17 +85,19 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // for filter with date
     Route::post("/stok/filter/date", [LiveAction::class, 'filterDateStok'])->name('date.filter.stok');
+    Route::post("/barang_masuk/filter/date", [LiveAction::class, 'filterDateBarangMasuk'])->name('date.filter.barang_masuk');
 
     Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
     Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
     Route::delete("/delete/transaksi", [LiveAction::class, 'deleteAllTransactions'])->name('deleteAllTransactions');
     Route::delete("/delete/all/stok", [LiveAction::class, 'deleteAllStok'])->name('deleteAllStok');
 
-    // khusus untuk import file dan export file
+    // khusus untuk import file
     Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file');
     Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk');
     Route::post("/import/stok", [ImportAction::class, 'importStokBarang'])->name('import.stok');
 
+    // khusus untuk export file
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
     Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
     Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');

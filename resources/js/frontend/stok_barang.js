@@ -70,12 +70,14 @@ $(document).on("click", "#delete_all_stok", function (e) {
 });
 $(document).on(
     "click",
-    "#stok_out, #stok_close,#act_import_stok",
+    "#stok_out, #stok_close,#act_import_stok,#act_filter_keluar_stok,#act_filter_close_stok",
     function (e) {
         e.preventDefault();
         $("input[name='_method']").remove();
         $("#stokBarangForm").attr("action", "#");
         $("#stokBarangForm")[0].reset();
+        $("#filter_date_stok")[0].reset();
+        $("#import_stok_file")[0].reset();
         $("#preview").attr("src", "assets/icon/iconupload.jpg");
         $("#file-name").text("File not found");
     }
@@ -84,10 +86,13 @@ $(document).on(
 $(document).on("click", "#add_stok_barang", function (e) {
     e.preventDefault();
     $("#stokBarangForm")[0].reset();
+    $("#filter_date_stok")[0].reset();
+    $("#import_stok_file")[0].reset();
+
     $(".modal-title span").text("Buat Stok Baru");
-    $(".modal-title i")
-        .removeClass("fas fa-edit")
-        .addClass("fas fa-plus-square");
+    $(".modal-title i").removeClass("fas fa-edit")
+    $(".modal-title i").removeClass("fas fa-file-upload")
+    $(".modal-title i").addClass("fas fa-plus-square");
     $("#stok_save span").text("Simpan");
     $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
     $("#stokBarangForm").attr("action", "/stok/store");
@@ -119,10 +124,14 @@ $(document).on("click", ".ubah_stok", function (e) {
     e.preventDefault();
     let id = $(this).data("id");
     $("#stokBarangForm")[0].reset();
+    $("#filter_date_stok")[0].reset();
+    $("#import_stok_file")[0].reset();
+
     $(".modal-title span").text("Ubah Data Stok");
-    $(".modal-title i")
-        .removeClass("fas fa-plus-square")
-        .addClass("fas fa-edit ");
+    $(".modal-title i").removeClass("fas fa-plus-square")
+    $(".modal-title i").removeClass("fas fa-file-upload")
+    $(".modal-title i").addClass("fas fa-edit ");
+
     $("#stok_save span").text("Ubah");
     $("#stok_save i").removeClass("fas fa-save").addClass("fas fa-edit");
     $("#stokBarangForm").attr("action", `/stok/update/${id}`);
@@ -260,4 +269,27 @@ $(document).on("click", "#set_filter_stok", function (e) {
             }
         },
     });
+});
+
+$(document).on("click", "#export_stok_barang", function (e) {
+    e.preventDefault();
+    $("#stokBarangForm")[0].reset();
+    $("#import_stok_file")[0].reset();
+    $("#filter_date_stok")[0].reset();
+    $(".modal-title span").text("Export File");
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").addClass("fas fa-file-upload");
+});
+
+$(document).on("click","#import_stok", function (e) {
+    e.preventDefault();
+
+    $("#stokBarangForm")[0].reset();
+    $("#import_stok_file")[0].reset();
+    $("#filter_date_stok")[0].reset();
+    $(".modal-title span").text("Upload File");
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").addClass("fas fa-file-upload");
 });

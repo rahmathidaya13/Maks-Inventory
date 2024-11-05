@@ -174,4 +174,24 @@ class LiveAction extends Controller
         }
         return view('StokBarang.index', compact('stok'));
     }
+    public function filterDateBarangMasuk(Request $request)
+    {
+         $request->validate([
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after_or_equal:start_date',
+    ], [
+        'start_date.required' => 'Masukkan tanggal awal yang valid.',
+        'start_date.date' => 'Tanggal awal harus dalam format yang valid.',
+        'end_date.required' => 'Masukkan tanggal akhir yang valid.',
+        'end_date.date' => 'Tanggal akhir harus dalam format yang valid.',
+        'end_date.after_or_equal' => 'Tanggal akhir harus lebih besar atau sama dengan tanggal awal.',
+    ]);
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $barang_masuk = BarangMasukModel::whereBetween('tgl_brg_masuk', [$start_date, $end_date])->latest()->paginate(500);
+        if ($request->ajax()) {
+            return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
+        }
+        return view('BarangMasuk.index', compact('barang_masuk'));
+    }
 }

@@ -9,9 +9,9 @@
         flex-wrap: wrap;
     }
 </style>
-<h1>Laporan Barang Masuk Toko Maksindo Cabang Pekanbaru dari {{ \Carbon\Carbon::parse($start_date)->format('F Y') }} Hingga {{ \Carbon\Carbon::parse($end_date)->format('F Y') }}
-</h1>
-
+<h1>Laporan Barang Masuk Toko Maksindo</h1>
+<h1>Cabang Pekanbaru dari {{ \Carbon\Carbon::parse($start_date)->format('F Y') }} Hingga
+    {{ \Carbon\Carbon::parse($end_date)->format('F Y') }}</h1>
 <br>
 <table style="width:50%">
     <thead>
@@ -29,7 +29,7 @@
     <tbody>
         @foreach ($barang_masuk as $data)
             <tr>
-                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y')  }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y') }}</td>
                 <td>{{ $data->no_warehouse }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>

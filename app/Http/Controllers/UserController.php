@@ -27,8 +27,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         if ($request->has('photo-user')) {
             $file = $request->file('photo-user');
-            $nameFile = time() . $file->getClientOriginalExtension();
-            $file->move('assets/profile/', $nameFile);
+            $nameFile = time() . "." . $file->getClientOriginalExtension();
+            $file->move(public_path('assets/profile/'), $nameFile);
             if ($user->photo) {
                 $old = public_path('assets/profile/' . $user->photo);
                 if (file_exists($old)) {
