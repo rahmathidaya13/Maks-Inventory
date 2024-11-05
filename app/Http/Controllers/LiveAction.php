@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluarModel;
 use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\StokBarangModel;
@@ -77,6 +78,24 @@ class LiveAction extends Controller
         }
         return view('transaksi.partial.table',  compact('transaksi', 'query'));
     }
+    public function barangKeluarSearch(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
+
+        $query = $request->get('query');
+        if (!empty($query)) {
+            $barang_keluar =  BarangKeluarModel::where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+                ->orWhere("no_handphone", "like", "%" . $query . "%")
+                ->latest()->paginate(10)->appends(['query' => $query]);;
+        } else {
+            $barang_keluar = BarangKeluarModel::latest()->paginate(10);
+        }
+        return view('Barang_Keluar.partial.table',  compact('barang_keluar', 'query'));
+    }
 
     public function filterData(Request $request)
     {
@@ -104,6 +123,15 @@ class LiveAction extends Controller
             return view('transaksi.partial.table', compact('transaksi'))->render();
         }
         return view('transaksi.index', compact('transaksi'));
+    }
+    public function barangKeluarFilter(Request $request)
+    {
+        $offset = $request->get('offset');
+        $barang_keluar = BarangKeluarModel::paginate($offset);
+        if ($request->ajax()) {
+            return view('Barang_Keluar.partial.table', compact('barang_keluar'))->render();
+        }
+        return view('Barang_Keluar.index', compact('barang_keluar'));
     }
 
     public function deletedAll(Request $request)
@@ -156,16 +184,16 @@ class LiveAction extends Controller
 
     public function filterDateStok(Request $request)
     {
-         $request->validate([
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date',
-    ], [
-        'start_date.required' => 'Masukkan tanggal awal yang valid.',
-        'start_date.date' => 'Tanggal awal harus dalam format yang valid.',
-        'end_date.required' => 'Masukkan tanggal akhir yang valid.',
-        'end_date.date' => 'Tanggal akhir harus dalam format yang valid.',
-        'end_date.after_or_equal' => 'Tanggal akhir harus lebih besar atau sama dengan tanggal awal.',
-    ]);
+        // $request->validate([
+        //     'start_date' => 'required|date',
+        //     'end_date' => 'required|date|after_or_equal:start_date',
+        // ], [
+        //     'start_date.required' => 'Masukkan tanggal awal yang valid.',
+        //     'start_date.date' => 'Tanggal awal harus dalam format yang valid.',
+        //     'end_date.required' => 'Masukkan tanggal akhir yang valid.',
+        //     'end_date.date' => 'Tanggal akhir harus dalam format yang valid.',
+        //     'end_date.after_or_equal' => 'Tanggal akhir harus lebih besar atau sama dengan tanggal awal.',
+        // ]);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $stok = StokBarangModel::whereBetween('tanggal', [$start_date, $end_date])->latest()->paginate(500);
@@ -176,16 +204,6 @@ class LiveAction extends Controller
     }
     public function filterDateBarangMasuk(Request $request)
     {
-         $request->validate([
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date',
-    ], [
-        'start_date.required' => 'Masukkan tanggal awal yang valid.',
-        'start_date.date' => 'Tanggal awal harus dalam format yang valid.',
-        'end_date.required' => 'Masukkan tanggal akhir yang valid.',
-        'end_date.date' => 'Tanggal akhir harus dalam format yang valid.',
-        'end_date.after_or_equal' => 'Tanggal akhir harus lebih besar atau sama dengan tanggal awal.',
-    ]);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $barang_masuk = BarangMasukModel::whereBetween('tgl_brg_masuk', [$start_date, $end_date])->latest()->paginate(500);
@@ -193,5 +211,16 @@ class LiveAction extends Controller
             return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
         }
         return view('BarangMasuk.index', compact('barang_masuk'));
+    }
+
+    public function filterDateBarangKeluar(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $barang_keluar = BarangKeluarModel::whereBetween('tanggal', [$start_date, $end_date])->latest()->paginate(500);
+        if ($request->ajax()) {
+            return view('Barang_Keluar.partial.table', compact('barang_keluar'))->render();
+        }
+        return view('Barang_Keluar.index', compact('barang_keluar'));
     }
 }

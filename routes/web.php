@@ -71,21 +71,24 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/profile/update/{id}', 'update')->name('profile.update');
         Route::get('/profile/show/{id}', 'show')->name('profile.show');
     });
-    // khusus untuk live action
+    // khusus untuk live action search
     Route::get("/item/search", [LiveAction::class, 'searchItem'])->name('search');
     Route::get("/barang_masuk/search", [LiveAction::class, 'searchBrgMasuk'])->name('barang_masuk');
     Route::get("/stok/search", [LiveAction::class, 'stokSearch'])->name('stok.search');
     Route::get("/transaksi/search", [LiveAction::class, 'transaksiSearch'])->name('transaksi.search');
+    Route::get("/barang_keluar/search", [LiveAction::class, 'barangKeluarSearch'])->name('barang_keluar.search');
 
-    // for limit requet endpont 100 page
+    // for limit requet endpoint 100 page
     Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
     Route::get("/barang_masuk/filter", [LiveAction::class, 'filterBrgMasuk'])->name('barang_masuk.filter');
     Route::get("/stok/filter", [LiveAction::class, 'stokFilter'])->name('stok.filter');
     Route::get("/transaksi/filter", [LiveAction::class, 'transaksiFilter'])->name('transaksi.filter');
+    Route::get("/barang_keluar/filter", [LiveAction::class, 'barangKeluarFilter'])->name('barang_keluar.filter');
 
     // for filter with date
     Route::post("/stok/filter/date", [LiveAction::class, 'filterDateStok'])->name('date.filter.stok');
     Route::post("/barang_masuk/filter/date", [LiveAction::class, 'filterDateBarangMasuk'])->name('date.filter.barang_masuk');
+    Route::post("/barang_keluar/filter/date", [LiveAction::class, 'filterDateBarangKeluar'])->name('date.filter.barang_keluar');
 
     Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
     Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
@@ -102,5 +105,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
     Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
     Route::get('/view/stok', [ExportAction::class, 'viewstok'])->name('view.stok');
+    Route::get('/export/barang_keluar', [ExportAction::class, 'exportBarangKeluar'])->name('export.barang_keluar');
+
+    // khusus PDF export
+    Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

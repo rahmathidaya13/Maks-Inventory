@@ -13,8 +13,8 @@ class BarangKeluarController extends Controller
     public function index()
     {
         // Mendapatkan semua data barang keluar di database
-        $barang_keluar = BarangKeluarModel::paginate(10);
-        return view('Barang_Keluar.index',compact('barang_keluar'));
+        $barang_keluar = BarangKeluarModel::latest()->paginate(10);
+        return view('Barang_Keluar.index', compact('barang_keluar'));
     }
 
     /**
