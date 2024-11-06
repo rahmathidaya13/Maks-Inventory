@@ -65,13 +65,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="ml-2 mb-2">
+                <div class="px-3 mb-2">
                     <button disabled id="delete_all_brg_masuk" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                         Hapus</button>
                 </div>
 
                 <div class="card-body table-responsive p-3">
-                    <table id="" class="table table-hover text-nowrap table-sm table-bordered">
+                    <table id="" class="table table-hover text-nowrap table-sm table-bordered table-striped">
                         <thead class="text-center">
                             <tr class="table-primary">
                                 <th class="text-center">

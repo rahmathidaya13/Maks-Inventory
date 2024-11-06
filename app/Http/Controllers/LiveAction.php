@@ -109,7 +109,7 @@ class LiveAction extends Controller
     public function filterBrgMasuk(Request $request)
     {
         $offset = $request->get('limit');
-        $barang_masuk = BarangMasukModel::paginate($offset);
+        $barang_masuk = BarangMasukModel::latest()->paginate($offset);
         if ($request->ajax()) {
             return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
         }
@@ -118,7 +118,7 @@ class LiveAction extends Controller
     public function transaksiFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $transaksi = TransaksiModel::paginate($offset);
+        $transaksi = TransaksiModel::latest()->paginate($offset);
         if ($request->ajax()) {
             return view('transaksi.partial.table', compact('transaksi'))->render();
         }
@@ -127,7 +127,7 @@ class LiveAction extends Controller
     public function barangKeluarFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $barang_keluar = BarangKeluarModel::paginate($offset);
+        $barang_keluar = BarangKeluarModel::latest()->paginate($offset);
         if ($request->ajax()) {
             return view('Barang_Keluar.partial.table', compact('barang_keluar'))->render();
         }
@@ -175,7 +175,7 @@ class LiveAction extends Controller
     public function stokFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $stok = StokBarangModel::paginate($offset);
+        $stok = StokBarangModel::latest()->paginate($offset);
         if ($request->ajax()) {
             return view('StokBarang.table_partial.tableStok', compact('stok'))->render();
         }

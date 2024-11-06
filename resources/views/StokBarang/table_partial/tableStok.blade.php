@@ -48,6 +48,6 @@
 
 @empty($data)
     <tr>
-        <td colspan="15" class="text-center">Barang tidak ditemukan</td>
+        <td colspan="15" class="text-center">Stok barang tidak ditemukan</td>
     </tr>
 @endempty

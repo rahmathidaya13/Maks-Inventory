@@ -33,31 +33,6 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             ->where('tipe_barang', $row['tipe_barang'])
             ->whereDate('tanggal', $formatedDate)
             ->first();
-
-        $transaksi = TransaksiModel::where('nama_barang', $row['nama_barang'])
-            ->where('tipe_barang', $row['tipe_barang'])
-            ->whereDate('tgl_transaksi', $formatedDate)
-            ->first();
-        // dd($transaksi->status_pembayaran == 'lunas');
-
-        // jika status pembayaran lunas, maka keluar barang
-        if ($row['status_pembayaran'] === 'lunas') {
-            BarangKeluarModel::create([
-                'id_transaksi' => $transaksi ? $transaksi->id_transaksi : null,
-                'id_barang' => $barang ? $barang->id_barang : null,
-                'tanggal' => $formatedDate,
-                'kode_transaksi' => $row['kode_transaksi'],
-                'nama_konsumen' => $row['nama_konsumen'],
-                'no_handphone' => $row['no_handphone'],
-                'alamat' => $row['alamat'],
-                'nama_barang' => $row['nama_barang'],
-                'tipe_barang' => $row['tipe_barang'],
-                'jumlah_barang' => $row['jumlah_barang'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
-
         return new TransaksiModel([
             'id_barang' => $barang ? $barang->id_barang : null,
             'id_stok' => $stok ? $stok->id_stok : null,

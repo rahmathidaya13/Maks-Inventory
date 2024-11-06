@@ -138,7 +138,6 @@ $(document).on("click", ".ubah_stok", function (e) {
     $("#stokBarangForm").prepend(
         '<input type="hidden" name="_method" value="PUT">'
     );
-    console.log(id);
     $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
         $("#id_barang").val(data.result.id_barang);
         $("#tgl").val(data.result.tanggal);

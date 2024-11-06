@@ -37,7 +37,8 @@
                   </li>
                   <li class="nav-header">TRANSAKSI</li>
                   <li class="nav-item">
-                      <a href="{{ route('transaksi.index') }}" class="nav-link {{ Route::is('transaksi.index') ? 'active' : '' }}">
+                      <a href="{{ route('transaksi.index') }}"
+                          class="nav-link {{ Route::is('transaksi.index') ? 'active' : '' }}">
                           <i class="fas fa-money-check-alt"></i>
                           <p>
                               Transaksi Penjualan
@@ -74,7 +75,8 @@
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="{{ route('barang_keluar.index') }}" class="nav-link {{ Route::is('barang_keluar.index') ? 'active' : '' }}">
+                      <a href="{{ route('barang_keluar.index') }}"
+                          class="nav-link {{ Route::is('barang_keluar.index') ? 'active' : '' }}">
                           <i class="nav-icon fas fa-truck-loading"></i>
                           <p>
                               Barang Keluar
@@ -83,16 +85,10 @@
                   </li>
                   <li class="nav-header">AKUN</li>
                   <li class="nav-item">
-                      <a onclick="event.preventDefault();document.getElementById('logout-form').submit();"
-                          href="{{ route('logout') }}" class="nav-link">
-                          <i class="fas fa-sign-out-alt"></i>
-                          <p>
-                              Keluar
-                          </p>
-                          <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                              @csrf
-                          </form>
-                      </a>
+                      <a href="#" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Keluar </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                          @csrf
+                      </form>
                   </li>
 
 

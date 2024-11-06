@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangModel;
+use App\Models\TransaksiModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // transaksi in dashboard only
+        $getMonth = Carbon::now()->month;
+        $getYear = Carbon::now()->year;
+        $periode = Carbon::now()->isoFormat('MMMM Y');
+        $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
+            ->sum('pembayaran');
+
+        // total barang
+        $barang = BarangModel::count();
+        return view('home.index', compact('countTransaksi', 'periode', 'barang'));
     }
 }

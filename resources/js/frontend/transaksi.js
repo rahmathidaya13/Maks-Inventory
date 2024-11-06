@@ -41,7 +41,6 @@ $(document).on("click", "#add_transaksi", function (e) {
 
     $("#form_transaksi").attr("action", "/transaksi/store");
     $("input[name='_method']").remove();
-    // $("input").prop("readonly", false);
 });
 
 $(document).on("click", ".ubah_transaksi", function (e) {
@@ -225,20 +224,27 @@ $(document).on("change", "#nama_brg_transaksi", function () {
 $(document).on("change", "#status_pembayaran", function () {
     let selected = $(this).find("option:selected");
     let value = selected.val();
+
     // $("input[name='status_pembayaran']").val(value);
     if (value !== "lunas") {
         $("#dp").prop("readonly", false);
         $("#dp").val(0);
+        $(document).on("input", "#pembayaran", function (e) {
+            e.preventDefault();
+            let pembayaran = parseCurrency($(this).val());
+            let selisih_pembayaran = parseCurrency(
+                $("#total_pembayaran").val()
+            );
+            selisih_pembayaran = isNaN(selisih_pembayaran)
+                ? 0
+                : selisih_pembayaran;
+            $("#selisih").val(Currency(selisih_pembayaran - pembayaran));
+        });
     } else {
         $("#dp").prop("readonly", true);
+        $("#dp").val(0);
     }
-});
-
-$(document).on("input", "#pembayaran", function () {
-    let pembayaran = parseCurrency($(this).val());
-    let total_pembayaran = parseCurrency($("#total_pembayaran").val());
-    pembayaran = isNaN(pembayaran) ? 0 : pembayaran;
-    $(this).val(Currency(pembayaran));
+    console.log(value);
 });
 
 // ubah format input text hanya bisa terima angka saja
@@ -254,6 +260,12 @@ $("#jumlah_brg_transaksi,#stok,#diskon,#harga_diskon,#dp").on(
 //     let formated = value.replace(/[^,\d]/g, "");
 //     $(this).val(Currency(formated));
 // });
+$(document).on("input", "#pembayaran", function () {
+    let pembayaran = parseCurrency($(this).val());
+    let total_pembayaran = parseCurrency($("#total_pembayaran").val());
+    pembayaran = isNaN(pembayaran) ? 0 : pembayaran;
+    $(this).val(Currency(pembayaran));
+});
 
 $(document).on("input", "#diskon", function () {
     let diskon = parseCurrency($(this).val());
@@ -406,7 +418,7 @@ $(document).on("keyup", "#keyword_transaksi", function (e) {
     }
 });
 
-$(document).on("click","#export_transaksi", function (e) {
+$(document).on("click", "#export_transaksi", function (e) {
     e.preventDefault();
 
     $("#form_transaksi")[0].reset();

@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\BarangMasuk;
 use App\Http\Controllers\ExportAction;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\LiveAction;
 use App\Http\Controllers\LiveSearch;
@@ -32,9 +33,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('home.index');
-    })->name('dashboard');
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::controller(BarangController::class)->group(function () {
         Route::get('/list-item', 'index')->name('list.index');
         Route::post('/list-item/store', 'store')->name('list.store');

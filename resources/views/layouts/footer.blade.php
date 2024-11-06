@@ -32,14 +32,35 @@
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements
-        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang").on('shown.bs.modal', function() {
-            $('.select2').select2({
-                dropdownParent: $(this) // This makes it dynamic for the modal that is opened
-            });
-            $("#nama_brg_transaksi").trigger('change');
-            $("#status_pembayaran").trigger('change');
-            $("#stts_pembayaran").trigger('change');
+        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang").on(
+            'shown.bs.modal',
+            function() {
+                $('.select2').select2({
+                    dropdownParent: $(this) // This makes it dynamic for the modal that is opened
+                });
+                $("#nama_brg_transaksi").trigger('change');
+                $("#status_pembayaran").trigger('change');
+                $("#stts_pembayaran").trigger('change');
 
+            });
+
+        $(document).on("click", ".logout", function(e) {
+            e.preventDefault();
+            let form = $("#logout-form")
+            Swal.fire({
+                title: 'Anda yakin ingin keluar?',
+                text: "Pastikan data yang telah diinput sudah benar!",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Keluar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
         });
 
         //Initialize Select2 Elements

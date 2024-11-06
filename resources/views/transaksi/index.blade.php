@@ -21,16 +21,7 @@
             {{ $message }}
         </div>
     @endif
-    <div class="callout callout-info">
-        <h5><i class="fas fa-info-circle"></i> Informasi </h5>
-        <h6 class="w-75">
-            Pastikan sebelum melakukan transaksi nama Barang sudah terdaftar di data barang, Jika belum tambahkan pada link dibawah ini.
-            <div class="mt-2">
-                <a id="add_item" data-toggle="modal" data-target="#staticBackdrop" class="text-primary" href="#">
-                    Tambah Barang</a>
-            </div>
-        </h6>
-    </div>
+
     <div class="card">
         <div class="d-flex justify-content-between align-items-center p-3">
             <div class="d-flex align-items-center">
@@ -49,13 +40,13 @@
                 <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control" placeholder="Search">
             </div>
         </div>
-        <div class="ml-2 mb-2">
+        <div class="px-3 mb-2">
             <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                 Hapus</button>
         </div>
 
-        <div class="card-body table-responsive p-2">
-            <table id="" class="table table-hover text-nowrap table-sm table-bordered">
+        <div class="card-body table-responsive p-3">
+            <table id="" class="table table-hover text-nowrap table-sm table-bordered table-striped">
                 <thead class="table-info">
                     <tr class="text-center">
                         <th class="text-center">
@@ -99,7 +90,6 @@
     </div>
     @include('transaksi.modal.formTransaksi')
     @include('transaksi.modal.formPelunasan')
-    @include('Barang.modal.form_item')
     @include('transaksi.modal.import')
     @include('transaksi.modal.print_date')
 

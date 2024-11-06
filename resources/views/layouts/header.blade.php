@@ -4,11 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="description"
+        content="Maks-Inventory adalah solusi sistem manajemen persediaan barang yang membantu mengelola stok barang dan transaksi penjualan dengan mudah dan efisien.">
+    <meta name="keywords"
+        content="Inventory, Manajemen Persediaan, Stok Barang, Sistem Inventory, Maks-Inventory, Manajemen Barang, Gudang, Penjualan, Transaksi Penjualan">
+    <meta name="author" content="Maks-Inventory Team">
+    <meta name="robots" content="index, follow">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title')</title>
+
+    <meta property="og:title" content="Maks-Inventory - Solusi Sistem Manajemen Persediaan Terbaik">
+    <meta property="og:description"
+        content="Maks-Inventory membantu bisnis Anda mengelola stok, pembelian, dan penjualan dengan mudah dan efisien.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maksinventory.com">
+    <meta property="og:image" content="https://maksinventory.com/assets/logo.png">
+
+    <link rel="canonical" href="https://maksinventory.com">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -47,4 +63,5 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed {{ Route::is('login') ? 'login-page' : '' }} {{ Route::is('register') ? 'register-page' : '' }}">
+<body
+    class="hold-transition sidebar-mini layout-fixed {{ Route::is('login') ? 'login-page' : '' }} {{ Route::is('register') ? 'register-page' : '' }}">

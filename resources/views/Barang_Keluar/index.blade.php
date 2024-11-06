@@ -26,7 +26,7 @@
             @endif
             {{-- end alert --}}
             <div class="card">
-                <div class="d-flex justify-content-between align-items-center p-3">
+                <div class="d-flex justify-content-between align-items-center p-3 ">
                     <div class="d-flex align-items-center">
                         <span class="mr-2">Tampilkan hasil: </span>
                         <div class="input-group input-group-sm" style="width: 75px">
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="card-body table-responsive p-3">
-                    <table class="table table-hover table-bordered text-nowrap table-sm">
+                    <table class="table table-hover table-bordered text-nowrap table-sm table-striped">
                         <thead class="table-secondary">
                             <tr class="text-center">
                                 <th>#</th>
