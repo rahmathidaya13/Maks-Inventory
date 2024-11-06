@@ -3,73 +3,106 @@
 @section('breadcrumb', 'Dashboard')
 @section('icon', 'fas fa-tachometer-alt')
 @section('content')
-    <div class="row row-cols-4">
-        <div class="col-md-4 col-sm-6 col-12">
-            <div class="info-box bg-gradient-info">
-                <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Transaksi</span>
-                    <span class="info-box-text">Periode: {{ $periode }}</span>
-                    <span class="info-box-number h3">{{ 'Rp ' . number_format($countTransaksi, 0, ',', '.') }}</span>
-                </div>
-
-            </div>
-
-        </div>
-        <div class="col-md-4 col-sm-6 col-12">
-            <div class="info-box bg-gradient-purple">
-                <span class="info-box-icon"><i class="fas fa-boxes"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Barang</span>
-                    <span class="info-box-text"> Cabang Pekanbaru</span>
-                    <span class="info-box-number h3">{{ $barang }} <small>item</small></span>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="col-md-4 col-sm-6 col-12">
-            <div class="info-box bg-warning">
-                <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Events</span>
-                    <span class="info-box-number">41,410</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 70%"></div>
+    <div class="card p-3">
+        <div class="row row-cols-lg-3">
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-teal">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-dollar-sign"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Transaksi</span>
+                        <span class="info-box-text">Periode: {{ $periode }}</span>
+                        <span class="info-box-number h3">{{ 'Rp ' . number_format($countTransaksi, 0, ',', '.') }}</span>
                     </div>
-                    <span class="progress-description">
-                        70% Increase in 30 Days
-                    </span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-4 col-sm-6 col-12">
-            <div class="info-box bg-danger">
-                <span class="info-box-icon"><i class="fas fa-comments"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Comments</span>
-                    <span class="info-box-number">41,410</span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 70%"></div>
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-cyan">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-boxes"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Daftar Barang</span>
+                        <span class="info-box-text"> Cabang Pekanbaru</span>
+                        <span class="info-box-number h3">{{ $barang }} <small>item</small></span>
                     </div>
-                    <span class="progress-description">
-                        70% Increase in 30 Days
-                    </span>
                 </div>
-                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-navy">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Stok Barang Tersedia</span>
+                        <span class="info-box-text">Periode: {{ $periode }}</span>
+                        <span class="info-box-number h3">{{ $stok_akhir }} <small>item</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-teal">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Barang Masuk</span>
+                        <span class="info-box-text">Periode: {{ $periode }}</span>
+                        <span class="info-box-number h3">{{ $countInBox }} <small>item</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-cyan">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-box-open"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Barang Keluar</span>
+                        <span class="info-box-text">Periode: {{ $periode }}</span>
+                        <span class="info-box-number h3">{{ $countOutBox }} <small>item</small></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-6 col-12">
+                <div class="info-box bg-gradient-navy">
+                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-users"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Pelanggan</span>
+                        <span class="info-box-text">Periode: {{ $periode }}</span>
+                        <span class="info-box-number h3">{{ $konsumen_transaksi }} <small>customer</small></span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <!-- /.col -->
+    </div>
+    <div class="card">
+        <div class="card-header p-0 px-3 pt-3">
+            <h4 class="font-weight-bold ">Total Penjualan Unit Sales</h4>
+            <h5 class="">Periode: {{ $periode }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-center">
+                <table class="table table-sm text-wrap table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Tia Saputri</th>
+                            <th scope="col">Ade Yolanda</th>
+                            <th scope="col">M. Reza</th>
+                            <th scope="col">Rahmat Hidaya</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="font-weight-bold h3">
+                            <td scope="row">
+                                {{ $transaksi->firstWhere('nama_sales', 'Tia Saputri')->total_penjualan ?? 0 }}</td>
+                            <td scope="row">
+                                {{ $transaksi->firstWhere('nama_sales', 'Ade Yolanda')->total_penjualan ?? 0 }}</td>
+                            <td scope="row">{{ $transaksi->firstWhere('nama_sales', 'M. Reza')->total_penjualan ?? 0 }}
+                            </td>
+                            <td scope="row">
+                                {{ $transaksi->firstWhere('nama_sales', 'Rahmat Hidaya')->total_penjualan ?? 0 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection

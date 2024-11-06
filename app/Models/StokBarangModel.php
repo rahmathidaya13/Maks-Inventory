@@ -11,6 +11,8 @@ class StokBarangModel extends Model
     use HasFactory, HasUuids;
     protected $table = 'tb_stok_barang';
     protected $primaryKey = 'id_stok';
+    protected $with = ['barangMasuk', 'barang'];
+
     protected $fillable = [
         'id_barang',
         'id_brg_masuk',
