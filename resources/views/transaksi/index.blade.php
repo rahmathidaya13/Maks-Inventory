@@ -100,4 +100,7 @@
     @include('transaksi.modal.formTransaksi')
     @include('transaksi.modal.formPelunasan')
     @include('Barang.modal.form_item')
+    @include('transaksi.modal.import')
+    @include('transaksi.modal.print_date')
+
 @endsection

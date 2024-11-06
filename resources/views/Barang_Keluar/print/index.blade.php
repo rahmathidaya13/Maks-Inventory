@@ -1,34 +1,44 @@
 <style>
-    table,
-    th,
-    td {
-        position: relative;
-        border: 1px solid #000000;
-        border-collapse: collapse;
-        padding: 8px;
-        flex-wrap: wrap;
-    }
-    /* body {
-        font-family: Arial, sans-serif;
-    }
-
     table {
         width: 100%;
         border-collapse: collapse;
+        position: relative;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-family: Arial, sans-serif;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        border-radius: 5px;
+        overflow-x: auto;
+        overflow-y: auto;
+
     }
 
     th,
     td {
         border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    } */
+        padding: 5px;
+        text-align: center;
+        vertical-align: middle;
+        white-space: wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-all;
+    }
+    h1{
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
 </style>
 <h1>Laporan Barang Keluar Toko Maksindo</h1>
-<h1>Cabang Pekanbaru dari {{ \Carbon\Carbon::parse($start_date)->format('F Y') }} Hingga
-    {{ \Carbon\Carbon::parse($end_date)->format('F Y') }}</h1>
+<h1>Cabang Pekanbaru dari {{ \Carbon\Carbon::parse($start_date)->format('M Y') }} -
+    {{ \Carbon\Carbon::parse($end_date)->format('M Y') }}</h1>
 <br>
-<table style="width:50%">
+<table style="width: 20px">
     <thead>
         <tr>
             <th>Tanggal Barang Keluar</th>

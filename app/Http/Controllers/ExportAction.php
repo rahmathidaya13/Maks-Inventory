@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransaksiExport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\StokExport;
 use App\Models\BarangModel;
@@ -40,6 +41,12 @@ class ExportAction extends Controller
         $start_date = $request->get('start_date_barang_keluar');
         $end_date = $request->get('end_date_barang_keluar');
         return Excel::download(new BarangKeluarExport($start_date, $end_date), 'Laporan barang keluar.xlsx');
+    }
+    public function exportTransaksi(Request $request)
+    {
+        $start_date = $request->get('start_date_transaksi');
+        $end_date = $request->get('end_date_transaksi');
+        return Excel::download(new TransaksiExport($start_date, $end_date), 'Laporan Transaksi.xlsx');
     }
 
     public function berangKeluarPDF(Request $request)

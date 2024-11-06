@@ -57,10 +57,10 @@
                 </div>
 
                 <div class="card-body table-responsive p-3">
-                    <table class="table table-hover table-bordered text-wrap table-sm">
-                        <thead class="table-warning">
+                    <table class="table table-hover table-bordered text-nowrap table-sm">
+                        <thead class="table-secondary">
                             <tr class="text-center">
-                                <th>No</th>
+                                <th>#</th>
                                 <th>Tanggal</th>
                                 <th>Kode Transaksi</th>
                                 <th>Nama Konsumen</th>

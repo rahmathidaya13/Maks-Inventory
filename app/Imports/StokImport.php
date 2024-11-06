@@ -2,15 +2,16 @@
 
 namespace App\Imports;
 
-use App\Models\BarangMasukModel;
-use App\Models\BarangModel;
 use Carbon\Carbon;
+use App\Models\BarangModel;
 use App\Models\StokBarangModel;
+use App\Models\BarangMasukModel;
 use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 
-class StokImport implements ToModel, WithHeadingRow
+class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
 {
     /**
      * @param array $row
@@ -24,7 +25,7 @@ class StokImport implements ToModel, WithHeadingRow
         $dateTime = Date::excelToDateTimeObject($fromExcel);
         $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
         // $get_date = Carbon::parse($row['tanggal'])->format('Y-m-d');
-        $get_date = Carbon::parse($formatedDate)->format('Y-m-d');
+        // $get_date = Carbon::parse($formatedDate)->format('Y-m-d');
 
         // ambil data barang untuk di relasikan dengan stok barang ketika di import
         $barang = BarangModel::where('nama_barang', $row['nama_barang'])

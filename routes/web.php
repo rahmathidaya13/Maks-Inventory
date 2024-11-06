@@ -99,6 +99,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file');
     Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk');
     Route::post("/import/stok", [ImportAction::class, 'importStokBarang'])->name('import.stok');
+    Route::post("/import/transaksi", [ImportAction::class, 'importTransaksi'])->name('import.transaksi');
 
     // khusus untuk export file
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
@@ -106,6 +107,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
     Route::get('/view/stok', [ExportAction::class, 'viewstok'])->name('view.stok');
     Route::get('/export/barang_keluar', [ExportAction::class, 'exportBarangKeluar'])->name('export.barang_keluar');
+    Route::get('/export/transaksi', [ExportAction::class, 'exportTransaksi'])->name('export.transaksi');
 
     // khusus PDF export
     Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');

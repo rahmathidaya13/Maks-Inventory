@@ -405,3 +405,16 @@ $(document).on("keyup", "#keyword_transaksi", function (e) {
         );
     }
 });
+
+$(document).on("click","#export_transaksi", function (e) {
+    e.preventDefault();
+
+    $("#form_transaksi")[0].reset();
+    $("#import_transaksi_file")[0].reset();
+    $("#filter_date_transaksi")[0].reset();
+
+    $(".modal-title span").text("Export File");
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").addClass("fas fa-file-upload");
+});
