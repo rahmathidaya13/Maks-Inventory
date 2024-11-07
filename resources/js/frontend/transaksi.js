@@ -74,7 +74,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#nama_konsumen").val(data.result.nama_konsumen);
         $("#nohp").val(data.result.no_handphone);
         $("#alamat").val(data.result.alamat);
-        $("#sales").val(data.result.nama_sales);
+        $("#sales").val(data.result.nama_sales).trigger("change");
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
         $("#tipe_brg_transaksi").val(data.result.tipe_barang);
         $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
@@ -398,7 +398,7 @@ $(document).on("keyup", "#keyword_transaksi", function (e) {
             "/transaksi/search?query=" + encodeURIComponent(query),
             function () {
                 $(
-                    "tbody .kode_transaksi, .nama_konsumen,.nama_barang_transaksi,.tipe_barang_transaksi"
+                    "tbody .nama_sales,.kode_transaksi, .nama_konsumen,.nama_barang_transaksi,.tipe_barang_transaksi"
                 ).each(function () {
                     let text = $(this).text();
                     if (query) {

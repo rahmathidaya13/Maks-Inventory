@@ -66,7 +66,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Total Pelanggan</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>
-                        <span class="info-box-number h3">{{ $konsumen_transaksi }} <small>customer</small></span>
+                        <span class="info-box-number h3">{{ $konsumen_transaksi }}</span>
                     </div>
                 </div>
             </div>

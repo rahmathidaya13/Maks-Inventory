@@ -56,6 +56,7 @@ class HomeController extends Controller
         $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
             ->whereYear('tgl_transaksi', $getYear)
             ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_penjualan'))
+            ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales')
             ->get();
         // total barang

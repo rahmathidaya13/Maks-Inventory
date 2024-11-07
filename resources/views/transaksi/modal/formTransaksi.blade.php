@@ -1,7 +1,7 @@
 <div class="modal fade" id="staticBackdrop_transaksi" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content bg-light">
+        <div class="modal-content bg-white">
             <div class="modal-header">
                 <h4 class="modal-title"><i></i> <span></span></h4>
                 <button id="act_close_keluar" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -43,8 +43,15 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="sales">Nama Sales</label>
-                            <input type="text" class="form-control" name="sales" id="sales"
-                                value="{{ old('sales') }}" placeholder="ex: Jhon Doe">
+                            <select class="form-control" name="sales" id="sales">
+                                <option value="">Pilih Sales</option>
+                                <option value="Tia Saputri">Tia Saputri</option>
+                                <option value="Ade Yolanda">Ade Yolanda</option>
+                                <option value="Muhammad Reza">Muhammad Reza</option>
+                                <option value="Rahmat Hidaya">Rahmat Hidaya</option>
+                            </select>
+                            {{-- <input type="text" class="form-control" name="sales" id="sales"
+                                value="{{ old('sales') }}" placeholder="ex: Jhon Doe"> --}}
                         </div>
                     </div>
                     <div class="form-row">

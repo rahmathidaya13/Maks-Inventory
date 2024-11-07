@@ -16,7 +16,7 @@
         <td class="align-middle">{{ \Carbon\Carbon::parse($data->tgl_transaksi)->translatedFormat('l, d F Y') }}</td>
         <td class="align-middle kode_transaksi">{{ $data->kode_transaksi }}</td>
         <td class="align-middle nama_konsumen">{{ $data->nama_konsumen }}</td>
-        <td class="align-middle">{{ $data->nama_sales }}</td>
+        <td class="align-middle nama_sales">{{ $data->nama_sales }}</td>
         <td class="text-wrap align-middle nama_barang_transaksi">{{ $data->nama_barang }}</td>
         <td class="align-middle tipe_barang_transaksi">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>

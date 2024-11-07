@@ -72,6 +72,7 @@ class LiveAction extends Controller
             $transaksi =  TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+                ->orWhere("nama_sales", "like", "%" . $query . "%")
                 ->latest()->paginate(10)->appends(['query' => $query]);;
         } else {
             $transaksi = TransaksiModel::latest()->paginate(10);
