@@ -18,10 +18,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -34,11 +30,14 @@ class HomeController extends Controller
         $getMonth = Carbon::now()->month;
         $getYear = Carbon::now()->year;
         $periode = Carbon::now()->isoFormat('MMMM Y');
+
         $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
             ->whereYear('tgl_transaksi', $getYear)
             ->sum('pembayaran');
+
         $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
             ->whereYear('tgl_transaksi', $getYear)
+            ->where('status_pembayaran', 'lunas')
             ->count('nama_konsumen');
 
         $countInBox = BarangMasukModel::whereMonth('tgl_brg_masuk', $getMonth)
@@ -49,9 +48,6 @@ class HomeController extends Controller
             ->whereYear('tanggal', $getYear)
             ->sum('jumlah_barang');
 
-        $stok_akhir = StokBarangModel::whereMonth('tanggal', $getMonth)
-            ->whereYear('tanggal', $getYear)
-            ->sum('stok_akhir');
 
         $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
             ->whereYear('tgl_transaksi', $getYear)
@@ -59,10 +55,11 @@ class HomeController extends Controller
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales')
             ->get();
+
         // total barang
         $barang = BarangModel::count();
 
 
-        return view('home.index', compact('transaksi', 'countTransaksi', 'periode', 'barang', 'countInBox', 'countOutBox', 'stok_akhir', 'konsumen_transaksi'));
+        return view('home.index', compact('transaksi', 'countTransaksi', 'periode', 'barang', 'countInBox', 'countOutBox', 'konsumen_transaksi'));
     }
 }

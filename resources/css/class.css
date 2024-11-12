@@ -25,6 +25,9 @@ input[type="number"] {
 .password {
     cursor: pointer;
 }
+.password_cp {
+    cursor: pointer;
+}
 
 .profile {
     width: 2rem !important;

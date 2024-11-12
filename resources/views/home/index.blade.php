@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home')
+@section('title', 'Dashboard')
 @section('breadcrumb', 'Dashboard')
 @section('icon', 'fas fa-tachometer-alt')
 @section('content')
@@ -28,17 +28,6 @@
             </div>
 
             <div class="col-md-3 col-sm-6 col-12">
-                <div class="info-box bg-gradient-navy">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Total Stok Barang Tersedia</span>
-                        <span class="info-box-text">Periode: {{ $periode }}</span>
-                        <span class="info-box-number h3">{{ $stok_akhir }} <small>item</small></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 col-sm-6 col-12">
                 <div class="info-box bg-gradient-teal">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
                     <div class="info-box-content">
@@ -49,7 +38,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12">
                 <div class="info-box bg-gradient-cyan">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-box-open"></i></span>
                     <div class="info-box-content">
@@ -60,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12">
                 <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-users"></i></span>
                     <div class="info-box-content">
@@ -95,7 +84,7 @@
                                 {{ $transaksi->firstWhere('nama_sales', 'Tia Saputri')->total_penjualan ?? 0 }}</td>
                             <td scope="row">
                                 {{ $transaksi->firstWhere('nama_sales', 'Ade Yolanda')->total_penjualan ?? 0 }}</td>
-                            <td scope="row">{{ $transaksi->firstWhere('nama_sales', 'M. Reza')->total_penjualan ?? 0 }}
+                            <td scope="row">{{ $transaksi->firstWhere('nama_sales', 'Muhammad Reza')->total_penjualan ?? 0 }}
                             </td>
                             <td scope="row">
                                 {{ $transaksi->firstWhere('nama_sales', 'Rahmat Hidaya')->total_penjualan ?? 0 }}</td>

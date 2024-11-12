@@ -105,7 +105,7 @@ class BarangMasuk extends Controller
                 $stokBarang->barang_keluar =  0;
                 $stokBarang->stok_awal =  $stokAwal;
                 $stokBarang->stok_akhir =  ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
-                $stokBarang->keterangan = 'barang masuk';
+                $stokBarang->keterangan = 'stok';
             }
             $stokBarang->save();
         }
@@ -217,7 +217,7 @@ class BarangMasuk extends Controller
                 $stokBarang->barang_keluar =  0;
                 $stokBarang->stok_awal =   $stok_;
                 $stokBarang->stok_akhir =  ($stok_ + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
-                $stokBarang->keterangan = 'barang masuk';
+                $stokBarang->keterangan = 'stok';
             }
             $stokBarang->save();
             // Simpan stok yang diperbarui

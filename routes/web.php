@@ -1,39 +1,28 @@
 <?php
-
-use App\Http\Controllers\BarangController;
-use App\Http\Controllers\BarangKeluarController;
-use App\Http\Controllers\BarangMasuk;
-use App\Http\Controllers\ExportAction;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ImportAction;
-use App\Http\Controllers\LiveAction;
-use App\Http\Controllers\LiveSearch;
-use App\Http\Controllers\StokBarangController;
-use App\Http\Controllers\TransaksiController;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleAdmin;
+use App\Http\Controllers\LiveAction;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\BarangMasuk;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExportAction;
+use App\Http\Controllers\ImportAction;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\StokBarangController;
+use App\Http\Controllers\BarangKeluarController;
 
 Auth::routes();
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return redirect()->route('login');
+
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
     Route::controller(BarangController::class)->group(function () {
         Route::get('/list-item', 'index')->name('list.index');
         Route::post('/list-item/store', 'store')->name('list.store');
@@ -111,4 +100,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // khusus PDF export
     Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

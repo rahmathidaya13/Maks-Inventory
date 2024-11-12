@@ -23,7 +23,7 @@
     <meta property="og:image" content="https://maksinventory.com/assets/logo.png">
 
     <link rel="canonical" href="https://maksinventory.com">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{{ asset('assets/icon/logo2.png') }}" type="image/x-icon">
 
 
     <!-- Fonts -->

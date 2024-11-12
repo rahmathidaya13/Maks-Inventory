@@ -129,7 +129,7 @@ class TransaksiController extends Controller
                 // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
                 $stokBarang->barang_keluar += $jumlah_barang;
                 $stokBarang->stok_akhir -= $stokBarang->barang_keluar;
-                $stokBarang->keterangan = 'barang terjual';
+                $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             } else {
                 // Ambil stok sebelumnya (sebelum pelunasan)
@@ -158,35 +158,8 @@ class TransaksiController extends Controller
                 $stokBarang->barang_keluar = $jumlah_barang;
                 $stokBarang->stok_awal = $stok_;
                 $stokBarang->stok_akhir = $stok_ - $stokBarang->barang_keluar;
-                $stokBarang->keterangan = 'barang terjual';
+                $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
-            }
-
-            // simpan barang keluar jika status lunas
-            // Pengecekan tabel barang_keluar apakah ada record dengan tanggal, nama barang, dan tipe barang yang sama
-            $barangKeluar = BarangKeluarModel::where('id_barang', $transaksi->id_barang)
-                ->where('nama_konsumen', $transaksi->nama_konsumen)
-                ->where('nama_barang', $transaksi->nama_barang)
-                ->where('tipe_barang', $transaksi->tipe_barang)
-                ->whereDate('tanggal', $transaksi->tgl_transaksi)
-                ->first();
-            if ($barangKeluar) {
-                // Jika ada, tambahkan jumlah barang keluar
-                $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
-                $barangKeluar->save();
-            } else {
-                $barangKeluar = new BarangKeluarModel();
-                $barangKeluar->id_transaksi = $transaksi->id_transaksi;
-                $barangKeluar->id_barang = $transaksi->id_barang;
-                $barangKeluar->tanggal = $transaksi->tgl_transaksi;
-                $barangKeluar->kode_transaksi = $transaksi->kode_transaksi;
-                $barangKeluar->nama_konsumen = $transaksi->nama_konsumen;
-                $barangKeluar->no_handphone = $transaksi->no_handphone;
-                $barangKeluar->alamat = $transaksi->alamat;
-                $barangKeluar->nama_barang = $transaksi->nama_barang;
-                $barangKeluar->tipe_barang = $transaksi->tipe_barang;
-                $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
-                $barangKeluar->save();
             }
 
             // Update stok barang di barang_keluar
@@ -311,7 +284,7 @@ class TransaksiController extends Controller
                 $stokBarang->barang_masuk = $barangMasuk;
                 $stokBarang->barang_keluar = $old_jumlah_barang;
                 $stokBarang->stok_akhir = $stokAwal - $old_jumlah_barang;
-                $stokBarang->keterangan = 'barang terjual';
+                $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             }
 
@@ -433,8 +406,6 @@ class TransaksiController extends Controller
         $transaksi->dana_pertama = $dana_pertama;
         $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->update();
-
-
         return back()->with('success', 'Perubahan Data Transaksi Berhasil');
     }
 
