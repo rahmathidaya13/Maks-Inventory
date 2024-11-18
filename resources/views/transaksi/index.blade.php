@@ -36,8 +36,20 @@
                 </div>
 
             </div>
-            <div class="input-group input-group-sm w-25">
-                <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control" placeholder="Search">
+            <div class="d-flex align-items-center">
+                <div class="mx-3">
+                    <div class="input-group input-group-sm">
+                        <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
+                            class="form-control mx-1">
+                        <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
+                            class="form-control mx-2">
+                        <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
+                    </div>
+                </div>
+                <div class="input-group input-group-sm w-50">
+                    <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control"
+                        placeholder="Search">
+                </div>
             </div>
         </div>
         <div class="px-3 mb-2">

@@ -28,11 +28,10 @@ class UserController extends Controller
         if ($request->has('photo-user')) {
             $file = $request->file('photo-user');
             $nameFile = time() . "." . $file->getClientOriginalExtension();
-            // $file->move(public_path('assets/profile/'), $nameFile);
-            $file->storeAs('public/profile/', $nameFile);
+            $file->move(public_path('assets/profile'), $nameFile);
 
             if ($user->photo) {
-                $old = storage_path('app/public/profile/' . $user->photo);
+                $old = public_path('assets/profile/' . $user->photo);
                 if (file_exists($old)) {
                     unlink($old);
                 }

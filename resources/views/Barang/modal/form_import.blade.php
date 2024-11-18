@@ -22,6 +22,7 @@
                     </div>
                     <div id="file-name" class="text-center mt-2">File not found</div>
                 </form>
+                <small><a href="{{ route('data_barang.templates') }}">Unduh</a> untuk mendapatkan template</small>
             </div>
             <div class="modal-footer">
                 <button onclick="event.preventDefault();document.getElementById('import_s').submit();" id=""

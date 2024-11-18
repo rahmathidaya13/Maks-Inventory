@@ -9,17 +9,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="filter_date_stok" action="{{ route('export.stok') }}" method="GET" role="form" enctype="multipart/form-data">
+                <form class="mb-2" id="filter_date_stok" action="{{ route('export.stok') }}" method="GET" role="form" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label>Tanggal Awal</label>
                             <input type="date" class="form-control" name="start_date_stok" id="start_date_stok" value="{{ old('start_date_stok') }}">
                         </div>
                         <div class="form-group col-md-6">
+                            <label>Tanggal Akhir</label>
                             <input type="date" class="form-control" name="end_date_stok" id="end_date_stok" value="{{ old('end_date_stok') }}">
                         </div>
                     </div>
                 </form>
+                <div class="mb-2">
+                    <a class="btn btn-primary" href="{{ route('export.stok.all') }}"><i class="fas fa-download"></i> Unduh semua</a>
+                </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_filter_keluar_stok" type="button" class="btn btn-default" data-dismiss="modal">Close</button>

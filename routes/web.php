@@ -1,5 +1,4 @@
 <?php
-use App\Http\Middleware\RoleAdmin;
 use App\Http\Controllers\LiveAction;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BarangMasuk;
@@ -8,12 +7,13 @@ use App\Http\Controllers\ExportAction;
 use App\Http\Controllers\ImportAction;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\BarangKeluarController;
 
-Auth::routes();
+Auth::routes(['register'=>false]);
 
 
 Route::get('/', function () {
@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post("/stok/filter/date", [LiveAction::class, 'filterDateStok'])->name('date.filter.stok');
     Route::post("/barang_masuk/filter/date", [LiveAction::class, 'filterDateBarangMasuk'])->name('date.filter.barang_masuk');
     Route::post("/barang_keluar/filter/date", [LiveAction::class, 'filterDateBarangKeluar'])->name('date.filter.barang_keluar');
+    Route::post("/transaksi/filter/date", [LiveAction::class, 'filterDateTransaksi'])->name('date.filter.transaksi');
 
     Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
     Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
@@ -93,11 +94,34 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
     Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
     Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
+    Route::get('/export/stok/all', [ExportAction::class, 'exportStokAll'])->name('export.stok.all');
     Route::get('/view/stok', [ExportAction::class, 'viewstok'])->name('view.stok');
     Route::get('/export/barang_keluar', [ExportAction::class, 'exportBarangKeluar'])->name('export.barang_keluar');
     Route::get('/export/transaksi', [ExportAction::class, 'exportTransaksi'])->name('export.transaksi');
 
     // khusus PDF export
     Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
+    Route::get('/transakis/pdf/new', [ExportAction::class, 'transaksiPDF'])->name('transaksi.pdf');
+
+    // template download
+    Route::get('stok/template/new', function(){
+        $filepath = public_path('assets/template/stok_barang.xlsx');
+        return Response::download($filepath, 'stok_barang.xlsx');
+    })->name('stok.templates');
+
+    Route::get('data_barang/template', function(){
+        $filepath = public_path('assets/template/data barang template.xlsx');
+        return Response::download($filepath, 'data barang template.xlsx');
+    })->name('data_barang.templates');
+
+    Route::get('barang_masuk/template/new', function(){
+        $filepath = public_path('assets/template/barang masuk template.xlsx');
+        return Response::download($filepath, 'barang masuk template.xlsx');
+    })->name('barang_masuk.templates');
+
+    Route::get('transaksi/template', function(){
+        $filepath = public_path('assets/template/laporan transaksi.xlsx');
+        return Response::download($filepath, 'laporan transaksi.xlsx');
+    })->name('transaksi.templates');
 });
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

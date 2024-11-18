@@ -10,29 +10,15 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-
-
-class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
+class ExportStokAll implements FromView, WithHeadings, WithStyles, ShouldAutoSize
 {
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    // public function collection()
-    // {
-    //     return StokBarangModel::all();
-    // }
-    protected $start_date;
-    protected $end_date;
-
-    public function __construct($start_date, $end_date)
-    {
-        $this->start_date = $start_date;
-        $this->end_date = $end_date;
-    }
+    * @return \Illuminate\Support\Collection
+    */
     public function view(): View
     {
         return view('StokBarang.print.index', [
-            'stok' => StokBarangModel::whereBetween('tanggal', [$this->start_date, $this->end_date])->get(),
+            'stok' => StokBarangModel::all(),
         ]);
     }
 

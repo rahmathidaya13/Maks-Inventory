@@ -224,4 +224,14 @@ class LiveAction extends Controller
         }
         return view('Barang_Keluar.index', compact('barang_keluar'));
     }
+    public function filterDateTransaksi(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $transaksi = TransaksiModel::whereBetween('tgl_transaksi', [$start_date, $end_date])->latest()->paginate(500);
+        if ($request->ajax()) {
+            return view('transaksi.partial.table', compact('transaksi'))->render();
+        }
+        return view('transaksi.index', compact('transaksi'));
+    }
 }

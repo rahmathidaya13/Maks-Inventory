@@ -10,8 +10,7 @@
     }
 </style>
 <h1>Laporan Barang Masuk Toko Maksindo</h1>
-<h1>Cabang Pekanbaru dari {{ \Carbon\Carbon::parse($start_date)->format('F Y') }} Hingga
-    {{ \Carbon\Carbon::parse($end_date)->format('F Y') }}</h1>
+<h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('F Y') }}</h1>
 <br>
 <table style="width:50%">
     <thead>

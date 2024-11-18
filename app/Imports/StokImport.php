@@ -56,6 +56,6 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
     }
     public function headingRow(): int
     {
-        return 5;
+        return 4;
     }
 }

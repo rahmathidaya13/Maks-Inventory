@@ -31,6 +31,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // validate data
         $request->validate(
             [
@@ -128,7 +129,7 @@ class TransaksiController extends Controller
             if ($stokBarang) {
                 // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
                 $stokBarang->barang_keluar += $jumlah_barang;
-                $stokBarang->stok_akhir -= $stokBarang->barang_keluar;
+                $stokBarang->stok_akhir -= $jumlah_barang;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             } else {
@@ -157,7 +158,7 @@ class TransaksiController extends Controller
                 $stokBarang->barang_masuk =  $barangMasuk;
                 $stokBarang->barang_keluar = $jumlah_barang;
                 $stokBarang->stok_awal = $stok_;
-                $stokBarang->stok_akhir = $stok_ - $stokBarang->barang_keluar;
+                $stokBarang->stok_akhir = $stok_ - $jumlah_barang;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             }
@@ -213,6 +214,38 @@ class TransaksiController extends Controller
      */
     public function repayment(Request $request, string $id)
     {
+        $request->validate(
+            [
+                'tgl_pelunasan' => 'required|date',
+                'kode_transaksi_pelunasan' => 'required|string|max:20',
+                'konsumen' => 'required|string|max:100',
+                'hp' => 'required|digits_between:10,13',
+                'alamat_konsumen' => 'required|string|max:255',
+                'transaksi' => 'required|string|max:255',
+                'stts_pembayaran' => 'required|string',
+                'hb' => 'required|string',
+                'dana_pertama' => 'required|string',
+                'selisih_pembayaran_' => 'nullable|string',
+                'pembayaran_pelunasan' => 'required|string',
+            ],
+            [
+                'tgl_pelunasan.required' => 'Tanggal pelunasan wajib diisi.',
+                'tgl_pelunasan.date' => 'Format tanggal pelunasan tidak valid.',
+                'kode_transaksi_pelunasan.required' => 'Kode transaksi wajib diisi.',
+                'kode_transaksi_pelunasan.max' => 'Kode transaksi maksimal 20 karakter.',
+                'konsumen.required' => 'Nama konsumen wajib diisi.',
+                'konsumen.max' => 'Nama konsumen tidak boleh lebih dari 100 karakter',
+                'hp.required' => 'Nomor telepon wajib diisi.',
+                'hp.digits_between' => 'Nomor telepon harus terdiri dari 10 sampai 13 digit.',
+                'alamat_konsumen.required' => 'Alamat wajib diisi.',
+                'alamat_konsumen.max' => 'Alamat maksimal 255 karakter.',
+                'transaksi.required' => 'Transkasi belum dipilih.',
+                'stts_pembayaran.required' => 'Status pembayaran wajib diisi.',
+                'hb.required' => 'Harga barang wajib diisi.',
+                'dana_pertama.required' => 'Dana pertama wajib diisi.',
+                'pembayaran_pelunasan.required' => 'Pembayaran wajib diisi.',
+            ]
+        );
 
         $harga_barang = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('hb'));
         $dana_pertama = str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dana_pertama'));
@@ -268,7 +301,7 @@ class TransaksiController extends Controller
 
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
-                // cek kondisi barang masuk jika ada ditangall yang sama disimpan jika tidak buat 0
+                // cek kondisi barang masuk jika ada ditangal yang sama disimpan jika tidak buat 0
                 $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $transaksi->tgl_transaksi)
                     ?
                     $stokSebelumnya->barang_masuk
@@ -322,6 +355,8 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd( $request->all());
+
         // validate data
         $request->validate(
             [
@@ -406,6 +441,7 @@ class TransaksiController extends Controller
         $transaksi->dana_pertama = $dana_pertama;
         $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->update();
+
         return back()->with('success', 'Perubahan Data Transaksi Berhasil');
     }
 

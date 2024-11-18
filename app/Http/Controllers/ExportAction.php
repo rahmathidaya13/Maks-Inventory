@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TransaksiExport;
+use App\Models\TransaksiModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\StokExport;
 use App\Models\BarangModel;
@@ -12,6 +13,7 @@ use App\Models\StokBarangModel;
 use App\Models\BarangMasukModel;
 use App\Exports\BarangMasukExport;
 use App\Exports\BarangKeluarExport;
+use App\Exports\ExportStokAll;
 use App\Models\BarangKeluarModel;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -36,6 +38,11 @@ class ExportAction extends Controller
         $end_date = $request->get('end_date_stok');
         return Excel::download(new StokExport($start_date, $end_date), 'Stok Barang.xlsx');
     }
+    public function exportStokAll()
+    {
+        return Excel::download(new ExportStokAll(), 'Stok Barang.xlsx');
+    }
+
     public function exportBarangKeluar(Request $request)
     {
         $start_date = $request->get('start_date_barang_keluar');
@@ -54,9 +61,17 @@ class ExportAction extends Controller
         $start_date = Carbon::now();
         $end_date = Carbon::now();
         $barang_keluar = BarangKeluarModel::all();
-        $pdf = PDF::loadView('Barang_Keluar.print.index', compact('barang_keluar', 'start_date', 'end_date'));
+        $pdf = PDF::loadView('Barang_Keluar.print.index', compact('barang_keluar', 'start_date', 'end_date'))
+            ->setPaper('a4', 'portrait');
         // return $pdf->download('Laporan barang keluar.pdf');
         return $pdf->stream('laporan-barang.pdf');
+    }
+    public function transaksiPDF(Request $request)
+    {
+        $transaksi = TransaksiModel::all();
+        $pdf = PDF::loadView('transaksi.print.print', compact('transaksi'))
+            ->setPaper('a4', 'landscape');
+        return $pdf->stream('transaksi.pdf');
     }
 
     public function viewstok()

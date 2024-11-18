@@ -32,20 +32,26 @@
         <td class="align-middle">
             <div class="d-flex justify-content-center">
                 @if ($data->status_pembayaran !== 'lunas')
-                    <button title="Pelunasan" data-id="{{ $data->id_transaksi }}" class="btn btn-primary btn-sm mx-0 pelunasan rounded-0" type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan">
+                    <button title="Pelunasan" data-id="{{ $data->id_transaksi }}"
+                        class="btn btn-primary btn-sm mx-0 pelunasan rounded-0" type="button" data-toggle="modal"
+                        data-target="#staticBackdrop_pelunasan">
                         <i class="fas fa-money-bill"></i>
                     </button>
                 @endif
-                <a title="Ubah" id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
-                    data-id="{{ $data->id_transaksi }}" class="btn btn-sm btn-warning ubah_transaksi mx-1 rounded-0" href="#"><i
-                        class="fas fa-edit"></i></a>
+                @if ($data->status_pembayaran !== 'lunas')
+                    <a title="Ubah" id="ubah_transaksi" data-toggle="modal" data-target="#staticBackdrop_transaksi"
+                        data-id="{{ $data->id_transaksi }}"
+                        class="btn btn-sm btn-warning ubah_transaksi mx-1 rounded-0" href="#"><i
+                            class="fas fa-edit"></i>
+                    </a>
+                @endif
 
                 <a title="Hapus" data-date="{{ $data->tgl_transaksi }}" data-code="{{ $data->kode_transaksi }}"
                     data-customer="{{ $data->nama_konsumen }}" data-id="{{ $data->id_transaksi }}"
-                    class="btn btn-sm btn-danger hapus_transaksi mx-0 rounded-0" href="#"><i class="fas fa-trash"></i> </a>
+                    class="btn btn-sm btn-danger hapus_transaksi mx-0 rounded-0" href="#"><i
+                        class="fas fa-trash"></i> </a>
                 <form id="delete_transaksi_{{ $data->id_transaksi }}"
-                    action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST"
-                    class="d-inline">
+                    action="{{ route('transaksi.delete', $data->id_transaksi) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                 </form>

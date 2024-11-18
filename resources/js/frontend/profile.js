@@ -6,8 +6,8 @@ $(document).on("click", "#profile-action", function () {
         $(".modal-profile").attr(
             "src",
             data.result.photo
-                ? "storage/profile/" + data.result.photo
-                : "storage/profile/user.svg"
+                ? "assets/profile/" + data.result.photo
+                : "assets/icon/user.svg"
         );
     });
 });

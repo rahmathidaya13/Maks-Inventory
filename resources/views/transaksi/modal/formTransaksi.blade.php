@@ -50,14 +50,13 @@
                                 <option value="Muhammad Reza">Muhammad Reza</option>
                                 <option value="Rahmat Hidaya">Rahmat Hidaya</option>
                             </select>
-                            {{-- <input type="text" class="form-control" name="sales" id="sales"
-                                value="{{ old('sales') }}" placeholder="ex: Jhon Doe"> --}}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 nama_brg_transaksi">
                             <label for="nama_brg_transaksi">Nama Barang</label>
-                            <select class="form-control select2" name="nama_brg_transaksi" id="nama_brg_transaksi">
+                            <select class="form-control select2" name="nama_brg_transaksi"
+                                id="nama_brg_transaksi">
                                 <option value="">Pilih Barang</option>
                                 @foreach ($DaftarBarang as $data)
                                     <option data-id="{{ $data->id_barang }}" data-name="{{ $data->nama_barang }}"
@@ -84,7 +83,7 @@
 
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 status_pembayaran">
                             <label for="status_pembayaran">Status Pembayaran</label>
                             <select class="form-control" name="status_pembayaran" id="status_pembayaran">
                                 <option value="belum lunas">Belum Lunas/DP</option>
@@ -104,7 +103,7 @@
 
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 status_transaksi">
                             <label for="status_transaksi">Status Transaksi</label>
                             <select class="form-control" name="status_transaksi" id="status_transaksi">
                                 <option value="">Pilih Status Transaksi</option>

@@ -1,4 +1,4 @@
-<style>
+{{-- <style>
     table,
     th,
     td {
@@ -8,11 +8,41 @@
         padding: 8px;
         flex-wrap: wrap;
     }
+</style> --}}
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 20mm;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        border: 1px solid #000;
+        padding: 5px;
+        text-align: left;
+    }
 </style>
-<h2>LAPORAN TRANSAKSI TOKO MAKSINDO</h2>
-<h2>CABANG PEKANBARU</h2>
+<div class="header">
+    <h2>LAPORAN TRANSAKSI TOKO MAKSINDO</h2>
+    <h2>CABANG PEKANBARU</h2>
+</div>
 <br>
-<table style="width:100%">
+<table style="" class="table">
     <thead>
         <tr>
             <th>Tanggal Transaksi</th>

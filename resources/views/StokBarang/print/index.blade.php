@@ -11,7 +11,6 @@
 </style>
 <h2>DATA STOK BARANG TOKO MAKSINDO</h2>
 <h2>CABANG PEKANBARU</h2>
-<h2>{{ \Carbon\Carbon::now()->format('F Y') }}</h2>
 <br>
 <table style="width:50%">
     <thead>

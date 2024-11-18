@@ -13,9 +13,7 @@
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
                   {{-- Storage::url('assets/profile/' . $user->photo) --}}
-                  {{-- <img src="{{ asset(Auth::user()->photo ? 'assets/profile/' . Auth::user()->photo : 'assets/icon/user.svg') }}"
-                      class="img-circle elevation-2 profile" alt="User Image"> --}}
-                  <img src="{{ Storage::url(Auth::user()->photo ? 'profile/' . Auth::user()->photo : 'profile/user.svg') }}"
+                  <img src="{{ asset(Auth::user()->photo ? 'assets/profile/' . Auth::user()->photo : 'assets/icon/user.svg') }}"
                       class="img-circle elevation-2 profile" alt="User Image">
               </div>
               <div class="info">
@@ -90,10 +88,14 @@
                   </li>
                   <li class="nav-header">AKUN</li>
                   <li class="nav-item">
-                      <a href="#" class="nav-link logout"><i class="fas fa-sign-out-alt"></i> Keluar </a>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                          @csrf
-                      </form>
+                      <a href="#" class="nav-link logout"><i class="fas fa-sign-out-alt"></i>
+                          <p>
+                              Keluar
+                          </p>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                              @csrf
+                          </form>
+                      </a>
                   </li>
 
 

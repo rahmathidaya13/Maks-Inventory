@@ -60,11 +60,6 @@
                     <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                 </div>
             </form>
-
-
-            <p class="mb-0 text-center">
-                Belum punya akun? <a href="{{ route('register') }}" class="text-center">Daftar</a>
-            </p>
         </div>
         <!-- /.card-body -->
     </div>

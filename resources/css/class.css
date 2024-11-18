@@ -18,7 +18,7 @@ input[type="number"] {
 
 .form-control:disabled,
 .form-control[readonly] {
-    background-color: #f7f5f5;
+    background-color: #ececec;
     opacity: 1;
 }
 

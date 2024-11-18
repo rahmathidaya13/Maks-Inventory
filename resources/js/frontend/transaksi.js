@@ -41,6 +41,10 @@ $(document).on("click", "#add_transaksi", function (e) {
 
     $("#form_transaksi").attr("action", "/transaksi/store");
     $("input[name='_method']").remove();
+
+    $("#transaksi").prop("readonly", false);
+    $(".nama_brg_transaksi,.status_pembayaran").css("pointerEvents", "all");
+
 });
 
 $(document).on("click", ".ubah_transaksi", function (e) {
@@ -69,13 +73,17 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         console.log(data);
         $("#id_barang").val(data.result.id_barang);
         $("#id_stok").val(data.result.id_stok);
-        $("#transaksi").val(data.result.tgl_transaksi);
+        $("#transaksi").val(data.result.tgl_transaksi).prop("readonly", true);
         $("#kode_transaksi").val(data.result.kode_transaksi);
         $("#nama_konsumen").val(data.result.nama_konsumen);
         $("#nohp").val(data.result.no_handphone);
         $("#alamat").val(data.result.alamat);
         $("#sales").val(data.result.nama_sales).trigger("change");
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
+
+        $(".nama_brg_transaksi,.status_pembayaran").css({
+            pointerEvents:"none",
+        });
         $("#tipe_brg_transaksi").val(data.result.tipe_barang);
         $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
         $("#jumlah_brg_transaksi")
@@ -244,7 +252,6 @@ $(document).on("change", "#status_pembayaran", function () {
         $("#dp").prop("readonly", true);
         $("#dp").val(0);
     }
-    console.log(value);
 });
 
 // ubah format input text hanya bisa terima angka saja
@@ -429,4 +436,57 @@ $(document).on("click", "#export_transaksi", function (e) {
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-file-upload");
+});
+
+$(document).on("click", "#set_filter_transaksi", function (e) {
+    e.preventDefault();
+    let start_date = $("#start_date_filter_transaksi").val();
+    let end_date = $("#end_date_filter_transaksi").val();
+    // filter tanggal
+    $.ajax({
+        type: "POST",
+        url: "/transaksi/filter/date",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            start_date: start_date,
+            end_date: end_date,
+        },
+        success: function (data) {
+            // console.log(data);
+            $("tbody").html(data);
+            $(".pagination").html(data.pagination);
+        },
+        error: function (xhr) {
+            if (xhr.status === 422) {
+                let errors = xhr.responseJSON.errors;
+                let errorMessage = "";
+
+                if (errors.start_date) {
+                    errorMessage += errors.start_date[0] + "<br>";
+                }
+                if (errors.end_date) {
+                    errorMessage += errors.end_date[0] + "<br>";
+                }
+
+                // Tampilkan pesan error menggunakan SweetAlert
+                Swal.fire({
+                    icon: "warning",
+                    title: "Validasi tanggal gagal",
+                    // html: "Masukan tanggal yang valid", // Tampilkan error dalam format HTML
+                    confirmButtonText: "OK",
+                });
+            }
+        },
+    });
+});
+$(document).on("change", "#import_transaksi_form", function (e) {
+    let file = e.target.files[0];
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (data) {
+            $("#preview").attr("src", "assets/icon/excel.png");
+        };
+        reader.readAsDataURL(file);
+    }
+    $("#file-name").text(file.name);
 });
