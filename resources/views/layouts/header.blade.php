@@ -19,7 +19,7 @@
     <meta property="og:description"
         content="Maks-Inventory membantu bisnis Anda mengelola stok, pembelian, dan penjualan dengan mudah dan efisien.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://maksinventory.store/">
+    <meta property="og:url" content="https://maksinventory.store/login">
     <meta property="og:image" content="https://maksinventory.store/">
 
     <link rel="canonical" href="https://maksinventory.store/">
