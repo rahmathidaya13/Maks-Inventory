@@ -9,7 +9,16 @@ export default defineConfig({
         }),
     ],
     build: {
-        // Jangan menghasilkan sourcemap
-        sourcemap: false,
+        rollupOptions: {
+            plugins: [
+                obfuscator({
+                    compact: true, // Hilangkan spasi
+                    controlFlowFlattening: true, // Membuat logika sulit dibaca
+                    stringArray: true, // Konversi string ke array
+                    stringArrayThreshold: 0.75, // Ambang konversi string menjadi array
+                }),
+            ],
+        },
+        sourcemap: false, // Jangan menghasilkan sourcemap
     },
 });
