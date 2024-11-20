@@ -70,7 +70,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive text-center">
-                <table class="table table-sm text-wrap table-bordered text-nowrap">
+                <table class="table table-sm text-nowrap table-bordered text-nowrap">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Tia Saputri</th>

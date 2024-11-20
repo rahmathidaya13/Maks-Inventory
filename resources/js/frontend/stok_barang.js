@@ -90,8 +90,8 @@ $(document).on("click", "#add_stok_barang", function (e) {
     $("#import_stok_file")[0].reset();
 
     $(".modal-title span").text("Buat Stok Baru");
-    $(".modal-title i").removeClass("fas fa-edit")
-    $(".modal-title i").removeClass("fas fa-file-upload")
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-file-upload");
     $(".modal-title i").addClass("fas fa-plus-square");
     $("#stok_save span").text("Simpan");
     $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
@@ -128,8 +128,8 @@ $(document).on("click", ".ubah_stok", function (e) {
     $("#import_stok_file")[0].reset();
 
     $(".modal-title span").text("Ubah Data Stok");
-    $(".modal-title i").removeClass("fas fa-plus-square")
-    $(".modal-title i").removeClass("fas fa-file-upload")
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").removeClass("fas fa-file-upload");
     $(".modal-title i").addClass("fas fa-edit ");
 
     $("#stok_save span").text("Ubah");
@@ -138,6 +138,7 @@ $(document).on("click", ".ubah_stok", function (e) {
     $("#stokBarangForm").prepend(
         '<input type="hidden" name="_method" value="PUT">'
     );
+
     $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
         $("#id_barang").val(data.result.id_barang);
         $("#tgl").val(data.result.tanggal);
@@ -281,7 +282,7 @@ $(document).on("click", "#export_stok_barang", function (e) {
     $(".modal-title i").addClass("fas fa-file-upload");
 });
 
-$(document).on("click","#import_stok", function (e) {
+$(document).on("click", "#import_stok", function (e) {
     e.preventDefault();
 
     $("#stokBarangForm")[0].reset();
