@@ -9,7 +9,7 @@ export default defineConfig({
         }),
     ],
     build: {
-        // Jangan menghasilkan sourcemap agar tidak bisa dilihat
+        // Jangan menghasilkan sourcemap
         sourcemap: false,
     },
 });
