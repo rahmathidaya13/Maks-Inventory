@@ -9,6 +9,7 @@ export default defineConfig({
         }),
     ],
     build: {
-        sourcemap: false, // Jangan menghasilkan sourcemap
+        // Jangan menghasilkan sourcemap
+        sourcemap: false,
     },
 });
