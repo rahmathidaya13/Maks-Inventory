@@ -13,9 +13,12 @@ function ConvertDate(dates) {
 // button untuk menambahkan barang masuk
 $(document).on("click", "#add_item_list", function (e) {
     e.preventDefault();
-    $("#barangmasuk")[0].reset();
-    $("#brg_masuk")[0].reset();
-
+    if ($("#barangmasuk").length > 0) {
+        $("#barangmasuk")[0].reset();
+    }
+    if ($("#brg_masuk").length > 0) {
+        $("#brg_masuk")[0].reset();
+    }
     $(".modal-title span").text("Tambah Barang Masuk");
     $(".modal-title i")
         .removeClass("fas fa-edit")
@@ -71,9 +74,15 @@ $("#jumlah_brg").on("input", function () {
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
     $("#form_item")[0].reset();
-    $("#brg_masuk")[0].reset();
-    $("#barangmasuk")[0].reset();
-    $("#filter_date")[0].reset();
+    if ($("#brg_masuk").length > 0) {
+        $("#brg_masuk")[0].reset();
+    }
+    if ($("#barangmasuk").length > 0) {
+        $("#barangmasuk")[0].reset();
+    }
+    if ($("#filter_date").length > 0) {
+        $("#filter_date")[0].reset();
+    }
 
     $(".modal-title span").text("Tambah Barang");
     $(".modal-title i").removeClass("fas fa-edit").addClass("fas fa-box");
@@ -88,7 +97,9 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
     e.preventDefault();
     // this variable data
     let id = $(this).data("id");
-    $("#barangmasuk")[0].reset();
+    if ($("#barangmasuk").length > 0) {
+        $("#barangmasuk")[0].reset();
+    }
     $(".modal-title span").text("Ubah Data Barang Masuk");
     $(".modal-title i")
         .removeClass("fas fa-plus-square")
@@ -332,9 +343,15 @@ $(document).on("click", ".perbarui_stok", function () {
 
 $(document).on("click", "#export_barang_masuk", function (e) {
     e.preventDefault();
-    $("#barangmasuk")[0].reset();
-    $("#brg_masuk")[0].reset();
-    $("#filter_date")[0].reset();
+    if ($("#barangmasuk").length > 0) {
+        $("#barangmasuk")[0].reset();
+    }
+    if ($("#brg_masuk").length > 0) {
+        $("#brg_masuk")[0].reset();
+    }
+    if ($("#filter_date").length > 0) {
+        $("#filter_date")[0].reset();
+    }
     $(".modal-title span").text("Export Barang Masuk");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
@@ -385,9 +402,15 @@ $(document).on("click", "#set_brg_masuk", function (e) {
 
 $(document).on("click", "#import_item_list", function (e) {
     e.preventDefault();
-    $("#barangmasuk")[0].reset();
-    $("#brg_masuk")[0].reset();
-    $("#filter_date")[0].reset();
+    if ($("#barangmasuk").length > 0) {
+        $("#barangmasuk")[0].reset();
+    }
+    if ($("#brg_masuk").length > 0) {
+        $("#brg_masuk")[0].reset();
+    }
+    if ($("#filter_date").length > 0) {
+        $("#filter_date")[0].reset();
+    }
     $(".modal-title span").text("Upload File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");

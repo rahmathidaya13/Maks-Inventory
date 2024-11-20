@@ -170,6 +170,8 @@ class StokBarangController extends Controller
         $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
         if ($stok->tanggal === $request->input('tgl')) {
+            $stok->nama_barang = $request->input('nama_barang');
+            $stok->tipe_barang = $request->input('tipe_barang');
             $stok->barang_masuk += $barang_masuk - $stok->barang_masuk;
             $stok->barang_keluar += $barang_keluar - $stok->barang_keluar;
             $stok->stok_awal += $request->input('jumlah_barang');
@@ -185,7 +187,6 @@ class StokBarangController extends Controller
                 ->first();
 
             $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
-
             $stok->id_barang = $request->input('id_barang');
             $stok->tanggal = $request->input('tgl');
             $stok->nama_barang = $request->input('nama_barang');

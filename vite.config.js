@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
-
+import obfuscator from "rollup-plugin-obfuscator";
 export default defineConfig({
     plugins: [
         laravel({
@@ -8,4 +8,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        sourcemap: false, // Jangan menghasilkan sourcemap
+    },
 });

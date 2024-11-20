@@ -5,18 +5,19 @@
 @section('content')
     <div class="card p-3">
         <div class="row row-cols-lg-3">
-            <div class="col-md-3 col-sm-6 col-12">
+
+            <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-teal">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-dollar-sign"></i></span>
-                    <div class="info-box-content">
+                    <div class="info-box-content ">
                         <span class="info-box-text">Total Transaksi</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>
-                        <span class="info-box-number h3">{{ 'Rp ' . number_format($countTransaksi, 0, ',', '.') }}</span>
+                        <span class="info-box-number h3 ">{{ 'Rp ' . number_format($countTransaksi, 0, ',', '.') }}</span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-cyan">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-boxes"></i></span>
                     <div class="info-box-content">
@@ -27,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-12">
+            <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-teal">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
                     <div class="info-box-content">
@@ -38,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-cyan">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-box-open"></i></span>
                     <div class="info-box-content">
@@ -49,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-12">
+            <div class="col-md-6 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon bg-gradient-navy"><i class="fas fa-users"></i></span>
                     <div class="info-box-content">
@@ -62,14 +63,14 @@
 
         </div>
     </div>
-    <div class="card">
+    <div class="card ">
         <div class="card-header p-0 px-3 pt-3">
             <h4 class="font-weight-bold ">Total Penjualan Unit Sales</h4>
             <h5 class="">Periode: {{ $periode }}</h5>
         </div>
         <div class="card-body">
             <div class="table-responsive text-center">
-                <table class="table table-sm text-wrap table-bordered">
+                <table class="table table-sm text-wrap table-bordered text-nowrap">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Tia Saputri</th>
