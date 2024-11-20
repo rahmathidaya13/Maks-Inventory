@@ -9,16 +9,6 @@ export default defineConfig({
         }),
     ],
     build: {
-        rollupOptions: {
-            plugins: [
-                obfuscator({
-                    compact: true, // Hilangkan spasi
-                    controlFlowFlattening: true, // Membuat logika sulit dibaca
-                    stringArray: true, // Konversi string ke array
-                    stringArrayThreshold: 0.75, // Ambang konversi string menjadi array
-                }),
-            ],
-        },
         sourcemap: false, // Jangan menghasilkan sourcemap
     },
 });
