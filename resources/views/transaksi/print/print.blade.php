@@ -1,14 +1,3 @@
-{{-- <style>
-    table,
-    th,
-    td {
-        position: relative;
-        border: 1px solid #000000;
-        border-collapse: collapse;
-        padding: 8px;
-        flex-wrap: wrap;
-    }
-</style> --}}
 <style>
     @page {
         size: A4 portrait;

@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-3 mt-3 d-flex justify-content-between align-items-center">
             <div class="col-7">
-                <h1 class="m-0 text-uppercase"> <i class="@yield('icon')"></i> @yield('breadcrumb')</h1>
+                <h1 class="m-0 text-uppercase font-weight-bold"> <i class="@yield('icon')"></i> @yield('breadcrumb')</h1>
             </div>
             <div class="col-5 text-right">
 

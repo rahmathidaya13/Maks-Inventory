@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Daftar Barang Keluar')
-@section('breadcrumb', 'Daftar Barang Keluar')
+@section('title', 'Barang Keluar')
+@section('breadcrumb', 'Barang Keluar')
 @section('icon', 'fas fa-truck-loading')
 @section('content')
     <div class="row">

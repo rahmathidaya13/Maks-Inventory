@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Transaksi Penjualan')
-@section('breadcrumb', 'Transaksi')
+@section('breadcrumb', 'Transaksi Penjualan')
 @section('icon', 'fas fa-money-bill-wave')
 @section('content')
     @if ($errors->any())
