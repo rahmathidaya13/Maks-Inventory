@@ -61,8 +61,9 @@ class ExportAction extends Controller
         $start_date = Carbon::now();
         $end_date = Carbon::now();
         $barang_keluar = BarangKeluarModel::all();
-        $pdf = PDF::loadView('Barang_Keluar.print.index', compact('barang_keluar', 'start_date', 'end_date'))
-            ->setPaper('a4', 'portrait');
+        $pdf = PDF::loadView('Barang_Keluar.print.pdf_only', compact('barang_keluar', 'start_date', 'end_date'))
+            ->setPaper('a4', 'landscape')
+            ->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         // return $pdf->download('Laporan barang keluar.pdf');
         return $pdf->stream('laporan-barang.pdf');
     }

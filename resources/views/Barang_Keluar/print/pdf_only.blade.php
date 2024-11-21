@@ -16,6 +16,10 @@
 
     }
 
+    th {
+        background-color: #eeff00;
+        color: #000000;
+    }
     th,
     td {
         border: 1px solid black;
@@ -41,6 +45,7 @@
 <table style="width: 20px">
     <thead>
         <tr>
+            <th>No</th>
             <th>Tanggal Barang Keluar</th>
             <th>Kode Transaksi</th>
             <th>Nama Konsumen</th>
@@ -54,6 +59,7 @@
     <tbody>
         @foreach ($barang_keluar as $data)
             <tr>
+                <td>{{ $loop->iteration }}</td>
                 <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
                 <td>{{ $data->kode_transaksi }}</td>
                 <td>{{ $data->nama_konsumen }}</td>

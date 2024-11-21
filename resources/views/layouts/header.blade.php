@@ -12,7 +12,7 @@
     <meta name="robots" content="index, follow">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>@yield('title')</title>
 
     <meta property="og:title" content="Maks-Inventory - Solusi Sistem Manajemen Persediaan Terbaik">

@@ -46,7 +46,7 @@
                     <button data-toggle="modal" data-target="#staticBackdrop_transaksi" id="add_transaksi"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat Transaksi</button>
                 @elseif (Route::is('barang_keluar.index'))
-                    {{-- <a class="btn btn-primary" href="{{ route('barang_keluar.pdf') }}">Print</a> --}}
+                    <a class="btn btn-primary" href="{{ route('barang_keluar.pdf') }}">Print</a>
                     <button data-toggle="modal" data-target="#staticBackdrop_filter_barang_keluar"
                         id="export_barang_keluar" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
                         Export</button>
