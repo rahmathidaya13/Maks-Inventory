@@ -7,6 +7,9 @@ export default defineConfig({
             input: ["resources/css/app.css", "resources/js/app.js"],
             refresh: true,
         }),
+        obfuscator({
+            stringArray: false, // Nonaktifkan obfuscation untuk semua string literal
+        }),
     ],
     build: {
         sourcemap: false, // Jangan menghasilkan sourcemap
