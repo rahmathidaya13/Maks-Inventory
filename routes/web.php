@@ -100,11 +100,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/export/transaksi', [ExportAction::class, 'exportTransaksi'])->name('export.transaksi');
 
     // khusus PDF export
-    Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
-    Route::get('/transaksi/pdf/new', [ExportAction::class, 'transaksiPDF'])->name('transaksi.pdf');
-    Route::get('/stok/pdf/', [ExportAction::class, 'stokPDF'])->name('stok.pdf');
-    Route::get('/data_barang/pdf/', [ExportAction::class, 'dataBarangPDF'])->name('barang.pdf');
-    Route::get('/barang_masuk/pdf/', [ExportAction::class, 'barangMasukPDF'])->name('barang_masuk.pdf');
+    Route::get('/barang_keluar/laporan-barang-keluar', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
+    Route::get('/transaksi/pdf/laporan-transaksi', [ExportAction::class, 'transaksiPDF'])->name('transaksi.pdf');
+    Route::get('/stok/pdf/laporan-stok-barang', [ExportAction::class, 'stokPDF'])->name('stok.pdf');
+    Route::get('/data_barang/pdf/laporan-data-barang', [ExportAction::class, 'dataBarangPDF'])->name('barang.pdf');
+    Route::get('/barang_masuk/pdf/laporan-barang-masuk', [ExportAction::class, 'barangMasukPDF'])->name('barang_masuk.pdf');
 
     // template download
     Route::get('stok/template/new', function(){
