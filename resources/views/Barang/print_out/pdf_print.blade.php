@@ -13,9 +13,9 @@
     }
 
     th {
-        /* Warna untuk header */
-        background-color: #7bcece;
-        color: #000000;
+        background-color: #1b4bce;
+        /* Warna biru untuk header */
+        color: #ffffff;
         font-weight: bold;
         text-transform: uppercase;
         padding: 10px;
@@ -31,7 +31,7 @@
     td {
         border: 1px solid black;
         padding: 10px;
-        text-align: center;
+        text-align: start;
         vertical-align: middle;
         white-space: wrap;
         overflow: hidden;
@@ -58,36 +58,24 @@
         color: #333333;
     }
 </style>
-<div class="title">
-    <h1>Laporan Barang Keluar Toko Maksindo</h1>
-    <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('M Y') }}</h1>
-</div>
+<h1>Data Barang Toko Maksindo</h1>
+<h1>Cabang Pekanbaru</h1>
 <table>
     <thead>
         <tr>
             <th>No</th>
-            <th>Tanggal Barang Keluar</th>
-            <th>Kode Transaksi</th>
-            <th>Nama Konsumen</th>
-            <th>Nomor Handphone</th>
-            <th>Alamat</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
-            <th>Jumlah Barang</th>
+            <th>Harga Barang</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($barang_keluar as $data)
+        @foreach ($barang as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
-                <td>{{ $data->kode_transaksi }}</td>
-                <td>{{ $data->nama_konsumen }}</td>
-                <td>{{ $data->no_handphone }}</td>
-                <td>{{ $data->alamat }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
-                <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
             </tr>
         @endforeach
     </tbody>

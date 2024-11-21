@@ -13,9 +13,9 @@
     }
 
     th {
-        /* Warna untuk header */
-        background-color: #7bcece;
-        color: #000000;
+        background-color: #63a2ff;
+        /* Warna biru untuk header */
+        color: #ffffff;
         font-weight: bold;
         text-transform: uppercase;
         padding: 10px;
@@ -42,7 +42,7 @@
 
     h1 {
         font-family: 'Arial', sans-serif;
-        font-size: 20px;
+        font-size: 25px;
         text-align: center;
         margin-bottom: 10px;
         color: #000000;
@@ -50,7 +50,7 @@
         letter-spacing: 1px;
     }
     tbody tr:nth-child(odd) td {
-        background-color: #e6e6e6;
+        background-color: #f1f1f1;
         color: #333333;
     }
     tbody tr:nth-child(even) td {
@@ -58,36 +58,54 @@
         color: #333333;
     }
 </style>
-<div class="title">
-    <h1>Laporan Barang Keluar Toko Maksindo</h1>
-    <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('M Y') }}</h1>
+<div>
+    <h1>LAPORAN TRANSAKSI TOKO MAKSINDO</h1>
+    <h1>CABANG PEKANBARU</h1>
 </div>
 <table>
     <thead>
         <tr>
             <th>No</th>
-            <th>Tanggal Barang Keluar</th>
+            <th>Tanggal Transaksi</th>
             <th>Kode Transaksi</th>
             <th>Nama Konsumen</th>
-            <th>Nomor Handphone</th>
+            <th>No Handphone</th>
             <th>Alamat</th>
+            <th>Sales</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
+            <th>Harga Barang</th>
+            <th>Status Pembayaran</th>
+            <th>Transaksi</th>
+            <th>Dana Pertama (DP)</th>
+            <th>Diskon</th>
+            <th>Pembayaran</th>
+            <th>Total Pembayaran</th>
+            <th>Selisih Pembayaran</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($barang_keluar as $data)
+        @foreach ($transaksi as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_transaksi)->format('d-M-y') }}</td>
                 <td>{{ $data->kode_transaksi }}</td>
                 <td>{{ $data->nama_konsumen }}</td>
                 <td>{{ $data->no_handphone }}</td>
                 <td>{{ $data->alamat }}</td>
+                <td>{{ $data->nama_sales }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ 'Rp ' . number_format($data->harga_barang, 0, ',', '.') }}</td>
+                <td>{{ $data->status_pembayaran }}</td>
+                <td>{{ $data->status_transaksi }}</td>
+                <td>{{ 'Rp ' . number_format($data->dana_pertama, 0, ',', '.') }}</td>
+                <td>{{ $data->diskon . '%' }}</td>
+                <td>{{ 'Rp ' . number_format($data->pembayaran, 0, ',', '.') }}</td>
+                <td>{{ 'Rp ' . number_format($data->total_pembayaran, 0, ',', '.') }}</td>
+                <td>{{ 'Rp ' . number_format($data->selisih_pembayaran, 0, ',', '.') }}</td>
             </tr>
         @endforeach
     </tbody>

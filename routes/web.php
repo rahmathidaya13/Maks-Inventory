@@ -101,7 +101,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // khusus PDF export
     Route::get('/barang_keluar/pdf', [ExportAction::class, 'berangKeluarPDF'])->name('barang_keluar.pdf');
-    Route::get('/transakis/pdf/new', [ExportAction::class, 'transaksiPDF'])->name('transaksi.pdf');
+    Route::get('/transaksi/pdf/new', [ExportAction::class, 'transaksiPDF'])->name('transaksi.pdf');
+    Route::get('/stok/pdf/', [ExportAction::class, 'stokPDF'])->name('stok.pdf');
+    Route::get('/data_barang/pdf/', [ExportAction::class, 'dataBarangPDF'])->name('barang.pdf');
+    Route::get('/barang_masuk/pdf/', [ExportAction::class, 'barangMasukPDF'])->name('barang_masuk.pdf');
 
     // template download
     Route::get('stok/template/new', function(){

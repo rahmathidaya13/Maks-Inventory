@@ -62,17 +62,79 @@ class ExportAction extends Controller
         $end_date = Carbon::now();
         $barang_keluar = BarangKeluarModel::all();
         $pdf = PDF::loadView('Barang_Keluar.print.pdf_only', compact('barang_keluar', 'start_date', 'end_date'))
-            ->setPaper('a4', 'landscape')
-            ->setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'dpi' => 150, // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
         // return $pdf->download('Laporan barang keluar.pdf');
-        return $pdf->stream('laporan-barang.pdf');
+        return $pdf->stream('laporan-barang-keluar.pdf');
     }
     public function transaksiPDF(Request $request)
     {
         $transaksi = TransaksiModel::all();
-        $pdf = PDF::loadView('transaksi.print.print', compact('transaksi'))
-            ->setPaper('a4', 'landscape');
-        return $pdf->stream('transaksi.pdf');
+        $pdf = PDF::loadView('transaksi.print.pdf_print', compact('transaksi'))
+            ->setPaper('a4', 'landscape')
+            ->setOption([
+                'dpi' => 170,  // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
+        return $pdf->stream('laporan transaksi.pdf');
+    }
+    public function stokPDF(Request $request)
+    {
+        $stok = StokBarangModel::all();
+        $pdf = PDF::loadView('StokBarang.print.pdf_print', compact('stok'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'dpi' => 150, // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
+        return $pdf->stream('laporan stok barang.pdf');
+    }
+    public function dataBarangPDF(Request $request)
+    {
+        $barang = BarangModel::all();
+        $pdf = PDF::loadView('Barang.print_out.pdf_print', compact('barang'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'dpi' => 150, // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
+        return $pdf->stream('laporan data barang.pdf');
+    }
+    public function barangMasukPDF(Request $request)
+    {
+        $start_date = Carbon::now();
+        $end_date = Carbon::now();
+        $barang_masuk = BarangMasukModel::all();
+        $pdf = PDF::loadView('BarangMasuk.print.print_pdf', compact('barang_masuk','start_date','end_date'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'dpi' => 150, // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
+        return $pdf->stream('laporan data barang Masuk.pdf');
     }
 
     public function viewstok()

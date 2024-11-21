@@ -13,8 +13,8 @@
     }
 
     th {
-        /* Warna untuk header */
-        background-color: #7bcece;
+        background-color: #2fd458;
+        /* Warna biru untuk header */
         color: #000000;
         font-weight: bold;
         text-transform: uppercase;
@@ -42,7 +42,7 @@
 
     h1 {
         font-family: 'Arial', sans-serif;
-        font-size: 20px;
+        font-size: 25px;
         text-align: center;
         margin-bottom: 10px;
         color: #000000;
@@ -58,36 +58,34 @@
         color: #333333;
     }
 </style>
-<div class="title">
-    <h1>Laporan Barang Keluar Toko Maksindo</h1>
-    <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('M Y') }}</h1>
-</div>
+<h1>DATA STOK BARANG TOKO MAKSINDO</h1>
+<h1>CABANG PEKANBARU</h1>
 <table>
     <thead>
         <tr>
             <th>No</th>
-            <th>Tanggal Barang Keluar</th>
-            <th>Kode Transaksi</th>
-            <th>Nama Konsumen</th>
-            <th>Nomor Handphone</th>
-            <th>Alamat</th>
+            <th>Tanggal</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
-            <th>Jumlah Barang</th>
+            <th>Stok Awal</th>
+            <th>Barang Masuk</th>
+            <th>Barang Keluar</th>
+            <th>Stok Akhir</th>
+            <th>Keterangan</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($barang_keluar as $data)
+        @foreach ($stok as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
-                <td>{{ $data->kode_transaksi }}</td>
-                <td>{{ $data->nama_konsumen }}</td>
-                <td>{{ $data->no_handphone }}</td>
-                <td>{{ $data->alamat }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
-                <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->stok_awal }}</td>
+                <td>{{ $data->barang_masuk }}</td>
+                <td>{{ $data->barang_keluar }}</td>
+                <td>{{ $data->stok_akhir }}</td>
+                <td>{{ $data->keterangan }}</td>
             </tr>
         @endforeach
     </tbody>

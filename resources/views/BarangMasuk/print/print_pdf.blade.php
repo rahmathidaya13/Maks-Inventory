@@ -13,9 +13,9 @@
     }
 
     th {
-        /* Warna untuk header */
-        background-color: #7bcece;
-        color: #000000;
+        background-color: #5e80dd;
+        /* Warna biru untuk header */
+        color: #ffffff;
         font-weight: bold;
         text-transform: uppercase;
         padding: 10px;
@@ -31,7 +31,7 @@
     td {
         border: 1px solid black;
         padding: 10px;
-        text-align: center;
+        text-align: start;
         vertical-align: middle;
         white-space: wrap;
         overflow: hidden;
@@ -49,45 +49,46 @@
         text-transform: uppercase;
         letter-spacing: 1px;
     }
+
     tbody tr:nth-child(odd) td {
         background-color: #e6e6e6;
         color: #333333;
     }
+
     tbody tr:nth-child(even) td {
         background-color: #ffffff;
         color: #333333;
     }
 </style>
-<div class="title">
-    <h1>Laporan Barang Keluar Toko Maksindo</h1>
-    <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('M Y') }}</h1>
-</div>
+<h1>Laporan Barang Masuk Toko Maksindo</h1>
+<h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('F Y') }}</h1>
+
 <table>
     <thead>
         <tr>
             <th>No</th>
-            <th>Tanggal Barang Keluar</th>
-            <th>Kode Transaksi</th>
-            <th>Nama Konsumen</th>
-            <th>Nomor Handphone</th>
-            <th>Alamat</th>
+            <th>Tanggal Barang Masuk</th>
+            <th>No Warehouse</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
-            <th>Jumlah Barang</th>
+            <th>Asal Gudang</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Customer</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($barang_keluar as $data)
+        @foreach ($barang_masuk as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
-                <td>{{ $data->kode_transaksi }}</td>
-                <td>{{ $data->nama_konsumen }}</td>
-                <td>{{ $data->no_handphone }}</td>
-                <td>{{ $data->alamat }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y') }}</td>
+                <td>{{ $data->no_warehouse }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
+                <td>{{ $data->asal_gudang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->status }}</td>
+                <td>{{ $data->nama_konsumen }}</td>
             </tr>
         @endforeach
     </tbody>
