@@ -42,12 +42,12 @@
 
     tbody tr:nth-child(odd) td {
         background-color: #e6e6e6;
-        color: #333333;
+        color: #000000;
     }
 
     tbody tr:nth-child(even) td {
         background-color: #ffffff;
-        color: #333333;
+        color: #000000;
     }
 
     .header {

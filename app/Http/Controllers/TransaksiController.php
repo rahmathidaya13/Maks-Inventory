@@ -149,18 +149,18 @@ class TransaksiController extends Controller
                 $stok_ = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
                 // Buat record stok baru dengan tanggal pelunasan
-                $stokBarang = new StokBarangModel();
-                $stokBarang->id_brg_masuk = null;
-                $stokBarang->id_barang = $request->input('id_barang');
-                $stokBarang->tanggal = $request->input('transaksi');
-                $stokBarang->nama_barang = $request->input('nama_brg_transaksi');
-                $stokBarang->tipe_barang = $request->input('tipe_brg_transaksi');
-                $stokBarang->barang_masuk =  $barangMasuk;
-                $stokBarang->barang_keluar = $jumlah_barang;
-                $stokBarang->stok_awal = $stok_;
-                $stokBarang->stok_akhir = $stok_ - $jumlah_barang;
-                $stokBarang->keterangan = 'stok';
-                $stokBarang->save();
+                $stokBarangNew = new StokBarangModel();
+                $stokBarangNew->id_brg_masuk = null;
+                $stokBarangNew->id_barang = $request->input('id_barang');
+                $stokBarangNew->tanggal = $request->input('transaksi');
+                $stokBarangNew->nama_barang = $request->input('nama_brg_transaksi');
+                $stokBarangNew->tipe_barang = $request->input('tipe_brg_transaksi');
+                $stokBarangNew->barang_masuk =  $barangMasuk;
+                $stokBarangNew->barang_keluar = $jumlah_barang;
+                $stokBarangNew->stok_awal = $stok_;
+                $stokBarangNew->stok_akhir = $stok_ - $jumlah_barang;
+                $stokBarangNew->keterangan = 'stok';
+                $stokBarangNew->save();
             }
 
             // Update stok barang di barang_keluar

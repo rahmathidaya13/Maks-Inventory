@@ -13,6 +13,7 @@ class BarangController extends Controller
     public function index()
     {
         $barang = BarangModel::latest()->paginate(10);
+        $barang->lastItem();
         return view('Barang.index', compact('barang'));
     }
 
