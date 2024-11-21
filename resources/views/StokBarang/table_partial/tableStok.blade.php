@@ -27,8 +27,7 @@
                     <i class="fas fa-ellipsis-h"></i>
                 </button>
                 <div class="dropdown-menu">
-                    <a id="ubah_stok" data-toggle="modal" data-target="#staticBackdrop_stok_barang"
-                        data-id="{{ $data->id_stok }}" class="dropdown-item ubah_stok" href="#"><i
+                    <a id="ubah_stok" data-id="{{ $data->id_stok }}" class="dropdown-item ubah_stok" href="#"><i
                             class="fas fa-edit"></i> Ubah</a>
 
 

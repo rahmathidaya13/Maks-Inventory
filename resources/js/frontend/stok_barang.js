@@ -122,30 +122,58 @@ $(document).on("change", "#nama_barang", function () {
 
 $(document).on("click", ".ubah_stok", function (e) {
     e.preventDefault();
-    let id = $(this).data("id");
-    $("#stokBarangForm")[0].reset();
-    $("#filter_date_stok")[0].reset();
-    $("#import_stok_file")[0].reset();
+    Swal.fire({
+        icon: "warning",
+        title: "Ingin melakukan perubahan?",
+        text: "Mengubah data ini dapat berdampak besar pada nilai yang ada. Pastikan kamu benar-benar yakin sebelum melanjutkan! Tindakan ini tidak dapat dibatalkan.",
+        showCancelButton: true,
+        cancelButtonText: "Batal",
+        cancelButtonColor: "#c82333",
+        confirmButtonText: "Ya, Tetap ubah", // Tombol Yes
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Menunggu konfirmasi dan kemudian menampilkan modal
+            $("#staticBackdrop_stok_barang").modal("show");
+            $(".stok_out,.stok_close").click(function (e) {
+                e.preventDefault();
+                $("#staticBackdrop_stok_barang").modal("hide");
+            }); // Menampilkan modal
 
-    $(".modal-title span").text("Ubah Data Stok");
-    $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").removeClass("fas fa-file-upload");
-    $(".modal-title i").addClass("fas fa-edit ");
+            let id = $(this).data("id");
+            $("#stokBarangForm")[0].reset();
+            $("#filter_date_stok")[0].reset();
+            $("#import_stok_file")[0].reset();
 
-    $("#stok_save span").text("Ubah");
-    $("#stok_save i").removeClass("fas fa-save").addClass("fas fa-edit");
-    $("#stokBarangForm").attr("action", `/stok/update/${id}`);
-    $("#stokBarangForm").prepend(
-        '<input type="hidden" name="_method" value="PUT">'
-    );
+            $(".modal-title span").text("Ubah Data Stok");
+            $(".modal-title i").removeClass("fas fa-plus-square");
+            $(".modal-title i").removeClass("fas fa-file-upload");
+            $(".modal-title i").addClass("fas fa-edit ");
 
-    $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
-        $("#id_barang").val(data.result.id_barang);
-        $("#tgl").val(data.result.tanggal);
-        $("#nama_barang").val(data.result.nama_barang).trigger("change");
-        $("#tipe_barang").val(data.result.tipe_barang).trigger("change");
-        // $("#jumlah_barang").val(data.result.stok_akhir);
-        $("#keterangan").val(data.result.keterangan);
+            $("#stok_save span").text("Ubah");
+            $("#stok_save i")
+                .removeClass("fas fa-save")
+                .addClass("fas fa-edit");
+            $("#stokBarangForm").attr("action", `/stok/update/${id}`);
+            $("#stokBarangForm").prepend(
+                '<input type="hidden" name="_method" value="PUT">'
+            );
+
+            $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
+                $("#id_barang").val(data.result.id_barang);
+                $("#tgl").val(data.result.tanggal);
+                $("#nama_barang")
+                    .val(data.result.nama_barang)
+                    .trigger("change");
+                $("#tipe_barang")
+                    .val(data.result.tipe_barang)
+                    .trigger("change");
+                // $("#jumlah_barang").val(data.result.stok_akhir);
+                $("#keterangan").val(data.result.keterangan);
+            });
+        } else if (result.isDenied) {
+            // Menampilkan pesan jika tombol "No" ditekan
+            Swal.fire("Changes are not saved", "", "info");
+        }
     });
 });
 

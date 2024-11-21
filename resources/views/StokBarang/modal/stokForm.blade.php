@@ -4,7 +4,7 @@
         <div class="modal-content bg-light">
             <div class="modal-header">
                 <h4 class="modal-title"><i></i> <span></span></h4>
-                <button id="stok_close" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button id="stok_close" type="button" class="close stok_close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -61,7 +61,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="stok_out" type="button" class="btn btn-default" data-dismiss="modal">keluar</button>
+                <button id="stok_out" type="button" class="btn btn-default stok_out" data-dismiss="modal">keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
                     id="stok_save" type="button" class="btn btn-primary"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>
