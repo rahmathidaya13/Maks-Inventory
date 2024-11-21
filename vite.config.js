@@ -7,6 +7,7 @@ export default defineConfig({
             input: ["resources/css/app.css", "resources/js/app.js"],
             refresh: true,
         }),
+        obfuscator(),
     ],
     build: {
         sourcemap: false, // Jangan menghasilkan sourcemap
