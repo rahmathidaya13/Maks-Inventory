@@ -308,7 +308,6 @@ class TransaksiController extends Controller
                     : 0;
 
                 $stokBarang = new StokBarangModel();
-                $stokBarang->id_brg_masuk = null;
                 $stokBarang->id_barang = $getAllTransaksi->id_barang;
                 $stokBarang->tanggal = $request->input('tgl_pelunasan');
                 $stokBarang->nama_barang = $getAllTransaksi->nama_barang;

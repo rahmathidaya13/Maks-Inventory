@@ -78,7 +78,7 @@
                         <th>Jumlah Barang</th>
                         <th>Harga Barang</th>
                         <th>Status Pembayaran</th>
-                        <th>Total Bayar</th>
+                        <th>Pembayaran</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>

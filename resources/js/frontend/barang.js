@@ -53,7 +53,6 @@ $(document).on("keyup", "#keyword", function (e) {
                 window.history.pushState({}, "", "/list-item");
             }
         );
-        // location.reload();
     } else {
         // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
         $("tbody").load(

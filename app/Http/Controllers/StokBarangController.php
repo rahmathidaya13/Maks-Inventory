@@ -180,6 +180,14 @@ class StokBarangController extends Controller
             $stokBarang->keterangan = $request->input('keterangan');
             $stokBarang->save();
         } else {
+            $stoklama = StokBarangModel::where('id_barang',  $request->input('id_barang'))
+                ->where('nama_barang',  $request->input('nama_barang'))
+                ->where('tipe_barang', $request->input('tipe_barang'))
+                ->orderBy('tanggal', 'desc')
+                ->first();
+
+            $stok_awal = $stoklama ? $stoklama->stok_akhir : 0;
+
             $stokNew = new StokBarangModel();
             $stokNew->id_barang = $request->input('id_barang');
             $stokNew->nama_barang = $request->input('nama_barang');
@@ -187,12 +195,8 @@ class StokBarangController extends Controller
             $stokNew->tanggal = $request->input('tgl');
             $stokNew->barang_masuk = $barang_masuk;
             $stokNew->barang_keluar = $barang_keluar;
-            if (empty($stokAwal)) {
-                $stokNew->stok_awal = (int)  $request->input('jumlah_barang');
-            } else {
-                $stokNew->stok_awal = (int) $stokAwal + $request->input('jumlah_barang');
-            }
-            $stokNew->stok_akhir = (int) ($stokNew->stok_awal + $stokNew->barang_masuk) - $stokNew->barang_keluar;
+            $stokNew->stok_awal = $request->input('jumlah_barang') + $stok_awal;
+            $stokNew->stok_akhir = ($stokNew->stok_awal + $stokNew->barang_masuk) - $stokNew->barang_keluar;
             $stokNew->keterangan = $request->input('keterangan');
             $stokNew->save();
             return back()->with('success', 'Data Stok' . ' ' . $stokNew->nama_barang . ' - ' . $stokNew->tipe_barang . ' ' . 'Berhasil Diupdate');

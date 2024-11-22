@@ -1,5 +1,5 @@
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-lightblue elevation-4">
       <!-- Brand Logo -->
       <a href="{{ route('dashboard') }}" class="brand-link text-center">
           <img src="{{ asset('assets/icon/logo2.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
@@ -21,9 +21,6 @@
                       data-id="{{ Auth::user()->id }}" class="d-block">{{ ucwords(Auth::user()->name) }}</a>
               </div>
           </div>
-
-
-
           <!-- Sidebar Menu -->
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"

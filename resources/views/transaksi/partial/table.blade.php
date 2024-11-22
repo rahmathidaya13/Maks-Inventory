@@ -25,10 +25,10 @@
             @if ($data->status_pembayaran == 'lunas')
                 <span class="badge badge-success">{{ ucwords($data->status_pembayaran) }}</span>
             @else
-                <span class="badge badge-danger">{{ ucwords($data->status_pembayaran) }}</span>
+                <span class="badge badge-danger">{{ ucwords($data->status_pembayaran)." / Dp" }}</span>
             @endif
         </td>
-        <td class="align-middle">{{ 'Rp ' . number_format((int) $data->total_pembayaran, 0, ',', '.') }}</td>
+        <td class="align-middle">{{ 'Rp ' . number_format((int) $data->pembayaran, 0, ',', '.') }}</td>
         <td class="align-middle">
             <div class="d-flex justify-content-center">
                 @if ($data->status_pembayaran !== 'lunas')
