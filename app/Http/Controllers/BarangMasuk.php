@@ -88,16 +88,21 @@ class BarangMasuk extends Controller
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal +  $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
-                // Cari stok barang sebelumnya berdasarkan barang terakhir (id_barang)
+                // Cari stok barang sebelumnya berdasarkan barang terakhir yaitu (id_barang)
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                    ->where('nama_barang', $request->input('nama_barang'))
+                    ->where('tipe_barang', $request->input('tipe_barang_masuk'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
+
                 // Tentukan stok awal dari stok sebelumnya
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
+
+                // Tentukan barang keluar dari stok sebelumnya
                 $barang_keluar = $stokSebelumnya ? $stokSebelumnya->barang_keluar : 0;
+
                 // Buat record stok baru dengan barang masuk dan stok awal yang diperoleh
                 $stokBarangNew = new StokBarangModel();
-                $stokBarangNew->id_brg_masuk = $barangMasuk->id_brg_masuk;
                 $stokBarangNew->id_barang = $request->input('id_barang');
                 $stokBarangNew->tanggal = $request->input('tgl_brg_masuk');
                 $stokBarangNew->nama_barang = $request->input('nama_barang');
@@ -196,6 +201,8 @@ class BarangMasuk extends Controller
 
             // Hitung selisih barang masuk
             $selisihBarangMasuk = $request->input('jumlah_brg') - $jumlahBarangSebelum;
+
+            // Jika stok barang ada, tambahkan jumlah barang masuk
             if ($stokBarang) {
                 $stokBarang->barang_masuk += $selisihBarangMasuk;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
@@ -207,13 +214,15 @@ class BarangMasuk extends Controller
                     ->where('tipe_barang', $request->input('tipe_barang_masuk'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
+
                 // Tentukan stok awal dari stok sebelumnya
                 $stok_awal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
-                // masih uji coba
+
+                // Tentukan barang keluar dari stok sebelumnya
                 $barang_keluar = $stokSebelumnya ? $stokSebelumnya->barang_keluar : 0;
+
                 // Buat record stok baru dengan barang masuk dan stok awal yang diperoleh
                 $stokBarangNew = new StokBarangModel();
-                $stokBarangNew->id_brg_masuk = $barangMasuk->id_brg_masuk;
                 $stokBarangNew->id_barang = $request->input('id_barang');
                 $stokBarangNew->tanggal = $request->input('tgl_brg_masuk');
                 $stokBarangNew->nama_barang = $request->input('nama_barang');
@@ -221,7 +230,7 @@ class BarangMasuk extends Controller
                 $stokBarangNew->barang_masuk = $request->input('jumlah_brg');
                 $stokBarangNew->barang_keluar =  $barang_keluar;
                 $stokBarangNew->stok_awal =   $stok_awal;
-                $stokBarangNew->stok_akhir =  ($stok_awal + $stokBarangNew->barang_masuk) - $stokBarangNew->barang_keluar;
+                $stokBarangNew->stok_akhir =  ($stokBarangNew->stok_awal + $stokBarangNew->barang_masuk) - $stokBarangNew->barang_keluar;
                 $stokBarangNew->keterangan = 'stok';
                 $stokBarangNew->save();
             }

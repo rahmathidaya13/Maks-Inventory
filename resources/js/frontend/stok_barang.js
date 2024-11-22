@@ -167,7 +167,7 @@ $(document).on("click", ".ubah_stok", function (e) {
                 $("#tipe_barang")
                     .val(data.result.tipe_barang)
                     .trigger("change");
-                // $("#jumlah_barang").val(data.result.stok_akhir);
+                $("#jumlah_barang").val(data.result.stok_awal);
                 $("#keterangan").val(data.result.keterangan);
             });
         } else if (result.isDenied) {
