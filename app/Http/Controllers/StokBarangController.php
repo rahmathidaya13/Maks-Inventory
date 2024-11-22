@@ -76,9 +76,9 @@ class StokBarangController extends Controller
             $stokChek->stok_akhir = ($stokChek->stok_awal + $stokChek->barang_masuk) - $stokChek->barang_keluar;
             $stokChek->keterangan = $request->input('keterangan') ?? $stokChek->keterangan;
             $stokChek->save();
-            return back()->with('success', 'Penambahan stok baru berhasil dibuat');
         } else {
-            $stokTerakhir = StokBarangModel::where('nama_barang', $request->input('nama_barang'))
+            $stokTerakhir = StokBarangModel::where('id_barang', $request->input('id_barang'))
+                ->where('nama_barang', $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang'))
                 ->orderBy('tanggal', 'desc')
                 ->first();
@@ -91,20 +91,17 @@ class StokBarangController extends Controller
             $stok->tipe_barang = $request->input('tipe_barang');
             $stok->barang_masuk = $barang_masuk;
             $stok->barang_keluar = $barang_keluar;
-
-            if ($stokAwal == 0 && $barang_masuk == 0 && $barang_keluar == 0) {
-                $stok->stok_awal =  $request->input('jumlah_barang');
-                $stok->stok_akhir =  $stok->stok_awal;
+            if ($stokAwal == 0) {
+                $stok->stok_awal = (int)  $request->input('jumlah_barang');
             } else {
-                $stok->stok_awal =  $stokAwal;
-                $stok->stok_akhir =  $stokAwal + $request->input('jumlah_barang');
+                $stok->stok_awal = (int) $stokAwal + $request->input('jumlah_barang');
             }
-
-            $stok->stok_akhir =  $stokAwal + $request->input('jumlah_barang');
+            $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
             $stok->keterangan = $request->input('keterangan');
             $stok->save();
-            return back()->with('success', 'Penambahan stok baru berhasil dibuat');
+            // dd($stokAwal);
         }
+        return back()->with('success', 'Penambahan stok baru berhasil dibuat');
     }
 
     /**
