@@ -164,6 +164,11 @@
                 <td>{{ 'Rp ' . number_format($data->selisih_pembayaran, 0, ',', '.') }}</td>
             </tr>
         @endforeach
+        @empty($data)
+            <tr>
+                <td colspan="18" style="text-align: center">Data transaksi tidak ditemukan</td>
+            </tr>
+        @endempty
     </tbody>
 </table>
 <div class="divider"></div>
