@@ -51,15 +51,31 @@ class HomeController extends Controller
 
         $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
             ->whereYear('tgl_transaksi', $getYear)
-            ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('total_barang AS total_omset'), 'nama_barang','tipe_barang','tgl_transaksi')
+            ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->where('status_pembayaran', 'lunas')
-            ->groupBy('nama_sales','nama_barang','tipe_barang','tgl_transaksi')
+            ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->paginate(10);
+
+        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
+            ->select('nama_sales', DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),DB::raw('SUM(jumlah_barang) AS total_barang'))
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('nama_sales')
             ->get();
 
         // total barang
         $barang = BarangModel::count();
 
 
-        return view('home.index', compact('transaksi', 'countTransaksi', 'periode', 'barang', 'countInBox', 'countOutBox', 'konsumen_transaksi'));
+        return view('home.index', compact(
+            'transaksi',
+            'countTransaksi',
+            'periode',
+            'barang',
+            'countInBox',
+            'countOutBox',
+            'konsumen_transaksi',
+            'pendapatanTransaksi'
+        ));
     }
 }

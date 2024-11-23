@@ -150,7 +150,6 @@ class TransaksiController extends Controller
 
                 // Buat record stok baru dengan tanggal pelunasan
                 $stokBarangNew = new StokBarangModel();
-                $stokBarangNew->id_brg_masuk = null;
                 $stokBarangNew->id_barang = $request->input('id_barang');
                 $stokBarangNew->tanggal = $request->input('transaksi');
                 $stokBarangNew->nama_barang = $request->input('nama_brg_transaksi');

@@ -5,7 +5,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DiFI1Ory.js",
+    "file": "assets/app-C7lU-sQB.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -13,6 +13,7 @@
       "resources/js/frontend/barang.js",
       "resources/js/frontend/barang_keluar.js",
       "resources/js/frontend/barang_masuk.js",
+      "resources/js/frontend/home.js",
       "resources/js/frontend/profile.js",
       "resources/js/frontend/stok_barang.js",
       "resources/js/frontend/transaksi.js",
@@ -35,6 +36,12 @@
     "file": "assets/barang_masuk-B7UocSv0.js",
     "name": "barang_masuk",
     "src": "resources/js/frontend/barang_masuk.js",
+    "isDynamicEntry": true
+  },
+  "resources/js/frontend/home.js": {
+    "file": "assets/home-D4vckCpY.js",
+    "name": "home",
+    "src": "resources/js/frontend/home.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/profile.js": {

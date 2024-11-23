@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\LiveAction;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BarangMasuk;
@@ -13,12 +14,11 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\StokBarangController;
 use App\Http\Controllers\BarangKeluarController;
 
-Auth::routes(['register'=>false]);
+Auth::routes(['register' => false]);
 
 
 Route::get('/', function () {
     return redirect()->route('login');
-
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -65,6 +65,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get("/stok/search", [LiveAction::class, 'stokSearch'])->name('stok.search');
     Route::get("/transaksi/search", [LiveAction::class, 'transaksiSearch'])->name('transaksi.search');
     Route::get("/barang_keluar/search", [LiveAction::class, 'barangKeluarSearch'])->name('barang_keluar.search');
+    Route::get("/home/search", [LiveAction::class, 'homeSearch'])->name('home.search');
 
     // for limit requet endpoint 100 page
     Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
@@ -105,24 +106,25 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/stok/pdf/laporan-stok-barang', [ExportAction::class, 'stokPDF'])->name('stok.pdf');
     Route::get('/data_barang/pdf/laporan-data-barang', [ExportAction::class, 'dataBarangPDF'])->name('barang.pdf');
     Route::get('/barang_masuk/pdf/laporan-barang-masuk', [ExportAction::class, 'barangMasukPDF'])->name('barang_masuk.pdf');
+    Route::get('/penjualan/pdf/laporan-penjualan-unit', [ExportAction::class, 'penjualanPDF'])->name('penjualan.pdf');
 
     // template download
-    Route::get('stok/template/new', function(){
+    Route::get('stok/template/new', function () {
         $filepath = public_path('assets/template/stok_barang.xlsx');
         return Response::download($filepath, 'stok_barang.xlsx');
     })->name('stok.templates');
 
-    Route::get('data_barang/template', function(){
+    Route::get('data_barang/template', function () {
         $filepath = public_path('assets/template/data barang template.xlsx');
         return Response::download($filepath, 'data barang template.xlsx');
     })->name('data_barang.templates');
 
-    Route::get('barang_masuk/template/new', function(){
+    Route::get('barang_masuk/template/new', function () {
         $filepath = public_path('assets/template/barang masuk template.xlsx');
         return Response::download($filepath, 'barang masuk template.xlsx');
     })->name('barang_masuk.templates');
 
-    Route::get('transaksi/template', function(){
+    Route::get('transaksi/template', function () {
         $filepath = public_path('assets/template/laporan transaksi.xlsx');
         return Response::download($filepath, 'laporan transaksi.xlsx');
     })->name('transaksi.templates');

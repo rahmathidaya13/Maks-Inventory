@@ -61,25 +61,25 @@
             <table id="" class="table table-hover text-nowrap table-sm table-bordered table-striped">
                 <thead class="table-info">
                     <tr class="text-center">
-                        <th class="text-center">
+                        <th class="text-center align-middle">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="select_all_transaksi"
                                     id="select_all_transaksi">
                                 <label class="form-check-label"></label>
                             </div>
                         </th>
-                        <th>No</th>
-                        <th>Tanggal</th>
-                        <th>Kode Transaksi</th>
-                        <th>Konsumen</th>
-                        <th>Sales</th>
-                        <th>Barang</th>
-                        <th>Tipe Barang</th>
-                        <th>Jumlah Barang</th>
-                        <th>Harga Barang</th>
-                        <th>Status Pembayaran</th>
-                        <th>Pembayaran</th>
-                        <th class="text-center">Aksi</th>
+                        <th class="align-middle">No</th>
+                        <th class="align-middle">Tanggal</th>
+                        <th class="align-middle">Kode Transaksi</th>
+                        <th class="align-middle">Konsumen</th>
+                        <th class="align-middle">Sales</th>
+                        <th class="align-middle">Barang</th>
+                        <th class="align-middle">Tipe Barang</th>
+                        <th class="align-middle">Jumlah Barang</th>
+                        <th class="align-middle">Harga Barang</th>
+                        <th class="align-middle">Status Pembayaran</th>
+                        <th class="align-middle">Pembayaran</th>
+                        <th class="text-center align-middle">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>

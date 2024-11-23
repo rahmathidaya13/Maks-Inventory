@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangKeluarModel;
-use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
-use App\Models\StokBarangModel;
-use App\Models\TransaksiModel;
 use Illuminate\Http\Request;
+use App\Models\TransaksiModel;
+use App\Models\StokBarangModel;
+use App\Models\BarangMasukModel;
+use App\Models\BarangKeluarModel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
 
@@ -23,7 +24,7 @@ class LiveAction extends Controller
         if (!empty($query)) {
             $barang =  BarangModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);;
+                ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $barang = BarangModel::latest()->paginate(10);
         }
@@ -39,7 +40,7 @@ class LiveAction extends Controller
         if (!empty($query)) {
             $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);;
+                ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $stok = StokBarangModel::latest()->paginate(10);
         }
@@ -55,7 +56,7 @@ class LiveAction extends Controller
         if (!empty($query)) {
             $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);;
+                ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $barang_masuk = BarangMasukModel::latest()->paginate(10);
         }
@@ -73,11 +74,50 @@ class LiveAction extends Controller
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("nama_konsumen", "like", "%" . $query . "%")
                 ->orWhere("nama_sales", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);;
+                ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $transaksi = TransaksiModel::latest()->paginate(10);
         }
         return view('transaksi.partial.table',  compact('transaksi', 'query'));
+    }
+    public function homeSearch(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
+
+        $query = $request->get('query');
+        if (!empty($query)) {
+            $transaksi = TransaksiModel::where(function ($q) use ($query) {
+                $q->where("nama_barang", "like", "%" . $query . "%")
+                    ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                    ->orWhere("nama_sales", "like", "%" . $query . "%");
+            })
+                ->where('status_pembayaran', 'lunas')
+                ->select(
+                    'nama_sales',
+                    DB::raw('SUM(jumlah_barang) AS total_barang'),
+                    DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
+                    'nama_barang',
+                    'tipe_barang',
+                    'tgl_transaksi'
+                )
+                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->get();
+        } else {
+            $transaksi = TransaksiModel::select(
+                'nama_sales',
+                DB::raw('SUM(jumlah_barang) AS total_barang'),
+                DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
+                'nama_barang',
+                'tipe_barang',
+                'tgl_transaksi'
+            )
+                ->where('status_pembayaran', 'lunas')
+                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->get();
+        }
+        return view('home.partial.table',  compact('transaksi'))->render();
     }
     public function barangKeluarSearch(Request $request)
     {
@@ -91,7 +131,7 @@ class LiveAction extends Controller
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("nama_konsumen", "like", "%" . $query . "%")
                 ->orWhere("no_handphone", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);;
+                ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $barang_keluar = BarangKeluarModel::latest()->paginate(10);
         }

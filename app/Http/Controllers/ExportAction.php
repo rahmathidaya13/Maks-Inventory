@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\TransaksiExport;
-use App\Models\TransaksiModel;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use App\Exports\StokExport;
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Exports\BarangExport;
-use App\Models\StokBarangModel;
-use App\Models\BarangMasukModel;
-use App\Exports\BarangMasukExport;
-use App\Exports\BarangKeluarExport;
 use App\Exports\ExportStokAll;
+use App\Models\TransaksiModel;
+use App\Models\StokBarangModel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\TransaksiExport;
+use App\Models\BarangMasukModel;
 use App\Models\BarangKeluarModel;
-use Carbon\Carbon;
+use App\Exports\BarangMasukExport;
+use Illuminate\Support\Facades\DB;
+use App\Exports\BarangKeluarExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportAction extends Controller
@@ -124,7 +125,7 @@ class ExportAction extends Controller
         $start_date = Carbon::now();
         $end_date = Carbon::now();
         $barang_masuk = BarangMasukModel::all();
-        $pdf = PDF::loadView('BarangMasuk.print.print_pdf', compact('barang_masuk','start_date','end_date'))
+        $pdf = PDF::loadView('BarangMasuk.print.print_pdf', compact('barang_masuk', 'start_date', 'end_date'))
             ->setPaper('a4', 'portrait')
             ->setOption([
                 'dpi' => 150, // set dpi untuk sesuaikan layout
@@ -135,6 +136,31 @@ class ExportAction extends Controller
                 'margin-left' => 10,
             ]);
         return $pdf->stream('laporan data barang Masuk.pdf');
+    }
+    public function penjualanPDF(Request $request)
+    {
+        $getMonth = Carbon::now()->month;
+        $getYear = Carbon::now()->year;
+
+        $getMonthName = Carbon::now()->translatedFormat('F');
+        $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
+            ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->get();
+
+        $pdf = PDF::loadView('home.print.penjualan_pdf', compact('transaksi', 'getMonthName'))
+            ->setPaper('a4', 'portrait')
+            ->setOption([
+                'dpi' => 160, // set dpi untuk sesuaikan layout
+                'defaultFont' => 'sans-serif',
+                'margin-top' => 10,
+                'margin-right' => 10,
+                'margin-bottom' => 10,
+                'margin-left' => 10,
+            ]);
+        return $pdf->stream('Rekap penjualan unit sales.pdf');
     }
 
     public function viewstok()

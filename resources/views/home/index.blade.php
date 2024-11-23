@@ -63,6 +63,8 @@
 
         </div>
     </div>
+
+
     <div class="card ">
         <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
             <div class="flex">
@@ -71,14 +73,14 @@
             </div>
             <div class="ml-auto align-content-center">
                 <div class="input-group input-group-sm">
-                    <a class="btn btn-sm btn-success mx-2" href="#"> <i class="fas fa-print"></i> Print</a>
+                    <a class="btn btn-sm btn-success mx-2" href="{{ route('penjualan.pdf') }}"> <i class="fas fa-print"></i> Print</a>
                     <input class="form-control form-control-sm" type="search" id="sales_keyword" name="sales_keyword">
                 </div>
             </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-sm text-nowrap table-bordered">
+                <table class="table table-sm text-nowrap table-bordered table-striped">
                     <thead class="thead-dark">
                         <tr class="text-center">
                             <th scope="col">#</th>
@@ -86,15 +88,52 @@
                             <th scope="col">Nama Sales</th>
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Tipe Barang</th>
-                            <th scope="col">Total Barang</th>
+                            <th scope="col">Barang Terjual</th>
                             <th scope="col">Total Penjualan</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabel_penjualan">
                         @include('home.partial.table', ['transaksi' => $transaksi])
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between p-0 pt-2">
+                    <div>
+                        Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai <b>{{ $transaksi->lastItem() }}</b> dari
+                        <b>{{ $transaksi->total() }}</b> item
+                    </div>
+                    <div>
+                        {{ $transaksi->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Total Penjualan Unit Sales --}}
+    <div class="card ">
+        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+            <div class="flex">
+                <h4 class="font-weight-bold ">Total Pendapatan per Sales</h4>
+                <h5 class="">Periode: {{ $periode }}</h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsiv">
+                <table class="table table-sm text-nowrap w-50 table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Nama Sales</th>
+                            <th scope="col">Total Barang</th>
+                            <th scope="col">Total Pendapatan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @include('home.partial.table_pendapatan', ['pendapatan' => $pendapatanTransaksi])
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
 @endsection
