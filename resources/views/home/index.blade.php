@@ -64,32 +64,34 @@
         </div>
     </div>
     <div class="card ">
-        <div class="card-header p-0 px-3 pt-3">
-            <h4 class="font-weight-bold ">Total Penjualan Unit Sales</h4>
-            <h5 class="">Periode: {{ $periode }}</h5>
+        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+            <div class="flex">
+                <h4 class="font-weight-bold ">Total Penjualan Unit Sales</h4>
+                <h5 class="">Periode: {{ $periode }}</h5>
+            </div>
+            <div class="ml-auto align-content-center">
+                <div class="input-group input-group-sm">
+                    <a class="btn btn-sm btn-success mx-2" href="#"> <i class="fas fa-print"></i> Print</a>
+                    <input class="form-control form-control-sm" type="search" id="sales_keyword" name="sales_keyword">
+                </div>
+            </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive text-center">
-                <table class="table table-sm text-nowrap table-bordered text-nowrap">
+            <div class="table-responsive">
+                <table class="table table-sm text-nowrap table-bordered">
                     <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Tia Saputri</th>
-                            <th scope="col">Ade Yolanda</th>
-                            <th scope="col">M. Reza</th>
-                            <th scope="col">Rahmat Hidaya</th>
+                        <tr class="text-center">
+                            <th scope="col">#</th>
+                            <th scope="col">Tanggal Penjualan</th>
+                            <th scope="col">Nama Sales</th>
+                            <th scope="col">Nama Barang</th>
+                            <th scope="col">Tipe Barang</th>
+                            <th scope="col">Total Barang</th>
+                            <th scope="col">Total Penjualan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="font-weight-bold h3">
-                            <td scope="row">
-                                {{ $transaksi->firstWhere('nama_sales', 'Tia Saputri')->total_penjualan ?? 0 }}</td>
-                            <td scope="row">
-                                {{ $transaksi->firstWhere('nama_sales', 'Ade Yolanda')->total_penjualan ?? 0 }}</td>
-                            <td scope="row">{{ $transaksi->firstWhere('nama_sales', 'Muhammad Reza')->total_penjualan ?? 0 }}
-                            </td>
-                            <td scope="row">
-                                {{ $transaksi->firstWhere('nama_sales', 'Rahmat Hidaya')->total_penjualan ?? 0 }}</td>
-                        </tr>
+                        @include('home.partial.table', ['transaksi' => $transaksi])
                     </tbody>
                 </table>
             </div>
