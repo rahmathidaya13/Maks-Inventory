@@ -22,6 +22,7 @@ class BarangKeluarModel extends Model
         'nama_barang',
         'tipe_barang',
         'jumlah_barang',
+        'posisi',
     ];
     public $incrementing = false;
 

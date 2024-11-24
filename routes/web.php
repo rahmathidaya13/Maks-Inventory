@@ -67,6 +67,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get("/barang_keluar/search", [LiveAction::class, 'barangKeluarSearch'])->name('barang_keluar.search');
     Route::get("/home/search", [LiveAction::class, 'homeSearch'])->name('home.search');
 
+    // live action all stok by id_barang
+    Route::get("/stok_barang", [LiveAction::class, 'selectStok'])->name('stokByIdBarang.search');
+
     // for limit requet endpoint 100 page
     Route::get("/item/offset", [LiveAction::class, 'filterData'])->name('offset');
     Route::get("/barang_masuk/filter", [LiveAction::class, 'filterBrgMasuk'])->name('barang_masuk.filter');
@@ -109,9 +112,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/penjualan/pdf/laporan-penjualan-unit', [ExportAction::class, 'penjualanPDF'])->name('penjualan.pdf');
 
     // template download
-    Route::get('stok/template/new', function () {
-        $filepath = public_path('assets/template/stok_barang.xlsx');
-        return Response::download($filepath, 'stok_barang.xlsx');
+    Route::get('stok/template', function () {
+        $filepath = public_path('assets/template/Stok Barang Template.xlsx');
+        return Response::download($filepath, 'Stok Barang Template.xlsx');
     })->name('stok.templates');
 
     Route::get('data_barang/template', function () {
@@ -124,7 +127,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return Response::download($filepath, 'barang masuk template.xlsx');
     })->name('barang_masuk.templates');
 
-    Route::get('transaksi/rekap', function () {
+    Route::get('transaksi/rekaps', function () {
         $filepath = public_path('assets/template/Rekap transaksi.xlsx');
         return Response::download($filepath, 'Rekap transaksi.xlsx');
     })->name('transaksi.templates');

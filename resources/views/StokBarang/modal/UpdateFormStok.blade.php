@@ -1,4 +1,6 @@
-<div class="modal fade" id="modal-update-stok">
+
+{{-- tidak pakai --}}
+{{-- <div class="modal fade" id="modal-update-stok">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -82,4 +84,4 @@
         </div>
     </div>
 </div>
-</div>
+</div> --}}

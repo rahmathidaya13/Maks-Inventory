@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('tipe_barang');
             $table->string('asal_gudang',);
             $table->integer('jumlah_barang');
+            $table->string('posisi');
             $table->string('status');
             $table->string('nama_konsumen');
             $table->timestamps();

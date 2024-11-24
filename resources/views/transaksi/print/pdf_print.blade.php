@@ -136,6 +136,7 @@
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
+            <th>Posisi Barang</th>
             <th>Harga Barang</th>
             <th>Status Pembayaran</th>
             <th>Transaksi</th>
@@ -143,7 +144,7 @@
             <th>Diskon</th>
             <th>Pembayaran</th>
             <th>Total Pembayaran</th>
-            <th>Selisih Pembayaran</th>
+            <th>Sisa Pembayaran</th>
         </tr>
     </thead>
     <tbody>
@@ -160,6 +161,7 @@
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->posisi }}</td>
                 <td>{{ 'Rp ' . number_format($data->harga_barang, 0, ',', '.') }}</td>
                 <td>{{ $data->status_pembayaran }}</td>
                 <td>{{ $data->status_transaksi }}</td>
@@ -172,7 +174,7 @@
         @endforeach
         @empty($data)
             <tr>
-                <td colspan="19" style="text-align: center">Data transaksi tidak ditemukan</td>
+                <td colspan="20" style="text-align: center">Data transaksi tidak ditemukan</td>
             </tr>
         @endempty
     </tbody>

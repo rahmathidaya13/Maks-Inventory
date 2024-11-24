@@ -88,6 +88,7 @@
                                 <th>Tipe Barang</th>
                                 <th>Asal Gudang</th>
                                 <th>Jumlah</th>
+                                <th>Posisi Barang</th>
                                 <th>Status</th>
                                 <th>Nama Konsumen</th>
                                 <th>Aksi</th>

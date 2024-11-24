@@ -15,6 +15,7 @@
         <td class="nama_barang">{{ $data->nama_barang }}</td>
         <td class="tipe_barang">{{ $data->tipe_barang }}</td>
         <td class="text-center">{{ $data->jumlah_barang }}</td>
+        <td class="text-center">{{ $data->posisi }}</td>
     </tr>
 @endforeach
 

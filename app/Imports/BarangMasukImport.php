@@ -37,6 +37,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
         $barang_keluar = BarangKeluarModel::where('id_barang', $barang->id_barang)
             ->where('nama_barang', $row['nama_barang'])
             ->where('tipe_barang', $row['tipe_barang'])
+            ->where('posisi', $row['posisi_barang'])
             ->where('tanggal',  $get_date)
             ->sum('jumlah_barang');
 
@@ -47,6 +48,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
         $stokBarang = StokBarangModel::where('id_barang', $barang->id_barang)
             ->where('nama_barang', $row['nama_barang'])
             ->where('tipe_barang', $row['tipe_barang'])
+            ->where('posisi', $row['posisi_barang'])
             ->whereDate('tanggal', $get_date)
             ->first();
 
@@ -61,6 +63,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
             $stokTerakhir = StokBarangModel::where('id_barang', $barang->id_barang)
                 ->where('nama_barang', $row['nama_barang'])
                 ->where('tipe_barang', $row['tipe_barang'],)
+                ->where('posisi', $row['posisi_barang'])
                 ->orderBy('tanggal', 'desc')
                 ->first();
 
@@ -75,10 +78,11 @@ class BarangMasukImport implements ToModel, WithHeadingRow
             $stok->barang_keluar = $barang_keluar;
             $stok->stok_awal = $stokAwal;
             $stok->stok_akhir = ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
+            $stok->posisi = $stokTerakhir->posisi ?? $row['posisi_barang'];
             $stok->keterangan = 'stok';
             $stok->save();
         }
-
+        // dd($row);
         // jika barang yang mau di import tidak ada maka buat barang baru
         if (!$barang) {
             $barang = BarangModel::create([
@@ -97,6 +101,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
             'tipe_barang' => $row['tipe_barang'],
             'asal_gudang' => $row['asal_gudang'],
             'jumlah_barang' => $row['quantity'],
+            'posisi' => $row['posisi_barang'],
             'status' => $row['status'],
             'nama_konsumen' => $row['customer'],
         ]);

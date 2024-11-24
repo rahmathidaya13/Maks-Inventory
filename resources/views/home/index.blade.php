@@ -8,7 +8,7 @@
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-teal">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-dollar-sign"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
                     <div class="info-box-content ">
                         <span class="info-box-text">Total Transaksi</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>
@@ -19,7 +19,7 @@
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-cyan">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-boxes"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-boxes"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Daftar Barang</span>
                         <span class="info-box-text"> Cabang Pekanbaru</span>
@@ -30,7 +30,7 @@
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-teal">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-inbox"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-inbox"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Barang Masuk</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>
@@ -41,7 +41,7 @@
 
             <div class="col-md-6 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-cyan">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-box-open"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-truck-loading"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Barang Keluar</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>
@@ -52,7 +52,7 @@
 
             <div class="col-md-6 col-sm-6 col-12 text-nowrap">
                 <div class="info-box bg-gradient-navy">
-                    <span class="info-box-icon bg-gradient-navy"><i class="fas fa-users"></i></span>
+                    <span class="info-box-icon"><i class="fas fa-users"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Pelanggan</span>
                         <span class="info-box-text">Periode: {{ $periode }}</span>

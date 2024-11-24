@@ -75,12 +75,9 @@
                                                 data-name="{{ $data->nama_barang }}"
                                                 data-type="{{ $data->tipe_barang }}"
                                                 data-price="{{ $data->harga_barang }}"
-                                                @foreach ($data->stokBarang as $rows)
-                                                data-id-stok="{{ $rows->id_stok }}"
-                                                data-stok="{{ $rows->stok_akhir }}" @endforeach
                                                 value="{{ $data->nama_barang }}">
-                                                {{ $data->nama_barang }} - {{ $data->tipe_barang }}</option>
-                                            <option value="">{{ $data->stok_akhir }}</option>
+                                                {{ $data->nama_barang }} - {{ $data->tipe_barang }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -95,6 +92,25 @@
                                         id="harga_brg_transaksi">
                                 </div>
 
+                                <div class="form-group col-md-6">
+                                    <label for="posisi_brg_transaksi">Posisi Barang</label>
+                                    <select class="form-control" name="posisi_brg_transaksi"
+                                        id="posisi_brg_transaksi">
+                                        <option value="">Pilih posisi barang</option>
+                                        <option value="Kasir">Kasir</option>
+                                        <option value="Lantai-1">Lantai-1</option>
+                                        <option value="Rak-1">Rak-1</option>
+                                        <option value="Rak-2">Rak-2</option>
+                                        <option value="Rak-3">Rak-3</option>
+                                        <option value="Rak-4">Rak-4</option>
+                                        <option value="Gudang-Lt2">Gudang-LT2</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="stok">Stok</label>
+                                    <input readonly type="text" class="form-control" name="stok"
+                                        id="stok" value="{{ old('stok') }}">
+                                </div>
                             </div>
 
                         </div>
@@ -103,27 +119,27 @@
                         <div class="card-body">
                             <h5 class="text-uppercase font-weight-bold">Form Pembayaran</h5>
                             <div class="form-row">
-                                <div class="form-group col-md-4 status_pembayaran">
+                                <div class="form-group col-md-6 status_pembayaran">
                                     <label for="status_pembayaran">Status Pembayaran</label>
                                     <select class="form-control" name="status_pembayaran" id="status_pembayaran">
                                         <option value="belum lunas">Belum Lunas/DP</option>
                                         <option value="lunas">Lunas</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="jumlah_brg_transaksi">Jumlah Barang</label>
                                     <input type="text" class="form-control" name="jumlah_brg_transaksi"
                                         id="jumlah_brg_transaksi" value="{{ old('jumlah_brg_transaksi') }}">
                                 </div>
-                                <div class="form-group col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="dp">Dana Pertama (DP) - Min: 50%</label>
                                     <input type="text" class="form-control" name="dp" id="dp"
                                         value="{{ old('dp') }}">
                                 </div>
 
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4 status_transaksi">
+                                <div class="form-group col-md-6 status_transaksi">
                                     <label for="status_transaksi">Status Transaksi</label>
                                     <select class="form-control" name="status_transaksi" id="status_transaksi">
                                         <option value="">Pilih Status Transaksi</option>
@@ -131,30 +147,25 @@
                                         <option value="non tunai">Non Tunai</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="stok">Stok</label>
-                                    <input readonly type="text" class="form-control" name="stok"
-                                        id="stok" value="{{ old('stok') }}">
-                                </div>
-                                <div class="form-group col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="diskon">Diskon %</label>
                                     <input type="text" class="form-control" name="diskon" id="diskon"
                                         value="{{ old('diskon') }}">
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="pembayaran">Pembayaran</label>
                                     <input type="text" class="form-control" name="pembayaran" id="pembayaran"
                                         value="{{ old('pembayaran') }}">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="total_pembayaran">Total Pembayaran</label>
                                     <input readonly type="text" class="form-control" name="total_pembayaran"
                                         id="total_pembayaran" value="{{ old('total_pembayaran') }}">
                                     <input type="hidden" id="hasil">
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="selisih">Sisa Pembayaran</label>
                                     <input readonly type="text" class="form-control" name="selisih"
                                         id="selisih" value="{{ old('selisih') }}">

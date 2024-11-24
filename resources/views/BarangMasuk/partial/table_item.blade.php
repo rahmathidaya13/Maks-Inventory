@@ -20,6 +20,8 @@
         <td class="align-middle text-center">{{ $data->asal_gudang }}</td>
         <td class="align-middle text-center"> {{ $data->jumlah_barang }}
         </td>
+        <td class="align-middle text-center"> {{ $data->posisi }}
+        </td>
         <td class="align-middle">{{ $data->status }}</td>
         <td class="align-middle">{{ $data->nama_konsumen }}</td>
         <td class="align-middle">

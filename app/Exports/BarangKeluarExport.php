@@ -49,8 +49,8 @@ class BarangKeluarExport implements FromView, WithHeadings, WithStyles, ShouldAu
     public function styles(Worksheet $sheet)
     {
         //  Merge cell A1 sampai C1 untuk judul
-        $sheet->mergeCells('A1:I1');
-        $sheet->mergeCells('A2:I2');
+        $sheet->mergeCells('A1:J1');
+        $sheet->mergeCells('A2:J2');
         // // Set judul di A1
         // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
         // Styling untuk judul
@@ -74,7 +74,7 @@ class BarangKeluarExport implements FromView, WithHeadings, WithStyles, ShouldAu
         ]);
 
         // Styling untuk header tabel
-        $sheet->getStyle('A4:I4')->applyFromArray([
+        $sheet->getStyle('A4:J4')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => '000000'],
@@ -90,10 +90,10 @@ class BarangKeluarExport implements FromView, WithHeadings, WithStyles, ShouldAu
 
         ]);
 
-        $sheet->getStyle('A4:I4')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:J4')->getAlignment()->setWrapText(true);
 
         // Set border untuk seluruh tabel mulai dari baris
-        $sheet->getStyle('A4:I' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:J' . $sheet->getHighestRow())->applyFromArray([
             'font' => [
                 'size' => 12,
             ],
@@ -114,7 +114,7 @@ class BarangKeluarExport implements FromView, WithHeadings, WithStyles, ShouldAu
 
         // Style untuk baris ganjil (Zebra striping)
         for ($row = 5; $row <= $sheet->getHighestRow(); $row += 2) {
-            $sheet->getStyle("A$row:I$row")->applyFromArray([
+            $sheet->getStyle("A$row:J$row")->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'F5F5F5'], // Warna abu-abu muda

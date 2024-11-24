@@ -167,6 +167,7 @@ $(document).on("click", ".ubah_stok", function (e) {
                 $("#tipe_barang")
                     .val(data.result.tipe_barang)
                     .trigger("change");
+                $("#posisi_barang").val(data.result.posisi).trigger("change");
                 $("#jumlah_barang").val(data.result.stok_awal);
                 $("#keterangan").val(data.result.keterangan);
             });

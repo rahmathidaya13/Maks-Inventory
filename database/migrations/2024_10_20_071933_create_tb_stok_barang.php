@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('barang_keluar');
             $table->integer('stok_awal');
             $table->integer('stok_akhir');
+            $table->string('posisi');
             $table->string('keterangan');
             $table->timestamps();
         });

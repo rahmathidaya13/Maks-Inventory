@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('tipe_barang');
             $table->integer('jumlah_barang');
             $table->decimal('harga_barang', 10, 2);
+            $table->string('posisi');
             $table->enum('status_pembayaran', ['belum lunas', 'lunas'])->default('belum lunas');
             $table->string('status_transaksi',50);
             $table->decimal('dana_pertama', 10, 2);

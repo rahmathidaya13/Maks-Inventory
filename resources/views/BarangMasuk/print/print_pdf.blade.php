@@ -133,6 +133,7 @@
             <th>Tipe Barang</th>
             <th>Asal Gudang</th>
             <th>Quantity</th>
+            <th>Posisi Barang</th>
             <th>Status</th>
             <th>Customer</th>
         </tr>
@@ -147,6 +148,7 @@
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->asal_gudang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->posisi }}</td>
                 <td>{{ $data->status }}</td>
                 <td>{{ $data->nama_konsumen }}</td>
             </tr>

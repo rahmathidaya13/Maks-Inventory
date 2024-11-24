@@ -89,6 +89,7 @@
                                 <th>Barang Masuk</th>
                                 <th>Barang Keluar</th>
                                 <th>Stok Akhir</th>
+                                <th>Posisi Barang</th>
                                 <th>Keterangan</th>
                                 <th>Aksi</th>
                             </tr>

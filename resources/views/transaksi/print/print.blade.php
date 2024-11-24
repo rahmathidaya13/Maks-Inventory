@@ -44,6 +44,7 @@
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
+            <th>Posisi Barang</th>
             <th>Harga Barang</th>
             <th>Status Pembayaran</th>
             <th>Transaksi</th>
@@ -67,6 +68,7 @@
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->posisi }}</td>
                 <td>{{ $data->harga_barang }}</td>
                 <td>{{ $data->status_pembayaran }}</td>
                 <td>{{ $data->status_transaksi }}</td>

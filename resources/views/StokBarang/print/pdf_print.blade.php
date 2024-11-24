@@ -133,6 +133,7 @@
             <th>Barang Masuk</th>
             <th>Barang Keluar</th>
             <th>Stok Akhir</th>
+            <th>Posisi Barang</th>
             <th>Keterangan</th>
         </tr>
     </thead>
@@ -147,12 +148,13 @@
                 <td>{{ $data->barang_masuk }}</td>
                 <td>{{ $data->barang_keluar }}</td>
                 <td>{{ $data->stok_akhir }}</td>
+                <td>{{ $data->posisi }}</td>
                 <td>{{ $data->keterangan }}</td>
             </tr>
         @endforeach
         @empty($data)
             <tr>
-                <td colspan="9" style="text-align: center">Data stok barang tidak ditemukan</td>
+                <td colspan="10" style="text-align: center">Data stok barang tidak ditemukan</td>
             </tr>
         @endempty
     </tbody>

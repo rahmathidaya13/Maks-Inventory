@@ -41,6 +41,7 @@ class StokBarangController extends Controller
             'tgl' => 'required|date',  // Pastikan tanggal valid
             'jumlah_barang' => 'required|integer|min:1',  // Pastikan jumlah barang minimal 1
             'keterangan' => 'nullable|string|max:255',  // Keterangan bersifat opsional
+            'posisi_barang' => 'required|string',  // Keterangan bersifat opsional
         ], [
             'nama_barang.required' => 'Nama barang harus dipilih.',
             'tipe_barang.required' => 'Tipe barang harus dipilih.',
@@ -49,23 +50,27 @@ class StokBarangController extends Controller
             'jumlah_barang.required' => 'Jumlah barang harus diisi.',
             'jumlah_barang.integer' => 'Jumlah barang harus berupa angka.',
             'jumlah_barang.min' => 'Jumlah barang minimal 1.',
+            'posisi_barang.required' => 'Posisi barang harus dipilih.',
         ]);
 
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tgl_brg_masuk', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $barang_keluar = BarangKeluarModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tanggal', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $stokChek = StokBarangModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tanggal', $request->input('tgl'))
             ->first();
 
@@ -80,6 +85,7 @@ class StokBarangController extends Controller
             $stokTerakhir = StokBarangModel::where('id_barang', $request->input('id_barang'))
                 ->where('nama_barang', $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang'))
+                ->where('posisi', $request->input('posisi_barang'))
                 ->orderBy('tanggal', 'desc')
                 ->first();
             $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
@@ -92,11 +98,13 @@ class StokBarangController extends Controller
             $stok->barang_masuk = $barang_masuk;
             $stok->barang_keluar = $barang_keluar;
             if (empty($stokAwal)) {
-                $stok->stok_awal = (int)  $request->input('jumlah_barang');
+                $stok->stok_awal = $request->input('jumlah_barang');
             } else {
-                $stok->stok_awal = (int) $stokAwal + $request->input('jumlah_barang');
+                $stok->stok_awal = $stokAwal + $request->input('jumlah_barang');
             }
+            // $stok->stok_awal = $request->input('jumlah_barang');
             $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
+            $stok->posisi = $request->input('posisi_barang');
             $stok->keterangan = $request->input('keterangan');
             $stok->save();
             // dd($stokAwal);
@@ -136,6 +144,7 @@ class StokBarangController extends Controller
             'tgl' => 'required|date',
             'jumlah_barang' => 'required|integer|min:1',
             'keterangan' => 'nullable|string|max:255',
+            'posisi_barang' => 'required|string',
         ], [
             'nama_barang.required' => 'Nama barang harus dipilih.',
             'tipe_barang.required' => 'Tipe barang harus dipilih.',
@@ -144,6 +153,7 @@ class StokBarangController extends Controller
             'jumlah_barang.required' => 'Jumlah barang harus diisi.',
             'jumlah_barang.integer' => 'Jumlah barang harus berupa angka.',
             'jumlah_barang.min' => 'Jumlah barang minimal 1.',
+            'posisi_barang.required' => 'Posisi barang harus dipilih.',
         ]);
 
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
@@ -175,14 +185,16 @@ class StokBarangController extends Controller
             $stokBarang->tanggal = $request->input('tgl');
             $stokBarang->barang_masuk = $barang_masuk;
             $stokBarang->barang_keluar = $barang_keluar;
-            $stokBarang->stok_awal = (int) $request->input('jumlah_barang') ;
+            $stokBarang->stok_awal = (int) $request->input('jumlah_barang');
             $stokBarang->stok_akhir = (int) ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
+            $stokBarang->posisi = $request->input('posisi_barang');
             $stokBarang->keterangan = $request->input('keterangan');
             $stokBarang->save();
         } else {
             $stoklama = StokBarangModel::where('id_barang',  $request->input('id_barang'))
                 ->where('nama_barang',  $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang'))
+                ->where('posisi', $request->input('posisi_barang'))
                 ->orderBy('tanggal', 'desc')
                 ->first();
 
@@ -197,6 +209,7 @@ class StokBarangController extends Controller
             $stokNew->barang_keluar = $barang_keluar;
             $stokNew->stok_awal = $request->input('jumlah_barang') + $stok_awal;
             $stokNew->stok_akhir = ($stokNew->stok_awal + $stokNew->barang_masuk) - $stokNew->barang_keluar;
+            $stokNew->posisi = $request->input('posisi_barang');
             $stokNew->keterangan = $request->input('keterangan');
             $stokNew->save();
             return back()->with('success', 'Data Stok' . ' ' . $stokNew->nama_barang . ' - ' . $stokNew->tipe_barang . ' ' . 'Berhasil Diupdate');
@@ -209,7 +222,6 @@ class StokBarangController extends Controller
      */
     public function destroy(string $id)
     {
-
         $stok = StokBarangModel::findOrFail($id);
         $stok->delete();
         return back()->with('success', 'Data Stok' . ' ' . $stok->nama_barang . ' - ' . $stok->tipe_barang . ' ' . 'Berhasil Dihapus');

@@ -29,10 +29,14 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
         $barang = BarangModel::where('nama_barang', $row['nama_barang'])
             ->where('tipe_barang', $row['tipe_barang'])
             ->first();
-        $stok = StokBarangModel::where('nama_barang', $row['nama_barang'])
+
+        $stok = StokBarangModel::where('id_barang', $barang->id_barang)
+            ->where('nama_barang', $row['nama_barang'])
             ->where('tipe_barang', $row['tipe_barang'])
+            ->where('posisi', $row['posisi_barang'])
             ->whereDate('tanggal', $formatedDate)
             ->first();
+
         return new TransaksiModel([
             'id_barang' => $barang ? $barang->id_barang : null,
             'id_stok' => $stok ? $stok->id_stok : null,
@@ -46,6 +50,7 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],
             'jumlah_barang' => $row['jumlah_barang'],
+            'posisi' => $row['posisi_barang'],
             'harga_barang' => $row['harga_barang'],
             'status_pembayaran' => $row['status_pembayaran'],
             'status_transaksi' => $row['transaksi'],

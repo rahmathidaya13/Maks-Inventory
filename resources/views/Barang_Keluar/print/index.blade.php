@@ -50,6 +50,7 @@
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
+            <th>Posisi Barang</th>
         </tr>
     </thead>
     <tbody>
@@ -64,6 +65,7 @@
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
+                <td>{{ $data->posisi }}</td>
             </tr>
         @endforeach
     </tbody>

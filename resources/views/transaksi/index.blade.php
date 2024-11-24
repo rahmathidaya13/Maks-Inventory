@@ -77,6 +77,7 @@
                         <th class="align-middle">Nama Barang</th>
                         <th class="align-middle">Tipe Barang</th>
                         <th class="align-middle">Jumlah Barang</th>
+                        <th class="align-middle">Posisi Barang</th>
                         <th class="align-middle">Harga Barang</th>
                         <th class="align-middle">Status Pembayaran</th>
                         <th class="align-middle">Pembayaran</th>

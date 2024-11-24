@@ -79,6 +79,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#sales").val(data.result.nama_sales).trigger("change");
         $("#kode_barang").val(data.result.kode_barang);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
+        $("#posisi_brg_transaksi").val(data.result.posisi).trigger("change");
 
         $(".nama_brg_transaksi,.status_pembayaran").css({
             pointerEvents: "none",
@@ -218,14 +219,40 @@ $(document).on("change", ".selected,#select_all_transaksi", function () {
 // aksi untuk element input dan select
 $(document).on("change", "#nama_brg_transaksi", function () {
     let selected = $(this).find("option:selected");
-    let value = selected.val();
+    $("input[name='id_barang']").val(selected.data("id"));
     $("input[name='tipe_brg_transaksi']").val(selected.data("type") ?? "-");
     $("input[name='harga_brg_transaksi']").val(
         Currency(selected.data("price") ?? 0)
     );
-    $("input[name='id_barang']").val(selected.data("id"));
-    $("input[name='stok']").val(selected.data("stok"));
-    $("input[name='id_stok']").val(selected.data("id-stok"));
+});
+$(document).on("change", "#posisi_brg_transaksi", function () {
+    let token = $('meta[name="csrf-token"]').attr("content");
+    let id_barang = $("#id_barang").val();
+    let posisi = $(this).val();
+    let nama_barang = $("#nama_brg_transaksi").val();
+    let tipe_barang = $("#tipe_brg_transaksi").val();
+
+    $.ajax({
+        method: "GET",
+        url: "/stok_barang",
+        data: {
+            _token: token,
+            id_barang: id_barang,
+            posisi: posisi,
+            nama_barang: nama_barang,
+            tipe_barang: tipe_barang,
+        },
+        success: function (data) {
+            // Cek apakah data ditemukan
+            if (data && data.result) {
+                $("input[name='stok']").val(data.result.stok_akhir);
+                $("input[name='id_stok']").val(data.result.id_stok);
+            } else {
+                $("input[name='stok']").val(0);
+                $("input[name='id_stok']").val("");
+            }
+        },
+    });
 });
 
 $(document).on("change", "#status_pembayaran", function () {

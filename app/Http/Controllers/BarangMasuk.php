@@ -42,6 +42,7 @@ class BarangMasuk extends Controller
                 'jumlah_brg' => 'required | integer|min:1',
                 'status' => 'required | string',
                 'konsumen' => 'required | string | max:100',
+                'posisi_brg_masuk' => 'required | string',
             ],
             [
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
@@ -60,6 +61,7 @@ class BarangMasuk extends Controller
                 'status.required' => 'Status wajib dipilih.',
                 'konsumen.required' => 'Nama konsumen wajib diisi.',
                 'konsumen.max' => 'Nama konsumen tidak boleh lebih dari 100 Karakter',
+                'posisi_brg_masuk.required' => 'Posisi barang wajib dipilih',
             ]
         );
         $barangMasuk = new BarangMasukModel();
@@ -72,6 +74,7 @@ class BarangMasuk extends Controller
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
         $barangMasuk->status = $request->input('status');
         $barangMasuk->nama_konsumen = $request->input('konsumen');
+        $barangMasuk->posisi = $request->input('posisi_brg_masuk');
         $barangMasuk->save();
 
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk
@@ -80,6 +83,7 @@ class BarangMasuk extends Controller
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
                 ->where('nama_barang', $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+                ->where('posisi', $request->input('posisi_brg_masuk'))
                 ->where('tanggal', $request->input('tgl_brg_masuk'))
                 ->first();
             if ($stokBarang) {
@@ -92,6 +96,7 @@ class BarangMasuk extends Controller
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
                     ->where('nama_barang', $request->input('nama_barang'))
                     ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+                    ->where('posisi', $request->input('posisi_brg_masuk'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
 
@@ -111,6 +116,7 @@ class BarangMasuk extends Controller
                 $stokBarangNew->barang_keluar =  $barang_keluar;
                 $stokBarangNew->stok_awal =  $stokAwal;
                 $stokBarangNew->stok_akhir =  ($stokBarangNew->stok_awal + $stokBarangNew->barang_masuk) - $stokBarangNew->barang_keluar;
+                $stokBarangNew->posisi = $request->input('posisi_brg_masuk');
                 $stokBarangNew->keterangan = 'stok';
                 $stokBarangNew->save();
             }
@@ -154,6 +160,7 @@ class BarangMasuk extends Controller
                 'jumlah_brg' => 'required | integer|min:1',
                 'status' => 'required | string',
                 'konsumen' => 'required | string | max:100',
+                'posisi_brg_masuk' => 'required | string',
             ],
             [
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
@@ -172,6 +179,7 @@ class BarangMasuk extends Controller
                 'status.required' => 'Status wajib dipilih.',
                 'konsumen.required' => 'Nama konsumen wajib diisi.',
                 'konsumen.max' => 'Nama konsumen tidak boleh lebih dari 100 Karakter',
+                'posisi_brg_masuk.required' => 'Posisi barang wajib dipilih',
             ]
         );
 
@@ -188,6 +196,7 @@ class BarangMasuk extends Controller
         $barangMasuk->jumlah_barang = $request->input('jumlah_brg');
         $barangMasuk->status = $request->input('status');
         $barangMasuk->nama_konsumen = $request->input('konsumen');
+        $barangMasuk->posisi = $request->input('posisi_brg_masuk');
         $barangMasuk->update();
 
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk
@@ -196,6 +205,7 @@ class BarangMasuk extends Controller
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
                 ->where('nama_barang', $request->input('nama_barang'))
                 ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+                ->where('posisi', $request->input('posisi_brg_masuk'))
                 ->where('tanggal', $request->input('tgl_brg_masuk'))
                 ->first();
 
@@ -212,6 +222,7 @@ class BarangMasuk extends Controller
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
                     ->where('nama_barang', $request->input('nama_barang'))
                     ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+                    ->where('posisi', $request->input('posisi_brg_masuk'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
 
@@ -231,6 +242,7 @@ class BarangMasuk extends Controller
                 $stokBarangNew->barang_keluar =  $barang_keluar;
                 $stokBarangNew->stok_awal =   $stok_awal;
                 $stokBarangNew->stok_akhir =  ($stokBarangNew->stok_awal + $stokBarangNew->barang_masuk) - $stokBarangNew->barang_keluar;
+                $stokBarangNew->posisi = $request->input('posisi_brg_masuk');
                 $stokBarangNew->keterangan = 'stok';
                 $stokBarangNew->save();
             }

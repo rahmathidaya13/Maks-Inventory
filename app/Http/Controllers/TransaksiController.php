@@ -18,7 +18,8 @@ class TransaksiController extends Controller
     {
         $DaftarBarang = BarangModel::all();
         $transaksi = TransaksiModel::latest()->paginate(10);
-        return view('transaksi.index', compact('DaftarBarang', 'transaksi'));
+        $stokBarang = StokBarangModel::all();
+        return view('transaksi.index', compact('DaftarBarang', 'transaksi', 'stokBarang'));
     }
 
     /**
@@ -54,6 +55,7 @@ class TransaksiController extends Controller
                 'dp' => 'required|string',
                 'status_transaksi' => 'required|string',
                 'kode_barang' => 'required|string|max:50',
+                'posisi_brg_transaksi' => 'required|string',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -87,6 +89,7 @@ class TransaksiController extends Controller
                 'dp.required' => 'Dana pertama wajib diisi.',
                 'status_transaksi.required' => 'Transkasi belum dipilih',
                 'kode_barang.required' => 'Kode barang wajib diisi.',
+                'posisi_brg_transaksi.required' => "Posisi barang wajib diipilih",
 
             ]
         );
@@ -114,6 +117,7 @@ class TransaksiController extends Controller
         $transaksi->diskon = (int) $request->input('diskon');
         $transaksi->jumlah_barang = $jumlah_barang;
         $transaksi->harga_barang = $harga_barang;
+        $transaksi->posisi = $request->input('posisi_brg_transaksi');
         $transaksi->status_pembayaran = $request->input('status_pembayaran');
         $transaksi->total_pembayaran = $total_pembayaran;
         $transaksi->pembayaran = $pembayaran;
@@ -127,6 +131,7 @@ class TransaksiController extends Controller
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
                 ->where('nama_barang', $request->input('nama_brg_transaksi'))
                 ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
+                ->where('posisi', $request->input('posisi_brg_transaksi'))
                 ->whereDate('tanggal', $request->input('transaksi'))
                 ->first();
             if ($stokBarang) {
@@ -140,6 +145,7 @@ class TransaksiController extends Controller
                 $stokSebelumnya = StokBarangModel::where('id_barang', $request->input('id_barang'))
                     ->where('nama_barang', $request->input('nama_brg_transaksi'))
                     ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
+                    ->where('posisi', $request->input('posisi_brg_transaksi'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
 
@@ -161,6 +167,7 @@ class TransaksiController extends Controller
                 $stokBarangNew->barang_keluar = $jumlah_barang;
                 $stokBarangNew->stok_awal = $stok_;
                 $stokBarangNew->stok_akhir = $stok_ - $jumlah_barang;
+                $stokBarangNew->posisi = $request->input('posisi_brg_transaksi');
                 $stokBarangNew->keterangan = 'stok';
                 $stokBarangNew->save();
             }
@@ -170,8 +177,10 @@ class TransaksiController extends Controller
                 ->where('nama_konsumen', $transaksi->nama_konsumen)
                 ->where('nama_barang', $transaksi->nama_barang)
                 ->where('tipe_barang', $transaksi->tipe_barang)
+                ->where('posisi', $transaksi->posisi)
                 ->whereDate('tanggal', $transaksi->tgl_transaksi)
                 ->first();
+
             if ($barangKeluar) {
                 $barangKeluar->jumlah_barang += $transaksi->jumlah_barang;
                 $barangKeluar->save();
@@ -187,6 +196,7 @@ class TransaksiController extends Controller
                 $barangKeluar->kode_barang = $transaksi->kode_barang;
                 $barangKeluar->nama_barang = $transaksi->nama_barang;
                 $barangKeluar->tipe_barang = $transaksi->tipe_barang;
+                $barangKeluar->posisi = $transaksi->posisi;
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
                 $barangKeluar->save();
             }
@@ -268,6 +278,7 @@ class TransaksiController extends Controller
         $transaksi->nama_sales = $getAllTransaksi->nama_sales;
         $transaksi->tipe_barang = $getAllTransaksi->tipe_barang;
         $transaksi->jumlah_barang = $getAllTransaksi->jumlah_barang;
+        $transaksi->posisi = $getAllTransaksi->posisi;
         $transaksi->diskon = $getAllTransaksi->diskon;
         $transaksi->total_pembayaran = $getAllTransaksi->total_pembayaran;
 
@@ -289,6 +300,7 @@ class TransaksiController extends Controller
             $stokBarang = StokBarangModel::where('id_barang', $getAllTransaksi->id_barang)
                 ->where('nama_barang', $getAllTransaksi->nama_barang)
                 ->where('tipe_barang', $getAllTransaksi->tipe_barang)
+                ->where('posisi', $getAllTransaksi->posisi)
                 ->whereDate('tanggal', $request->input('tgl_pelunasan'))  // Ubah jadi tgl_pelunasan
                 ->first();
             if ($stokBarang) {
@@ -300,7 +312,8 @@ class TransaksiController extends Controller
                 $stokSebelumnya = StokBarangModel::where('id_barang', $getAllTransaksi->id_barang)
                     ->where('nama_barang', $getAllTransaksi->nama_barang)
                     ->where('tipe_barang', $getAllTransaksi->tipe_barang)
-                    ->latest('tanggal')  // Ambil stok terakhir berdasarkan tanggal
+                    ->where('posisi', $getAllTransaksi->posisi)
+                    ->orderBy('tanggal', 'desc')  // Ambil stok terakhir berdasarkan tanggal
                     ->first();
 
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
@@ -320,6 +333,7 @@ class TransaksiController extends Controller
                 $stokBarang->barang_masuk = $barangMasuk;
                 $stokBarang->barang_keluar = $old_jumlah_barang;
                 $stokBarang->stok_akhir = $stokAwal - $old_jumlah_barang;
+                $stokBarang->posisi = $getAllTransaksi->posisi;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             }
@@ -329,6 +343,7 @@ class TransaksiController extends Controller
                 ->where('nama_konsumen', $transaksi->nama_konsumen)
                 ->where('nama_barang', $transaksi->nama_barang)
                 ->where('tipe_barang', $transaksi->tipe_barang)
+                ->where('posisi', $transaksi->posisi)
                 ->whereDate('tanggal', $transaksi->tgl_transaksi)
                 ->first();
             if ($barangKeluar) {
@@ -347,11 +362,12 @@ class TransaksiController extends Controller
                 $barangKeluar->nama_barang = $transaksi->nama_barang;
                 $barangKeluar->tipe_barang = $transaksi->tipe_barang;
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
+                $barangKeluar->posisi = $transaksi->posisi;
                 $barangKeluar->save();
             }
         }
 
-        return back()->with('success', 'Pelunasan'.' '.$transaksi->nama_konsumen.' '.'Berhasil');
+        return back()->with('success', 'Pelunasan' . ' ' . $transaksi->nama_konsumen . ' ' . 'Berhasil');
     }
 
     /**
@@ -382,6 +398,7 @@ class TransaksiController extends Controller
                 'selisih' => 'nullable|string',
                 'dp' => 'required|string',
                 'kode_barang' => 'required|string|max:50',
+                'posisi_brg_transaksi' => 'required|string',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -414,6 +431,7 @@ class TransaksiController extends Controller
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
                 'dp.required' => 'Dana pertama wajib diisi.',
                 'kode_barang.required' => 'Kode barang wajib diisi.',
+                'posisi_brg_transaksi.required' => 'Posisi barang wajib dipilih.',
             ]
         );
 
@@ -441,6 +459,7 @@ class TransaksiController extends Controller
         $transaksi->diskon = (int) $request->input('diskon');
         $transaksi->jumlah_barang = $jumlah_barang;
         $transaksi->harga_barang = $harga_barang;
+        $transaksi->posisi = $request->input('posisi_brg_transaksi');
         $transaksi->status_pembayaran = $request->input('status_pembayaran');
         $transaksi->total_pembayaran = $total_pembayaran;
         $transaksi->pembayaran = $pembayaran;

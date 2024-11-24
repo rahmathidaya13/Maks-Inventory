@@ -225,16 +225,6 @@ class LiveAction extends Controller
 
     public function filterDateStok(Request $request)
     {
-        // $request->validate([
-        //     'start_date' => 'required|date',
-        //     'end_date' => 'required|date|after_or_equal:start_date',
-        // ], [
-        //     'start_date.required' => 'Masukkan tanggal awal yang valid.',
-        //     'start_date.date' => 'Tanggal awal harus dalam format yang valid.',
-        //     'end_date.required' => 'Masukkan tanggal akhir yang valid.',
-        //     'end_date.date' => 'Tanggal akhir harus dalam format yang valid.',
-        //     'end_date.after_or_equal' => 'Tanggal akhir harus lebih besar atau sama dengan tanggal awal.',
-        // ]);
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $stok = StokBarangModel::whereBetween('tanggal', [$start_date, $end_date])->latest()->paginate(500);
@@ -273,5 +263,21 @@ class LiveAction extends Controller
             return view('transaksi.partial.table', compact('transaksi'))->render();
         }
         return view('transaksi.index', compact('transaksi'));
+    }
+
+    public function selectStok(Request $request)
+    {
+
+        $id_barang = $request->input('id_barang');
+        $nama_barang = $request->input('nama_barang');
+        $tipe_barang = $request->input('tipe_barang');
+        $posisi = $request->input('posisi');
+        $stok = StokBarangModel::where('id_barang', $id_barang)
+            ->where('nama_barang', $nama_barang)
+            ->where('tipe_barang', $tipe_barang)
+            ->where('posisi', $posisi)
+            ->orderBy('tanggal', 'desc')
+            ->first();
+        return response()->json(['result' => $stok]);
     }
 }

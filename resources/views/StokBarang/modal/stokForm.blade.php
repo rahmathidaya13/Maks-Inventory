@@ -52,6 +52,19 @@
                                 value="{{ old('jumlah_barang') }}">
                         </div>
                         <div class="form-group">
+                            <label for="posisi_barang">Posisi Barang</label>
+                            <select class="form-control" name="posisi_barang" id="posisi_barang">
+                                <option value="">Pilih posisi barang</option>
+                                <option value="Kasir">Kasir</option>
+                                <option value="Lantai-1">Lantai-1</option>
+                                <option value="Rak-1">Rak-1</option>
+                                <option value="Rak-2">Rak-2</option>
+                                <option value="Rak-3">Rak-3</option>
+                                <option value="Rak-4">Rak-4</option>
+                                <option value="Gudang-Lt2">Gudang-Lt2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="keterangan">Keterangan</label>
                             <input type="text" class="form-control" name="keterangan" id="keterangan"
                                 value="{{ old('keterangan') }}">

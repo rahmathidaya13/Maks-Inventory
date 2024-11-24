@@ -13,68 +13,86 @@
                     @csrf
                     <input type="hidden" name="id_barang" id="id_barang" value="">
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="tgl_brg_masuk">Tgl. Barang Masuk</label>
-                            <input type="date" class="form-control" name="tgl_brg_masuk" id="tgl_brg_masuk" value="{{ old('tgl_brg_masuk') }}">
+                            <input type="date" class="form-control" name="tgl_brg_masuk" id="tgl_brg_masuk"
+                                value="{{ old('tgl_brg_masuk') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="no_warehouse">No. Warehouse</label>
-                            <input type="text" class="form-control" name="no_warehouse" id="no_warehouse" value="{{ old('no_warehouse') }}">
+                            <input type="text" class="form-control" name="no_warehouse" id="no_warehouse"
+                                value="{{ old('no_warehouse') }}">
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="nama_barang">Nama Barang</label>
                             <select class="select2 form-control" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Barang</option>
                                 @foreach ($allItem as $row)
-                                <option data-id="{{ $row->id_barang }}" value="{{ $row->nama_barang }}">
-                                    <span>{{ $row->nama_barang }} - {{ $row->tipe_barang }}</span>
-                                </option>
+                                    <option data-id="{{ $row->id_barang }}" value="{{ $row->nama_barang }}">
+                                        <span>{{ $row->nama_barang }} - {{ $row->tipe_barang }}</span>
+                                    </option>
                                 @endforeach
-                              </select>
+                            </select>
                         </div>
-                        <div class="form-group col-md-6">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="tipe_barang_masuk">Tipe Barang</label>
                             <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
                                 <option value="">Pilih Tipe Barang</option>
                                 @foreach ($allItem as $row)
-                                <option value="{{ $row->tipe_barang }}">
-                                    <span>{{ $row->tipe_barang }}</span>
-                                </option>
+                                    <option value="{{ $row->tipe_barang }}">
+                                        <span>{{ $row->tipe_barang }}</span>
+                                    </option>
                                 @endforeach
-                              </select>
+                            </select>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="asal_gdg">Asal Gudang</label>
-                            <input type="text" class="form-control" name="asal_gdg" id="asal_gdg" value="Gudang Pusat" value="{{ old('asal_gdg') }}">
+                            <input type="text" class="form-control" name="asal_gdg" id="asal_gdg"
+                                value="Gudang Pusat" value="{{ old('asal_gdg') }}">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="jumlah_brg">Jumlah Barang</label>
-                            <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg" value="{{ old('jumlah_brg') }}">
+                            <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg"
+                                value="{{ old('jumlah_brg') }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
+                            <label for="posisi_brg_masuk">Posisi Barang</label>
+                            <select class="form-control" name="posisi_brg_masuk" id="posisi_brg_masuk">
+                                <option value="">Pilih posisi barang</option>
+                                <option value="Kasir">KASIR</option>
+                                <option value="Lantai-1">LANTAI-1</option>
+                                <option value="Rak-1">RAK-1</option>
+                                <option value="Rak-2">RAK-2</option>
+                                <option value="Rak-3">RAK-3</option>
+                                <option value="Rak-4">RAK-4</option>
+                                <option value="Gudang-Lt2">GUDANG-LT2</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-4">
                             <label for="status">Status</label>
                             <select class="form-control" name="status" id="status">
                                 <option value="stok">Stok</option>
                                 <option value="customer">Customer</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="konsumen">Nama Konsumen</label>
-                            <input readonly type="text" class="form-control" name="konsumen" id="konsumen" value="-">
+                            <input readonly type="text" class="form-control" name="konsumen" id="konsumen"
+                                value="-">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_keluar" type="button" class="btn btn-default" data-dismiss="modal">keluar</button>
-                <button onclick="event.preventDefault();document.getElementById('barangmasuk').submit();" id="aksi_brg_masuk"
-                    type="button" class="btn btn-primary"><i class="fas fa-save"></i> <span>Simpan</span></button>
+                <button onclick="event.preventDefault();document.getElementById('barangmasuk').submit();"
+                    id="aksi_brg_masuk" type="button" class="btn btn-primary"><i class="fas fa-save"></i>
+                    <span>Simpan</span></button>
             </div>
         </div>
     </div>

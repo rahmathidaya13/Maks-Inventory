@@ -117,6 +117,7 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         $("#tipe_barang_masuk").val(data.result.tipe_barang).trigger("change");
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);
+        $("#posisi_brg_masuk").val(data.result.posisi).trigger("change");;
         $("#status").val(data.result.status);
         let konsumen = $("#konsumen").val(data.result.nama_konsumen);
         konsumen.val() !== "-"

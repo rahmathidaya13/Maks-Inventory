@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="card-body table-responsive p-3">
+                <div class="card-body table-responsive p-3"  >
                     <table class="table table-hover table-bordered text-nowrap table-sm table-striped">
                         <thead class="table-secondary">
                             <tr class="text-center">
@@ -70,6 +70,7 @@
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
                                 <th>Jumlah Barang</th>
+                                <th>Posisi Barang</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -20,6 +20,7 @@
         <td class="text-center align-middle">{{ $data->barang_masuk }}</td>
         <td class="text-center align-middle">{{ $data->barang_keluar }}</td>
         <td class="text-center align-middle">{{ $data->stok_akhir }}</td>
+        <td class="text-center align-middle">{{ Str::upper($data->posisi) }}</td>
         <td class="text-center align-middle">{{ ucwords($data->keterangan) }}</td>
         <td>
             <div class="dropdown">

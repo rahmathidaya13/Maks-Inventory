@@ -22,6 +22,7 @@
             <th>Barang Masuk</th>
             <th>Barang Keluar</th>
             <th>Stok Akhir</th>
+            <th>Posisi Barang</th>
             <th>Keterangan</th>
         </tr>
     </thead>
@@ -35,6 +36,7 @@
                 <td>{{ $data->barang_masuk }}</td>
                 <td>{{ $data->barang_keluar }}</td>
                 <td>{{ $data->stok_akhir }}</td>
+                <td>{{ $data->posisi }}</td>
                 <td>{{ $data->keterangan }}</td>
             </tr>
         @endforeach

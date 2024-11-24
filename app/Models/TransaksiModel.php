@@ -25,6 +25,7 @@ class TransaksiModel extends Model
         'tipe_barang',
         'jumlah_barang',
         'harga_barang',
+        'posisi',
         'status_pembayaran',
         'total_pembayaran',
         'selisih_pembayaran',
@@ -41,10 +42,10 @@ class TransaksiModel extends Model
     }
     public function stokBarang()
     {
-        return $this->belongsTo(StokBarangModel::class, 'id_barang')
-            ->orderBy('tanggal',  direction: 'desc');
+        return $this->belongsTo(StokBarangModel::class, 'id_barang');
     }
-    public function barangkeluar(){
+    public function barangkeluar()
+    {
         return $this->hasMany(BarangKeluarModel::class, 'id_barang_keluar');
     }
 }

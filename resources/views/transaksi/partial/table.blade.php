@@ -21,6 +21,7 @@
         <td class="text-wrap align-middle nama_barang_transaksi">{{ $data->nama_barang }}</td>
         <td class="align-middle tipe_barang_transaksi">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>
+        <td class="text-center align-middle">{{ $data->posisi }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
         <td class="align-middle text-center">
             @if ($data->status_pembayaran == 'lunas')
