@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_warehouse');
             $table->string('nama_barang');
             $table->string('tipe_barang');
-            $table->string('asal_gudang');
+            $table->string('asal_gudang',);
             $table->integer('jumlah_barang');
             $table->string('status');
             $table->string('nama_konsumen');

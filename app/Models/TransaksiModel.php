@@ -20,6 +20,7 @@ class TransaksiModel extends Model
         'no_handphone',
         'alamat',
         'nama_sales',
+        'kode_barang',
         'nama_barang',
         'tipe_barang',
         'jumlah_barang',

@@ -53,7 +53,6 @@ $(document).on(
             $("#update_form_stok")[0].reset();
         }
         $("#update_form_stok").attr("action", "#");
-        // console.log($("#update_form_stok").length);
     }
 );
 
@@ -111,7 +110,6 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
     );
     $("#barangmasuk").attr("action", "/barang_masuk/update/" + id);
     $.getJSON("/barang_masuk/detail/" + id, function (data, textStatus, jqXHR) {
-        // console.log(data);
         $("#id_barang").val(data.result.id_barang);
         $("#tgl_brg_masuk").val(data.result.tgl_brg_masuk);
         $("#no_warehouse").val(data.result.no_warehouse);
@@ -202,7 +200,6 @@ $(document).on("click", "#delete_all_brg_masuk", function (e) {
 $(document).on("click", ".hapus_brg_masuk", function () {
     let id = $(this).data("id");
     let dates = $(this).data("date");
-    console.log();
     let getNameType = $(this).data("name-type");
     let form = $("#delete_items_" + id);
     // Show SweetAlert confirmation dialog
@@ -295,52 +292,6 @@ $(document).on("change", "#import_brg_masuk", function (e) {
     $("#file-name").text(file.name);
 });
 
-$(document).on("click", ".perbarui_stok", function () {
-    let id = $(this).data("id");
-    let date = $(this).data("date");
-    $("#update_form_stok")[0].reset();
-    $("#update_form_stok").prepend(
-        '<input type="hidden" name="_method" value="PUT">'
-    );
-
-    // $.getJSON("barang_masuk/detail/" + id, function (data, textStatus, jqXHR) {
-    //     // console.log(data);
-    //     $("input[name='id_masuk_brg']")
-    //         .val(data.result.id_brg_masuk)
-    //         .attr("readonly", true);
-    //     $("input[name='jumlah_barang_masuk']").val(data.result.jumlah_barang);
-    //     //
-    // });
-
-    $.getJSON(
-        "/stok/detail/" + id + "/" + date,
-        function (data, textStatus, jqXHR) {
-            console.log(data);
-            // $("input[name='id_stok']")
-            //     .val(data.result.id_stok)
-            //     .attr("readonly", true);
-            // $("#update_form_stok").attr("action", "/stok/update/" + data.result.id_stok);
-
-            // $("input[name='jumlah_stok_awal']")
-            //     .val(data.result.stok_awal)
-            //     .attr("readonly", true);
-            // $("input[name='jumlah_stok_akhir']")
-            //     .val(data.result.stok_akhir)
-            //     .attr("readonly", true);
-            // $("input[name='jumlah_stok_tersedia']")
-            //     .val(data.result.stok_saat_ini)
-            //     .attr("readonly", true);
-
-            // $("#stok_update:first td").eq(0).text(data.result.tanggal);
-            // $("#stok_update:first td").eq(1).text(data.result.nama_barang);
-            // $("#stok_update:first td").eq(2).text(data.result.tipe_barang);
-            // $("#stok_update:first td").eq(3).text(data.result.stok_awal);
-            // $("#stok_update:first td").eq(4).text(data.result.stok_akhir);
-            // $("#stok_update:first td").eq(5).text(data.result.stok_saat_ini);
-        }
-    );
-});
-
 $(document).on("click", "#export_barang_masuk", function (e) {
     e.preventDefault();
     if ($("#barangmasuk").length > 0) {
@@ -372,7 +323,6 @@ $(document).on("click", "#set_brg_masuk", function (e) {
             end_date: end_date,
         },
         success: function (data) {
-            // console.log(data);
             $("tbody").html(data);
             $(".pagination").html(data.pagination);
         },

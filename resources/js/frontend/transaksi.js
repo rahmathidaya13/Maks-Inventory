@@ -44,7 +44,6 @@ $(document).on("click", "#add_transaksi", function (e) {
 
     $("#transaksi").prop("readonly", false);
     $(".nama_brg_transaksi,.status_pembayaran").css("pointerEvents", "all");
-
 });
 
 $(document).on("click", ".ubah_transaksi", function (e) {
@@ -69,8 +68,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         '<input type="hidden" name="_method" value="PUT">'
     );
 
-    $.getJSON(`/transaksi/detail/${id}`, function (data, textStatus, jqXHR) {
-        console.log(data);
+    $.getJSON(`/transaksi/detail/${id}`, function (data) {
         $("#id_barang").val(data.result.id_barang);
         $("#id_stok").val(data.result.id_stok);
         $("#transaksi").val(data.result.tgl_transaksi).prop("readonly", true);
@@ -79,10 +77,11 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#nohp").val(data.result.no_handphone);
         $("#alamat").val(data.result.alamat);
         $("#sales").val(data.result.nama_sales).trigger("change");
+        $("#kode_barang").val(data.result.kode_barang);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
 
         $(".nama_brg_transaksi,.status_pembayaran").css({
-            pointerEvents:"none",
+            pointerEvents: "none",
         });
         $("#tipe_brg_transaksi").val(data.result.tipe_barang);
         $("#harga_brg_transaksi").val(Currency(data.result.harga_barang));
@@ -254,19 +253,14 @@ $(document).on("change", "#status_pembayaran", function () {
     }
 });
 
-// ubah format input text hanya bisa terima angka saja
-$("#jumlah_brg_transaksi,#stok,#diskon,#harga_diskon,#dp").on(
-    "input",
+$("#jumlah_brg_transaksi, #stok, #diskon,#nohp, #kode_barang").on(
+    "keyup",
     function () {
-        this.value = this.value.replace(/[^0-9]/g, "");
+        let value = $(this).val();
+        let formated = value.replace(/[^,\d]/g, ""); // Hapus karakter selain angka dan koma
+        $(this).val(formated); // Set kembali nilai yang telah diformat
     }
 );
-
-// $(document).on("keyup", "#pembayaran", function () {
-//     let value = $(this).val();
-//     let formated = value.replace(/[^,\d]/g, "");
-//     $(this).val(Currency(formated));
-// });
 $(document).on("input", "#pembayaran", function () {
     let pembayaran = parseCurrency($(this).val());
     let total_pembayaran = parseCurrency($("#total_pembayaran").val());
@@ -288,7 +282,6 @@ $(document).on("input", "#diskon", function () {
     // }
     selisih = isNaN(selisih) ? 0 : selisih;
     $("#selisih").val(Currency(selisih));
-    console.log(hargaDiskon);
 });
 
 $(document).on("input", "#jumlah_brg_transaksi", function () {
@@ -452,7 +445,6 @@ $(document).on("click", "#set_filter_transaksi", function (e) {
             end_date: end_date,
         },
         success: function (data) {
-            // console.log(data);
             $("tbody").html(data);
             $(".pagination").html(data.pagination);
         },

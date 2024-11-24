@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('nama_konsumen');
             $table->string('no_handphone');
             $table->string('alamat');
+            $table->string('kode_barang');
             $table->string('nama_barang');
             $table->string('tipe_barang');
-            $table->string('jumlah_barang');
+            $table->integer('jumlah_barang');
             $table->timestamps();
         });
     }

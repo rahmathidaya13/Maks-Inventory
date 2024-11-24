@@ -175,7 +175,7 @@ class StokBarangController extends Controller
             $stokBarang->tanggal = $request->input('tgl');
             $stokBarang->barang_masuk = $barang_masuk;
             $stokBarang->barang_keluar = $barang_keluar;
-            $stokBarang->stok_awal += (int) $request->input('jumlah_barang') - $selisih;
+            $stokBarang->stok_awal = (int) $request->input('jumlah_barang') ;
             $stokBarang->stok_akhir = (int) ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             $stokBarang->keterangan = $request->input('keterangan');
             $stokBarang->save();

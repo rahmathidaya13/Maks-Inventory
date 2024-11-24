@@ -49,6 +49,12 @@
         color: #000000;
     }
 
+    tbody tr td:nth-child(1),
+    tbody tr td:nth-child(7),
+    tbody tr td:nth-child(8) {
+        text-align: center;
+    }
+
     .header {
         display: flex;
         align-items: center;

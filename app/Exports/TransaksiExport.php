@@ -43,6 +43,7 @@ class TransaksiExport implements FromView, WithHeadings, WithStyles, ShouldAutoS
             'No Handphone',
             'Alamat',
             'Sales',
+            'Kode Barang',
             'Nama Barang',
             'Tipe Barang',
             'Jumlah Barang',
@@ -59,9 +60,9 @@ class TransaksiExport implements FromView, WithHeadings, WithStyles, ShouldAutoS
     public function styles(Worksheet $sheet)
     {
         //  Merge cell A1 sampai C1 untuk judul
-        $sheet->mergeCells('A1:Q1');
-        $sheet->mergeCells('A2:Q2');
-        $sheet->mergeCells('A3:Q3');
+        $sheet->mergeCells('A1:R1');
+        $sheet->mergeCells('A2:R2');
+        $sheet->mergeCells('A3:R3');
         // // Set judul di A1
         // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
         // Styling untuk judul
@@ -94,7 +95,7 @@ class TransaksiExport implements FromView, WithHeadings, WithStyles, ShouldAutoS
         ]);
 
         // Styling untuk header tabel
-        $sheet->getStyle('A4:Q4')->applyFromArray([
+        $sheet->getStyle('A4:R4')->applyFromArray([
             'font' => [
                 'bold' => true,
                 'color' => ['argb' => '000000'],
@@ -110,10 +111,10 @@ class TransaksiExport implements FromView, WithHeadings, WithStyles, ShouldAutoS
 
         ]);
 
-        $sheet->getStyle('A4:Q4')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:R4')->getAlignment()->setWrapText(true);
 
         // Set border untuk seluruh tabel mulai dari baris
-        $sheet->getStyle('A4:Q' . $sheet->getHighestRow())->applyFromArray([
+        $sheet->getStyle('A4:R' . $sheet->getHighestRow())->applyFromArray([
             'font' => [
                 'size' => 12,
             ],
@@ -134,7 +135,7 @@ class TransaksiExport implements FromView, WithHeadings, WithStyles, ShouldAutoS
 
         // Style untuk baris ganjil (Zebra striping)
         for ($row = 5; $row <= $sheet->getHighestRow(); $row += 2) {
-            $sheet->getStyle("A$row:Q$row")->applyFromArray([
+            $sheet->getStyle("A$row:R$row")->applyFromArray([
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'f4f4f4'], // Warna abu-abu muda

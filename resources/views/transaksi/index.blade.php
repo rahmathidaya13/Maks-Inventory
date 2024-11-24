@@ -73,7 +73,8 @@
                         <th class="align-middle">Kode Transaksi</th>
                         <th class="align-middle">Konsumen</th>
                         <th class="align-middle">Sales</th>
-                        <th class="align-middle">Barang</th>
+                        <th class="align-middle">Kode Barang</th>
+                        <th class="align-middle">Nama Barang</th>
                         <th class="align-middle">Tipe Barang</th>
                         <th class="align-middle">Jumlah Barang</th>
                         <th class="align-middle">Harga Barang</th>

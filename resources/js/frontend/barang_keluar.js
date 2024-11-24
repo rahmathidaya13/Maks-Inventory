@@ -12,7 +12,6 @@ $(document).on("click", "#set_filter_item_out", function (e) {
             end_date: end_date,
         },
         success: function (data) {
-            // console.log(data);
             $("tbody").html(data);
             $(".pagination").html(data.pagination);
         },

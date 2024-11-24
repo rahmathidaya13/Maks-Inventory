@@ -63,7 +63,7 @@
                         value="{{ old('dana_pertama') }}">
                     </div>
                     <div class="form-group">
-                        <label for="selisih_pembayaran_">Selisih Pembayaran</label>
+                        <label for="selisih_pembayaran_">Sisa Pembayaran</label>
                         <input type="text" class="form-control" name="selisih_pembayaran_" id="selisih_pembayaran_"
                             value="{{ old('selisih_pembayaran_') }}">
                             <input type="hidden" id="r_selisih">

@@ -124,9 +124,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         return Response::download($filepath, 'barang masuk template.xlsx');
     })->name('barang_masuk.templates');
 
-    Route::get('transaksi/template', function () {
-        $filepath = public_path('assets/template/laporan transaksi.xlsx');
-        return Response::download($filepath, 'laporan transaksi.xlsx');
+    Route::get('transaksi/rekap', function () {
+        $filepath = public_path('assets/template/Rekap transaksi.xlsx');
+        return Response::download($filepath, 'Rekap transaksi.xlsx');
     })->name('transaksi.templates');
 });
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -50,6 +50,10 @@
         color: #000000;
     }
 
+    table tbody tr td:first-child {
+        text-align: center;
+    }
+
     .header {
         display: flex;
         align-items: center;
@@ -128,6 +132,7 @@
             <th>No Handphone</th>
             <th>Alamat</th>
             <th>Sales</th>
+            <th>Kode Barang</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
@@ -151,6 +156,7 @@
                 <td>{{ $data->no_handphone }}</td>
                 <td>{{ $data->alamat }}</td>
                 <td>{{ $data->nama_sales }}</td>
+                <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
@@ -166,7 +172,7 @@
         @endforeach
         @empty($data)
             <tr>
-                <td colspan="18" style="text-align: center">Data transaksi tidak ditemukan</td>
+                <td colspan="19" style="text-align: center">Data transaksi tidak ditemukan</td>
             </tr>
         @endempty
     </tbody>

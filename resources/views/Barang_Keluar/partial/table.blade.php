@@ -11,6 +11,7 @@
         <td class="nama_konsumen">{{ $data->nama_konsumen }}</td>
         <td class="no_handphone">{{ $data->no_handphone }}</td>
         <td>{{ $data->alamat }}</td>
+        <td class="kode_barang">{{ $data->kode_barang }}</td>
         <td class="nama_barang">{{ $data->nama_barang }}</td>
         <td class="tipe_barang">{{ $data->tipe_barang }}</td>
         <td class="text-center">{{ $data->jumlah_barang }}</td>

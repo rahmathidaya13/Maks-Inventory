@@ -53,6 +53,7 @@ class TransaksiController extends Controller
                 'selisih' => 'nullable|string',
                 'dp' => 'required|string',
                 'status_transaksi' => 'required|string',
+                'kode_barang' => 'required|string|max:50',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -85,6 +86,7 @@ class TransaksiController extends Controller
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
                 'dp.required' => 'Dana pertama wajib diisi.',
                 'status_transaksi.required' => 'Transkasi belum dipilih',
+                'kode_barang.required' => 'Kode barang wajib diisi.',
 
             ]
         );
@@ -106,6 +108,7 @@ class TransaksiController extends Controller
         $transaksi->no_handphone = $request->input('nohp');
         $transaksi->alamat = $request->input('alamat');
         $transaksi->nama_sales = $request->input('sales');
+        $transaksi->kode_barang = $request->input('kode_barang');
         $transaksi->nama_barang = $request->input('nama_brg_transaksi');
         $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
         $transaksi->diskon = (int) $request->input('diskon');
@@ -181,6 +184,7 @@ class TransaksiController extends Controller
                 $barangKeluar->nama_konsumen = $transaksi->nama_konsumen;
                 $barangKeluar->no_handphone = $transaksi->no_handphone;
                 $barangKeluar->alamat = $transaksi->alamat;
+                $barangKeluar->kode_barang = $transaksi->kode_barang;
                 $barangKeluar->nama_barang = $transaksi->nama_barang;
                 $barangKeluar->tipe_barang = $transaksi->tipe_barang;
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
@@ -259,6 +263,7 @@ class TransaksiController extends Controller
         $transaksi->id_barang = $getAllTransaksi->id_barang;
         $transaksi->id_stok = $getAllTransaksi->id_stok;
         $transaksi->id_stok = $getAllTransaksi->id_stok;
+        $transaksi->kode_barang = $getAllTransaksi->kode_barang;
         $transaksi->nama_barang = $getAllTransaksi->nama_barang;
         $transaksi->nama_sales = $getAllTransaksi->nama_sales;
         $transaksi->tipe_barang = $getAllTransaksi->tipe_barang;
@@ -338,6 +343,7 @@ class TransaksiController extends Controller
                 $barangKeluar->nama_konsumen = $transaksi->nama_konsumen;
                 $barangKeluar->no_handphone = $transaksi->no_handphone;
                 $barangKeluar->alamat = $transaksi->alamat;
+                $barangKeluar->kode_barang = $transaksi->kode_barang;
                 $barangKeluar->nama_barang = $transaksi->nama_barang;
                 $barangKeluar->tipe_barang = $transaksi->tipe_barang;
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
@@ -345,7 +351,7 @@ class TransaksiController extends Controller
             }
         }
 
-        return back()->with('success', 'Pelunasan Berhasil Dibuat');
+        return back()->with('success', 'Pelunasan'.' '.$transaksi->nama_konsumen.' '.'Berhasil');
     }
 
     /**
@@ -375,6 +381,7 @@ class TransaksiController extends Controller
                 'pembayaran' => 'required|string',
                 'selisih' => 'nullable|string',
                 'dp' => 'required|string',
+                'kode_barang' => 'required|string|max:50',
             ],
             [
                 'transaksi.required' => 'Tanggal transaksi wajib diisi.',
@@ -406,6 +413,7 @@ class TransaksiController extends Controller
                 'total_pembayaran.required' => 'Total pembayaran wajib diisi.',
                 'pembayaran.required' => 'Jumlah pembayaran wajib diisi.',
                 'dp.required' => 'Dana pertama wajib diisi.',
+                'kode_barang.required' => 'Kode barang wajib diisi.',
             ]
         );
 
@@ -427,6 +435,7 @@ class TransaksiController extends Controller
         $transaksi->no_handphone = $request->input('nohp');
         $transaksi->alamat = $request->input('alamat');
         $transaksi->nama_sales = $request->input('sales');
+        $transaksi->kode_barang = $request->input('kode_barang');
         $transaksi->nama_barang = $request->input('nama_brg_transaksi');
         $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
         $transaksi->diskon = (int) $request->input('diskon');

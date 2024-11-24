@@ -42,6 +42,7 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             'no_handphone' => $row['no_handphone'],
             'alamat' => $row['alamat'],
             'nama_sales' => $row['sales'],
+            'kode_barang' => $row['kode_barang'],
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],
             'jumlah_barang' => $row['jumlah_barang'],

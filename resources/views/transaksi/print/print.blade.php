@@ -40,6 +40,7 @@
             <th>No Handphone</th>
             <th>Alamat</th>
             <th>Sales</th>
+            <th>Kode Barang</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Jumlah Barang</th>
@@ -62,6 +63,7 @@
                 <td>{{ $data->no_handphone }}</td>
                 <td>{{ $data->alamat }}</td>
                 <td>{{ $data->nama_sales }}</td>
+                <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>

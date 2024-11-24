@@ -51,6 +51,10 @@
         color: #000000;
     }
 
+    table tbody tr td:first-child {
+        text-align: center;
+    }
+
     .header {
         display: flex;
         align-items: center;

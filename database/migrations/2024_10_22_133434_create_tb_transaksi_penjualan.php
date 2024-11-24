@@ -21,12 +21,13 @@ return new class extends Migration
             $table->string('no_handphone');
             $table->string('alamat');
             $table->string('nama_sales');
+            $table->string('kode_barang',20);
             $table->string('nama_barang');
             $table->string('tipe_barang');
             $table->integer('jumlah_barang');
             $table->decimal('harga_barang', 10, 2);
             $table->enum('status_pembayaran', ['belum lunas', 'lunas'])->default('belum lunas');
-            $table->string('status_transaksi');
+            $table->string('status_transaksi',50);
             $table->decimal('dana_pertama', 10, 2);
             $table->decimal('pembayaran', 10, 2);
             $table->integer('diskon');

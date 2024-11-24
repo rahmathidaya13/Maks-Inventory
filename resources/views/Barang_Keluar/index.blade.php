@@ -66,6 +66,7 @@
                                 <th>Nama Konsumen</th>
                                 <th>No Handphone</th>
                                 <th>Alamat</th>
+                                <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
                                 <th>Jumlah Barang</th>
