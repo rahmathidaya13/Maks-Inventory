@@ -15,7 +15,7 @@
                     <input type="hidden" name="id_stok" id="id_stok">
                     <div class="card" style="border: 1px solid #4d4d4d">
                         <div class="card-body">
-                            <h5 class="text-uppercase font-weight-bold">Form Transaksi</h5>
+                            <h5 class="text-uppercase font-weight-bold bg-dark p-2">Form Transaksi</h5>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="transaksi">Tgl. Transaksi</label>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="card" style="border: 1px solid #4d4d4d">
                         <div class="card-body">
-                            <h5 class="text-uppercase font-weight-bold">Form Barang</h5>
+                            <h5 class="text-uppercase font-weight-bold bg-dark p-2">Form Barang</h5>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="kode_barang">Kode Barang</label>
@@ -117,7 +117,7 @@
                     </div>
                     <div class="card" style="border: 1px solid #4d4d4d">
                         <div class="card-body">
-                            <h5 class="text-uppercase font-weight-bold">Form Pembayaran</h5>
+                            <h5 class="text-uppercase font-weight-bold bg-dark p-2">Form Pembayaran</h5>
                             <div class="form-row">
                                 <div class="form-group col-md-6 status_pembayaran">
                                     <label for="status_pembayaran">Status Pembayaran</label>
