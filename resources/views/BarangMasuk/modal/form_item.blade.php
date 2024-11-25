@@ -69,6 +69,7 @@
                                 <option value="Rak-2">RAK-2</option>
                                 <option value="Rak-3">RAK-3</option>
                                 <option value="Rak-4">RAK-4</option>
+                                <option value="Gudang-Lt1">Gudang-LT1</option>
                                 <option value="Gudang-Lt2">GUDANG-LT2</option>
                             </select>
                         </div>
@@ -90,8 +91,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_keluar" type="button" class="btn btn-default" data-dismiss="modal">keluar</button>
-                <button onclick="event.preventDefault();document.getElementById('barangmasuk').submit();"
-                    id="aksi_brg_masuk" type="button" class="btn btn-primary"><i class="fas fa-save"></i>
+                <button disabled onclick="event.preventDefault();document.getElementById('barangmasuk').submit();"
+                    id="aksi_brg_masuk" type="button" class="btn btn-primary simpan_barang_masuk"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>
         </div>

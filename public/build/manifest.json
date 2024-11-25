@@ -1,11 +1,11 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-qbjHzf6O.css",
+    "file": "assets/app-CnI_FqjO.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CX-zxd7Q.js",
+    "file": "assets/app-DG9yzAgk.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -21,7 +21,7 @@
     ]
   },
   "resources/js/frontend/barang.js": {
-    "file": "assets/barang-C5jra__c.js",
+    "file": "assets/barang-D-ddYaW0.js",
     "name": "barang",
     "src": "resources/js/frontend/barang.js",
     "isDynamicEntry": true
@@ -33,7 +33,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/barang_masuk.js": {
-    "file": "assets/barang_masuk-CSqHCS9s.js",
+    "file": "assets/barang_masuk-BtCUMSkM.js",
     "name": "barang_masuk",
     "src": "resources/js/frontend/barang_masuk.js",
     "isDynamicEntry": true
@@ -51,7 +51,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/stok_barang.js": {
-    "file": "assets/stok_barang-WAwAo7A3.js",
+    "file": "assets/stok_barang-DDWCT_Ug.js",
     "name": "stok_barang",
     "src": "resources/js/frontend/stok_barang.js",
     "isDynamicEntry": true

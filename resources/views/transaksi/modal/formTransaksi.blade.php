@@ -103,6 +103,7 @@
                                         <option value="Rak-2">Rak-2</option>
                                         <option value="Rak-3">Rak-3</option>
                                         <option value="Rak-4">Rak-4</option>
+                                        <option value="Gudang-Lt1">Gudang-LT1</option>
                                         <option value="Gudang-Lt2">Gudang-LT2</option>
                                     </select>
                                 </div>
@@ -155,15 +156,15 @@
                                         value="{{ old('diskon') }}">
                                 </div>
                                 <div class="form-group col-md-6">
+                                    <label for="total_pembayaran">Total Pembayaran</label>
+                                    <input readonly type="text" class="form-control" name="total_pembayaran"
+                                    id="total_pembayaran" value="{{ old('total_pembayaran') }}">
+                                    <input type="hidden" id="hasil">
+                                </div>
+                                <div class="form-group col-md-6">
                                     <label for="pembayaran">Pembayaran</label>
                                     <input type="text" class="form-control" name="pembayaran" id="pembayaran"
                                         value="{{ old('pembayaran') }}">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="total_pembayaran">Total Pembayaran</label>
-                                    <input readonly type="text" class="form-control" name="total_pembayaran"
-                                        id="total_pembayaran" value="{{ old('total_pembayaran') }}">
-                                    <input type="hidden" id="hasil">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="selisih">Sisa Pembayaran</label>
@@ -181,7 +182,7 @@
                 <button id="keluar_transaksi" type="button" class="btn btn-default"
                     data-dismiss="modal">keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('form_transaksi').submit();"
-                    id="transaksi_aksi" type="button" class="btn btn-primary"><i class="fas fa-save"></i>
+                    id="transaksi_aksi" type="button" class="btn btn-primary simpan_transaksi"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>
         </div>

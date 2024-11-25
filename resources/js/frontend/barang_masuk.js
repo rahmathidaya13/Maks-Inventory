@@ -10,6 +10,23 @@ function ConvertDate(dates) {
     return Formated;
 }
 
+// fungsi untuk aktifkan button ketika semua field terisi
+function validateForm(form, button) {
+    let isValid = true;
+    $(form)
+        .find("input,select")
+        .each(function () {
+            if ($(this).val().trim() === "") {
+                isValid = false;
+                return false;
+            }
+        });
+    $(button).prop("disabled", !isValid);
+}
+$("#barangmasuk").on("input", function () {
+    validateForm("#barangmasuk", ".simpan_barang_masuk");
+});
+// end fungsi aktifkan button
 // button untuk menambahkan barang masuk
 $(document).on("click", "#add_item_list", function (e) {
     e.preventDefault();
@@ -27,6 +44,7 @@ $(document).on("click", "#add_item_list", function (e) {
     $("#aksi_brg_masuk i").removeClass("fas fa-edit").addClass("fas fa-save");
     $("#barangmasuk").attr("action", "/barang_masuk/store");
     $("input[name='_method']").remove();
+    $(".simpan_barang_masuk").prop("disabled", true);
 });
 
 // fungsi untuk button keluar modal dan mereset form
@@ -72,6 +90,7 @@ $("#jumlah_brg").on("input", function () {
 // include action add item from file barang
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
+    $(".simpan_barang_masuk").prop("disabled", true);
     $("#form_item")[0].reset();
     if ($("#brg_masuk").length > 0) {
         $("#brg_masuk")[0].reset();
@@ -95,6 +114,7 @@ $(document).on("click", "#add_item", function (e) {
 $(document).on("click", ".ubah_barang_masuk", function (e) {
     e.preventDefault();
     // this variable data
+    $(".simpan_barang_masuk").prop("disabled", false);
     let id = $(this).data("id");
     if ($("#barangmasuk").length > 0) {
         $("#barangmasuk")[0].reset();
@@ -117,7 +137,7 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         $("#tipe_barang_masuk").val(data.result.tipe_barang).trigger("change");
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);
-        $("#posisi_brg_masuk").val(data.result.posisi).trigger("change");;
+        $("#posisi_brg_masuk").val(data.result.posisi).trigger("change");
         $("#status").val(data.result.status);
         let konsumen = $("#konsumen").val(data.result.nama_konsumen);
         konsumen.val() !== "-"
@@ -367,5 +387,3 @@ $(document).on("click", "#import_item_list", function (e) {
     $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-file-upload");
 });
-
-

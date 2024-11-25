@@ -20,6 +20,7 @@ function ConvertDate(dates) {
     return Formated;
 }
 
+
 // Fungsi untuk menghilangkan format titik dan ubah ke integer
 function parseCurrency(value) {
     // Jika value kosong atau tidak valid, kembalikan 0

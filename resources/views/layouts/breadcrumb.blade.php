@@ -24,8 +24,8 @@
                         class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
                         Export</button>
 
-                    <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk" id="import_item_list"
-                        class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
+                    {{-- <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk" id="import_item_list"
+                        class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button> --}}
 
                     <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" id="add_item_list"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang Masuk</button>
@@ -49,8 +49,8 @@
                         class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
                         Export</button>
 
-                    <button data-toggle="modal" data-target="#staticBackdrop_transaksi_import" id="transaksi_import"
-                        class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
+                    {{-- <button data-toggle="modal" data-target="#staticBackdrop_transaksi_import" id="transaksi_import"
+                        class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button> --}}
 
                     <button data-toggle="modal" data-target="#staticBackdrop_transaksi" id="add_transaksi"
                         class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat Transaksi</button>

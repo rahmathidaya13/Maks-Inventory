@@ -1,3 +1,18 @@
+function validateForm(form, button) {
+    let isValid = true;
+    $(form).find("input,select").each(function () {
+        if ($(this).val().trim() === "") {
+            isValid = false;
+            return false;
+        }
+    });
+    $(button).prop("disabled", !isValid);
+}
+$("#stokBarangForm").on("input", function () {
+    validateForm("#stokBarangForm", ".simpan_stok");
+
+});
+
 $(document).on("click", "#select_all_stok", function () {
     $(".selected").prop("checked", $(this).prop("checked"));
 });
@@ -97,6 +112,8 @@ $(document).on("click", "#add_stok_barang", function (e) {
     $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
     $("#stokBarangForm").attr("action", "/stok/store");
     $("input[name='_method']").remove();
+    $(".simpan_stok").prop("disabled",true);
+
 });
 
 $(document).on("change", "#nama_barang", function () {
@@ -133,6 +150,7 @@ $(document).on("click", ".ubah_stok", function (e) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Menunggu konfirmasi dan kemudian menampilkan modal
+            $(".simpan_stok").prop("disabled",false);
             $("#staticBackdrop_stok_barang").modal("show");
             $(".stok_out,.stok_close").click(function (e) {
                 e.preventDefault();

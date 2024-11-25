@@ -12,7 +12,7 @@
 <h2>DATA STOK BARANG TOKO MAKSINDO</h2>
 <h2>CABANG PEKANBARU</h2>
 <br>
-<table style="width:50%">
+<table>
     <thead>
         <tr>
             <th>Tanggal</th>

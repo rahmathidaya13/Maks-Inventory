@@ -13,9 +13,11 @@
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label for="start_date_barang_keluar">Tanggal Awal</label>
                             <input type="date" class="form-control" name="start_date_barang_keluar" id="start_date_barang_keluar" value="{{ old('start_date_barang_keluar') }}">
                         </div>
                         <div class="form-group col-md-6">
+                            <label for="end_date_barang_keluar">Tanggal Akhir</label>
                             <input type="date" class="form-control" name="end_date_barang_keluar" id="end_date_barang_keluar" value="{{ old('end_date_barang_keluar') }}">
                         </div>
                     </div>

@@ -22,6 +22,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
+        // layak digunakan
 
         $fromExcel = $row['tanggal_barang_masuk'];
         $dateTime = Date::excelToDateTimeObject($fromExcel);

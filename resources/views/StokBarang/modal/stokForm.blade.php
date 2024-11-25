@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body overflow-auto" style="height: 450px">
                 <form id="stokBarangForm" action="#" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id_barang" id="id_barang">
@@ -61,6 +61,7 @@
                                 <option value="Rak-2">Rak-2</option>
                                 <option value="Rak-3">Rak-3</option>
                                 <option value="Rak-4">Rak-4</option>
+                                <option value="Gudang-Lt1">Gudang-LT1</option>
                                 <option value="Gudang-Lt2">Gudang-Lt2</option>
                             </select>
                         </div>
@@ -75,8 +76,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="stok_out" type="button" class="btn btn-default stok_out" data-dismiss="modal">keluar</button>
-                <button onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
-                    id="stok_save" type="button" class="btn btn-primary"><i class="fas fa-save"></i>
+                <button disabled onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
+                    id="stok_save" type="button" class="btn btn-primary simpan_stok"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>
         </div>

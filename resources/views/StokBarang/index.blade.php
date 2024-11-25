@@ -72,26 +72,26 @@
 
                 <div class="card-body table-responsive p-3">
                     <table id="" class="table table-hover table-bordered table-striped text-nowrap table-sm">
-                        <thead>
-                            <tr class="text-center table-success">
-                                <th class="text-center">
+                        <thead class="">
+                            <tr class="text-center table-success ">
+                                <th class="text-center align-middle">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="select_all_stok"
                                             id="select_all_stok">
                                         <label class="form-check-label"></label>
                                     </div>
                                 </th>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Nama Barang</th>
-                                <th>Tipe Barang</th>
-                                <th>Stok Awal</th>
-                                <th>Barang Masuk</th>
-                                <th>Barang Keluar</th>
-                                <th>Stok Akhir</th>
-                                <th>Posisi Barang</th>
-                                <th>Keterangan</th>
-                                <th>Aksi</th>
+                                <th class="align-middle">No</th>
+                                <th class="align-middle">Tanggal</th>
+                                <th class="align-middle">Nama Barang</th>
+                                <th class="align-middle">Tipe Barang</th>
+                                <th class="align-middle">Stok Awal</th>
+                                <th class="align-middle">Barang Masuk</th>
+                                <th class="align-middle">Barang Keluar</th>
+                                <th class="align-middle">Stok Akhir</th>
+                                <th class="align-middle">Posisi Barang</th>
+                                <th class="align-middle">Keterangan</th>
+                                <th class="align-middle">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -4,7 +4,7 @@
     $startNumbering = ($currentPage - 1) * $perPage;
 @endphp
 @foreach ($stok as $data)
-    <tr class="text-center stok_barang" id="stok_barang_{{ $data->id_stok }}">
+    <tr class="stok_barang" id="stok_barang_{{ $data->id_stok }}">
         <td class="align-middle">
             <div class="form-check">
                 <input class="form-check-input selected" type="checkbox" name="id_stok_all" id="id_stok_all"
@@ -13,7 +13,7 @@
             </div>
         </td>
         <td class="align-middle">{{ $startNumbering + $loop->iteration }}</td>
-        <td class="align-middle">{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('l, d F Y') }}</td>
+        <td class="align-middle">{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d M Y') }}</td>
         <td class="align-middle nama_brg_stok">{{ $data->nama_barang }}</td>
         <td class="align-middle tipe_brg_stok">{{ $data->tipe_barang }}</td>
         <td class="text-center align-middle">{{ $data->stok_awal }}</td>

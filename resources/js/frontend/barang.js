@@ -13,7 +13,19 @@ function formatCurrency(angka) {
     }
     return rupiah;
 }
-
+function validateForm(form, button) {
+    let isValid = true;
+    $(form).each(function () {
+        if ($(this).val().trim() === "") {
+            isValid = false;
+            return false;
+        }
+    });
+    $(button).prop("disabled", !isValid);
+}
+$("#form_item").on("input", function () {
+    validateForm("#form_item input", ".simpan_barang");
+});
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
     $("#form_item")[0].reset();
@@ -23,6 +35,8 @@ $(document).on("click", "#add_item", function (e) {
     $("#action i").removeClass("fas fa-edit").addClass("fas fa-save");
     $("#form_item").attr("action", "/list-item/store");
     $("input[name='_method']").remove();
+    $(".simpan_barang").prop("disabled", true);
+
 });
 
 $(document).on("click", "#keluar, .close", function (e) {
@@ -82,6 +96,7 @@ $(document).on("click", ".ubah", function (e) {
     e.preventDefault();
     // this variable data
     let id = $(this).data("id");
+
     $("#form_item")[0].reset();
     $(".modal-title span").text("Ubah Data Barang");
     $(".modal-title i")
@@ -91,6 +106,7 @@ $(document).on("click", ".ubah", function (e) {
     $("#action i").removeClass("fas fa-save").addClass("fas fa-edit");
     $("#form_item").prepend('<input type="hidden" name="_method" value="PUT">');
     $("#form_item").attr("action", "/list-item/update/" + id);
+    $(".simpan_barang").prop("disabled", false);
 
     $.getJSON("/list-item/show/" + id, function (data, textStatus, jqXHR) {
         $("#nama_brg").val(data.result.nama_barang);
