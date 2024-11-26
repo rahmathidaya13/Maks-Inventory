@@ -21,7 +21,6 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
      */
     public function model(array $row)
     {
-        // dd($row);
         $fromExcel = $row['tanggal'];
         $dateTime = Date::excelToDateTimeObject($fromExcel);
         $formatedDate = Carbon::instance($dateTime)->format('Y-m-d');
@@ -95,21 +94,6 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             $stok->keterangan = $row['keterangan'];
             $stok->save();
         }
-
-
-        // dd($stok);
-        // return new StokBarangModel([
-        //     'id_barang' => $barang->id_barang,
-        //     'tanggal' => $formatedDate,
-        //     'nama_barang' => $row['nama_barang'],
-        //     'tipe_barang' => $row['tipe_barang'],
-        //     'barang_masuk' => $row['barang_masuk'],
-        //     'barang_keluar' => $row['barang_keluar'],
-        //     'stok_awal' => $row['stok_awal'],
-        //     'stok_akhir' => $row['stok_akhir'],
-        //     'posisi' => $row['posisi_barang'],
-        //     'keterangan' => $row['keterangan'] ?? '-',
-        // ]);
     }
     public function headingRow(): int
     {

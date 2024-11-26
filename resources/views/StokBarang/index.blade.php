@@ -53,9 +53,9 @@
                         <div class="mx-3">
                             <div class="input-group input-group-sm">
                                 <input type="date" name="start_date_filter_stok" id="start_date_filter_stok"
-                                    class="form-control mx-1">
+                                    class="form-control mx-1" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <input type="date" name="end_date_filter_stok" id="end_date_filter_stok"
-                                    class="form-control mx-2">
+                                    class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <button id="set_filter_stok" type="submit" class="btn btn-sm btn-primary">Set</button>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                 <div class="card-body table-responsive p-3">
                     <table id="" class="table table-hover table-bordered table-striped text-nowrap table-sm">
                         <thead class="">
-                            <tr class="text-center table-success ">
+                            <tr class="text-center table-success">
                                 <th class="text-center align-middle">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="select_all_stok"

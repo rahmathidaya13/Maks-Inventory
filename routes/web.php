@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/stok/update/{id}', 'update')->name('stok.update');
         Route::get('/stok/detail/{id}', 'show')->name('stok.show');
         Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete');
+
+        Route::get('/stokall', 'stokAll')->name('stokAll.stok');
     });
     Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', 'index')->name('transaksi.index');

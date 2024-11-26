@@ -40,9 +40,10 @@
                 <div class="mx-3">
                     <div class="input-group input-group-sm">
                         <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
-                            class="form-control mx-1">
+                            class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                            <span> <i class="fas fa-sort"></i></span>
                         <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
-                            class="form-control mx-2">
+                            class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
                     </div>
                 </div>

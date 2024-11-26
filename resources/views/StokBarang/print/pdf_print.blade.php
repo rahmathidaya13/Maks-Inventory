@@ -31,7 +31,7 @@
     td {
         border: 1px solid black;
         padding: 10px;
-        text-align: center;
+        /* text-align: center; */
         vertical-align: middle;
         white-space: wrap;
         overflow: hidden;
@@ -51,8 +51,17 @@
         color: #000000;
     }
 
-    table tbody tr td:first-child {
+    tbody tr td:nth-child(1),
+    td:nth-child(5),
+    td:nth-child(6),
+    td:nth-child(7),
+    td:nth-child(8),
+    td:nth-child(10) {
         text-align: center;
+    }
+
+    tbody tr td:nth-child(3) {
+        text-align: start;
     }
 
     .header {
