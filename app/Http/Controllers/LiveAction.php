@@ -40,6 +40,7 @@ class LiveAction extends Controller
         if (!empty($query)) {
             $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->orWhere("posisi", "like", "%" . $query . "%")
                 ->latest()->paginate(10)->appends(['query' => $query]);
         } else {
             $stok = StokBarangModel::latest()->paginate(10);
@@ -225,8 +226,8 @@ class LiveAction extends Controller
 
     public function filterDateStok(Request $request)
     {
-        $start_date = $request->start_date;
-        $end_date = $request->end_date;
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
         $stok = StokBarangModel::whereBetween('tanggal', [$start_date, $end_date])->latest()->paginate(500);
         if ($request->ajax()) {
             return view('StokBarang.table_partial.tableStok', compact('stok'))->render();

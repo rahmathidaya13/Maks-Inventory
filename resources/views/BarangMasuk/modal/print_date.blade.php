@@ -25,8 +25,8 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_filter_keluar" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button onclick="event.preventDefault();document.getElementById('filter_date').submit();" id="act_filter"
-                    type="button" class="btn btn-primary"><i class="fas fa-file-export"></i> <span>Export</span></button>
+                <button disabled onclick="event.preventDefault();document.getElementById('filter_date').submit();" id="act_filter"
+                    type="button" class="btn btn-primary act_filter"><i class="fas fa-file-export"></i> <span>Export</span></button>
             </div>
         </div>
     </div>

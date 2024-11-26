@@ -53,7 +53,8 @@
                         <div class="mx-3">
                             <div class="input-group input-group-sm">
                                 <input type="date" name="start_date_brg_masuk" id="start_date_brg_masuk"
-                                    class="form-control mx-1">
+                                    class="form-control mx-2">
+                                <span><i class="fas fa-sort"></i></span>
                                 <input type="date" name="end_date_brg_masuk" id="end_date_brg_masuk"
                                     class="form-control mx-2">
                                 <button id="set_brg_masuk" type="submit" class="btn btn-sm btn-primary">Set</button>

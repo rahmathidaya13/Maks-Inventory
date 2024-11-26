@@ -46,8 +46,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/stok/update/{id}', 'update')->name('stok.update');
         Route::get('/stok/detail/{id}', 'show')->name('stok.show');
         Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete');
-
-        Route::get('/stokall', 'stokAll')->name('stokAll.stok');
     });
     Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', 'index')->name('transaksi.index');
@@ -99,8 +97,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // khusus untuk export file
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');
     Route::get('/export/barang_masuk', [ExportAction::class, 'exportBarangMasuk'])->name('export.barang_masuk');
-    Route::get('/export/stok', [ExportAction::class, 'exportStok'])->name('export.stok');
+    Route::get('/export/stok', [ExportAction::class, 'exportStokDate'])->name('export.stok');
     Route::get('/export/stok/all', [ExportAction::class, 'exportStokAll'])->name('export.stok.all');
+    Route::get('/export/stok/position', [ExportAction::class, 'exportStokByPosition'])->name('export.stok.position');
     Route::get('/view/stok', [ExportAction::class, 'viewstok'])->name('view.stok');
     Route::get('/export/barang_keluar', [ExportAction::class, 'exportBarangKeluar'])->name('export.barang_keluar');
     Route::get('/export/transaksi', [ExportAction::class, 'exportTransaksi'])->name('export.transaksi');

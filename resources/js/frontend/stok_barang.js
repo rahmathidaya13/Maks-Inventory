@@ -1,3 +1,14 @@
+function ConvertDate(dates) {
+    let day, month, year, dateOriginParsed, Formated;
+    dateOriginParsed = new Date(dates);
+
+    day = String(dateOriginParsed.getDate()).padStart(2, "0");
+    month = String(dateOriginParsed.getMonth() + 1).padStart(2, "0");
+    year = dateOriginParsed.getFullYear();
+
+    Formated = day + "-" + month + "-" + year;
+    return Formated;
+}
 function validateForm(form, button) {
     let isValid = true;
     $(form)
@@ -10,8 +21,14 @@ function validateForm(form, button) {
         });
     $(button).prop("disabled", !isValid);
 }
+// form untuk stok barang
 $("#stokBarangForm").on("input", function () {
     validateForm("#stokBarangForm", ".simpan_stok");
+});
+
+// form untuk filter data barang by date
+$("#filter_date_stok").on("input", function () {
+    validateForm("#filter_date_stok", ".act_filter_stok");
 });
 
 $(document).on("click", "#select_all_stok", function () {
@@ -114,7 +131,6 @@ $(document).on("click", "#add_stok_barang", function (e) {
     $("#stokBarangForm").attr("action", "/stok/store");
     $("input[name='_method']").remove();
     $(".simpan_stok").prop("disabled", true);
-    // $("#loading").fadeIn();
 });
 
 $(document).on("change", "#nama_barang", function () {
@@ -201,9 +217,21 @@ $(document).on("click", ".hapus_stok", function (e) {
     e.preventDefault();
     let id = $(this).data("id");
     let form = $(`#delete_stok_${id}`);
+    let stokField = $(this).data("stok-field");
+
+    let stokFieldSplit = stokField.split("/");
+    let getDate = ConvertDate(stokFieldSplit[0]);
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: `Data Stok ini akan dihapus!`,
+        text: `Data [ ${
+            getDate +
+            " / " +
+            stokFieldSplit[1] +
+            " / " +
+            stokFieldSplit[2] +
+            " / " +
+            stokFieldSplit[3]
+        } ] Akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -258,20 +286,24 @@ $(document).on("keyup", "#keyword_stok", function (e) {
         $("tbody").load(
             "/stok/search?query=" + encodeURIComponent(query),
             function () {
-                $("tbody .nama_brg_stok, .tipe_brg_stok").each(function () {
-                    let text = $(this).text();
-                    if (query) {
-                        // Ganti teks yang cocok dengan teks yang disorot
-                        let regex = new RegExp("(" + query + ")", "gi");
-                        let highlightedText = text.replace(
-                            regex,
-                            '<span class="highlight">$1</span>'
-                        );
-                        $(this).html(highlightedText); // Ganti dengan teks yang disorot
-                    } else {
-                        $(this).html(text); // Kembalikan ke teks asli
+                $("tbody .posisi_barang,.nama_brg_stok, .tipe_brg_stok").each(
+                    function () {
+                        let text = $(this).text();
+                        if (query) {
+                            // Ganti teks yang cocok dengan teks yang disorot
+                            let regex = new RegExp("(" + query + ")", "gi");
+                            let highlightedText = text.replace(
+                                regex,
+                                '<span class="highlight">$1</span>'
+                            );
+                            // Ganti dengan teks yang disorot
+                            $(this).html(highlightedText);
+                        } else {
+                            // Kembalikan ke teks asli
+                            $(this).html(text);
+                        }
                     }
-                });
+                );
             }
         );
     }
@@ -341,5 +373,4 @@ $(document).on("click", "#import_stok", function (e) {
     $(".modal-title i").addClass("fas fa-file-upload");
 });
 
-// $("#loading").fadeIn();
-// $("#loading").fadeOut();
+// export berdasarkan posisi barang

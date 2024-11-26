@@ -26,6 +26,10 @@ function validateForm(form, button) {
 $("#barangmasuk").on("input", function () {
     validateForm("#barangmasuk", ".simpan_barang_masuk");
 });
+$("#filter_date").on("input", function () {
+    validateForm("#filter_date", ".act_filter");
+});
+
 // end fungsi aktifkan button
 // button untuk menambahkan barang masuk
 $(document).on("click", "#add_item_list", function (e) {

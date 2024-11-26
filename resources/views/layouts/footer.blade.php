@@ -53,6 +53,13 @@
         $('.select2bs4').select2({
             theme: 'bootstrap4'
         })
+
+        // effect loading
+        $("#loading").fadeOut()
+
+
+
+
     });
 </script>
 </body>

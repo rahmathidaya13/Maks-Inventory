@@ -16,7 +16,7 @@ function ConvertDate(dates) {
     month = String(dateOriginParsed.getMonth() + 1).padStart(2, "0");
     year = dateOriginParsed.getFullYear();
 
-    Formated = day + "/" + month + "/" + year;
+    Formated = day + "-" + month + "-" + year;
     return Formated;
 }
 
@@ -243,6 +243,7 @@ $(document).on("change", "#posisi_brg_transaksi", function () {
             nama_barang: nama_barang,
             tipe_barang: tipe_barang,
         },
+        dataType: "json",
         success: function (data) {
             // Cek apakah data ditemukan
             if (data && data.result) {

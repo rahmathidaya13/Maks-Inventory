@@ -29,15 +29,6 @@ class StokBarangController extends Controller
         //
     }
 
-    public function stokAll()
-    {
-        $stokBarang = StokBarangModel::all();
-        return response()->json(['success' => 'Fetching success', 'result' => $stokBarang], 200, [
-            'Content-Type' => 'application/json',
-            'X-Content-Type-Options' => 'nosniff',
-        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
-    }
-
     /**
      * Store a newly created resource in storage.
      */

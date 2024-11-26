@@ -43,7 +43,8 @@
                         <div class="mx-3">
                             <div class="input-group input-group-sm">
                                 <input type="date" name="start_date_item_in" id="start_date_item_in"
-                                    class="form-control mx-1">
+                                    class="form-control mx-2">
+                                <span><i class="fas fa-sort"></i></span>
                                 <input type="date" name="end_date_item_out" id="end_date_item_out"
                                     class="form-control mx-2">
                                 <button id="set_filter_item_out" type="submit" class="btn btn-sm btn-primary">Set</button>
@@ -58,7 +59,7 @@
 
                 <div class="card-body table-responsive p-3"  >
                     <table class="table table-hover table-bordered text-nowrap table-sm table-striped">
-                        <thead class="table-secondary">
+                        <thead class="table-success">
                             <tr class="text-center">
                                 <th>#</th>
                                 <th>Tanggal</th>

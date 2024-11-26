@@ -17,6 +17,7 @@ use App\Models\BarangKeluarModel;
 use App\Exports\BarangMasukExport;
 use Illuminate\Support\Facades\DB;
 use App\Exports\BarangKeluarExport;
+use App\Exports\exportStokByPosition;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportAction extends Controller
@@ -33,11 +34,16 @@ class ExportAction extends Controller
         return Excel::download(new BarangMasukExport($start_date, $end_date), 'Barang Masuk.xlsx');
     }
 
-    public function exportStok(Request $request)
+    public function exportStokDate(Request $request)
     {
         $start_date = $request->get('start_date_stok');
         $end_date = $request->get('end_date_stok');
         return Excel::download(new StokExport($start_date, $end_date), 'Stok Barang.xlsx');
+    }
+    public function exportStokByPosition(Request $request)
+    {
+        $position = $request->get('posisi_barang_export');
+        return Excel::download(new exportStokByPosition($position), 'Stok Barang '.$position.'.xlsx');
     }
     public function exportStokAll()
     {
