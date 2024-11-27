@@ -41,7 +41,7 @@
                     <div class="input-group input-group-sm">
                         <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
                             class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
-                            <span> <i class="fas fa-sort"></i></span>
+                        <span> <i class="fas fa-sort"></i></span>
                         <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
                             class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                         <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
@@ -58,9 +58,9 @@
                 Hapus</button>
         </div>
 
-        <div class="card-body table-responsive p-3">
-            <table id="" class="table table-hover text-nowrap table-sm table-bordered table-striped">
-                <thead class="table-info">
+        <div class="card-body table-responsive p-0">
+            <table id="" class="table text-nowrap table-striped">
+                <thead class="table-borderless">
                     <tr class="text-center">
                         <th class="text-center align-middle">
                             <div class="form-check">
@@ -90,17 +90,16 @@
                 </tbody>
 
             </table>
-            <div class="d-flex justify-content-between p-3">
-                <div>
-                    Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai
-                    <b>{{ $transaksi->lastItem() }}</b> dari
-                    <b>{{ $transaksi->total() }}</b> item
-                </div>
-                <div>
-                    {{ $transaksi->links() }}
-                </div>
+        </div>
+        <div class="d-flex justify-content-between p-3">
+            <div>
+                Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai
+                <b>{{ $transaksi->lastItem() }}</b> dari
+                <b>{{ $transaksi->total() }}</b> item
             </div>
-
+            <div>
+                {{ $transaksi->links() }}
+            </div>
         </div>
     </div>
     @include('transaksi.modal.formTransaksi')

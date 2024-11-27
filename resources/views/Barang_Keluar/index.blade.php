@@ -57,10 +57,10 @@
                     </div>
                 </div>
 
-                <div class="card-body table-responsive p-3"  >
-                    <table class="table table-hover table-bordered text-nowrap table-sm table-striped">
-                        <thead class="table-success">
-                            <tr class="text-center">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-borderless text-nowrap table-striped">
+                        <thead>
+                            <tr>
                                 <th>#</th>
                                 <th>Tanggal</th>
                                 <th>Kode Transaksi</th>
@@ -77,21 +77,18 @@
                         <tbody>
                             @include('Barang_Keluar.partial.table', ['barang_keluar' => $barang_keluar])
                         </tbody>
-
                     </table>
-                    <div class="d-flex justify-content-between p-3">
-                        <div>
-                            Menampilkan <b>{{ $barang_keluar->firstItem() }}</b> sampai
-                            <b>{{ $barang_keluar->lastItem() }}</b> dari
-                            <b>{{ $barang_keluar->total() }}</b> item
-                        </div>
-                        <div>
-                            {{ $barang_keluar->links() }}
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /.card-body -->
+                <div class="d-flex justify-content-between p-3">
+                    <div>
+                        Menampilkan <b>{{ $barang_keluar->firstItem() }}</b> sampai
+                        <b>{{ $barang_keluar->lastItem() }}</b> dari
+                        <b>{{ $barang_keluar->total() }}</b> item
+                    </div>
+                    <div>
+                        {{ $barang_keluar->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

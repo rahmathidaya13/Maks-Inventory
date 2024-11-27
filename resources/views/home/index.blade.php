@@ -7,7 +7,7 @@
         <div class="row row-cols-lg-3">
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
-                <div class="info-box bg-gradient-teal">
+                <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
                     <div class="info-box-content ">
                         <span class="info-box-text">Total Transaksi</span>
@@ -18,7 +18,7 @@
             </div>
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
-                <div class="info-box bg-gradient-cyan">
+                <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon"><i class="fas fa-boxes"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Daftar Barang</span>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="col-md-3 col-sm-6 col-12 text-nowrap">
-                <div class="info-box bg-gradient-teal">
+                <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon"><i class="fas fa-inbox"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Barang Masuk</span>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="col-md-6 col-sm-6 col-12 text-nowrap">
-                <div class="info-box bg-gradient-cyan">
+                <div class="info-box bg-gradient-navy">
                     <span class="info-box-icon"><i class="fas fa-truck-loading"></i></span>
                     <div class="info-box-content">
                         <span class="info-box-text">Total Barang Keluar</span>
@@ -67,10 +67,12 @@
     {{-- chart bar income --}}
     <div class="card ">
         <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="flex">
-
-                <h4 class="font-weight-bold"> <i class="fas fa-chart-pie"></i>Total Pendapatan per Sales</h4>
-                <h5 class="px-1 mx-4">Periode: {{ $periode }}</h5>
+            <div class="d-flex align-items-baseline">
+                <h4><i class="fas fa-chart-pie"></i></h4>
+                <h4 class="font-weight-bold ml-2">
+                    Total Pendapatan per Sales <br>
+                    <small>Periode: {{ $periode }} </small>
+                </h4>
             </div>
         </div>
         <div class="card-body">
@@ -81,9 +83,12 @@
     {{-- table penjualan --}}
     <div class="card ">
         <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="flex">
-                <h4 class="font-weight-bold ">Total Penjualan Unit Sales</h4>
-                <h5 class="">Periode: {{ $periode }}</h5>
+            <div class="d-flex align-items-baseline">
+                <h4><i class="fas fa-money-check-alt"></i> </h4>
+                <h4 class="font-weight-bold ml-2">
+                    Total Penjualan Unit Sales <br>
+                    <small>Periode: {{ $periode }} </small>
+                </h4>
             </div>
             <div class="ml-auto align-content-center">
                 <div class="input-group input-group-sm">
@@ -93,11 +98,11 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-sm text-nowrap table-bordered table-striped">
-                    <thead class="thead-dark">
-                        <tr class="text-center">
+                <table class="table table-borderless text-nowrap table-striped">
+                    <thead>
+                        <tr>
                             <th scope="col">#</th>
                             <th scope="col">Tanggal Penjualan</th>
                             <th scope="col">Nama Sales</th>
@@ -111,14 +116,14 @@
                         @include('home.partial.table', ['transaksi' => $transaksi])
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-between p-0 pt-2">
-                    <div>
-                        Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai <b>{{ $transaksi->lastItem() }}</b> dari
-                        <b>{{ $transaksi->total() }}</b> item
-                    </div>
-                    <div>
-                        {{ $transaksi->links() }}
-                    </div>
+            </div>
+            <div class="d-flex justify-content-between p-3">
+                <div>
+                    Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai <b>{{ $transaksi->lastItem() }}</b> dari
+                    <b>{{ $transaksi->total() }}</b> item
+                </div>
+                <div>
+                    {{ $transaksi->links() }}
                 </div>
             </div>
         </div>

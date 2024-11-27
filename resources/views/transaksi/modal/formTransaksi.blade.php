@@ -63,7 +63,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="kode_barang">Kode Barang</label>
-                                    <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                                    <input type="text" class="form-control" name="kode_barang" id="kode_barang" value="{{ old('kode_barang') }}">
                                 </div>
                                 <div class="form-group col-md-6 nama_brg_transaksi">
                                     <label for="nama_brg_transaksi">Nama Barang</label>

@@ -13,7 +13,7 @@
     }
 
     th {
-        background-color: #5e80dd;
+        background-color: #1a1a1a;
         /* Warna biru untuk header */
         color: #ffffff;
         font-weight: bold;

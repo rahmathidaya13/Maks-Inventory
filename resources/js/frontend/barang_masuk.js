@@ -328,10 +328,10 @@ $(document).on("click", "#export_barang_masuk", function (e) {
     if ($("#filter_date").length > 0) {
         $("#filter_date")[0].reset();
     }
-    $(".modal-title span").text("Export Barang Masuk");
+    $(".modal-title span").text("Export File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").addClass("fas fa-file-export");
+    $(".modal-title i").addClass("fas fa-download");
 });
 
 $(document).on("click", "#set_brg_masuk", function (e) {

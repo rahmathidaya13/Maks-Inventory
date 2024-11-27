@@ -71,11 +71,11 @@
                         Hapus</button>
                 </div>
 
-                <div class="card-body table-responsive p-3">
-                    <table class="table table-hover table-bordered table-striped text-nowrap table-sm" >
-                        <thead class="table-success" >
-                            <tr class="text-center">
-                                <th class="text-center align-middle">
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-borderless table-striped text-nowrap" >
+                        <thead>
+                            <tr>
+                                <th class="align-middle">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="select_all_stok"
                                             id="select_all_stok">
@@ -100,19 +100,18 @@
                         </tbody>
 
                     </table>
-                    <div class="d-flex justify-content-between p-0 pt-2">
-                        <div>
-                            Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
-                            <b>{{ $stok->lastItem() }}</b> dari
-                            <b>{{ $stok->total() }}</b> item
-                        </div>
-                        <div>
-                            {{ $stok->links() }}
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /.card-body -->
+                <div class="d-flex justify-content-between p-3">
+                    <div>
+                        Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
+                        <b>{{ $stok->lastItem() }}</b> dari
+                        <b>{{ $stok->total() }}</b> item
+                    </div>
+                    <div>
+                        {{ $stok->links() }}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

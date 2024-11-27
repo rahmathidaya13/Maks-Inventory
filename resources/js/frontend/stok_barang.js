@@ -126,7 +126,7 @@ $(document).on("click", "#add_stok_barang", function (e) {
 
     $(".modal-title span").text("Buat Stok Baru");
     $(".modal-title i").removeClass("fas fa-edit");
-    $(".modal-title i").removeClass("fas fa-file-upload");
+    $(".modal-title i").removeClass("fas fa-download");
     $(".modal-title i").addClass("fas fa-plus-square");
     $("#stok_save span").text("Simpan");
     $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
@@ -183,7 +183,7 @@ $(document).on("click", ".ubah_stok", function (e) {
 
             $(".modal-title span").text("Ubah Data Stok");
             $(".modal-title i").removeClass("fas fa-plus-square");
-            $(".modal-title i").removeClass("fas fa-file-upload");
+            $(".modal-title i").removeClass("fas fa-download");
             $(".modal-title i").addClass("fas fa-edit ");
 
             $("#stok_save span").text("Ubah");
@@ -360,7 +360,7 @@ $(document).on("click", "#export_stok_barang", function (e) {
     $(".modal-title span").text("Export File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").addClass("fas fa-file-upload");
+    $(".modal-title i").addClass("fas fa-download");
 });
 
 $(document).on("click", "#import_stok", function (e) {
@@ -372,7 +372,7 @@ $(document).on("click", "#import_stok", function (e) {
     $(".modal-title span").text("Upload File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").addClass("fas fa-file-upload");
+    $(".modal-title i").addClass("fas fa-download");
 });
 
 // export berdasarkan posisi barang

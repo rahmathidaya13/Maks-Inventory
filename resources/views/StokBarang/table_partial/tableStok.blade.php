@@ -24,8 +24,8 @@
         <td class="text-center align-middle">{{ ucwords($data->keterangan) }}</td>
         <td>
             <div class="dropdown">
-                <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
+                <button class="btn btn-info btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
                 </button>
                 <div class="dropdown-menu">
                     <a id="ubah_stok" data-id="{{ $data->id_stok }}" class="dropdown-item ubah_stok" href="#"><i

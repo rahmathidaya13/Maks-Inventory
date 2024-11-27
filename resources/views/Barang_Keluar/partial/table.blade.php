@@ -15,12 +15,11 @@
         <td class="nama_barang">{{ $data->nama_barang }}</td>
         <td class="tipe_barang">{{ $data->tipe_barang }}</td>
         <td class="text-center">{{ $data->jumlah_barang }}</td>
-        <td class="text-center">{{ $data->posisi }}</td>
+        <td class="">{{ $data->posisi }}</td>
     </tr>
 @endforeach
-
-@empty($data)
+@if ($barang_keluar->isEmpty())
     <tr>
         <td colspan="15" class="text-center">Barang Keluar tidak ditemukan</td>
     </tr>
-@endempty
+@endif

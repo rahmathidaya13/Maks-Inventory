@@ -71,11 +71,11 @@
                         Hapus</button>
                 </div>
 
-                <div class="card-body table-responsive p-3">
-                    <table id="" class="table table-hover text-nowrap table-sm table-bordered table-striped">
-                        <thead class="text-center">
-                            <tr class="table-primary">
-                                <th class="text-center">
+                <div class="card-body table-responsive p-0">
+                    <table id="" class="table text-nowrap table-borderless table-striped">
+                        <thead>
+                            <tr>
+                                <th>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="selectAllItem"
                                             id="selectAllItem">
@@ -98,21 +98,18 @@
                         <tbody>
                             @include('BarangMasuk.partial.table_item', ['barang_masuk' => $barang_masuk])
                         </tbody>
-
                     </table>
-                    <div class="d-flex justify-content-between p-0 pt-2">
-                        <div>
-                            Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
-                            <b>{{ $barang_masuk->lastItem() }}</b> dari
-                            <b>{{ $barang_masuk->total() }}</b> item
-                        </div>
-                        <div>
-                            {{ $barang_masuk->links() }}
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /.card-body -->
+                <div class="d-flex justify-content-between p-3">
+                    <div>
+                        Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
+                        <b>{{ $barang_masuk->lastItem() }}</b> dari
+                        <b>{{ $barang_masuk->total() }}</b> item
+                    </div>
+                    <div>
+                        {{ $barang_masuk->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

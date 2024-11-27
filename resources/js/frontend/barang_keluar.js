@@ -25,7 +25,7 @@ $(document).on("click", "#export_barang_keluar", function (e) {
     $(".modal-title span").text("Export File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").addClass("fas fa-file-upload");
+    $(".modal-title i").addClass("fas fa-download");
 });
 
 $(document).on("keyup", "#keyword_barang_keluar", function (e) {

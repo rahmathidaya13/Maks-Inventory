@@ -5,21 +5,21 @@
 @endphp
 @foreach ($barang as $data)
     <tr id="barang_item{{ $data->id_barang }}">
-        <td class="text-center align-middle">
+        <td class="align-middle">
             <div class="form-check">
                 <input class="form-check-input selected" type="checkbox" name="ids" id="ids"
                     data-id="{{ $data->id_barang }}">
                 <label class="form-check-label"></label>
             </div>
         </td>
-        <td class="align-middle text-center" id="number">{{ $startNumbering + $loop->iteration }}</td>
+        <td class="align-middle" id="number">{{ $startNumbering + $loop->iteration }}</td>
         <td class="nama-barang align-middle">{{ $data->nama_barang }}</td>
         <td class="tipe-barang align-middle">{{ $data->tipe_barang }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
-        <td class="align-middle text-center">
+        <td class="align-middle">
             <div class="dropdown">
-                <button class="btn btn-file" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
+                <button class="btn btn-info btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
                 </button>
                 <div class="dropdown-menu">
                     <a id="ubah" data-toggle="modal" data-target="#staticBackdrop" data-id="{{ $data->id_barang }}"

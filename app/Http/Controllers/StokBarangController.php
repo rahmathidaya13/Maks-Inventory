@@ -75,8 +75,8 @@ class StokBarangController extends Controller
             ->first();
 
         if ($stokChek) {
-            $stokChek->barang_masuk = $barang_masuk;
-            $stokChek->barang_keluar = $barang_keluar;
+            $stokChek->barang_masuk = $barang_masuk ?? 0;
+            $stokChek->barang_keluar = $barang_keluar ?? 0;
             $stokChek->stok_awal += $request->input('jumlah_barang');
             $stokChek->stok_akhir = ($stokChek->stok_awal + $stokChek->barang_masuk) - $stokChek->barang_keluar;
             $stokChek->keterangan = $request->input('keterangan') ?? $stokChek->keterangan;
@@ -95,8 +95,8 @@ class StokBarangController extends Controller
             $stok->tanggal = $request->input('tgl');
             $stok->nama_barang = $request->input('nama_barang');
             $stok->tipe_barang = $request->input('tipe_barang');
-            $stok->barang_masuk = $barang_masuk;
-            $stok->barang_keluar = $barang_keluar;
+            $stok->barang_masuk = $barang_masuk ?? 0;
+            $stok->barang_keluar = $barang_keluar ?? 0;
             if (empty($stokAwal)) {
                 $stok->stok_awal = $request->input('jumlah_barang');
             } else {
@@ -159,32 +159,30 @@ class StokBarangController extends Controller
         $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tgl_brg_masuk', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $barang_keluar = TransaksiModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tgl_transaksi', $request->input('tgl'))
             ->sum('jumlah_barang');
 
         $stokSebelumnya = StokBarangModel::where('id_barang',  $request->input('id_barang'))
             ->where('nama_barang',  $request->input('nama_barang'))
             ->where('tipe_barang', $request->input('tipe_barang'))
+            ->where('posisi', $request->input('posisi_barang'))
             ->where('tanggal', $request->input('tgl'))
             ->first();
-        $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
-
         if ($stokSebelumnya) {
             $stokBarang = StokBarangModel::find($id);
-
-            $selisih = $stokBarang->stok_akhir;
-
             $stokBarang->nama_barang = $request->input('nama_barang');
             $stokBarang->tipe_barang = $request->input('tipe_barang');
             $stokBarang->tanggal = $request->input('tgl');
-            $stokBarang->barang_masuk = $barang_masuk;
-            $stokBarang->barang_keluar = $barang_keluar;
+            $stokBarang->barang_masuk = $barang_masuk ?? 0;
+            $stokBarang->barang_keluar = $barang_keluar ?? 0;
             $stokBarang->stok_awal = (int) $request->input('jumlah_barang');
             $stokBarang->stok_akhir = (int) ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
             $stokBarang->posisi = $request->input('posisi_barang');
@@ -205,8 +203,8 @@ class StokBarangController extends Controller
             $stokNew->nama_barang = $request->input('nama_barang');
             $stokNew->tipe_barang = $request->input('tipe_barang');
             $stokNew->tanggal = $request->input('tgl');
-            $stokNew->barang_masuk = $barang_masuk;
-            $stokNew->barang_keluar = $barang_keluar;
+            $stokNew->barang_masuk = $barang_masuk ?? 0;
+            $stokNew->barang_keluar = $barang_keluar ?? 0;
             $stokNew->stok_awal = $request->input('jumlah_barang') + $stok_awal;
             $stokNew->stok_akhir = ($stokNew->stok_awal + $stokNew->barang_masuk) - $stokNew->barang_keluar;
             $stokNew->posisi = $request->input('posisi_barang');

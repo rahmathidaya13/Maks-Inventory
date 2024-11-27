@@ -68,7 +68,7 @@
                             role="form" enctype="multipart/form-data">
                             @csrf
                             <label for="nama_barang_filter">Nama Barang</label>
-                            <div class="input-group mb-3">
+                            <div class="input-group">
                                 <select class="form-control select2" name="nama_barang_filter" id="nama_barang_filter">
                                     <option value="">Pilih Barang</option>
                                     @foreach ($daftarBarang as $data)
@@ -85,16 +85,12 @@
                         </form>
                     </div>
                 </div>
-
-                <div class="mb-2">
-                    <a class="btn btn-primary" href="{{ route('export.stok.all') }}"><i class="fas fa-download"></i>
-                        Unduh semua</a>
-                </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_filter_keluar_stok" type="button" class="btn btn-default"
                     data-dismiss="modal">Close</button>
-
+                <a class="btn btn-primary" href="{{ route('export.stok.all') }}"><i class="fas fa-download"></i>
+                    Unduh semua</a>
             </div>
         </div>
     </div>

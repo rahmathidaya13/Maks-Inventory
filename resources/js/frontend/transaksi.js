@@ -456,7 +456,7 @@ $(document).on("click", "#export_transaksi", function (e) {
     $(".modal-title span").text("Export File");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
-    $(".modal-title i").addClass("fas fa-file-upload");
+    $(".modal-title i").addClass("fas fa-download");
 });
 
 $(document).on("click", "#set_filter_transaksi", function (e) {

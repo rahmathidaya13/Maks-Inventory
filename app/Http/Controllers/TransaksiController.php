@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangKeluarModel;
+use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Models\TransaksiModel;
@@ -126,6 +127,13 @@ class TransaksiController extends Controller
         $transaksi->status_transaksi = $request->input('status_transaksi');
         $transaksi->save();
 
+        $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_brg_transaksi'))
+            ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
+            ->where('posisi', $request->input('posisi_brg_transaksi'))
+            ->where('tgl_brg_masuk', $request->input('transaksi'))
+            ->sum('jumlah_barang');
+
         // jika status pembayaran sama dengan lunas simpan ke stok dan tabel barang keluar
         if ($transaksi->status_pembayaran == 'lunas') {
             $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
@@ -136,6 +144,7 @@ class TransaksiController extends Controller
                 ->first();
             if ($stokBarang) {
                 // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
+                $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $jumlah_barang;
                 $stokBarang->stok_akhir -= $jumlah_barang;
                 $stokBarang->keterangan = 'stok';
@@ -148,13 +157,6 @@ class TransaksiController extends Controller
                     ->where('posisi', $request->input('posisi_brg_transaksi'))
                     ->orderBy('tanggal', 'desc')
                     ->first();
-
-                // Jika tidak ada barang masuk pada tanggal yang sama, set barang masuk jadi 0
-                $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $request->input('transaksi'))
-                    ?
-                    $stokSebelumnya->barang_masuk
-                    : 0;
-
                 $stok_ = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
                 // Buat record stok baru dengan tanggal pelunasan
@@ -163,7 +165,7 @@ class TransaksiController extends Controller
                 $stokBarangNew->tanggal = $request->input('transaksi');
                 $stokBarangNew->nama_barang = $request->input('nama_brg_transaksi');
                 $stokBarangNew->tipe_barang = $request->input('tipe_brg_transaksi');
-                $stokBarangNew->barang_masuk =  $barangMasuk;
+                $stokBarangNew->barang_masuk =  $barang_masuk ?? 0;
                 $stokBarangNew->barang_keluar = $jumlah_barang;
                 $stokBarangNew->stok_awal = $stok_;
                 $stokBarangNew->stok_akhir = $stok_ - $jumlah_barang;
@@ -295,6 +297,13 @@ class TransaksiController extends Controller
         $transaksi->pembayaran = $pembayaran;
         $transaksi->save();
 
+        $barang_masuk = BarangMasukModel::where('id_barang', $getAllTransaksi->id_barang)
+            ->where('nama_barang', $getAllTransaksi->nama_barang)
+            ->where('tipe_barang', $getAllTransaksi->tipe_barang)
+            ->where('posisi', $getAllTransaksi->posisi)
+            ->where('tgl_brg_masuk', $request->input('tgl_pelunasan'))
+            ->sum('jumlah_barang');
+
         if ($transaksi->status_pembayaran == 'lunas') {
             // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
             $stokBarang = StokBarangModel::where('id_barang', $getAllTransaksi->id_barang)
@@ -304,6 +313,7 @@ class TransaksiController extends Controller
                 ->whereDate('tanggal', $request->input('tgl_pelunasan'))  // Ubah jadi tgl_pelunasan
                 ->first();
             if ($stokBarang) {
+                $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $old_jumlah_barang;
                 $stokBarang->stok_akhir -= $old_jumlah_barang;
                 $stokBarang->save();
@@ -319,10 +329,10 @@ class TransaksiController extends Controller
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
 
                 // cek kondisi barang masuk jika ada ditangal yang sama disimpan jika tidak buat 0
-                $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $transaksi->tgl_transaksi)
-                    ?
-                    $stokSebelumnya->barang_masuk
-                    : 0;
+                // $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $transaksi->tgl_transaksi)
+                //     ?
+                //     $stokSebelumnya->barang_masuk
+                //     : 0;
 
                 $stokBarang = new StokBarangModel();
                 $stokBarang->id_barang = $getAllTransaksi->id_barang;
@@ -330,7 +340,7 @@ class TransaksiController extends Controller
                 $stokBarang->nama_barang = $getAllTransaksi->nama_barang;
                 $stokBarang->tipe_barang = $getAllTransaksi->tipe_barang;
                 $stokBarang->stok_awal = $stokAwal;
-                $stokBarang->barang_masuk = $barangMasuk;
+                $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar = $old_jumlah_barang;
                 $stokBarang->stok_akhir = $stokAwal - $old_jumlah_barang;
                 $stokBarang->posisi = $getAllTransaksi->posisi;
@@ -476,7 +486,6 @@ class TransaksiController extends Controller
      */
     public function destroy(string $id)
     {
-        // dd($id);
         $transaksi = TransaksiModel::findOrFail($id);
         $transaksi->delete();
         return back()->with('success', 'Penghapusan Data Transaksi Berhasil');

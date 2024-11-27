@@ -47,10 +47,10 @@
                     <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                         Hapus</button>
                 </div>
-                <div class="card-body table-responsive p-3">
-                    <table class="table table-hover text-nowrap table-bordered table-sm table-striped">
+                <div class="card-body table-responsive p-0">
+                    <table class="table text-nowrap table-borderless table-sm table-striped">
                         <thead>
-                            <tr class="table-primary text-center">
+                            <tr>
                                 <th>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll">
@@ -69,18 +69,16 @@
                         </tbody>
 
                     </table>
-                    <div class="d-flex justify-content-between p-0 pt-2">
-                        <div>
-                            Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
-                            <b>{{ $barang->total() }}</b> item
-                        </div>
-                        <div>
-                            {{ $barang->links() }}
-                        </div>
-                    </div>
-
                 </div>
-                <!-- /.card-body -->
+                <div class="d-flex justify-content-between p-3">
+                    <div>
+                        Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
+                        <b>{{ $barang->total() }}</b> item
+                    </div>
+                    <div>
+                        {{ $barang->links() }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

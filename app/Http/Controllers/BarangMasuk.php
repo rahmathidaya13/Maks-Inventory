@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangKeluarModel;
 use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
 use App\Models\StokBarangModel;
@@ -77,6 +78,13 @@ class BarangMasuk extends Controller
         $barangMasuk->posisi = $request->input('posisi_brg_masuk');
         $barangMasuk->save();
 
+        $barang_keluar = BarangKeluarModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_barang'))
+            ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+            ->where('posisi', $request->input('posisi_brg_masuk'))
+            ->where('tanggal', $request->input('tgl_brg_masuk'))
+            ->sum('jumlah_barang');
+
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk
         if ($barangMasuk->status === 'stok' || $barangMasuk->status === 'customer') {
             // Cari stok untuk barang yang sesuai dengan id_barang dan id_brg_masuk
@@ -89,6 +97,7 @@ class BarangMasuk extends Controller
             if ($stokBarang) {
                 // Jika stok sudah ada, tambahkan jumlah barang masuk
                 $stokBarang->barang_masuk += $request->input('jumlah_brg');
+                $stokBarang->barang_keluar = $barang_keluar ?? 0;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal +  $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
@@ -199,6 +208,20 @@ class BarangMasuk extends Controller
         $barangMasuk->posisi = $request->input('posisi_brg_masuk');
         $barangMasuk->update();
 
+        $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_barang'))
+            ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+            ->where('posisi', $request->input('posisi_brg_masuk'))
+            ->where('tgl_brg_masuk', $request->input('tgl_brg_masuk'))
+            ->sum('jumlah_barang');
+
+        $barang_keluar = BarangKeluarModel::where('id_barang', $request->input('id_barang'))
+            ->where('nama_barang', $request->input('nama_barang'))
+            ->where('tipe_barang', $request->input('tipe_barang_masuk'))
+            ->where('posisi', $request->input('posisi_brg_masuk'))
+            ->where('tanggal', $request->input('tgl_brg_masuk'))
+            ->sum('jumlah_barang');
+
         // Jika status adalah 'stok', hitung stok barang terkait barang masuk
         if ($barangMasuk->status === 'stok' || $barangMasuk->status === 'customer') {
             // Cari stok untuk barang yang sesuai dengan id_barang dan id_brg_masuk
@@ -214,7 +237,8 @@ class BarangMasuk extends Controller
 
             // Jika stok barang ada, tambahkan jumlah barang masuk
             if ($stokBarang) {
-                $stokBarang->barang_masuk += $selisihBarangMasuk;
+                $stokBarang->barang_masuk =  $barang_masuk ?? 0;
+                $stokBarang->barang_keluar =  $barang_keluar ?? 0;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
