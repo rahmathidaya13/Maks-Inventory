@@ -22,7 +22,10 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('dashboard');
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/home', 'index')->name('dashboard');
+        Route::get('/home/income', 'income')->name('income.home');
+    });
     Route::controller(BarangController::class)->group(function () {
         Route::get('/list-item', 'index')->name('list.index');
         Route::post('/list-item/store', 'store')->name('list.store');

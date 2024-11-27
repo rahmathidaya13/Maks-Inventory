@@ -20,7 +20,6 @@ function ConvertDate(dates) {
     return Formated;
 }
 
-
 // Fungsi untuk menghilangkan format titik dan ubah ke integer
 function parseCurrency(value) {
     // Jika value kosong atau tidak valid, kembalikan 0
@@ -510,4 +509,56 @@ $(document).on("change", "#import_transaksi_form", function (e) {
         reader.readAsDataURL(file);
     }
     $("#file-name").text(file.name);
+});
+
+// buat pendapatan dengan chart bar js
+$.ajax({
+    type: "GET",
+    url: "/home/income",
+    dataType:'json',
+    success: function (data) {
+        // map/gabungkan setiap data yang diambil dari controller
+        let labels = data.result.map((item) => item.nama_sales);
+        let income = data.result.map((item) => item.total_pendapatan);
+        const incomes = new Chart($("#myChart"), {
+            type: "doughnut",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Pendapatan",
+                        data: income,  // Pendapatan per sales
+                        backgroundColor: [
+                            "rgb(255, 99, 132)",
+                            "rgb(54, 162, 235)",
+                            "rgb(255, 205, 86)",
+                            "rgb(75, 192, 192)",
+                        ],
+                        hoverOffset: 4,
+                    },
+                ],
+            },
+            options: {
+                responsive: true, // buat Chart responsif
+                maintainAspectRatio: false, // Nonaktifkan rasio aspek untuk bebas ukuran wajib style di html
+                scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                const value = context.raw;
+                                return `Pendapatan: Rp ${Currency(
+                                    value.toLocaleString()
+                                )}`;
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    },
 });

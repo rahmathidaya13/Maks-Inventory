@@ -64,6 +64,21 @@
         </div>
     </div>
 
+    {{-- chart bar income --}}
+    <div class="card ">
+        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+            <div class="flex">
+
+                <h4 class="font-weight-bold"> <i class="fas fa-chart-pie"></i>Total Pendapatan per Sales</h4>
+                <h5 class="px-1 mx-4">Periode: {{ $periode }}</h5>
+            </div>
+        </div>
+        <div class="card-body">
+            <canvas class="mb-3" id="myChart" width="800" height="400"></canvas>
+        </div>
+    </div>
+
+    {{-- table penjualan --}}
     <div class="card ">
         <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
             <div class="flex">
@@ -72,7 +87,8 @@
             </div>
             <div class="ml-auto align-content-center">
                 <div class="input-group input-group-sm">
-                    <a class="btn btn-sm btn-success mx-2" href="{{ route('penjualan.pdf') }}"> <i class="fas fa-print"></i> Print</a>
+                    <a class="btn btn-sm btn-success mx-2" href="{{ route('penjualan.pdf') }}"> <i
+                            class="fas fa-print"></i> Print</a>
                     <input class="form-control form-control-sm" type="search" id="sales_keyword" name="sales_keyword">
                 </div>
             </div>
@@ -108,31 +124,7 @@
         </div>
     </div>
 
-    {{-- Total Penjualan Unit Sales --}}
-    <div class="card ">
-        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="flex">
-                <h4 class="font-weight-bold ">Total Pendapatan per Sales</h4>
-                <h5 class="">Periode: {{ $periode }}</h5>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="table-responsiv">
-                <table class="table table-sm text-nowrap w-50 table-striped table-bordered">
-                    <thead class="table-dark">
-                        <tr class="text-center">
-                            <th scope="col">#</th>
-                            <th scope="col">Nama Sales</th>
-                            <th scope="col">Total Barang</th>
-                            <th scope="col">Total Pendapatan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @include('home.partial.table_pendapatan', ['pendapatan' => $pendapatanTransaksi])
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+
+
 
 @endsection

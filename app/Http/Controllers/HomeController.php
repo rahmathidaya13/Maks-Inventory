@@ -56,12 +56,7 @@ class HomeController extends Controller
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->paginate(10);
 
-        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
-            ->whereYear('tgl_transaksi', $getYear)
-            ->select('nama_sales', DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),DB::raw('SUM(jumlah_barang) AS total_barang'))
-            ->where('status_pembayaran', 'lunas')
-            ->groupBy('nama_sales')
-            ->get();
+
 
         // total barang
         $barang = BarangModel::count();
@@ -75,7 +70,26 @@ class HomeController extends Controller
             'countInBox',
             'countOutBox',
             'konsumen_transaksi',
-            'pendapatanTransaksi'
         ));
+    }
+
+    public function income()
+    {
+        $getMonth = Carbon::now()->month;
+        $getYear = Carbon::now()->year;
+        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
+            ->select('nama_sales', DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), DB::raw('SUM(jumlah_barang) AS total_barang'))
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('nama_sales')
+            ->get();
+        return response()->json(
+            ['result' => $pendapatanTransaksi],
+            200,
+            [
+                'Content-Type' => 'application/json',
+                'X-Content-Type-Options' => 'nosniff',
+            ]
+        );
     }
 }
