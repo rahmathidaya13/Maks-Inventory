@@ -41,9 +41,9 @@ class LiveAction extends Controller
             $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("posisi", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);
+                ->latest('tanggal')->paginate(10)->appends(['query' => $query]);
         } else {
-            $stok = StokBarangModel::latest()->paginate(10);
+            $stok = StokBarangModel::latest('tanggal')->paginate(10);
         }
         return view('StokBarang.table_partial.tableStok', compact('stok', 'query'));
     }
@@ -57,9 +57,9 @@ class LiveAction extends Controller
         if (!empty($query)) {
             $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);
+                ->latest('tgl_brg_masuk')->paginate(10)->appends(['query' => $query]);
         } else {
-            $barang_masuk = BarangMasukModel::latest()->paginate(10);
+            $barang_masuk = BarangMasukModel::latest('tgl_brg_masuk')->paginate(10);
         }
         return view('BarangMasuk.partial.table_item', compact('barang_masuk', 'query'));
     }
@@ -75,9 +75,9 @@ class LiveAction extends Controller
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("nama_konsumen", "like", "%" . $query . "%")
                 ->orWhere("nama_sales", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);
+                ->latest('tgl_transaksi')->paginate(10)->appends(['query' => $query]);
         } else {
-            $transaksi = TransaksiModel::latest()->paginate(10);
+            $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate(10);
         }
         return view('transaksi.partial.table',  compact('transaksi', 'query'));
     }
@@ -132,9 +132,9 @@ class LiveAction extends Controller
                 ->orWhere("tipe_barang", "like", "%" . $query . "%")
                 ->orWhere("nama_konsumen", "like", "%" . $query . "%")
                 ->orWhere("no_handphone", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);
+                ->latest('tanggal')->paginate(10)->appends(['query' => $query]);
         } else {
-            $barang_keluar = BarangKeluarModel::latest()->paginate(10);
+            $barang_keluar = BarangKeluarModel::latest('tanggal')->paginate(10);
         }
         return view('Barang_Keluar.partial.table',  compact('barang_keluar', 'query'));
     }

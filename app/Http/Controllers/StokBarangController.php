@@ -17,7 +17,7 @@ class StokBarangController extends Controller
     public function index()
     {
         $daftarBarang = BarangModel::all();
-        $stok = StokBarangModel::latest()->paginate(10);
+        $stok = StokBarangModel::latest('tanggal')->paginate(10);
         return view('StokBarang.index', compact('stok', 'daftarBarang'));
     }
 

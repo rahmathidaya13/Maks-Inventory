@@ -72,7 +72,7 @@
                         <th class="align-middle">No</th>
                         <th class="align-middle">Tanggal</th>
                         <th class="align-middle">Kode Transaksi</th>
-                        <th class="align-middle">Konsumen</th>
+                        <th class="align-middle">Nama Konsumen</th>
                         <th class="align-middle">Sales</th>
                         <th class="align-middle">Kode Barang</th>
                         <th class="align-middle">Nama Barang</th>

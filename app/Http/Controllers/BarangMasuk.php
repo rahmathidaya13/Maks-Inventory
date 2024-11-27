@@ -15,7 +15,7 @@ class BarangMasuk extends Controller
     public function index()
     {
         $allItem = BarangModel::all();
-        $barang_masuk = BarangMasukModel::latest()->paginate(10);
+        $barang_masuk = BarangMasukModel::latest('tgl_brg_masuk')->paginate(10);
         return view('BarangMasuk.index', compact('barang_masuk', 'allItem'));
     }
 
