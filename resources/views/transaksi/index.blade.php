@@ -59,7 +59,7 @@
         </div>
 
         <div class="card-body table-responsive p-0">
-            <table id="" class="table text-nowrap table-striped">
+            <table id="" class="table text-nowrap table-striped" >
                 <thead class="table-borderless">
                     <tr class="text-center">
                         <th class="text-center align-middle">
