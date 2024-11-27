@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Illuminate\Support\Str;
 use App\Models\StokBarangModel;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -16,16 +17,23 @@ class exportStokByPosition implements FromView, WithHeadings, WithStyles, Should
     /**
      * @return \Illuminate\Support\Collection
      */
-    protected $position;
+    protected $paramater;
 
-    public function __construct($position)
+    public function __construct($paramater)
     {
-        $this->position = $position;
+        $this->paramater = $paramater;
     }
     public function view(): View
     {
+        // atur logika apakah yang di export nama barang dan tipe barang yang valuenya id barang
+        // jika bukan nama barang ataupun tipe barang, export berdasarkan posisi barang
+        if (Str::isUuid($this->paramater)) {
+            $data = StokBarangModel::where('id_barang', $this->paramater)->get();
+        } else {
+            $data = StokBarangModel::where('posisi', $this->paramater)->get();
+        }
         return view('StokBarang.print.index', [
-            'stok' => StokBarangModel::where('posisi', $this->position)->get(),
+            'stok' => $data
         ]);
     }
 

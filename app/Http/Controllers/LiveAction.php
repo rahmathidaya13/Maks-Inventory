@@ -160,7 +160,7 @@ class LiveAction extends Controller
     public function transaksiFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $transaksi = TransaksiModel::latest()->paginate($offset);
+        $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate($offset);
         if ($request->ajax()) {
             return view('transaksi.partial.table', compact('transaksi'))->render();
         }
@@ -169,7 +169,7 @@ class LiveAction extends Controller
     public function barangKeluarFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $barang_keluar = BarangKeluarModel::latest()->paginate($offset);
+        $barang_keluar = BarangKeluarModel::latest('tanggal')->paginate($offset);
         if ($request->ajax()) {
             return view('Barang_Keluar.partial.table', compact('barang_keluar'))->render();
         }
@@ -217,7 +217,7 @@ class LiveAction extends Controller
     public function stokFilter(Request $request)
     {
         $offset = $request->get('offset');
-        $stok = StokBarangModel::latest()->paginate($offset);
+        $stok = StokBarangModel::latest('tanggal')->paginate($offset);
         if ($request->ajax()) {
             return view('StokBarang.table_partial.tableStok', compact('stok'))->render();
         }
@@ -228,7 +228,7 @@ class LiveAction extends Controller
     {
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
-        $stok = StokBarangModel::whereBetween('tanggal', [$start_date, $end_date])->latest()->paginate(500);
+        $stok = StokBarangModel::whereBetween('tanggal', [$start_date, $end_date])->latest('tanggal')->paginate(500);
         if ($request->ajax()) {
             return view('StokBarang.table_partial.tableStok', compact('stok'))->render();
         }

@@ -113,6 +113,8 @@ $(document).on(
         $("#import_stok_file")[0].reset();
         $("#preview").attr("src", "assets/icon/iconupload.jpg");
         $("#file-name").text("File not found");
+        $(".simpan_stok").prop("disabled", true);
+        $(".act_filter_stok").prop("disabled", true);
     }
 );
 

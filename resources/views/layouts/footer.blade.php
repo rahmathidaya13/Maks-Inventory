@@ -18,17 +18,18 @@
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements
-        $("#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang").on(
-            'shown.bs.modal',
-            function() {
-                $('.select2').select2({
-                    dropdownParent: $(this) // This makes it dynamic for the modal that is opened
-                });
-                $("#nama_brg_transaksi").trigger('change');
-                $("#status_pembayaran").trigger('change');
-                $("#stts_pembayaran").trigger('change');
+        $("#staticBackdrop_filter_date_stok,#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang")
+            .on(
+                'shown.bs.modal',
+                function() {
+                    $('.select2').select2({
+                        dropdownParent: $(this) // This makes it dynamic for the modal that is opened
+                    });
+                    $("#nama_brg_transaksi").trigger('change');
+                    $("#status_pembayaran").trigger('change');
+                    $("#stts_pembayaran").trigger('change');
 
-            });
+                });
 
         $(document).on("click", ".logout", function(e) {
             e.preventDefault();
@@ -55,10 +56,7 @@
         })
 
         // effect loading
-        $("#loading").fadeOut()
-
-
-
+        $("#loading").fadeOut();
 
     });
 </script>

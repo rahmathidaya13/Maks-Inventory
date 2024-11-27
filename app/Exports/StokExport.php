@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Illuminate\Support\Str;
 use App\Models\StokBarangModel;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
@@ -21,18 +22,19 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
     // {
     //     return StokBarangModel::all();
     // }
-    protected $start_date;
-    protected $end_date;
+    protected $paramater;
 
-    public function __construct($start_date, $end_date)
+    public function __construct($paramater)
     {
-        $this->start_date = $start_date;
-        $this->end_date = $end_date;
+        $this->paramater = $paramater;
     }
     public function view(): View
     {
+        if (isset($this->paramater['start_date'], $this->paramater['end_date'])) {
+            $data = StokBarangModel::whereBetween('tanggal', [$this->paramater['start_date'], $this->paramater['end_date']])->get();
+        }
         return view('StokBarang.print.index', [
-            'stok' => StokBarangModel::whereBetween('tanggal', [$this->start_date, $this->end_date])->get(),
+            'stok' => $data
         ]);
     }
 
@@ -57,8 +59,7 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
         $sheet->mergeCells('A1:I1');
         $sheet->mergeCells('A2:I2');
         $sheet->mergeCells('A3:I3');
-        // // Set judul di A1
-        // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
+
         // Styling untuk judul
         $sheet->getStyle('A1')->applyFromArray([
             'font' => [
@@ -122,10 +123,6 @@ class StokExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
             ],
         ]);
-        // $sheet->setCellValue('A2', 'Nama Barang');
-        // $sheet->setCellValue('B2', 'Tipe Barang');
-        // $sheet->setCellValue('C2', 'Harga Barang');
-
 
         // Style untuk baris ganjil (Zebra striping)
         for ($row = 5; $row <= $sheet->getHighestRow(); $row += 2) {

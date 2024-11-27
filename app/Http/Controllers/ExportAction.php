@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\BarangKeluarExport;
 use App\Exports\exportStokByPosition;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class ExportAction extends Controller
 {
@@ -36,14 +38,44 @@ class ExportAction extends Controller
 
     public function exportStokDate(Request $request)
     {
-        $start_date = $request->get('start_date_stok');
-        $end_date = $request->get('end_date_stok');
-        return Excel::download(new StokExport($start_date, $end_date), 'Stok Barang.xlsx');
+        // export by date
+        $dateParameter = collect([
+            'start_date' => $request->get('start_date_stok'),
+            'end_date' => $request->get('end_date_stok'),
+        ]);
+        $request->get('start_date_stok');
+        return Excel::download(new StokExport($dateParameter), 'Stok Barang.xlsx');
     }
     public function exportStokByPosition(Request $request)
     {
+        $validator = validator::make(
+            $request->only('nama_barang_filter'),
+            [
+                'nama_barang_filter' => 'required|string',
+            ],
+            [
+                'nama_barang_filter.required' => 'Nama Barang Harus Dipilih',
+            ]
+        );
+        $validator = Validator::make($request->only('posisi_barang_export'), [
+            'posisi_barang_export' => 'required|string',
+        ], [
+            'posisi_barang_export.required' => 'Posisi Barang Harus Dipilih.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator) // Kirim pesan error ke session
+                ->withInput();
+        }
+
         $position = $request->get('posisi_barang_export');
-        return Excel::download(new exportStokByPosition($position), 'Stok Barang '.$position.'.xlsx');
+        $get_id_barang = $request->get('nama_barang_filter');
+        if ($position) {
+            return Excel::download(new exportStokByPosition($position), 'Stok Barang ' . $position . '.xlsx');
+        } else {
+            return Excel::download(new exportStokByPosition($get_id_barang), 'Stok Barang.xlsx');
+        }
     }
     public function exportStokAll()
     {

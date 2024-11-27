@@ -32,7 +32,7 @@
                 @elseif (Route::is('stok.index'))
                     <a class="btn btn-secondary btn-sm" href="{{ route('stok.pdf') }}"><i class="fas fa-print"></i>
                         Print</a>
-                    <button data-toggle="modal" data-target="#staticBackdrop_filter_date_brg_masuk"
+                    <button data-toggle="modal" data-target="#staticBackdrop_filter_date_stok"
                         id="export_stok_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
                         Export</button>
 
