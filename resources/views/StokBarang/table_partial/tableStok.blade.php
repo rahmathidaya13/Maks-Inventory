@@ -19,7 +19,15 @@
         <td class="text-center align-middle">{{ $data->stok_awal }}</td>
         <td class="text-center align-middle">{{ $data->barang_masuk }}</td>
         <td class="text-center align-middle">{{ $data->barang_keluar }}</td>
-        <td class="text-center align-middle">{{ $data->stok_akhir }}</td>
+        <td class="text-center align-middle">
+            @if ($data && $data->stok_akhir === 0)
+                <span class="badge badge-secondary p-1 w-50" style="font-size: 14px">{{ $data->stok_akhir }}</span>
+            @elseif($data && $data->stok_akhir === 1)
+                <span class="badge badge-warning p-1 w-50" style="font-size: 14px">{{ $data->stok_akhir }}</span>
+            @elseif($data && $data->stok_akhir > 1)
+                <span class="badge badge-success p-1 w-50" style="font-size: 14px">{{ $data->stok_akhir }}</span>
+            @endif
+        </td>
         <td class="text-center align-middle posisi_barang">{{ Str::upper($data->posisi) }}</td>
         <td class="text-center align-middle">{{ ucwords($data->keterangan) }}</td>
         <td>

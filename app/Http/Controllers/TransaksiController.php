@@ -142,11 +142,13 @@ class TransaksiController extends Controller
                 ->where('posisi', $request->input('posisi_brg_transaksi'))
                 ->whereDate('tanggal', $request->input('transaksi'))
                 ->first();
+            $stok_awal = $stokBarang ? $stokBarang->stok_akhir : 0;
             if ($stokBarang) {
                 // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
                 $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $jumlah_barang;
-                $stokBarang->stok_akhir -= $jumlah_barang;
+                $stokBarang->stok_awal = $stok_awal;
+                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
             } else {
@@ -168,7 +170,7 @@ class TransaksiController extends Controller
                 $stokBarangNew->barang_masuk =  $barang_masuk ?? 0;
                 $stokBarangNew->barang_keluar = $jumlah_barang;
                 $stokBarangNew->stok_awal = $stok_;
-                $stokBarangNew->stok_akhir = $stok_ - $jumlah_barang;
+                $stokBarangNew->stok_akhir = ($stokBarangNew->stok_awal + $stokBarangNew->barang_masuk) - $stokBarangNew->barang_keluar;
                 $stokBarangNew->posisi = $request->input('posisi_brg_transaksi');
                 $stokBarangNew->keterangan = 'stok';
                 $stokBarangNew->save();
@@ -312,10 +314,12 @@ class TransaksiController extends Controller
                 ->where('posisi', $getAllTransaksi->posisi)
                 ->whereDate('tanggal', $request->input('tgl_pelunasan'))  // Ubah jadi tgl_pelunasan
                 ->first();
+            $stokAwal = $stokBarang ? $stokBarang->stok_akhir : 0;
             if ($stokBarang) {
                 $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $old_jumlah_barang;
-                $stokBarang->stok_akhir -= $old_jumlah_barang;
+                $stokBarang->stok_awal = $stokAwal;
+                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
                 // Ambil stok sebelumnya (sebelum pelunasan)
@@ -342,7 +346,7 @@ class TransaksiController extends Controller
                 $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar = $old_jumlah_barang;
-                $stokBarang->stok_akhir = $stokAwal - $old_jumlah_barang;
+                $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->posisi = $getAllTransaksi->posisi;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();

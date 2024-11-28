@@ -18,12 +18,16 @@
         <td class="nama_brg_masuk align-middle">{{ $data->nama_barang }}</td>
         <td class="tipe_brg_masuk align-middle ">{{ $data->tipe_barang }}</td>
         <td class="align-middle ">{{ $data->asal_gudang }}</td>
-        <td class="align-middle text-center"> {{ $data->jumlah_barang }}
-        </td>
-        <td class="align-middle "> {{ $data->posisi }}
-        </td>
-        <td class="align-middle">{{ $data->status }}</td>
-        <td class="align-middle">{{ $data->nama_konsumen }}</td>
+        <td class="align-middle text-center"> {{ $data->jumlah_barang }}</td>
+        <td class="align-middle text-center"> {{ $data->posisi }}</td>
+        <td class="align-middle text-center">{{ $data->status }}</td>
+
+        @if ($data && $data->nama_konsumen == '-')
+            <td class="align-middle text-center">{{ $data->nama_konsumen }}</td>
+        @else
+            <td class="align-middle">{{ $data->nama_konsumen }}</td>
+        @endif
+
         <td class="align-middle">
             <div class="dropdown">
                 <button class="btn btn-sm btn-info" type="button" data-toggle="dropdown" aria-expanded="false">
