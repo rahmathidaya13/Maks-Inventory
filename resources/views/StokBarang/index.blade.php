@@ -4,7 +4,7 @@
 @section('icon', 'fas fa-cubes')
 @section('content')
     <div class="row">
-        <div class="col-lg-12 col-12">
+        <div class="col-md-12 col-12">
             @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -54,7 +54,7 @@
                             <div class="input-group input-group-sm ">
                                 <input type="date" name="start_date_filter_stok" id="start_date_filter_stok"
                                     class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
-                                    <span><i class="fas fa-sort"></i></span>
+                                <span><i class="fas fa-sort"></i></span>
                                 <input type="date" name="end_date_filter_stok" id="end_date_filter_stok"
                                     class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <button id="set_filter_stok" type="submit" class="btn btn-sm btn-primary">Set</button>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-borderless table-striped text-nowrap" >
+                    <table class="table table-borderless table-striped text-nowrap">
                         <thead>
                             <tr>
                                 <th class="align-middle">
@@ -98,20 +98,20 @@
                         <tbody>
                             @include('StokBarang.table_partial.tableStok', ['stok' => $stok])
                         </tbody>
-
                     </table>
                 </div>
-                <div class="d-flex justify-content-between p-3">
-                    <div>
-                        Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
-                        <b>{{ $stok->lastItem() }}</b> dari
-                        <b>{{ $stok->total() }}</b> item
+                <div class="row">
+                    <div class="col-6 col-md-6 d-flex justify-content-start p-3">
+                        <span>
+                            Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
+                            <b>{{ $stok->lastItem() }}</b> dari
+                            <b>{{ $stok->total() }}</b> item
+                        </span>
                     </div>
-                    <div>
+                    <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
                         {{ $stok->links() }}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

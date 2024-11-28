@@ -70,12 +70,14 @@
 
                     </table>
                 </div>
-                <div class="d-flex justify-content-between p-3">
-                    <div>
-                        Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
-                        <b>{{ $barang->total() }}</b> item
+                <div class="row">
+                    <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                        <span>
+                            Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
+                            <b>{{ $barang->total() }}</b> item
+                        </span>
                     </div>
-                    <div>
+                    <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
                         {{ $barang->links() }}
                     </div>
                 </div>
