@@ -15,6 +15,7 @@ class TopProductModel extends Model
 
     protected $fillable = [
         'id_barang',
+        'tanggal',
         'kode_barang',
         'nama_barang',
         'tipe_barang',

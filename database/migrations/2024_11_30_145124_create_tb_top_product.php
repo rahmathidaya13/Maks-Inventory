@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tb_top_product', function (Blueprint $table) {
             $table->uuid('id_top_product')->primary();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
+            $table->date('tanggal');
             $table->string('kode_barang');
             $table->string('nama_barang');
             $table->string('tipe_barang');

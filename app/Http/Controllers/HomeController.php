@@ -9,6 +9,7 @@ use App\Models\TransaksiModel;
 use App\Models\StokBarangModel;
 use App\Models\BarangMasukModel;
 use App\Models\BarangKeluarModel;
+use App\Models\TopProductModel;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -57,12 +58,11 @@ class HomeController extends Controller
             ->paginate(10);
 
         // top prdouct
-        $topProduct = TransaksiModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(jumlah_barang) AS total_terjual'))
-            ->where('status_pembayaran', 'lunas')
-            ->whereDate('tgl_transaksi', now()->toDateString())
+        $topProduct = TopProductModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(total_barang) AS total'))
+            ->whereBetween('tanggal', [now()->startOfMonth(), now()->endOfMonth()])
             ->groupBy('nama_barang', 'tipe_barang')
-            ->orderBy('total_terjual', 'desc')
-            ->take(10)
+            ->orderBy('total', 'desc')
+            ->take(5)
             ->get();
 
         // total barang
@@ -102,11 +102,10 @@ class HomeController extends Controller
     }
     public function topProduct()
     {
-        $topProduct = TransaksiModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(jumlah_barang) AS total_tejual'))
-            ->where('status_pembayaran', 'lunas')
-            ->whereBetween('tgl_transaksi', [now()->startOfMonth(), now()->endOfMonth()])
+        $topProduct = TopProductModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(total_barang) AS total'))
+            ->whereBetween('tanggal', [now()->startOfMonth(), now()->endOfMonth()])
             ->groupBy('nama_barang', 'tipe_barang')
-            ->orderBy('total_tejual', 'desc')
+            ->orderBy('total', 'desc')
             ->take(5)
             ->get();
         return response()->json(

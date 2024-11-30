@@ -63,41 +63,75 @@
 
         </div>
     </div>
-    <div class="card">
-        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="d-flex align-items-baseline">
-                <h4><i class="fas fa-chart-line"></i></h4>
-                <h4 class="font-weight-bold ml-2">
-                    Top Products <br>
-                    <small>Periode: {{ $periode }} </small>
-                </h4>
+    <div class="row">
+        <div class="col-md-6">
+            {{-- chart bar income --}}
+            <div class="card">
+                <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+                    <div class="d-flex align-items-baseline">
+                        <h4><i class="fas fa-chart-pie"></i></h4>
+                        <h4 class="font-weight-bold ml-2">
+                            Total Pendapatan per Sales <br>
+                            <small>Periode: {{ $periode }} </small>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <canvas class="mb-3" id="myChart"></canvas>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                @foreach ($topProduct as $index => $rows)
-                    <li class="list-group-item bg-primary" style="width: 18em">
-                        {{ $rows->nama_barang }}
-                        {{ $rows->tipe_barang }}</li>
-                @endforeach
-            </ul>
+        <div class="col-md-6">
+            <div class="card" style="height: 440px">
+                <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+                    <div class="d-flex align-items-baseline">
+                        <h4><i class="fas fa-chart-line"></i></h4>
+                        <h4 class="font-weight-bold ml-2">
+                            Top Products <br>
+                            <small>Periode: {{ $periode }} </small>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Top</th>
+                                    <th>Nama Barang</th>
+                                    <th class="text-center">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($topProduct as $index => $data)
+                                    <tr class="font-weight-bold">
+                                        <td>
+                                            @if ($index + 1 == 1)
+                                                <span class="badge badge-success align-middle px-3" style="font-size: 20px">
+                                                    {{ $index + 1 }}</span>
+                                            @elseif($index + 1 == 2)
+                                                <span class="badge badge-warning px-3" style="font-size: 20px">
+                                                    {{ $index + 1 }}</span>
+                                            @elseif($index + 1 == 3)
+                                                <span class="badge badge-secondary px-3" style="font-size: 20px">
+                                                    {{ $index + 1 }}</span>
+                                            @else
+                                                <span class="badge badge-light px-3 mx-1" style="font-size: 17px">
+                                                    {{ $index + 1 }}</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $data->nama_barang }} - {{ $data->tipe_barang }}</td>
+                                        <td class="text-center" style="font-size: 20px">{{ $data->total }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    {{-- chart bar income --}}
-    <div class="card ">
-        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="d-flex align-items-baseline">
-                <h4><i class="fas fa-chart-pie"></i></h4>
-                <h4 class="font-weight-bold ml-2">
-                    Total Pendapatan per Sales <br>
-                    <small>Periode: {{ $periode }} </small>
-                </h4>
-            </div>
-        </div>
-        <div class="card-body">
-            <canvas class="mb-3" id="myChart" width="800" height="400"></canvas>
-        </div>
+
     </div>
 
     {{-- table penjualan --}}

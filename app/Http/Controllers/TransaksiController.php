@@ -208,6 +208,7 @@ class TransaksiController extends Controller
             $topProduct = TopProductModel::where('id_barang', $transaksi->id_barang)
                 ->where('nama_barang', $transaksi->nama_barang)
                 ->where('tipe_barang', $transaksi->tipe_barang)
+                ->whereDate('tanggal', $transaksi->tgl_transaksi)
                 ->first();
             if ($topProduct) {
                 $topProduct->total_barang += $transaksi->jumlah_barang;
@@ -215,6 +216,7 @@ class TransaksiController extends Controller
             } else {
                 $topProducts = new TopProductModel();
                 $topProducts->id_barang = $transaksi->id_barang;
+                $topProducts->tanggal = $transaksi->tgl_transaksi;
                 $topProducts->kode_barang = $transaksi->kode_barang;
                 $topProducts->nama_barang = $transaksi->nama_barang;
                 $topProducts->tipe_barang = $transaksi->tipe_barang;
@@ -393,6 +395,7 @@ class TransaksiController extends Controller
             $topProduct = TopProductModel::where('id_barang', $transaksi->id_barang)
                 ->where('nama_barang', $transaksi->nama_barang)
                 ->where('tipe_barang', $transaksi->tipe_barang)
+                ->whereDate('tanggal', $transaksi->tgl_transaksi)
                 ->first();
             if ($topProduct) {
                 $topProduct->total_barang += $transaksi->jumlah_barang;
@@ -400,6 +403,7 @@ class TransaksiController extends Controller
             } else {
                 $topProducts = new TopProductModel();
                 $topProducts->id_barang = $transaksi->id_barang;
+                $topProducts->tanggal = $transaksi->tgl_transaksi;
                 $topProducts->kode_barang = $transaksi->kode_barang;
                 $topProducts->nama_barang = $transaksi->nama_barang;
                 $topProducts->tipe_barang = $transaksi->tipe_barang;
