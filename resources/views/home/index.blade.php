@@ -63,6 +63,26 @@
 
         </div>
     </div>
+    <div class="card">
+        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
+            <div class="d-flex align-items-baseline">
+                <h4><i class="fas fa-chart-line"></i></h4>
+                <h4 class="font-weight-bold ml-2">
+                    Top Products <br>
+                    <small>Periode: {{ $periode }} </small>
+                </h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @foreach ($topProduct as $index => $rows)
+                    <li class="list-group-item bg-primary" style="width: 18em">
+                        {{ $rows->nama_barang }}
+                        {{ $rows->tipe_barang }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 
     {{-- chart bar income --}}
     <div class="card ">

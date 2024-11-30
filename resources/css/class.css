@@ -55,3 +55,14 @@ input[type="number"]::-webkit-outer-spin-button {
     border: 1px solid #000000;
     border-radius: unset;
 }
+.alert-default-secondary {
+    color: #1d2022;
+    background-color: #f0f0f0;
+    border-color: #dddddd;
+}
+.alert-default-info{
+    color: #0c3a52;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+
+}

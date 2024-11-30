@@ -8,6 +8,7 @@ use App\Models\BarangModel;
 use Illuminate\Http\Request;
 use App\Models\TransaksiModel;
 use App\Models\StokBarangModel;
+use App\Models\TopProductModel;
 use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
@@ -142,12 +143,11 @@ class TransaksiController extends Controller
                 ->where('posisi', $request->input('posisi_brg_transaksi'))
                 ->whereDate('tanggal', $request->input('transaksi'))
                 ->first();
-            $stok_awal = $stokBarang ? $stokBarang->stok_akhir : 0;
+            // $stok_awal = $stokBarang ? $stokBarang->stok_akhir : 0;
             if ($stokBarang) {
                 // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
                 $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $jumlah_barang;
-                $stokBarang->stok_awal = $stok_awal;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->keterangan = 'stok';
                 $stokBarang->save();
@@ -203,6 +203,23 @@ class TransaksiController extends Controller
                 $barangKeluar->posisi = $transaksi->posisi;
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
                 $barangKeluar->save();
+            }
+
+            $topProduct = TopProductModel::where('id_barang', $transaksi->id_barang)
+                ->where('nama_barang', $transaksi->nama_barang)
+                ->where('tipe_barang', $transaksi->tipe_barang)
+                ->first();
+            if ($topProduct) {
+                $topProduct->total_barang += $transaksi->jumlah_barang;
+                $topProduct->save();
+            } else {
+                $topProducts = new TopProductModel();
+                $topProducts->id_barang = $transaksi->id_barang;
+                $topProducts->kode_barang = $transaksi->kode_barang;
+                $topProducts->nama_barang = $transaksi->nama_barang;
+                $topProducts->tipe_barang = $transaksi->tipe_barang;
+                $topProducts->total_barang = $transaksi->jumlah_barang;
+                $topProducts->save();
             }
         }
 
@@ -318,7 +335,6 @@ class TransaksiController extends Controller
             if ($stokBarang) {
                 $stokBarang->barang_masuk = $barang_masuk ?? 0;
                 $stokBarang->barang_keluar += $old_jumlah_barang;
-                $stokBarang->stok_awal = $stokAwal;
                 $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
                 $stokBarang->save();
             } else {
@@ -331,13 +347,6 @@ class TransaksiController extends Controller
                     ->first();
 
                 $stokAwal = $stokSebelumnya ? $stokSebelumnya->stok_akhir : 0;
-
-                // cek kondisi barang masuk jika ada ditangal yang sama disimpan jika tidak buat 0
-                // $barangMasuk = ($stokSebelumnya && $stokSebelumnya->tanggal === $transaksi->tgl_transaksi)
-                //     ?
-                //     $stokSebelumnya->barang_masuk
-                //     : 0;
-
                 $stokBarang = new StokBarangModel();
                 $stokBarang->id_barang = $getAllTransaksi->id_barang;
                 $stokBarang->tanggal = $request->input('tgl_pelunasan');
@@ -378,6 +387,24 @@ class TransaksiController extends Controller
                 $barangKeluar->jumlah_barang = $transaksi->jumlah_barang;
                 $barangKeluar->posisi = $transaksi->posisi;
                 $barangKeluar->save();
+            }
+
+            // maish test
+            $topProduct = TopProductModel::where('id_barang', $transaksi->id_barang)
+                ->where('nama_barang', $transaksi->nama_barang)
+                ->where('tipe_barang', $transaksi->tipe_barang)
+                ->first();
+            if ($topProduct) {
+                $topProduct->total_barang += $transaksi->jumlah_barang;
+                $topProduct->save();
+            } else {
+                $topProducts = new TopProductModel();
+                $topProducts->id_barang = $transaksi->id_barang;
+                $topProducts->kode_barang = $transaksi->kode_barang;
+                $topProducts->nama_barang = $transaksi->nama_barang;
+                $topProducts->tipe_barang = $transaksi->tipe_barang;
+                $topProducts->total_barang = $transaksi->jumlah_barang;
+                $topProducts->save();
             }
         }
 

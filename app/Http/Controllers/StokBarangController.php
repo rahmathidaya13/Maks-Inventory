@@ -102,7 +102,6 @@ class StokBarangController extends Controller
             } else {
                 $stok->stok_awal = $stokAwal + $request->input('jumlah_barang');
             }
-            // $stok->stok_awal = $request->input('jumlah_barang');
             $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
             $stok->posisi = $request->input('posisi_barang');
             $stok->keterangan = $request->input('keterangan');

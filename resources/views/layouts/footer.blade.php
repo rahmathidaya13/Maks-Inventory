@@ -57,7 +57,6 @@
 
         // effect loading
         $("#loading").fadeOut();
-
     });
 </script>
 </body>

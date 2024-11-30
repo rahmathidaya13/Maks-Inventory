@@ -41,7 +41,7 @@ class BarangController extends Controller
                 'harga_brg.required' => 'Harga barang wajib diisi',
             ]
         );
-        $replace = str_replace(".","",$request->input('harga_brg'));
+        $replace = str_replace(".", "", $request->input('harga_brg'));
         $convert = floatval($replace);
         $barang = new BarangModel();
         $barang->nama_barang = $request->input('nama_brg');
@@ -96,13 +96,12 @@ class BarangController extends Controller
                 'harga_brg.required' => 'Harga barang wajib diisi',
             ]
         );
-        $replace = str_replace(".","",$request->input('harga_brg'));
-        $convert = floatval($replace);
+        $replace = str_replace(".", "", $request->input('harga_brg'));
 
         $barang = BarangModel::findOrFail($id);
         $barang->nama_barang = $request->input('nama_brg');
         $barang->tipe_barang = $request->input('tipe_brg');
-        $barang->harga_barang = $convert;
+        $barang->harga_barang = floatval($replace);
         $barang->update();
         return back()->with('success', 'Data Barang Berhasil Diubah');
     }
@@ -114,6 +113,6 @@ class BarangController extends Controller
     {
         $barang = BarangModel::findOrFail($id);
         $barang->delete();
-        return back()->with('success', 'Data barang '.$barang->nama_barang.' - '.$barang->tipe_barang.' '.'Berhasil Dihapus');
+        return back()->with('success', 'Data barang ' . $barang->nama_barang . ' - ' . $barang->tipe_barang . ' ' . 'Berhasil Dihapus');
     }
 }

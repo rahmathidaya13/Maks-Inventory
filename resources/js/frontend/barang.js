@@ -113,6 +113,12 @@ $(document).on("click", ".ubah", function (e) {
         $("#tipe_brg").val(data.result.tipe_barang);
         $("#harga_brg").val(formatCurrency(data.result.harga_barang));
     });
+
+    $.getJSON(`/list-item/update/${id}`,
+        function (data) {
+            console.log(data.success);
+        }
+    );
 });
 
 // hapuss button
@@ -249,3 +255,4 @@ $(document).on("submit", "#form_item", function () {
     $("#harga_brg").val(unFormated);
 });
 // end formated value
+

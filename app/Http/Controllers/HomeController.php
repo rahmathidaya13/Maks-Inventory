@@ -56,7 +56,14 @@ class HomeController extends Controller
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->paginate(10);
 
-
+        // top prdouct
+        $topProduct = TransaksiModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(jumlah_barang) AS total_terjual'))
+            ->where('status_pembayaran', 'lunas')
+            ->whereDate('tgl_transaksi', now()->toDateString())
+            ->groupBy('nama_barang', 'tipe_barang')
+            ->orderBy('total_terjual', 'desc')
+            ->take(10)
+            ->get();
 
         // total barang
         $barang = BarangModel::count();
@@ -70,6 +77,7 @@ class HomeController extends Controller
             'countInBox',
             'countOutBox',
             'konsumen_transaksi',
+            'topProduct'
         ));
     }
 
@@ -85,6 +93,24 @@ class HomeController extends Controller
             ->get();
         return response()->json(
             ['result' => $pendapatanTransaksi],
+            200,
+            [
+                'Content-Type' => 'application/json',
+                'X-Content-Type-Options' => 'nosniff',
+            ]
+        );
+    }
+    public function topProduct()
+    {
+        $topProduct = TransaksiModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(jumlah_barang) AS total_tejual'))
+            ->where('status_pembayaran', 'lunas')
+            ->whereBetween('tgl_transaksi', [now()->startOfMonth(), now()->endOfMonth()])
+            ->groupBy('nama_barang', 'tipe_barang')
+            ->orderBy('total_tejual', 'desc')
+            ->take(5)
+            ->get();
+        return response()->json(
+            ['result' => $topProduct],
             200,
             [
                 'Content-Type' => 'application/json',

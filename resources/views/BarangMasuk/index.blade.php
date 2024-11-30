@@ -17,10 +17,12 @@
                 </div>
             @endif
             @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <h5><i class="icon fas fa-check"></i> Alert!</h5>
-                    {{ $message }}
+                <div class="alert alert-default-info font-weight-bold " role="alert" style="font-size: 16px;">
+                    <i class="far fa-check-circle text-success mr-2"></i>
+                    <span> {{ $message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @endif
             <div class="callout callout-warning">
