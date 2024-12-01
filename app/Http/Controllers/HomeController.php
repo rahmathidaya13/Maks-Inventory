@@ -106,21 +106,26 @@ class HomeController extends Controller
             ]
         );
     }
-    public function topProduct()
+    public function penjualanUnit(Request $request)
     {
-        $topProduct = TopProductModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(total_barang) AS total'))
-            ->whereBetween('tanggal', [now()->startOfMonth(), now()->endOfMonth()])
-            ->groupBy('nama_barang', 'tipe_barang')
-            ->orderBy('total', 'desc')
-            ->take(5)
-            ->get();
-        return response()->json(
-            ['result' => $topProduct],
-            200,
-            [
-                'Content-Type' => 'application/json',
-                'X-Content-Type-Options' => 'nosniff',
-            ]
-        );
+        $query = $request->get('query');
+        $merge = explode('-', $query);
+        if (!empty($query)) {
+            $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $merge[1])
+                ->whereYear('tgl_transaksi', $merge[0])
+                ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->where('status_pembayaran', 'lunas')
+                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->get();
+        } else {
+            $transaksi = $transaksi = TransaksiModel::whereMonth('tgl_transaksi', Carbon::now()->month)
+                ->whereYear('tgl_transaksi', Carbon::now()->year)
+                ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->where('status_pembayaran', 'lunas')
+                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+                ->get();
+        }
+        return view('home.partial.table', compact('transaksi'));
+        // return view('home.index', compact('transaksi'));
     }
 }

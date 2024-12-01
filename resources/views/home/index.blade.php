@@ -3,6 +3,17 @@
 @section('breadcrumb', 'Dashboard')
 @section('icon', 'fas fa-tachometer-alt')
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card p-3">
         <div class="row row-cols-lg-3">
 
@@ -142,20 +153,26 @@
 
     {{-- table penjualan --}}
     <div class="card ">
-        <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-            <div class="d-flex align-items-baseline">
-                <h4><i class="fas fa-money-check-alt"></i> </h4>
-                <h4 class="font-weight-bold ml-2">
-                    Total Penjualan Unit Sales <br>
-                    <small>Periode: {{ $periode }} </small>
-                </h4>
-            </div>
-            <div class="ml-auto align-content-center">
-                <div class="input-group input-group-sm">
-                    <a class="btn btn-sm btn-success mx-2" href="{{ route('penjualan.pdf') }}"> <i
-                            class="fas fa-print"></i> Print</a>
-                    <input class="form-control form-control-sm" type="search" id="sales_keyword" name="sales_keyword">
+        <div class="card-header p-0 px-3 pt-3">
+            <div class="row d-flex align-items-center">
+                <div class="d-flex align-items-baseline col-md-7">
+                    <h4><i class="fas fa-money-check-alt"></i> </h4>
+                    <h4 class="font-weight-bold ml-2">
+                        Total Penjualan Unit Sales <br>
+                        <small>Periode: {{ $periode }} </small>
+                    </h4>
                 </div>
+                <div class="col-md-5 mb-3 mb-md-0 ">
+                    <div class="input-group input-group-sm">
+                        <a class="btn btn-sm btn-success mx-2" href="{{ route('penjualan.pdf') }}"> <i
+                                class="fas fa-print"></i> Print</a>
+                        <input class="form-control form-control-sm filter_month" type="month">
+                        <span class="mx-2"><i class="fas fa-sort"></i></span>
+                        <input placeholder="Keyword..." class="form-control form-control-sm" type="search"
+                            id="sales_keyword" name="sales_keyword">
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="card-body p-0">

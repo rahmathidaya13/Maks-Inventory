@@ -11,6 +11,7 @@ use App\Models\BarangKeluarModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
+use Carbon\Carbon;
 
 class LiveAction extends Controller
 {
@@ -106,14 +107,16 @@ class LiveAction extends Controller
                 ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
                 ->get();
         } else {
-            $transaksi = TransaksiModel::select(
-                'nama_sales',
-                DB::raw('SUM(jumlah_barang) AS total_barang'),
-                DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
-                'nama_barang',
-                'tipe_barang',
-                'tgl_transaksi'
-            )
+            $transaksi = TransaksiModel::whereMonth('tgl_transaksi', Carbon::now()->month)
+                ->whereYear('tgl_transaksi', Carbon::now()->year)
+                ->select(
+                    'nama_sales',
+                    DB::raw('SUM(jumlah_barang) AS total_barang'),
+                    DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
+                    'nama_barang',
+                    'tipe_barang',
+                    'tgl_transaksi'
+                )
                 ->where('status_pembayaran', 'lunas')
                 ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
                 ->get();

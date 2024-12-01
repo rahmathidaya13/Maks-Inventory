@@ -25,7 +25,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/home', 'index')->name('dashboard');
         Route::get('/home/income', 'income')->name('income.home');
-        Route::get('/home/top/product', 'topProduct')->name('topProduct.home');
+        Route::get('/home/penjualan/unit', 'penjualanUnit')->name('penjualanUnit.home');
     });
     Route::controller(BarangController::class)->group(function () {
         Route::get('/list-item', 'index')->name('list.index');
