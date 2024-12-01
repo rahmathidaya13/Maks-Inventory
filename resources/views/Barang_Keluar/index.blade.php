@@ -58,8 +58,8 @@
                 </div>
 
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-borderless text-nowrap table-striped">
-                        <thead>
+                    <table class="table table-borderless text-nowrap  table-striped">
+                        <thead class="table-dark">
                             <tr>
                                 <th>#</th>
                                 <th>Tanggal</th>

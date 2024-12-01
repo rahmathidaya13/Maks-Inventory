@@ -67,20 +67,26 @@
         <div class="col-md-6">
             {{-- chart bar income --}}
             <div class="card">
-                <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
-                    <div class="d-flex align-items-baseline">
-                        <h4><i class="fas fa-chart-pie"></i></h4>
-                        <h4 class="font-weight-bold ml-2">
-                            Total Pendapatan per Sales <br>
-                            <small>Periode: {{ $periode }} </small>
-                        </h4>
+                <div class="card-header p-0 px-3 pt-3">
+                    <div class="row d-flex align-items-center">
+                        <div class="d-flex align-items-baseline col-md-8">
+                            <h4><i class="fas fa-chart-pie"></i></h4>
+                            <h4 class="font-weight-bold ml-2">
+                                Total Pendapatan perSales <br>
+                                <small>Periode: {{ $periode }} </small>
+                            </h4>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end">
+                        </div>
                     </div>
                 </div>
+
                 <div class="card-body">
-                    <canvas class="mb-3" id="myChart"></canvas>
+                    <canvas class="myChart"></canvas>
                 </div>
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="card" style="height: 440px">
                 <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
@@ -94,34 +100,34 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-borderless table-striped">
-                            <thead>
+                        <table class="table table-sm table-borderless table-striped">
+                            <thead class="table-dark">
                                 <tr>
                                     <th>Top</th>
                                     <th>Nama Barang</th>
                                     <th class="text-center">Jumlah</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="top_product">
                                 @foreach ($topProduct as $index => $data)
                                     <tr class="font-weight-bold">
                                         <td>
-                                            @if ($index + 1 == 1)
-                                                <span class="badge badge-success align-middle px-3" style="font-size: 20px">
-                                                    {{ $index + 1 }}</span>
-                                            @elseif($index + 1 == 2)
-                                                <span class="badge badge-warning px-3" style="font-size: 20px">
-                                                    {{ $index + 1 }}</span>
-                                            @elseif($index + 1 == 3)
-                                                <span class="badge badge-secondary px-3" style="font-size: 20px">
-                                                    {{ $index + 1 }}</span>
+                                            @if ($loop->iteration == 1)
+                                                <span class="badge badge-success align-middle px-3">
+                                                    {{ $loop->iteration }}</span>
+                                            @elseif($loop->iteration == 2)
+                                                <span class="badge badge-warning px-3">
+                                                    {{ $loop->iteration }}</span>
+                                            @elseif($loop->iteration == 3)
+                                                <span class="badge badge-secondary px-3">
+                                                    {{ $loop->iteration }}</span>
                                             @else
-                                                <span class="badge badge-light px-3 mx-1" style="font-size: 17px">
-                                                    {{ $index + 1 }}</span>
+                                                <span class="badge badge-light px-3 mx-1">
+                                                    {{ $loop->iteration }}</span>
                                             @endif
                                         </td>
                                         <td>{{ $data->nama_barang }} - {{ $data->tipe_barang }}</td>
-                                        <td class="text-center" style="font-size: 20px">{{ $data->total }}</td>
+                                        <td class="text-center">{{ $data->total }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -154,8 +160,8 @@
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-borderless text-nowrap table-striped">
-                    <thead>
+                <table class="table table-sm table-borderless text-nowrap table-striped">
+                    <thead class="table-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Tanggal Penjualan</th>
@@ -182,8 +188,4 @@
             </div>
         </div>
     </div>
-
-
-
-
 @endsection

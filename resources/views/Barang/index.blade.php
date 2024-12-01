@@ -50,8 +50,8 @@
                         Hapus</button>
                 </div>
                 <div class="card-body table-responsive p-0">
-                    <table class="table text-nowrap table-borderless table-sm table-striped">
-                        <thead>
+                    <table class="table text-nowrap table-borderless table-striped">
+                        <thead class="table-dark">
                             <tr>
                                 <th>
                                     <div class="form-check">
@@ -85,6 +85,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     @include('Barang.modal.form_item')
     @include('Barang.modal.form_import')

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\BarangModel;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TransaksiModel;
 use App\Models\StokBarangModel;
+use App\Models\TopProductModel;
 use App\Models\BarangMasukModel;
 use App\Models\BarangKeluarModel;
-use App\Models\TopProductModel;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -19,12 +20,12 @@ class HomeController extends Controller
      *
      * @return void
      */
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
         // transaksi in dashboard only
@@ -81,18 +82,23 @@ class HomeController extends Controller
         ));
     }
 
-    public function income()
+    public function income(Request $request)
     {
-        $getMonth = Carbon::now()->month;
-        $getYear = Carbon::now()->year;
-        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
-            ->whereYear('tgl_transaksi', $getYear)
+        // $request->validate([
+        //     'query' => 'nullable|regex:/^\d{4}-\d{2}$/', // Validasi format
+        // ]);
+        $getquery = explode('-', $request->get('query'));
+
+        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi',  Carbon::now()->month)
+            ->whereYear('tgl_transaksi',  Carbon::now()->year)
             ->select('nama_sales', DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), DB::raw('SUM(jumlah_barang) AS total_barang'))
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales')
             ->get();
+
+
         return response()->json(
-            ['result' => $pendapatanTransaksi],
+            ['result' => $pendapatanTransaksi, 'query' => $getquery[0]],
             200,
             [
                 'Content-Type' => 'application/json',

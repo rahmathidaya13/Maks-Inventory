@@ -55,8 +55,8 @@ $.ajax({
         let labels = data.result.map((item) => item.nama_sales);
         let income = data.result.map((item) => item.total_pendapatan);
         let totalItem = data.result.map((item) => item.total_barang);
-        const incomes = new Chart($("#myChart"), {
-            type: "doughnut",
+        const incomes = new Chart($(".myChart"), {
+            type: "pie",
             data: {
                 labels: labels,
                 datasets: [
@@ -96,8 +96,4 @@ $.ajax({
             },
         });
     },
-});
-
-$.getJSON("/home/top/product", function (data) {
-    console.log(data);
 });

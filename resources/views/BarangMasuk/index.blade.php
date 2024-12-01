@@ -75,7 +75,7 @@
 
                 <div class="card-body table-responsive p-0">
                     <table id="" class="table text-nowrap table-borderless table-striped">
-                        <thead>
+                        <thead class="table-dark">
                             <tr>
                                 <th>
                                     <div class="form-check">

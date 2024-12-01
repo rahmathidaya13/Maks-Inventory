@@ -60,9 +60,9 @@
         </div>
 
         <div class="card-body table-responsive p-0">
-            <table id="" class="table text-nowrap table-striped">
-                <thead class="table-borderless">
-                    <tr class="text-center">
+            <table id="" class="table text-nowrap table-borderless table-striped">
+                <thead class="table-dark">
+                    <tr>
                         <th class="text-center align-middle">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="select_all_transaksi"
