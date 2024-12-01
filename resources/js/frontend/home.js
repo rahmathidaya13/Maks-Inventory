@@ -51,11 +51,12 @@ $.ajax({
     url: "/home/income",
     dataType: "json",
     success: function (data) {
+        const ctx = $(".myChart");
         // map/gabungkan setiap data yang diambil dari controller
         let labels = data.result.map((item) => item.nama_sales);
         let income = data.result.map((item) => item.total_pendapatan);
         let totalItem = data.result.map((item) => item.total_barang);
-        const incomes = new Chart($(".myChart"), {
+        const incomes = new Chart(ctx, {
             type: "pie",
             data: {
                 labels: labels,
