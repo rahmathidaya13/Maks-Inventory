@@ -1,11 +1,11 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-DvLGOlDh.css",
+    "file": "assets/app-QDX1mh5D.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-BEEaNXz5.js",
+    "file": "assets/app-Ofz10aFD.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -21,7 +21,7 @@
     ]
   },
   "resources/js/frontend/barang.js": {
-    "file": "assets/barang-D-ddYaW0.js",
+    "file": "assets/barang-CJLTarLp.js",
     "name": "barang",
     "src": "resources/js/frontend/barang.js",
     "isDynamicEntry": true
@@ -39,7 +39,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/home.js": {
-    "file": "assets/home-D4vckCpY.js",
+    "file": "assets/home-Cxh51TJP.js",
     "name": "home",
     "src": "resources/js/frontend/home.js",
     "isDynamicEntry": true
@@ -57,7 +57,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/transaksi.js": {
-    "file": "assets/transaksi-DcrrhhOF.js",
+    "file": "assets/transaksi-CAUA5xMV.js",
     "name": "transaksi",
     "src": "resources/js/frontend/transaksi.js",
     "isDynamicEntry": true
