@@ -66,7 +66,7 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBarang">
                             @include('Barang.partials.table_item', ['barang' => $barang])
                         </tbody>
 

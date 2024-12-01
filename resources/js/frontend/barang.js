@@ -36,7 +36,6 @@ $(document).on("click", "#add_item", function (e) {
     $("#form_item").attr("action", "/list-item/store");
     $("input[name='_method']").remove();
     $(".simpan_barang").prop("disabled", true);
-
 });
 
 $(document).on("click", "#keluar, .close", function (e) {
@@ -60,7 +59,7 @@ $(document).on("input", "#keyword", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {
-        $("tbody").load(
+        $("tbody#tableBarang").load(
             `/item/search?query=${encodeURIComponent(query)}`,
             function () {
                 // Kembali ke halaman stok tanpa hasil pencarian
@@ -69,23 +68,25 @@ $(document).on("input", "#keyword", function (e) {
         );
     } else {
         // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody").load(
+        $("tbody#tableBarang").load(
             "/item/search?query=" + encodeURIComponent(query),
             function () {
-                $("tbody .nama-barang, .tipe-barang").each(function () {
-                    let text = $(this).text();
-                    if (query) {
-                        // Ganti teks yang cocok dengan teks yang disorot
-                        let regex = new RegExp("(" + query + ")", "gi");
-                        let highlightedText = text.replace(
-                            regex,
-                            '<span class="highlight">$1</span>'
-                        );
-                        $(this).html(highlightedText); // Ganti dengan teks yang disorot
-                    } else {
-                        $(this).html(text); // Kembalikan ke teks asli
+                $("tbody#tableBarang .nama-barang, .tipe-barang").each(
+                    function () {
+                        let text = $(this).text();
+                        if (query) {
+                            // Ganti teks yang cocok dengan teks yang disorot
+                            let regex = new RegExp("(" + query + ")", "gi");
+                            let highlightedText = text.replace(
+                                regex,
+                                '<span class="highlight">$1</span>'
+                            );
+                            $(this).html(highlightedText); // Ganti dengan teks yang disorot
+                        } else {
+                            $(this).html(text); // Kembalikan ke teks asli
+                        }
                     }
-                });
+                );
             }
         );
     }
@@ -114,11 +115,9 @@ $(document).on("click", ".ubah", function (e) {
         $("#harga_brg").val(formatCurrency(data.result.harga_barang));
     });
 
-    $.getJSON(`/list-item/update/${id}`,
-        function (data) {
-            console.log(data.success);
-        }
-    );
+    $.getJSON(`/list-item/update/${id}`, function (data) {
+        console.log(data.success);
+    });
 });
 
 // hapuss button
@@ -202,17 +201,22 @@ $(document).on("click", "#delete_all", function (e) {
 });
 
 // set limit row
-$(document).on("change", "#offset", function () {
+$(document).on("change", "#offset", function (e) {
+    e.preventDefault();
     let offset = $(this).val();
-    $("tbody").load("/item/offset?offset=" + offset, function (data) {
-        $(this).html(data.table);
-        $(".pagination").html(data.pagination);
-    });
+    $("tbody#tableBarang").load(
+        "/item/offset?offset=" + offset,
+        function (data) {
+            $(this).html(data.table);
+            $(".pagination").html(data.pagination);
+        }
+    );
 });
 // end set limit
 
 // preview file imports
 $(document).on("change", "#imports", function (e) {
+    e.preventDefault();
     let file = e.target.files[0];
     if (file) {
         let reader = new FileReader();
@@ -255,4 +259,3 @@ $(document).on("submit", "#form_item", function () {
     $("#harga_brg").val(unFormated);
 });
 // end formated value
-
