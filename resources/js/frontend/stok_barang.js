@@ -270,7 +270,7 @@ $(document).on("change", "#filter_stok", function (e) {
 });
 
 // live search
-$(document).on("keyup", "#keyword_stok", function (e) {
+$(document).on("input", "#keyword_stok", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
     if (query === "") {

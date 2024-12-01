@@ -8,7 +8,7 @@ function Currency(angka) {
         .replace(/Rp\s/g, "");
 }
 
-$(document).on("keyup", "#sales_keyword", function (e) {
+$(document).on("input", "#sales_keyword", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
     if (query === "") {

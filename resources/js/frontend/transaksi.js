@@ -25,6 +25,8 @@ function parseCurrency(value) {
     // Jika value kosong atau tidak valid, kembalikan 0
     return value ? parseInt(value.replace(/\./g, "")) : 0; // Hapus titik dan ubah ke angka
 }
+
+// form untuk stok barang
 $(document).on("click", "#add_transaksi", function (e) {
     e.preventDefault();
     $("#form_transaksi")[0].reset();
@@ -282,7 +284,7 @@ $(document).on("change", "#status_pembayaran", function () {
 });
 
 $("#jumlah_brg_transaksi, #stok, #diskon,#nohp, #kode_barang").on(
-    "keyup",
+    "input",
     function () {
         let value = $(this).val();
         let formated = value.replace(/[^,\d]/g, ""); // Hapus karakter selain angka dan koma
@@ -408,7 +410,7 @@ $(document).on("change", "#filter_transaksi", function (e) {
 });
 
 // fungsi untuk pencarian data langsung
-$(document).on("keyup", "#keyword_transaksi", function (e) {
+$(document).on("input", "#keyword_transaksi", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {

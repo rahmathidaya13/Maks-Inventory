@@ -14,7 +14,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 
 .form-control:disabled,
-.form-control[readonly] {
+.form-control[readonly]:focus-visible {
     background-color: #ececec;
     opacity: 1;
 }
@@ -22,6 +22,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .password {
     cursor: pointer;
 }
+
 .password_cp {
     cursor: pointer;
 }
@@ -39,28 +40,31 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .form-control {
     color: #000000 !important;
-    border: 1px solid #4b4b4b !important;
+    /* border: 1px solid #dadada !important; */
     border-radius: unset !important;
 }
 
-.select2-container--default.select2-container--focus
-    .select2-selection--multiple,
-.select2-container--default.select2-container--focus
-    .select2-selection--single {
-    border-color: #000000 !important;
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0  rgba(0, 123, 255, .25);
 }
+
 
 .select2-container--default .select2-selection--single {
     background-color: #fff;
-    border: 1px solid #000000;
     border-radius: unset;
 }
+
 .alert-default-secondary {
     color: #1d2022;
     background-color: #f0f0f0;
     border-color: #dddddd;
 }
-.alert-default-info{
+
+.alert-default-info {
     color: #0c3a52;
     background-color: #d9edf7;
     border-color: #bce8f1;

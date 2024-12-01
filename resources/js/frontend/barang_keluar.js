@@ -28,7 +28,7 @@ $(document).on("click", "#export_barang_keluar", function (e) {
     $(".modal-title i").addClass("fas fa-download");
 });
 
-$(document).on("keyup", "#keyword_barang_keluar", function (e) {
+$(document).on("input", "#keyword_barang_keluar", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
     if (query === "") {

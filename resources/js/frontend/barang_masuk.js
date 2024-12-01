@@ -258,7 +258,7 @@ $(document).on("change", "#status", function (e) {
 });
 
 // fungsi untuk pencarian data langsung
-$(document).on("keyup", "#keyword_brg_masuk", function (e) {
+$(document).on("input", "#keyword_brg_masuk", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {

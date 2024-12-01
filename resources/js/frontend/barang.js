@@ -56,7 +56,7 @@ $(document).on("click", "#keluar, .close", function (e) {
 });
 
 // live search
-$(document).on("keyup", "#keyword", function (e) {
+$(document).on("input", "#keyword", function (e) {
     e.preventDefault();
     let query = $(this).val();
     if (query === "") {
