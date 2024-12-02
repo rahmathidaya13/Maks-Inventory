@@ -31,23 +31,43 @@ $(document).on("click", "#export_barang_keluar", function (e) {
 $(document).on("input", "#keyword_barang_keluar", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
-    if (query === "") {
-        $("tbody").load(
-            `/barang_keluar/search?query=${encodeURIComponent(query)}`,
-            function (data) {
-                // Kembali ke halaman stok tanpa hasil pencarian
-                window.history.pushState({}, "", "/barang_keluar");
-                $(".pagination").html(data.pagination);
-            }
-        );
-        // location.reload();
+    let token = $('meta[name="csrf-token"]').attr("content");
+
+    let url;
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    if (!query) {
+        url = "/barang_keluar/filter";
     } else {
-        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody").load(
-            `/barang_keluar/search?query=${encodeURIComponent(query)}`,
-            function () {
+        url = "/barang_keluar/search";
+    }
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            itemOutKeyword: encodeURIComponent(query),
+            _token: token,
+            barangKeluarLimit: 10,
+        },
+        success: function (data) {
+            if (!query) {
+                $("tbody#tableBarangKeluar").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang_keluar-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+            } else {
+                $("tbody#tableBarangKeluar").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang_keluar-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+
                 $(
-                    "tbody .nama_barang, .tipe_barang,.no_handphone,.nama_konsumen"
+                    "tbody#tableBarangKeluar .nama_barang, .tipe_barang,.no_handphone,.nama_konsumen"
                 ).each(function () {
                     let text = $(this).text();
                     if (query) {
@@ -63,18 +83,20 @@ $(document).on("input", "#keyword_barang_keluar", function (e) {
                     }
                 });
             }
-        );
-    }
+        },
+    });
 });
 
 $(document).on("change", "#limit_barang_keluar", function (e) {
     e.preventDefault();
     let offset = $(this).val();
+    let token = $('meta[name="csrf-token"]').attr("content");
     $.ajax({
         type: "GET",
         url: "/barang_keluar/filter",
         data: {
             barangKeluarLimit: offset,
+            _token: token,
         },
         success: function (data) {
             $("tbody#tableBarangKeluar").html(data.table);

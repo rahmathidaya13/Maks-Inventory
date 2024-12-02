@@ -18,47 +18,74 @@ class LiveAction extends Controller
     public function searchItem(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+            'itemQuery' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $barang =  BarangModel::where("nama_barang", "like", "%" . $query . "%")
-                ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest()->paginate(10)->appends(['query' => $query]);
+        $query = $request->get('itemQuery', 10);
+        $barang =  BarangModel::where("nama_barang", "like", "%" . $query . "%")
+            ->orWhere("tipe_barang", "like", "%" . $query . "%")
+            ->latest()->paginate(10);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('Barang.partials.table_item', compact('barang'))->render(),
+                'pagination' => view('Barang.partials.paginate', compact('barang'))->render(),
+                'info' => [
+                    'firstItem' => $barang->firstItem(),
+                    'lastItem' => $barang->lastItem(),
+                    'total' => $barang->total()
+                ],
+            ]);
         } else {
             $barang = BarangModel::latest()->paginate(10);
         }
-        return view('Barang.partials.table_item', compact('barang', 'query'));
+        return view('Barang.partials.table_item', compact('barang'));
     }
     public function stokSearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+            'stokKeyword' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
-                ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->orWhere("posisi", "like", "%" . $query . "%")
-                ->latest('tanggal')->paginate(10)->appends(['query' => $query]);
+        $query = $request->get('stokKeyword', 10);
+        $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
+            ->orWhere("tipe_barang", "like", "%" . $query . "%")
+            ->orWhere("posisi", "like", "%" . $query . "%")
+            ->latest('tanggal')->paginate(10);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('StokBarang.table_partial.tableStok', compact('stok'))->render(),
+                'pagination' => view('StokBarang.table_partial.paginate', compact('stok'))->render(),
+                'info' => [
+                    'firstItem' => $stok->firstItem(),
+                    'lastItem' => $stok->lastItem(),
+                    'total' => $stok->total()
+                ],
+            ]);
         } else {
             $stok = StokBarangModel::latest('tanggal')->paginate(10);
         }
-        return view('StokBarang.table_partial.tableStok', compact('stok', 'query'));
+        return view('StokBarang.table_partial.tableStok', compact('stok'));
     }
     public function searchBrgMasuk(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+            'itemInQuery' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
-                ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->latest('tgl_brg_masuk')->paginate(10)->appends(['query' => $query]);
+        $query = $request->get('itemInQuery', 10);
+        $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
+            ->orWhere("tipe_barang", "like", "%" . $query . "%")
+            ->latest('tgl_brg_masuk')->paginate(10);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render(),
+                'pagination' => view('BarangMasuk.partial.paginate', compact('barang_masuk'))->render(),
+                'info' => [
+                    'firstItem' => $barang_masuk->firstItem(),
+                    'lastItem' => $barang_masuk->lastItem(),
+                    'total' => $barang_masuk->total()
+                ],
+            ]);
         } else {
             $barang_masuk = BarangMasukModel::latest('tgl_brg_masuk')->paginate(10);
         }
@@ -67,16 +94,25 @@ class LiveAction extends Controller
     public function transaksiSearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+            'transaksiQuery' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $transaksi =  TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
-                ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->orWhere("nama_konsumen", "like", "%" . $query . "%")
-                ->orWhere("nama_sales", "like", "%" . $query . "%")
-                ->latest('tgl_transaksi')->paginate(10)->appends(['query' => $query]);
+        $query = $request->get('transaksiQuery', 10);
+        $transaksi =  TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
+            ->orWhere("tipe_barang", "like", "%" . $query . "%")
+            ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+            ->orWhere("nama_sales", "like", "%" . $query . "%")
+            ->latest('tgl_transaksi')->paginate(10);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('transaksi.partial.table', compact('transaksi'))->render(),
+                'pagination' => view('transaksi.partial.paginate', compact('transaksi'))->render(),
+                'info' => [
+                    'firstItem' => $transaksi->firstItem(),
+                    'lastItem' => $transaksi->lastItem(),
+                    'total' => $transaksi->total()
+                ],
+            ]);
         } else {
             $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate(10);
         }
@@ -126,16 +162,25 @@ class LiveAction extends Controller
     public function barangKeluarSearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+            'itemOutKeyword' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $barang_keluar =  BarangKeluarModel::where("nama_barang", "like", "%" . $query . "%")
-                ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                ->orWhere("nama_konsumen", "like", "%" . $query . "%")
-                ->orWhere("no_handphone", "like", "%" . $query . "%")
-                ->latest('tanggal')->paginate(10)->appends(['query' => $query]);
+        $query = $request->get('itemOutKeyword', 10);
+        $barang_keluar =  BarangKeluarModel::where("nama_barang", "like", "%" . $query . "%")
+            ->orWhere("tipe_barang", "like", "%" . $query . "%")
+            ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+            ->orWhere("no_handphone", "like", "%" . $query . "%")
+            ->latest('tanggal')->paginate(10);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('Barang_Keluar.partial.table', compact('barang_keluar'))->render(),
+                'pagination' => view('Barang_Keluar.partial.paginate', compact('barang_keluar'))->render(),
+                'info' => [
+                    'firstItem' => $barang_keluar->firstItem(),
+                    'lastItem' => $barang_keluar->lastItem(),
+                    'total' => $barang_keluar->total()
+                ],
+            ]);
         } else {
             $barang_keluar = BarangKeluarModel::latest('tanggal')->paginate(10);
         }

@@ -399,15 +399,17 @@ $(document).on("click", ".pelunasan", function () {
             .prop("readonly", true);
     });
 });
-$("#filter_transaksi").val(10).trigger("change");
+
 $(document).on("change", "#filter_transaksi", function (e) {
     e.preventDefault();
     let offset = $(this).val();
+    let token = $('meta[name="csrf-token"]').attr("content");
     $.ajax({
         type: "GET",
         url: "/transaksi/filter",
         data: {
             transaksiLimit: offset,
+            _token: token,
         },
         success: function (data) {
             $("tbody#tableTransaksi").html(data.table);
@@ -431,8 +433,8 @@ $(document).on("click", ".pagination a", function (e) {
     url.searchParams.set("transaksiLimit", offset);
     // Lakukan AJAX
     $.ajax({
-        url: url.toString(),
         type: "GET",
+        url: url.toString(),
         success: function (data) {
             // Perbarui tabel dan pagination
             $("tbody#tableTransaksi").html(data.table);
@@ -449,23 +451,44 @@ $(document).on("click", ".pagination a", function (e) {
 // fungsi untuk pencarian data langsung
 $(document).on("input", "#keyword_transaksi", function (e) {
     e.preventDefault();
-    let query = $(this).val();
-    if (query === "") {
-        $("tbody").load(
-            `/transaksi/search?query=${encodeURIComponent(query)}`,
-            function () {
-                // Kembali ke halaman stok tanpa hasil pencarian
-                window.history.pushState({}, "", "/transaksi");
-            }
-        );
-        // location.reload();
+    let query = $(this).val().trim();
+    let token = $('meta[name="csrf-token"]').attr("content");
+
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    let url;
+    if (!query) {
+        url = "/transaksi/filter";
     } else {
-        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody").load(
-            "/transaksi/search?query=" + encodeURIComponent(query),
-            function () {
+        url = "/transaksi/search";
+    }
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            transaksiQuery: query,
+            _token: token,
+            transaksiLimit: 10,
+        },
+        success: function (data) {
+            if (!query) {
+                $("tbody#tableTransaksi").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-transaksi-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+            } else {
+                $("tbody#tableTransaksi").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-transaksi-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+
                 $(
-                    "tbody .nama_sales,.kode_transaksi, .nama_konsumen,.nama_barang_transaksi,.tipe_barang_transaksi"
+                    "tbody#tableTransaksi .nama_sales,.kode_transaksi, .nama_konsumen,.nama_barang_transaksi,.tipe_barang_transaksi"
                 ).each(function () {
                     let text = $(this).text();
                     if (query) {
@@ -481,8 +504,8 @@ $(document).on("input", "#keyword_transaksi", function (e) {
                     }
                 });
             }
-        );
-    }
+        },
+    });
 });
 
 $(document).on("click", "#export_transaksi", function (e) {
@@ -549,3 +572,6 @@ $(document).on("change", "#import_transaksi_form", function (e) {
     }
     $("#file-name").text(file.name);
 });
+
+// trigger selected posisi harus dibawah
+$("#filter_transaksi").val(10).trigger("change");

@@ -57,20 +57,42 @@ $(document).on("click", "#keluar, .close", function (e) {
 // live search
 $(document).on("input", "#keyword", function (e) {
     e.preventDefault();
-    let query = $(this).val();
-    if (query === "") {
-        $("tbody#tableBarang").load(
-            `/item/search?query=${encodeURIComponent(query)}`,
-            function () {
-                // Kembali ke halaman stok tanpa hasil pencarian
-                window.history.pushState({}, "", "/list-item");
-            }
-        );
+    let query = $(this).val().trim();
+    let token = $('meta[name="csrf-token"]').attr("content");
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    let url;
+    if (!query) {
+        url = "/item/offset";
     } else {
-        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody#tableBarang").load(
-            "/item/search?query=" + encodeURIComponent(query),
-            function () {
+        url = "/item/search";
+    }
+    // ambil data dan load ke dalam html dengan ajax
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: {
+            itemQuery: query,
+            _token: token,
+            barangLimit: 10,
+        },
+        success: function (data) {
+            if (!query) {
+                $("tbody#tableBarang").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+            } else {
+                $("tbody#tableBarang").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+
                 $("tbody#tableBarang .nama-barang, .tipe-barang").each(
                     function () {
                         let text = $(this).text();
@@ -88,8 +110,8 @@ $(document).on("input", "#keyword", function (e) {
                     }
                 );
             }
-        );
-    }
+        },
+    });
 });
 
 // button edit
@@ -117,7 +139,8 @@ $(document).on("click", ".ubah", function (e) {
 });
 
 // hapuss button
-$(document).on("click", ".hapus", function () {
+$(document).on("click", ".hapus", function (e) {
+    e.preventDefault();
     let id = $(this).data("id");
     let getName = $(this).data("name-type");
     let form = $("#delete_item_" + id);
@@ -196,16 +219,17 @@ $(document).on("click", "#delete_all", function (e) {
     });
 });
 
-// set limit row
-
+// atur limit halaman dan sesuaikan dengan pagination
 $(document).on("change", "#offset", function (e) {
     e.preventDefault();
     let offset = $(this).val();
+    let token = $('meta[name="csrf-token"]').attr("content");
     $.ajax({
         type: "GET",
         url: "/item/offset",
         data: {
             barangLimit: offset,
+            _token: token,
         },
         success: function (data) {
             $("tbody#tableBarang").html(data.table);
@@ -218,7 +242,7 @@ $(document).on("change", "#offset", function (e) {
         },
     });
 });
-// end set limit
+
 $(document).on("click", ".pagination a", function (e) {
     e.preventDefault(); // Cegah reload halaman
     let url = $(this).attr("href"); // Ambil URL dari pagination link
@@ -243,6 +267,7 @@ $(document).on("click", ".pagination a", function (e) {
         },
     });
 });
+// end atur halaman dan pagination
 
 // preview file imports
 $(document).on("change", "#imports", function (e) {
@@ -259,7 +284,7 @@ $(document).on("change", "#imports", function (e) {
 });
 
 // jika dipilih semua maka akan menandai checkbox
-$(document).on("click", "#selectAll", function () {
+$(document).on("click", "#selectAll", function (e) {
     $(".selected").prop("checked", $(this).prop("checked"));
 });
 

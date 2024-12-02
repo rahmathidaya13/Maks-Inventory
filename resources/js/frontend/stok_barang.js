@@ -286,7 +286,7 @@ $(document).on("click", ".pagination a", function (e) {
     let offset = $("#filter_stok").val(); // Ambil nilai offset dari dropdown
     // Tambahkan parameter offset ke URL
     url = new URL(url);
-    url.searchParams.set("stokLimit", offset);
+    url.searchParams.set("stokLimit", encodeURIComponent(offset));
     // Lakukan AJAX
     $.ajax({
         url: url.toString(),
@@ -308,21 +308,39 @@ $(document).on("click", ".pagination a", function (e) {
 $(document).on("input", "#keyword_stok", function (e) {
     e.preventDefault();
     let query = $(this).val().trim();
-    if (query === "") {
-        $("tbody").load(
-            "/stok/search?query=" + encodeURIComponent(query),
-            function (data) {
-                // Kembali ke halaman stok tanpa hasil pencarian
-                window.history.pushState({}, "", "/stok");
-                $(".pagination").html(data.pagination);
-            }
-        );
-        // location.reload();
+    let token = $('meta[name="csrf-token"]').attr("content");
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    let url;
+    if (!query) {
+        url = "/stok/filter";
     } else {
-        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody").load(
-            "/stok/search?query=" + encodeURIComponent(query),
-            function () {
+        url = "/stok/search";
+    }
+    $.ajax({
+        method: "GET",
+        url: url,
+        data: {
+            stokKeyword: encodeURIComponent(query),
+            _token: token,
+            stokLimit: 10,
+        },
+        success: function (data) {
+            if (!query) {
+                $("tbody#tableStokBarang").html(data.table);
+                $(".pagination-wrapper-stok").html(data.pagination);
+                $("#info-stok-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+            } else {
+                $("tbody#tableStokBarang").html(data.table);
+                $(".pagination-wrapper-stok").html(data.pagination);
+                $("#info-stok-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
                 $("tbody .posisi_barang,.nama_brg_stok, .tipe_brg_stok").each(
                     function () {
                         let text = $(this).text();
@@ -342,8 +360,8 @@ $(document).on("input", "#keyword_stok", function (e) {
                     }
                 );
             }
-        );
-    }
+        },
+    });
 });
 
 $(document).on("click", "#set_filter_stok", function (e) {
@@ -411,6 +429,4 @@ $(document).on("click", "#import_stok", function (e) {
 });
 
 // trigger filter
-$("#filter_stok")
-    .val(10)
-    .trigger("change");
+$("#filter_stok").val(10).trigger("change");

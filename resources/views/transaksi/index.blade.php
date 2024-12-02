@@ -29,7 +29,7 @@
                 <span class="mr-2">Tampilkan hasil: </span>
                 <div class="input-group input-group-sm" style="width: 75px">
                     <select class="form-control form-control-sm" name="filter_transaksi" id="filter_transaksi">
-                        <option value="10">10</option>
+                        <option value="10" selected>10</option>
                         <option value="20">20</option>
                         <option value="50">50</option>
                         <option value="100">100</option>

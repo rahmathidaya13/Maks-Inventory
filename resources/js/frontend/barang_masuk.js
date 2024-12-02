@@ -261,21 +261,44 @@ $(document).on("change", "#status", function (e) {
 $(document).on("input", "#keyword_brg_masuk", function (e) {
     e.preventDefault();
     let query = $(this).val();
-    if (query === "") {
-        $("tbody").load(
-            `/barang_masuk/search?query=${encodeURIComponent(query)}`,
-            function () {
-                // Kembali ke halaman stok tanpa hasil pencarian
-                window.history.pushState({}, "", "/barang_masuk");
-            }
-        );
-        // location.reload();
+    let token = $('meta[name="csrf-token"]').attr("content");
+    let url;
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    if (!query) {
+        url = "/barang_masuk/filter";
     } else {
-        // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-        $("tbody").load(
-            "/barang_masuk/search?query=" + encodeURIComponent(query),
-            function () {
-                $("tbody .nama_brg_masuk, .tipe_brg_masuk").each(function () {
+        url = "/barang_masuk/search";
+    }
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            itemInQuery: query,
+            _token: token,
+            barangMasukLimit: 10,
+        },
+        success: function (data) {
+            if (!query) {
+                $("tbody#tableBarangMasuk").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang_masuk-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+            } else {
+                $("tbody#tableBarangMasuk").html(data.table);
+                $(".pagination-wrapper").html(data.pagination);
+                $("#info-barang_masuk-page").html(
+                    `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                        data.info.lastItem ?? 0
+                    }</b> dari <b>${data.info.total ?? 0}</b> item`
+                );
+
+                $(
+                    "tbody#tableBarangMasuk .nama_brg_masuk, .tipe_brg_masuk"
+                ).each(function () {
                     let text = $(this).text();
                     if (query) {
                         // Ganti teks yang cocok dengan teks yang disorot
@@ -290,19 +313,21 @@ $(document).on("input", "#keyword_brg_masuk", function (e) {
                     }
                 });
             }
-        );
-    }
+        },
+    });
 });
 
 // filter data
 
 $(document).on("change", "#filter_brg_masuk", function () {
     let offset = $(this).val();
+    let token = $('meta[name="csrf-token"]').attr("content");
     $.ajax({
         type: "GET",
         url: "/barang_masuk/filter",
         data: {
             barangMasukLimit: offset,
+            _token: token,
         },
         success: function (data) {
             $("tbody#tableBarangMasuk").html(data.table);
