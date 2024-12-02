@@ -50,7 +50,7 @@
                         Hapus</button>
                 </div>
                 <div class="card-body table-responsive p-0">
-                    <table class="table text-nowrap table-borderless table-striped">
+                    <table id="myTable" class="table text-nowrap table-borderless table-striped">
                         <thead class="table-dark">
                             <tr>
                                 <th>
@@ -69,18 +69,15 @@
                         <tbody id="tableBarang">
                             @include('Barang.partials.table_item', ['barang' => $barang])
                         </tbody>
-
                     </table>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6 d-flex justify-content-start p-3">
-                        <span>
-                            Menampilkan <b>{{ $barang->firstItem() }}</b> sampai <b>{{ $barang->lastItem() }}</b> dari
-                            <b>{{ $barang->total() }}</b> item
-                        </span>
+                        @include('Barang.partials.informasi', ['barang' => $barang])
                     </div>
                     <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
-                        {{ $barang->links() }}
+                        {{-- {{ $barang->links() }} --}}
+                        @include('Barang.partials.paginate', ['barang' => $barang])
                     </div>
                 </div>
             </div>

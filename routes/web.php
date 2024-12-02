@@ -32,6 +32,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/list-item/store', 'store')->name('list.store');
         Route::put('/list-item/update/{id}', 'update')->name('list.update');
         Route::get('/list-item/show/{id}', 'show')->name('list.show');
+        Route::get('/list-item/show', 'showAll')->name('listAll.show');
         Route::delete('/list-item/delete/{id}', 'destroy')->name('list.delete');
     });
     Route::controller(BarangMasuk::class)->group(function () {

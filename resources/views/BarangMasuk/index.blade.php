@@ -97,19 +97,17 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBarangMasuk">
                             @include('BarangMasuk.partial.table_item', ['barang_masuk' => $barang_masuk])
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-between p-3">
-                    <div>
-                        Menampilkan <b>{{ $barang_masuk->firstItem() }}</b> sampai
-                        <b>{{ $barang_masuk->lastItem() }}</b> dari
-                        <b>{{ $barang_masuk->total() }}</b> item
+                <div class="row">
+                    <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                        @include('BarangMasuk.partial.informasi', ['barang_masuk' => $barang_masuk])
                     </div>
-                    <div>
-                        {{ $barang_masuk->links() }}
+                    <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
+                        @include('BarangMasuk.partial.paginate', ['barang_masuk' => $barang_masuk])
                     </div>
                 </div>
             </div>

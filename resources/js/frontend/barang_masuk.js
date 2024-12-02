@@ -295,14 +295,52 @@ $(document).on("input", "#keyword_brg_masuk", function (e) {
 });
 
 // filter data
+
 $(document).on("change", "#filter_brg_masuk", function () {
-    let limit = $(this).val();
-    $("tbody").load("/barang_masuk/filter?limit=" + limit, function (data) {
-        $(this).html(data.table);
-        $(".pagination").html(data.pagination);
+    let offset = $(this).val();
+    $.ajax({
+        type: "GET",
+        url: "/barang_masuk/filter",
+        data: {
+            barangMasukLimit: offset,
+        },
+        success: function (data) {
+            $("tbody#tableBarangMasuk").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang_masuk-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
     });
 });
 // end filter data
+
+$(document).on("click", ".pagination a", function (e) {
+    e.preventDefault(); // Cegah reload halaman
+    let url = $(this).attr("href"); // Ambil URL dari pagination link
+    let offset = $("#filter_brg_masuk").val(); // Ambil nilai offset dari dropdown
+
+    // Tambahkan parameter offset ke URL
+    url = new URL(url);
+    url.searchParams.set("barangMasukLimit", offset);
+    // Lakukan AJAX
+    $.ajax({
+        url: url.toString(),
+        type: "GET",
+        success: function (data) {
+            // Perbarui tabel dan pagination
+            $("tbody#tableBarangMasuk").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang_masuk-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
+});
 
 // preview file imports
 $(document).on("change", "#import_brg_masuk", function (e) {
@@ -391,3 +429,6 @@ $(document).on("click", "#import_item_list", function (e) {
     $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-file-upload");
 });
+
+// trigger filter
+$("#filter_brg_masuk").val(10).trigger("change");

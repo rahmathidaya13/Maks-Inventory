@@ -114,10 +114,6 @@ $(document).on("click", ".ubah", function (e) {
         $("#tipe_brg").val(data.result.tipe_barang);
         $("#harga_brg").val(formatCurrency(data.result.harga_barang));
     });
-
-    $.getJSON(`/list-item/update/${id}`, function (data) {
-        console.log(data.success);
-    });
 });
 
 // hapuss button
@@ -201,18 +197,52 @@ $(document).on("click", "#delete_all", function (e) {
 });
 
 // set limit row
+
 $(document).on("change", "#offset", function (e) {
     e.preventDefault();
     let offset = $(this).val();
-    $("tbody#tableBarang").load(
-        "/item/offset?offset=" + offset,
-        function (data) {
-            $(this).html(data.table);
-            $(".pagination").html(data.pagination);
-        }
-    );
+    $.ajax({
+        type: "GET",
+        url: "/item/offset",
+        data: {
+            barangLimit: offset,
+        },
+        success: function (data) {
+            $("tbody#tableBarang").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
 });
 // end set limit
+$(document).on("click", ".pagination a", function (e) {
+    e.preventDefault(); // Cegah reload halaman
+    let url = $(this).attr("href"); // Ambil URL dari pagination link
+    let offset = $("#offset").val(); // Ambil nilai offset dari dropdown
+
+    // Tambahkan parameter offset ke URL
+    url = new URL(url);
+    url.searchParams.set("barangLimit", offset);
+    // Lakukan AJAX
+    $.ajax({
+        url: url.toString(),
+        type: "GET",
+        success: function (data) {
+            // Perbarui tabel dan pagination
+            $("tbody#tableBarang").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
+});
 
 // preview file imports
 $(document).on("change", "#imports", function (e) {
@@ -259,3 +289,6 @@ $(document).on("submit", "#form_item", function () {
     $("#harga_brg").val(unFormated);
 });
 // end formated value
+
+// trigger filter set value change
+$("#offset").val(10).trigger("change");

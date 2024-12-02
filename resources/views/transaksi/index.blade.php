@@ -86,20 +86,18 @@
                         <th class="text-center align-middle">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableTransaksi">
                     @include('transaksi.partial.table', ['transaksi' => $transaksi])
                 </tbody>
 
             </table>
         </div>
-        <div class="d-flex justify-content-between p-3">
-            <div>
-                Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai
-                <b>{{ $transaksi->lastItem() }}</b> dari
-                <b>{{ $transaksi->total() }}</b> item
+        <div class="row">
+            <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                @include('transaksi.partial.informasi', ['transaksi' => $transaksi])
             </div>
-            <div>
-                {{ $transaksi->links() }}
+            <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
+                @include('transaksi.partial.paginate', ['transaksi' => $transaksi])
             </div>
         </div>
     </div>

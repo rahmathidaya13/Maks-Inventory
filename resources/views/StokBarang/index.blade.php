@@ -44,7 +44,7 @@
                         <span class="mr-2">Tampilkan hasil: </span>
                         <div class="input-group input-group-sm" style="width: 75px">
                             <select class="form-control form-control-sm" name="filter_stok" id="filter_stok">
-                                <option value="10">10</option>
+                                <option value="10" selected>10</option>
                                 <option value="20">20</option>
                                 <option value="50">50</option>
                                 <option value="100">100</option>
@@ -97,21 +97,17 @@
                                 <th class="align-middle">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableStokBarang">
                             @include('StokBarang.table_partial.tableStok', ['stok' => $stok])
                         </tbody>
                     </table>
                 </div>
                 <div class="row">
-                    <div class="col-6 col-md-6 d-flex justify-content-start p-3">
-                        <span>
-                            Menampilkan <b>{{ $stok->firstItem() }}</b> sampai
-                            <b>{{ $stok->lastItem() }}</b> dari
-                            <b>{{ $stok->total() }}</b> item
-                        </span>
+                    <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                        @include('StokBarang.table_partial.informasi', ['stok' => $stok])
                     </div>
                     <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
-                        {{ $stok->links() }}
+                        @include('StokBarang.table_partial.paginate', ['stok' => $stok])
                     </div>
                 </div>
             </div>

@@ -16,6 +16,8 @@
 <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements

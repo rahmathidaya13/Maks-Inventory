@@ -399,13 +399,50 @@ $(document).on("click", ".pelunasan", function () {
             .prop("readonly", true);
     });
 });
-
+$("#filter_transaksi").val(10).trigger("change");
 $(document).on("change", "#filter_transaksi", function (e) {
     e.preventDefault();
     let offset = $(this).val();
-    $("tbody").load("/transaksi/filter?offset=" + offset, function (data) {
-        $(this).html(data.table);
-        $(".pagination").html(data.pagination);
+    $.ajax({
+        type: "GET",
+        url: "/transaksi/filter",
+        data: {
+            transaksiLimit: offset,
+        },
+        success: function (data) {
+            $("tbody#tableTransaksi").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-transaksi-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
+});
+
+$(document).on("click", ".pagination a", function (e) {
+    e.preventDefault(); // Cegah reload halaman
+    let url = $(this).attr("href"); // Ambil URL dari pagination link
+    let offset = $("#filter_transaksi").val(); // Ambil nilai offset dari dropdown
+
+    // Tambahkan parameter offset ke URL
+    url = new URL(url);
+    url.searchParams.set("transaksiLimit", offset);
+    // Lakukan AJAX
+    $.ajax({
+        url: url.toString(),
+        type: "GET",
+        success: function (data) {
+            // Perbarui tabel dan pagination
+            $("tbody#tableTransaksi").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-transaksi-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
     });
 });
 

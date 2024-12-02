@@ -46,7 +46,9 @@ $(document).on("input", "#keyword_barang_keluar", function (e) {
         $("tbody").load(
             `/barang_keluar/search?query=${encodeURIComponent(query)}`,
             function () {
-                $("tbody .nama_barang, .tipe_barang,.no_handphone,.nama_konsumen").each(function () {
+                $(
+                    "tbody .nama_barang, .tipe_barang,.no_handphone,.nama_konsumen"
+                ).each(function () {
                     let text = $(this).text();
                     if (query) {
                         // Ganti teks yang cocok dengan teks yang disorot
@@ -68,8 +70,46 @@ $(document).on("input", "#keyword_barang_keluar", function (e) {
 $(document).on("change", "#limit_barang_keluar", function (e) {
     e.preventDefault();
     let offset = $(this).val();
-    $("tbody").load("/barang_keluar/filter?offset=" + offset, function (data) {
-        $(this).html(data.table);
-        $(".pagination").html(data.pagination);
+    $.ajax({
+        type: "GET",
+        url: "/barang_keluar/filter",
+        data: {
+            barangKeluarLimit: offset,
+        },
+        success: function (data) {
+            $("tbody#tableBarangKeluar").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang_keluar-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
     });
 });
+
+$(document).on("click", ".pagination a", function (e) {
+    e.preventDefault(); // Cegah reload halaman
+    let url = $(this).attr("href"); // Ambil URL dari pagination link
+    let offset = $("#limit_barang_keluar").val(); // Ambil nilai offset dari dropdown
+
+    // Tambahkan parameter offset ke URL
+    url = new URL(url);
+    url.searchParams.set("barangKeluarLimit", offset);
+    // Lakukan AJAX
+    $.ajax({
+        url: url.toString(),
+        type: "GET",
+        success: function (data) {
+            // Perbarui tabel dan pagination
+            $("tbody#tableBarangKeluar").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-barang_keluar-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
+});
+$("#limit_barang_keluar").val(10).trigger("change");

@@ -74,19 +74,17 @@
                                 <th>Posisi Barang</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tableBarangKeluar">
                             @include('Barang_Keluar.partial.table', ['barang_keluar' => $barang_keluar])
                         </tbody>
                     </table>
                 </div>
-                <div class="d-flex justify-content-between p-3">
-                    <div>
-                        Menampilkan <b>{{ $barang_keluar->firstItem() }}</b> sampai
-                        <b>{{ $barang_keluar->lastItem() }}</b> dari
-                        <b>{{ $barang_keluar->total() }}</b> item
+                <div class="row">
+                    <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                        @include('Barang_Keluar.partial.informasi', ['barang_keluar' => $barang_keluar])
                     </div>
-                    <div>
-                        {{ $barang_keluar->links() }}
+                    <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
+                        @include('Barang_Keluar.partial.paginate',['barang_keluar' => $barang_keluar])
                     </div>
                 </div>
             </div>

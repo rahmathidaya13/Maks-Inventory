@@ -63,8 +63,15 @@ class BarangController extends Controller
             [
                 'Content-Type' => 'application/json',
                 'X-Content-Type-Options' => 'nosniff',
-            ],
-            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK
+            ]
+        );
+    }
+    public function showAll()
+    {
+        $barang = BarangModel::all();
+        return response()->json(
+            ['data' => $barang],
+            200,
         );
     }
 

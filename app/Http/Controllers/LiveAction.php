@@ -144,37 +144,71 @@ class LiveAction extends Controller
 
     public function filterData(Request $request)
     {
-        $offset = $request->get('offset');
+        $offset = $request->get('barangLimit', 10);
         $barang = BarangModel::latest()->paginate($offset);
         if ($request->ajax()) {
-            return view('Barang.partials.table_item', compact('barang'))->render();
+            // return view('Barang.partials.table_item', compact('barang'))->render();
+            return response()->json([
+                'table' => view('Barang.partials.table_item', compact('barang'))->render(),
+                'pagination' => view('Barang.partials.paginate', compact('barang'))->render(),
+                'info' => [
+                    'firstItem' => $barang->firstItem(),
+                    'lastItem' => $barang->lastItem(),
+                    'total' => $barang->total()
+                ],
+            ]);
         }
         return view('Barang.index', compact('barang'));
     }
     public function filterBrgMasuk(Request $request)
     {
-        $offset = $request->get('limit');
-        $barang_masuk = BarangMasukModel::latest()->paginate($offset);
+        $offset = $request->get('barangMasukLimit', 10);
+        $barang_masuk = BarangMasukModel::latest('tgl_brg_masuk')->paginate($offset);
         if ($request->ajax()) {
-            return view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render();
+            return response()->json([
+                'table' => view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render(),
+                'pagination' => view('BarangMasuk.partial.paginate', compact('barang_masuk'))->render(),
+                'info' => [
+                    'firstItem' => $barang_masuk->firstItem(),
+                    'lastItem' => $barang_masuk->lastItem(),
+                    'total' => $barang_masuk->total()
+                ],
+            ]);
         }
         return view('BarangMasuk.index', compact('barang_masuk'));
     }
     public function transaksiFilter(Request $request)
     {
-        $offset = $request->get('offset');
+        $offset = $request->get('transaksiLimit', 10);
         $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate($offset);
         if ($request->ajax()) {
-            return view('transaksi.partial.table', compact('transaksi'))->render();
+            // return view('transaksi.partial.table', compact('transaksi'))->render();
+            return response()->json([
+                'table' => view('transaksi.partial.table', compact('transaksi'))->render(),
+                'pagination' => view('transaksi.partial.paginate', compact('transaksi'))->render(),
+                'info' => [
+                    'firstItem' => $transaksi->firstItem(),
+                    'lastItem' => $transaksi->lastItem(),
+                    'total' => $transaksi->total()
+                ],
+            ]);
         }
         return view('transaksi.index', compact('transaksi'));
     }
     public function barangKeluarFilter(Request $request)
     {
-        $offset = $request->get('offset');
+        $offset = $request->get('barangKeluarLimit', 10);
         $barang_keluar = BarangKeluarModel::latest('tanggal')->paginate($offset);
         if ($request->ajax()) {
-            return view('Barang_Keluar.partial.table', compact('barang_keluar'))->render();
+            return response()->json([
+                'table' => view('Barang_Keluar.partial.table', compact('barang_keluar'))->render(),
+                'pagination' => view('Barang_Keluar.partial.paginate', compact('barang_keluar'))->render(),
+                'info' => [
+                    'firstItem' => $barang_keluar->firstItem(),
+                    'lastItem' => $barang_keluar->lastItem(),
+                    'total' => $barang_keluar->total()
+                ],
+            ]);
         }
         return view('Barang_Keluar.index', compact('barang_keluar'));
     }
@@ -219,10 +253,18 @@ class LiveAction extends Controller
 
     public function stokFilter(Request $request)
     {
-        $offset = $request->get('offset');
+        $offset = $request->get('stokLimit', 10);
         $stok = StokBarangModel::latest('tanggal')->paginate($offset);
         if ($request->ajax()) {
-            return view('StokBarang.table_partial.tableStok', compact('stok'))->render();
+            return response()->json([
+                'table' => view('StokBarang.table_partial.tableStok', compact('stok'))->render(),
+                'pagination' => view('StokBarang.table_partial.paginate', compact('stok'))->render(),
+                'info' => [
+                    'firstItem' => $stok->firstItem(),
+                    'lastItem' => $stok->lastItem(),
+                    'total' => $stok->total()
+                ],
+            ]);
         }
         return view('StokBarang.index', compact('stok'));
     }

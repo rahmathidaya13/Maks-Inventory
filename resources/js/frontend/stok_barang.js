@@ -263,9 +263,44 @@ $(document).on("change", "#import_stok_form", function (e) {
 $(document).on("change", "#filter_stok", function (e) {
     e.preventDefault();
     let offset = $(this).val();
-    $("tbody").load("/stok/filter?offset=" + offset, function (data) {
-        $(this).html(data.table);
-        $(".pagination").html(data.pagination);
+    $.ajax({
+        type: "GET",
+        url: "/stok/filter",
+        data: {
+            stokLimit: offset,
+        },
+        success: function (data) {
+            $("tbody#tableStokBarang").html(data.table);
+            $(".pagination-wrapper-stok").html(data.pagination);
+            $("#info-stok-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
+});
+$(document).on("click", ".pagination a", function (e) {
+    e.preventDefault(); // Cegah reload halaman
+    let url = $(this).attr("href"); // Ambil URL dari pagination link
+    let offset = $("#filter_stok").val(); // Ambil nilai offset dari dropdown
+    // Tambahkan parameter offset ke URL
+    url = new URL(url);
+    url.searchParams.set("stokLimit", offset);
+    // Lakukan AJAX
+    $.ajax({
+        url: url.toString(),
+        type: "GET",
+        success: function (data) {
+            // Perbarui tabel dan pagination
+            $("tbody#tableStokBarang").html(data.table);
+            $(".pagination-wrapper-stok").html(data.pagination);
+            $("#info-stok-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
     });
 });
 
@@ -375,4 +410,7 @@ $(document).on("click", "#import_stok", function (e) {
     $(".modal-title i").addClass("fas fa-download");
 });
 
-// export berdasarkan posisi barang
+// trigger filter
+$("#filter_stok")
+    .val(10)
+    .trigger("change");
