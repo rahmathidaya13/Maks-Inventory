@@ -90,7 +90,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="act_keluar" type="button" class="btn btn-default" data-dismiss="modal">keluar</button>
+                <button id="act_keluar" type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                 <button disabled onclick="event.preventDefault();document.getElementById('barangmasuk').submit();"
                     id="aksi_brg_masuk" type="button" class="btn btn-primary simpan_barang_masuk"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>

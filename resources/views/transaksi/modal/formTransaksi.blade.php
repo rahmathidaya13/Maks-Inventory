@@ -180,7 +180,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="keluar_transaksi" type="button" class="btn btn-default"
-                    data-dismiss="modal">keluar</button>
+                    data-dismiss="modal">Keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('form_transaksi').submit();"
                     id="transaksi_aksi" type="button" class="btn btn-primary simpan_transaksi"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>

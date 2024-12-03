@@ -78,7 +78,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="keluar_pelunasan" type="button" class="btn btn-default"
-                    data-dismiss="modal">keluar</button>
+                    data-dismiss="modal">Keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('pelunasan').submit();"
                     id="aksi_pelunasan" type="button" class="btn btn-primary"><i class="fas fa-edit"></i>
                     <span>Ubah</span></button>

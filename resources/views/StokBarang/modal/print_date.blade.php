@@ -88,7 +88,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="act_filter_keluar_stok" type="button" class="btn btn-default"
-                    data-dismiss="modal">Close</button>
+                    data-dismiss="modal">Keluar</button>
                 <a class="btn btn-primary" href="{{ route('export.stok.all') }}"><i class="fas fa-download"></i>
                     Unduh semua</a>
             </div>

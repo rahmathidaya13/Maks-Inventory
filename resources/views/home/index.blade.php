@@ -115,8 +115,8 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th>Top</th>
-                                    <th>Nama Barang</th>
-                                    <th class="text-center">Jumlah</th>
+                                    <th>Barang</th>
+                                    <th class="text-center">Total</th>
                                 </tr>
                             </thead>
                             <tbody id="top_product">

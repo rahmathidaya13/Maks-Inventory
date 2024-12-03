@@ -24,7 +24,7 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="act_filter_close_transaksi" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="act_filter_close_transaksi" type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('filter_date_transaksi').submit();" id="transaksi_save"
                     type="button" class="btn btn-primary"><i class="fas fa-file-export"></i> <span>Export</span></button>
             </div>
