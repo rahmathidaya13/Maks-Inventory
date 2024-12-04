@@ -23,6 +23,15 @@ function validateForm(form, button) {
     });
     $(button).prop("disabled", !isValid);
 }
+function Currency(angka) {
+    return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0,
+    })
+        .format(angka)
+        .replace(/Rp\s/g, "");
+}
 $("#form_item").on("input", function () {
     validateForm("#form_item input", ".simpan_barang");
 });
@@ -134,7 +143,7 @@ $(document).on("click", ".ubah", function (e) {
     $.getJSON("/list-item/show/" + id, function (data, textStatus, jqXHR) {
         $("#nama_brg").val(data.result.nama_barang);
         $("#tipe_brg").val(data.result.tipe_barang);
-        $("#harga_brg").val(formatCurrency(data.result.harga_barang));
+        $("#harga_brg").val(Currency(data.result.harga_barang));
     });
 });
 

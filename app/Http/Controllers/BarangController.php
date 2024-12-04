@@ -48,7 +48,7 @@ class BarangController extends Controller
         $barang->tipe_barang = $request->input('tipe_brg');
         $barang->harga_barang = $convert;
         $barang->save();
-        return back()->with('success', 'Barang Berhasil Ditambahkan');
+        return back()->with('success', 'Penambahan data ' . $barang->nama_barang . " - " . $barang->tipe_barang . " " . 'Berhasil Ditambahkan');
     }
 
     /**
@@ -110,7 +110,7 @@ class BarangController extends Controller
         $barang->tipe_barang = $request->input('tipe_brg');
         $barang->harga_barang = floatval($replace);
         $barang->update();
-        return back()->with('success', 'Data Barang Berhasil Diubah');
+        return back()->with('success', 'Perubahan data ' . $barang->nama_barang . "-" . $barang->tipe_barang . " " . 'Berhasil');
     }
 
     /**
