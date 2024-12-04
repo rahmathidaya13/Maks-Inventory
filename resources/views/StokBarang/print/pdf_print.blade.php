@@ -120,6 +120,32 @@
         border-bottom: 2px solid #000;
         margin-bottom: 20px;
     }
+
+    /* tanda tangan dan validasi */
+    .signature-container {
+        text-align: right;
+        margin-top: 50px;
+    }
+
+    .date {
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
+    .signature {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-align: right;
+    }
+
+    .username {
+        margin-top: 60px;
+        border-top: 1px solid black;
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+    }
 </style>
 <div class="header">
     <img src="{{ public_path('assets/icon/logo.jpg') }}" alt="">
@@ -169,3 +195,10 @@
     </tbody>
 </table>
 <div class="divider"></div>
+{{-- validasi dan tanggal --}}
+<div class="signature-container">
+    <div class="date">Pekanbaru, {{ \Carbon\Carbon::now()->format('d-F-y') }}</div>
+    <div class="signature">
+        <div class="username">{{ ucwords(Auth::user()->name) }}</div>
+    </div>
+</div>

@@ -15,6 +15,7 @@
         <td class="align-middle ">{{ $startNumbering + $loop->iteration }}</td>
         <td class="align-middle">{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->translatedFormat('d M Y') }}</td>
         <td class="align-middle">{{ $data->no_warehouse }}</td>
+        <td class="align-middle">{{ $data->kode_barang }}</td>
         <td class="nama_brg_masuk align-middle">{{ $data->nama_barang }}</td>
         <td class="tipe_brg_masuk align-middle ">{{ $data->tipe_barang }}</td>
         <td class="align-middle ">{{ $data->asal_gudang }}</td>

@@ -87,6 +87,7 @@
                                 <th>No</th>
                                 <th>Tgl. Barang Masuk</th>
                                 <th>No. Warehouse</th>
+                                <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
                                 <th>Asal Gudang</th>

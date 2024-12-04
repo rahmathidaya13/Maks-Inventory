@@ -17,6 +17,7 @@
         <tr>
             <th>Tanggal Barang Masuk</th>
             <th>No Warehouse</th>
+            <th>Kode Barang</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Asal Gudang</th>
@@ -31,6 +32,7 @@
             <tr>
                 <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y') }}</td>
                 <td>{{ $data->no_warehouse }}</td>
+                <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->asal_gudang }}</td>

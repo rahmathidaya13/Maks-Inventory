@@ -37,6 +37,7 @@ class BarangMasuk extends Controller
             [
                 'tgl_brg_masuk' => 'required | date',
                 'no_warehouse' => 'required|string|max:50',
+                'kode_barang_brg_masuk' => 'required|string|max:50',
                 'nama_barang' => 'required|string|max:150',
                 'tipe_barang_masuk' => 'required | string | max:150',
                 'asal_gdg' => 'required | string | max:150',
@@ -49,6 +50,8 @@ class BarangMasuk extends Controller
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
                 'tgl_brg_masuk.date' => 'Tanggal barang masuk harus berupa format tanggal yang valid.',
                 'no_warehouse.required' => 'Nomor warehouse wajib diisi.',
+                'kode_barang_brg_masuk.required' => 'Kode barang wajib diisi',
+                'kode_barang_brg_masuk.max' => 'Kode barang tidak boelh lebih dari 50 karakter',
                 'no_warehouse.max' => 'Nomor warehouse tidak boleh lebih dari 50 karakter.',
                 'nama_barang.required' => 'Nama barang wajib diisi.',
                 'nama_barang.max' => 'Nama barang tidak boleh lebih dari 150 karakter.',
@@ -69,6 +72,7 @@ class BarangMasuk extends Controller
         $barangMasuk->id_barang = $request->input('id_barang');
         $barangMasuk->tgl_brg_masuk = $request->input('tgl_brg_masuk');
         $barangMasuk->no_warehouse = $request->input('no_warehouse');
+        $barangMasuk->kode_barang = $request->input('kode_barang_brg_masuk');
         $barangMasuk->nama_barang = $request->input('nama_barang');
         $barangMasuk->tipe_barang = $request->input('tipe_barang_masuk');
         $barangMasuk->asal_gudang = $request->input('asal_gdg');
@@ -163,6 +167,7 @@ class BarangMasuk extends Controller
             [
                 'tgl_brg_masuk' => 'required | date',
                 'no_warehouse' => 'required|string|max:50',
+                'kode_barang_brg_masuk' => 'required|string|max:50',
                 'nama_barang' => 'required|string|max:150',
                 'tipe_barang_masuk' => 'required | string | max:150',
                 'asal_gdg' => 'required | string | max:150',
@@ -175,6 +180,8 @@ class BarangMasuk extends Controller
                 'tgl_brg_masuk.required' => 'Tanggal barang masuk wajib diisi.',
                 'tgl_brg_masuk.date' => 'Tanggal barang masuk harus berupa format tanggal yang valid.',
                 'no_warehouse.required' => 'Nomor warehouse wajib diisi.',
+                'kode_barang_brg_masuk.required' => 'Kode barang wajib diisi.',
+                'kode_barang_brg_masuk.max' => 'Kode barang tidak boleh lebih dari 50 karakter.',
                 'no_warehouse.max' => 'Nomor warehouse tidak boleh lebih dari 50 karakter.',
                 'nama_barang.required' => 'Nama barang wajib diisi.',
                 'nama_barang.max' => 'Nama barang tidak boleh lebih dari 150 karakter.',
@@ -199,6 +206,7 @@ class BarangMasuk extends Controller
         $barangMasuk->id_barang = $request->input('id_barang');
         $barangMasuk->tgl_brg_masuk = $request->input('tgl_brg_masuk');
         $barangMasuk->no_warehouse = $request->input('no_warehouse');
+        $barangMasuk->kode_barang = $request->input('kode_barang_brg_masuk');
         $barangMasuk->nama_barang = $request->input('nama_barang');
         $barangMasuk->tipe_barang = $request->input('tipe_barang_masuk');
         $barangMasuk->asal_gudang = $request->input('asal_gdg');

@@ -24,6 +24,13 @@
                                 value="{{ old('no_warehouse') }}">
                         </div>
                         <div class="form-group col-md-4">
+                            <label for="kode_barang_brg_masuk">Kode Barang</label>
+                            <input type="text" class="form-control" name="kode_barang_brg_masuk"
+                                id="kode_barang_brg_masuk" value="{{ old('kode_barang_brg_masuk') }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="nama_barang">Nama Barang</label>
                             <select class="select2 form-control" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Barang</option>
@@ -34,8 +41,6 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="tipe_barang_masuk">Tipe Barang</label>
                             <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
@@ -52,13 +57,13 @@
                             <input type="text" class="form-control" name="asal_gdg" id="asal_gdg"
                                 value="Gudang Pusat" value="{{ old('asal_gdg') }}">
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="jumlah_brg">Jumlah Barang</label>
                             <input type="text" class="form-control" name="jumlah_brg" id="jumlah_brg"
                                 value="{{ old('jumlah_brg') }}">
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="posisi_brg_masuk">Posisi Barang</label>
                             <select class="form-control" name="posisi_brg_masuk" id="posisi_brg_masuk">
@@ -81,6 +86,8 @@
                                 <option value="customer">Customer</option>
                             </select>
                         </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="konsumen">Nama Konsumen</label>
                             <input readonly type="text" class="form-control" name="konsumen" id="konsumen"
@@ -92,7 +99,8 @@
             <div class="modal-footer justify-content-between">
                 <button id="act_keluar" type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                 <button disabled onclick="event.preventDefault();document.getElementById('barangmasuk').submit();"
-                    id="aksi_brg_masuk" type="button" class="btn btn-primary simpan_barang_masuk"><i class="fas fa-save"></i>
+                    id="aksi_brg_masuk" type="button" class="btn btn-primary simpan_barang_masuk"><i
+                        class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>
         </div>

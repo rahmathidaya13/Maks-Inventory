@@ -16,6 +16,7 @@ class BarangMasukModel extends Model
         'id_barang',
         'tgl_brg_masuk',
         'no_warehouse',
+        'kode_barang',
         'nama_barang',
         'tipe_barang',
         'asal_gudang',

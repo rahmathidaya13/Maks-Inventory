@@ -23,7 +23,6 @@ class BarangMasukImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // layak digunakan
-
         $fromExcel = $row['tanggal_barang_masuk'];
         $dateTime = Date::excelToDateTimeObject($fromExcel);
         $get_date = Carbon::instance($dateTime)->format('Y-m-d');
@@ -97,6 +96,7 @@ class BarangMasukImport implements ToModel, WithHeadingRow
         return new BarangMasukModel([
             'id_barang' => $barang->id_barang,
             'tgl_brg_masuk' => $get_date,
+            'kode_barang' => $row['kode_barang'],
             'no_warehouse' => $row['no_warehouse'],
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],

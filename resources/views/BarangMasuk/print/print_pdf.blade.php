@@ -39,6 +39,7 @@
         word-break: break-all;
         word-wrap: break-word;
     }
+
     tbody tr:nth-child(odd) td {
         background-color: #e6e6e6;
         color: #000000;
@@ -111,6 +112,32 @@
         border-bottom: 2px solid #000;
         margin-bottom: 20px;
     }
+
+    /* tanda tangan dan validasi */
+    .signature-container {
+        text-align: right;
+        margin-top: 50px;
+    }
+
+    .date {
+        font-size: 16px;
+        margin-bottom: 60px;
+    }
+
+    .signature {
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-align: right;
+    }
+
+    .username {
+        margin-top: 60px;
+        border-top: 1px solid black;
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+    }
 </style>
 <div class="header">
     <img src="{{ public_path('assets/icon/logo.jpg') }}" alt="">
@@ -129,6 +156,7 @@
             <th>No</th>
             <th>Tanggal Barang Masuk</th>
             <th>No Warehouse</th>
+            <th>Kode Barang</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
             <th>Asal Gudang</th>
@@ -144,6 +172,7 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y') }}</td>
                 <td>{{ $data->no_warehouse }}</td>
+                <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->asal_gudang }}</td>
@@ -155,9 +184,16 @@
         @endforeach
         @empty($data)
             <tr>
-                <td colspan="9" style="text-align: center">Data barang masuk tidak ditemukan</td>
+                <td colspan="11" style="text-align: center">Data barang masuk tidak ditemukan</td>
             </tr>
         @endempty
     </tbody>
 </table>
 <div class="divider"></div>
+{{-- validasi dan tanggal --}}
+<div class="signature-container">
+    <div class="date">Pekanbaru, {{ \Carbon\Carbon::now()->format('d-F-y') }}</div>
+    <div class="signature">
+        <div class="username">{{ ucwords(Auth::user()->name) }}</div>
+    </div>
+</div>
