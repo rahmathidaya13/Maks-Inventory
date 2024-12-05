@@ -63,7 +63,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="kode_barang">Kode Barang</label>
-                                    <input type="text" class="form-control" name="kode_barang" id="kode_barang" value="{{ old('kode_barang') }}">
+                                    <input type="text" class="form-control" name="kode_barang" id="kode_barang"
+                                        value="{{ old('kode_barang') }}">
                                 </div>
                                 <div class="form-group col-md-6 nama_brg_transaksi">
                                     <label for="nama_brg_transaksi">Nama Barang</label>
@@ -98,6 +99,7 @@
                                         id="posisi_brg_transaksi">
                                         <option value="">Pilih posisi barang</option>
                                         <option value="Kasir">Kasir</option>
+                                        <option value="Promo-Lt1">Bagian Promo Lantai 1</option>
                                         <option value="Lantai-1">Lantai-1</option>
                                         <option value="Rak-1">Rak-1</option>
                                         <option value="Rak-2">Rak-2</option>
@@ -158,7 +160,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="total_pembayaran">Total Pembayaran</label>
                                     <input readonly type="text" class="form-control" name="total_pembayaran"
-                                    id="total_pembayaran" value="{{ old('total_pembayaran') }}">
+                                        id="total_pembayaran" value="{{ old('total_pembayaran') }}">
                                     <input type="hidden" id="hasil">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -182,7 +184,8 @@
                 <button id="keluar_transaksi" type="button" class="btn btn-default"
                     data-dismiss="modal">Keluar</button>
                 <button onclick="event.preventDefault();document.getElementById('form_transaksi').submit();"
-                    id="transaksi_aksi" type="button" class="btn btn-primary simpan_transaksi"><i class="fas fa-save"></i>
+                    id="transaksi_aksi" type="button" class="btn btn-primary simpan_transaksi"><i
+                        class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>
         </div>

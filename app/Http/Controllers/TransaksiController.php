@@ -19,7 +19,7 @@ class TransaksiController extends Controller
     public function index()
     {
         $DaftarBarang = BarangModel::all();
-        $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate(10);
+        $transaksi = TransaksiModel::latest()->paginate(10);
         $stokBarang = StokBarangModel::all();
         return view('transaksi.index', compact('DaftarBarang', 'transaksi', 'stokBarang'));
     }

@@ -56,6 +56,7 @@
                             <select class="form-control" name="posisi_barang" id="posisi_barang">
                                 <option value="">Pilih posisi barang</option>
                                 <option value="Kasir">Kasir</option>
+                                <option value="Promo-Lt1">Bagian Promo Lantai 1</option>
                                 <option value="Lantai-1">Lantai-1</option>
                                 <option value="Rak-1">Rak-1</option>
                                 <option value="Rak-2">Rak-2</option>

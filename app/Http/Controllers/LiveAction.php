@@ -102,7 +102,7 @@ class LiveAction extends Controller
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("nama_konsumen", "like", "%" . $query . "%")
             ->orWhere("nama_sales", "like", "%" . $query . "%")
-            ->latest('tgl_transaksi')->paginate(10);
+            ->latest()->paginate(10);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('transaksi.partial.table', compact('transaksi'))->render(),
@@ -225,7 +225,7 @@ class LiveAction extends Controller
     public function transaksiFilter(Request $request)
     {
         $offset = $request->get('transaksiLimit', 10);
-        $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate($offset);
+        $transaksi = TransaksiModel::latest()->paginate($offset);
         if ($request->ajax()) {
             // return view('transaksi.partial.table', compact('transaksi'))->render();
             return response()->json([
