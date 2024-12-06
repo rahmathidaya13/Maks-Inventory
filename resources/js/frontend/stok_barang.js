@@ -307,7 +307,7 @@ $(document).on("click", ".pagination a", function (e) {
 // live search
 $(document).on("input", "#keyword_stok", function (e) {
     e.preventDefault();
-    let query = $(this).val().trim();
+    let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
     // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
     let url;
@@ -320,7 +320,7 @@ $(document).on("input", "#keyword_stok", function (e) {
         method: "GET",
         url: url,
         data: {
-            stokKeyword: encodeURIComponent(query),
+            stokKeyword: query,
             _token: token,
             stokLimit: 10,
         },

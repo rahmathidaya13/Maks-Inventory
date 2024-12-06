@@ -16,7 +16,7 @@ function validateForm(form, button) {
     $(form)
         .find("input,select")
         .each(function () {
-            if ($(this).val().trim() === "") {
+            if ($(this).val() === "") {
                 isValid = false;
                 return false;
             }

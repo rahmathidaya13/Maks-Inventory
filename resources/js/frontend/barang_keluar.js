@@ -30,7 +30,7 @@ $(document).on("click", "#export_barang_keluar", function (e) {
 
 $(document).on("input", "#keyword_barang_keluar", function (e) {
     e.preventDefault();
-    let query = $(this).val().trim();
+    let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
 
     let url;
@@ -44,7 +44,7 @@ $(document).on("input", "#keyword_barang_keluar", function (e) {
         type: "GET",
         url: url,
         data: {
-            itemOutKeyword: encodeURIComponent(query),
+            itemOutKeyword: query,
             _token: token,
             barangKeluarLimit: 10,
         },

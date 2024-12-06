@@ -10,10 +10,10 @@ function Currency(angka) {
 
 $(document).on("input", "#sales_keyword", function (e) {
     e.preventDefault();
-    let query = $(this).val().trim();
+    let query = $(this).val();
     if (query === "") {
         $("#tabel_penjualan").load(
-            `/home/search?query=${encodeURIComponent(query)}`,
+            `/home/search?query=${query}`,
             function () {
                 // Kembali ke halaman awal tanpa hasil pencarian
                 window.history.pushState({}, "", "/home");
@@ -22,7 +22,7 @@ $(document).on("input", "#sales_keyword", function (e) {
     } else {
         // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
         $("#tabel_penjualan").load(
-            "/home/search?query=" + encodeURIComponent(query),
+            "/home/search?query=" + query,
             function () {
                 $(
                     "#tabel_penjualan .nama_sales,.nama-barang, .tipe-barang"

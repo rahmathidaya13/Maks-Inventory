@@ -66,7 +66,7 @@ $(document).on("click", "#keluar, .close", function (e) {
 // live search
 $(document).on("input", "#keyword", function (e) {
     e.preventDefault();
-    let query = $(this).val().trim();
+    let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
     // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
     let url;

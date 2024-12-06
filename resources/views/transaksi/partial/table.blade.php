@@ -43,7 +43,7 @@
                             <a title="Pelunasan" data-id="{{ $data->id_transaksi }}"
                                 class="dropdown-item pelunasan" type="button"
                                 data-toggle="modal" data-target="#staticBackdrop_pelunasan" href="#">
-                                <i class="fas fa-money-bill"></i> Pelunasan
+                                <i class="fas fa-money-bill"></i> Pelunasan & Ambil Barang
                             </a>
                         @endif
                         @if ($data->status_pembayaran !== 'lunas')

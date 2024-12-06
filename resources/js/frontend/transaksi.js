@@ -227,7 +227,8 @@ $(document).on("change", "#nama_brg_transaksi", function () {
         Currency(selected.data("price") ?? 0)
     );
 });
-$(document).on("change", "#posisi_brg_transaksi", function () {
+
+$(document).on("change", ".posisi_brg_transaksi", function () {
     let token = $('meta[name="csrf-token"]').attr("content");
     let id_barang = $("#id_barang").val();
     let posisi = $(this).val();
@@ -353,11 +354,11 @@ $(document).on("click", ".pelunasan", function () {
     let id = $(this).data("id");
     $("#form_transaksi")[0].reset();
 
-    $(".modal-title span").text("Pelunasan");
+    $(".modal-title span").text("Pelunasan & Ambil Barang");
     $(".modal-title i").removeClass("fas fa-edit");
     $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").addClass("fas fa-money-bill-wave");
-    $("#aksi_pelunasan span").text("Lunasi");
+    $("#aksi_pelunasan span").text("Simpan");
     $("#aksi_pelunasan i").removeClass("fas fa-edit");
     $("#aksi_pelunasan i").removeClass("fas fa-save");
     $("#aksi_pelunasan i").addClass("fas fa-money-bill-wave");
@@ -390,7 +391,10 @@ $(document).on("click", ".pelunasan", function () {
         $("#dana_pertama")
             .val(Currency(data.result.dana_pertama))
             .prop("readonly", true);
+
         $("#hb").val(Currency(data.result.harga_barang)).prop("readonly", true);
+        $("#nama_brg_lunas").val(data.result.nama_barang);
+        $("#tipe_brg_lunas").val(data.result.tipe_barang);
         $("#selisih_pembayaran_")
             .val(Currency(data.result.selisih_pembayaran))
             .prop("readonly", true);
@@ -451,7 +455,7 @@ $(document).on("click", ".pagination a", function (e) {
 // fungsi untuk pencarian data langsung
 $(document).on("input", "#keyword_transaksi", function (e) {
     e.preventDefault();
-    let query = $(this).val().trim();
+    let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
 
     // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja

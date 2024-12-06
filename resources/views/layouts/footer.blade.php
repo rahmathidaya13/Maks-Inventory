@@ -21,7 +21,7 @@
 <script>
     $(document).ready(function() {
         //Initialize Select2 Elements
-        $("#staticBackdrop_filter_date_stok,#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang")
+        $("#staticBackdrop_pelunasan,#staticBackdrop_filter_date_stok,#staticBackdrop-brg_masuk1, #staticBackdrop_transaksi,#staticBackdrop_stok_barang")
             .on(
                 'shown.bs.modal',
                 function() {

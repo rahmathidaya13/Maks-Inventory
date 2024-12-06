@@ -68,14 +68,14 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             $stokBarang->keterangan = $row['keterangan'];
             $stokBarang->save();
         } else {
-            $stokTerakhir = StokBarangModel::where('id_barang', $barang->id_barang)
-                ->where('nama_barang', $row['nama_barang'])
-                ->where('tipe_barang', $row['tipe_barang'])
-                ->where('posisi', $row['posisi_barang'])
-                ->orderBy('tanggal', 'desc')
-                ->first();
+            // $stokTerakhir = StokBarangModel::where('id_barang', $barang->id_barang)
+            //     ->where('nama_barang', $row['nama_barang'])
+            //     ->where('tipe_barang', $row['tipe_barang'])
+            //     ->where('posisi', $row['posisi_barang'])
+            //     ->orderBy('tanggal', 'desc')
+            //     ->first();
 
-            $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
+            // $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
 
             $stok = new StokBarangModel();
             $stok->id_barang = $barang->id_barang;
@@ -84,11 +84,7 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             $stok->tipe_barang = $row['tipe_barang'];
             $stok->barang_masuk = $barang_masuk;
             $stok->barang_keluar = $barang_keluar;
-            if (empty($stokAwal)) {
-                $stok->stok_awal = $row['stok_awal'];
-            } else {
-                $stok->stok_awal = $stokAwal + $row['stok_awal'];
-            }
+            $stok->stok_awal = $row['stok_awal'];
             $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
             $stok->posisi = $row['posisi_barang'];
             $stok->keterangan = $row['keterangan'];

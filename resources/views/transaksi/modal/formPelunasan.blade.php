@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <h4 class="modal-title"><i></i> <span>Pelunasan</span></h4>
+                <h4 class="modal-title"><i></i> <span>Pelunasan & Ambil Barang</span></h4>
                 <button id="act_close_pelunasan" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -12,6 +12,8 @@
                 <form action="#" method="POST" role="form" id="pelunasan">
                     @csrf
 
+                    <input type="hidden" name="id_barang">
+                    <input type="hidden" name="id_stok">
                     <div class="form-group">
                         <label for="tgl_pelunasan">Tgl. Pelunasan</label>
                         <input type="date" class="form-control" name="tgl_pelunasan" id="tgl_pelunasan"
@@ -38,6 +40,23 @@
                         <input type="text" class="form-control" name="alamat_konsumen" id="alamat_konsumen"
                             value="{{ old('alamat_konsumen') }}">
                     </div>
+
+                    <div class="form-group">
+                        <label for="nama_brg_lunas">Nama Barang</label>
+                        <input readonly type="text" class="form-control" name="nama_brg_lunas"
+                            id="nama_brg_lunas" value="{{ old('nama_brg_lunas') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipe_brg_lunas">Tipe Barang</label>
+                        <input readonly type="text" class="form-control" name="tipe_brg_lunas" id="tipe_brg_lunas"
+                            value="{{ old('tipe_brg_lunas') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="hb">Harga Barang</label>
+                        <input type="text" class="form-control" name="hb" id="hb"
+                            value="{{ old('hb') }}">
+                    </div>
+
                     <div class="form-group">
                         <label for="transaksi">Transaksi</label>
                         <select class="form-control" name="transaksi" id="transaksi">
@@ -52,26 +71,22 @@
                             <option value="lunas">Lunas</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="hb">Harga Barang</label>
-                        <input type="text" class="form-control" name="hb" id="hb"
-                            value="{{ old('hb') }}">
-                    </div>
+
                     <div class="form-group">
                         <label for="dana_pertama">Dana Pertama (DP) - Min: 50%</label>
                         <input type="text" class="form-control" name="dana_pertama" id="dana_pertama"
-                        value="{{ old('dana_pertama') }}">
+                            value="{{ old('dana_pertama') }}">
                     </div>
                     <div class="form-group">
                         <label for="selisih_pembayaran_">Sisa Pembayaran</label>
-                        <input type="text" class="form-control" name="selisih_pembayaran_" id="selisih_pembayaran_"
-                            value="{{ old('selisih_pembayaran_') }}">
-                            <input type="hidden" id="r_selisih">
+                        <input type="text" class="form-control" name="selisih_pembayaran_"
+                            id="selisih_pembayaran_" value="{{ old('selisih_pembayaran_') }}">
+                        <input type="hidden" id="r_selisih">
                     </div>
                     <div class="form-group">
                         <label for="pembayaran_pelunasan">Pembayaran</label>
-                        <input type="text" class="form-control" name="pembayaran_pelunasan" id="pembayaran_pelunasan"
-                            value="{{ old('pembayaran_pelunasan') }}">
+                        <input type="text" class="form-control" name="pembayaran_pelunasan"
+                            id="pembayaran_pelunasan" value="{{ old('pembayaran_pelunasan') }}">
                     </div>
 
                 </form>

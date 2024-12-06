@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group col-md-6 nama_brg_transaksi">
                                     <label for="nama_brg_transaksi">Nama Barang</label>
-                                    <select class="form-control select2" name="nama_brg_transaksi"
+                                    <select class="form-control select2 nama_brg_transaksi" name="nama_brg_transaksi"
                                         id="nama_brg_transaksi">
                                         <option value="">Pilih Barang</option>
                                         @foreach ($DaftarBarang as $data)
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="tipe_brg_transaksi">Tipe Barang</label>
-                                    <input readonly type="text" class="form-control" name="tipe_brg_transaksi"
+                                    <input readonly type="text" class="form-control tipe_brg_transaksi" name="tipe_brg_transaksi"
                                         id="tipe_brg_transaksi">
                                 </div>
                                 <div class="form-group col-md-6">
@@ -95,7 +95,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="posisi_brg_transaksi">Posisi Barang</label>
-                                    <select class="form-control" name="posisi_brg_transaksi"
+                                    <select class="form-control posisi_brg_transaksi" name="posisi_brg_transaksi"
                                         id="posisi_brg_transaksi">
                                         <option value="">Pilih posisi barang</option>
                                         <option value="Kasir">Kasir</option>
