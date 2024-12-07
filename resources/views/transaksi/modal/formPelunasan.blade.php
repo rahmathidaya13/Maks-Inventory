@@ -11,9 +11,6 @@
             <div class="modal-body over overflow-auto" style="height: 450px">
                 <form action="#" method="POST" role="form" id="pelunasan">
                     @csrf
-
-                    <input type="hidden" name="id_barang">
-                    <input type="hidden" name="id_stok">
                     <div class="form-group">
                         <label for="tgl_pelunasan">Tgl. Pelunasan</label>
                         <input type="date" class="form-control" name="tgl_pelunasan" id="tgl_pelunasan"

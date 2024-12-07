@@ -120,28 +120,39 @@ class LiveAction extends Controller
     }
     public function homeSearch(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        // ]);
 
-        $query = $request->get('query');
-        if (!empty($query)) {
-            $transaksi = TransaksiModel::where(function ($q) use ($query) {
-                $q->where("nama_barang", "like", "%" . $query . "%")
-                    ->orWhere("tipe_barang", "like", "%" . $query . "%")
-                    ->orWhere("nama_sales", "like", "%" . $query . "%");
-            })
-                ->where('status_pembayaran', 'lunas')
-                ->select(
-                    'nama_sales',
-                    DB::raw('SUM(jumlah_barang) AS total_barang'),
-                    DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
-                    'nama_barang',
-                    'tipe_barang',
-                    'tgl_transaksi'
-                )
-                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
-                ->get();
+        $query = $request->get('salesQuery');
+        $transaksi = TransaksiModel::where(function ($q) use ($query) {
+            $q->where("nama_barang", "like", "%" . $query . "%")
+                ->orWhere("tipe_barang", "like", "%" . $query . "%")
+                ->orWhere("nama_konsumen", "like", "%" . $query . "%")
+                ->orWhere("nama_sales", "like", "%" . $query . "%");
+        })
+            ->where('status_pembayaran', 'lunas')
+            ->select(
+                'nama_sales',
+                DB::raw('SUM(jumlah_barang) AS total_barang'),
+                DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
+                'nama_barang',
+                'tipe_barang',
+                DB::raw('DATE(tgl_transaksi) AS tanggal')
+            )
+            ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', DB::raw('DATE(tgl_transaksi)'))
+            ->paginate(10);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('home.partial.table', compact('transaksi'))->render(),
+                'pagination' => view('home.partial.paginate', compact('transaksi'))->render(),
+                'info' => [
+                    'firstItem' => $transaksi->firstItem(),
+                    'lastItem' => $transaksi->lastItem(),
+                    'total' => $transaksi->total()
+                ],
+            ]);
         } else {
             $transaksi = TransaksiModel::whereMonth('tgl_transaksi', Carbon::now()->month)
                 ->whereYear('tgl_transaksi', Carbon::now()->year)
@@ -151,13 +162,14 @@ class LiveAction extends Controller
                     DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'),
                     'nama_barang',
                     'tipe_barang',
-                    'tgl_transaksi'
+                    DB::raw('DATE(tgl_transaksi) AS tanggal')
                 )
                 ->where('status_pembayaran', 'lunas')
-                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
-                ->get();
+                ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', DB::raw('DATE(tgl_transaksi)'))
+                ->paginate(10);
         }
-        return view('home.partial.table',  compact('transaksi'))->render();
+
+        return view('home.partial.table',  compact('transaksi'));
     }
     public function barangKeluarSearch(Request $request)
     {
@@ -204,6 +216,30 @@ class LiveAction extends Controller
             ]);
         }
         return view('Barang.index', compact('barang'));
+    }
+    public function penjualanFilter(Request $request)
+    {
+        // set bulan dan tahun
+        $offset = $request->get('sales', 10);
+        $transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
+            ->whereYear('tgl_transaksi', '2024')
+            ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->where('status_pembayaran', 'lunas')
+            ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->paginate( $offset);
+        if ($request->ajax()) {
+            // return view('transaksi.partial.table', compact('transaksi'))->render();
+            return response()->json([
+                'table' => view('home.partial.table', compact('transaksi'))->render(),
+                'pagination' => view('home.partial.paginate', compact('transaksi'))->render(),
+                'info' => [
+                    'firstItem' => $transaksi->firstItem(),
+                    'lastItem' => $transaksi->lastItem(),
+                    'total' => $transaksi->total()
+                ],
+            ]);
+        }
+        return view('home.index', compact('barang'));
     }
     public function filterBrgMasuk(Request $request)
     {

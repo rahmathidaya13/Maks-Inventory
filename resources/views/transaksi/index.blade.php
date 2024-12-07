@@ -105,5 +105,6 @@
     @include('transaksi.modal.formPelunasan')
     @include('transaksi.modal.import')
     @include('transaksi.modal.print_date')
+    @include('transaksi.modal.Form_ambil_barang')
 
 @endsection

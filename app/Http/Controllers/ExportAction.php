@@ -177,8 +177,10 @@ class ExportAction extends Controller
     }
     public function penjualanPDF(Request $request)
     {
-        $getMonth = Carbon::now()->month;
-        $getYear = Carbon::now()->year;
+        // $getMonth = Carbon::now()->month;
+        // $getYear = Carbon::now()->year;
+        $getMonth = '09';
+        $getYear = '2024';
 
         $getMonthName = Carbon::now()->translatedFormat('F');
         $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)

@@ -57,6 +57,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/transaksi/store', 'store')->name('transaksi.store');
         Route::put('/transaksi/update/{id}', 'update')->name('transaksi.update');
         Route::put('/transaksi/repayment/{id}', 'repayment')->name('transaksi.repayment');
+        Route::put('/transaksi/takeAway/{id}', 'takeAway')->name('takeaway.repayment');
         Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
         Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
     });
@@ -81,6 +82,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get("/stok/filter", [LiveAction::class, 'stokFilter'])->name('stok.filter');
     Route::get("/transaksi/filter", [LiveAction::class, 'transaksiFilter'])->name('transaksi.filter');
     Route::get("/barang_keluar/filter", [LiveAction::class, 'barangKeluarFilter'])->name('barang_keluar.filter');
+    Route::get("/penjualan/filter", [LiveAction::class, 'penjualanFilter'])->name('penjualan.filter');
 
     // for filter with date
     Route::post("/stok/filter/date", [LiveAction::class, 'filterDateStok'])->name('date.filter.stok');

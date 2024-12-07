@@ -579,3 +579,47 @@ $(document).on("change", "#import_transaksi_form", function (e) {
 
 // trigger selected posisi harus dibawah
 $("#filter_transaksi").val(10).trigger("change");
+
+$(document).on("click", ".ambil_barang", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+    $("#form_transaksi")[0].reset();
+    $("#pelunasan")[0].reset();
+    $("#form_transaksi")[0].reset();
+
+    $(".modal-title span").text("Ambil Barang");
+    $(".modal-title i").removeClass("fas fa-edit");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").removeClass("fas fa-money-bill-wave");
+    $(".modal-title i").addClass("fas fa-people-carry");
+
+    $("#submit_ambil_barang i").removeClass("fas fa-edit");
+    $("#submit_ambil_barang i").removeClass("fas fa-save");
+    $("#submit_ambil_barang i").removeClass("fas fa-money-bill-wave");
+    $("#submit_ambil_barang i").addClass("fas fa-save");
+
+    // button action
+    $("#submit_ambil_barang span").text("Simpan");
+
+    $("#form_ambil_barang").attr("action", `/transaksi/takeAway/${id}`);
+    $("#form_ambil_barang").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
+
+    // ambil data saja
+    $.getJSON(`/transaksi/detail/${id}`,
+        function (data) {
+            console.log(data);
+            $("#konsumen_ambil_barang").val(data.result.nama_konsumen)
+            $("#hp_ambil_barang").val(data.result.no_handphone)
+            $("#alamat_ambil_barang").val(data.result.alamat)
+            $("#kode_ambil_barang").val(data.result.kode_barang)
+            $("#nama_barang_ambil_barang").val(data.result.nama_barang)
+            $("#tipe_barang_ambil_barang").val(data.result.tipe_barang)
+            $("#jumlah_ambil_barang").val(data.result.jumlah_barang)
+            $("#harga_ambil_barang").val(Currency(data.result.harga_barang))
+            $("#pembayaran_ambil_barang").val(Currency(data.result.pembayaran))
+        }
+    );
+
+});

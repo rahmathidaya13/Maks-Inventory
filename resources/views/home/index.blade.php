@@ -172,7 +172,17 @@
                             id="sales_keyword" name="sales_keyword">
                     </div>
                 </div>
-
+            </div>
+            <div class="d-flex align-items-center mb-3">
+                <span class="mr-2">Tampilkan hasil: </span>
+                <div class="input-group input-group-sm" style="width: 75px">
+                    <select class="form-control form-control-sm" name="filter_penjualan" id="filter_penjualan">
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="card-body p-0">
@@ -195,12 +205,11 @@
                 </table>
             </div>
             <div class="d-flex justify-content-between p-3">
-                <div>
-                    Menampilkan <b>{{ $transaksi->firstItem() }}</b> sampai <b>{{ $transaksi->lastItem() }}</b> dari
-                    <b>{{ $transaksi->total() }}</b> item
+                <div class="col-12 col-md-6 d-flex justify-content-start p-3">
+                    @include('home.partial.informasi', ['transaksi' => $transaksi])
                 </div>
-                <div>
-                    {{ $transaksi->links() }}
+                <div class="col-12 col-md-6 p-3 d-flex justify-content-center justify-content-md-end">
+                    @include('home.partial.paginate', ['transaksi' => $transaksi])
                 </div>
             </div>
         </div>

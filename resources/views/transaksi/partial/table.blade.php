@@ -26,8 +26,10 @@
         <td class="align-middle text-center">
             @if ($data->status_pembayaran == 'lunas')
                 <span class="badge badge-success">{{ ucwords($data->status_pembayaran) }}</span>
+            @elseif($data->status_pembayaran == 'dp lunas')
+                <span class="badge badge-info">{{ ucwords($data->status_pembayaran) }}</span>
             @else
-                <span class="badge badge-danger">{{ ucwords($data->status_pembayaran) . ' / Dp' }}</span>
+                <span class="badge badge-danger">{{ ucwords($data->status_pembayaran) }}</span>
             @endif
         </td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->pembayaran, 0, ',', '.') }}</td>
@@ -39,20 +41,25 @@
                         <i class="fas fa-cog"></i>
                     </button>
                     <div class="dropdown-menu">
-                        @if ($data->status_pembayaran !== 'lunas')
-                            <a title="Pelunasan" data-id="{{ $data->id_transaksi }}"
-                                class="dropdown-item pelunasan" type="button"
-                                data-toggle="modal" data-target="#staticBackdrop_pelunasan" href="#">
+                        @if ($data->status_pembayaran === 'belum lunas')
+                            <a title="Pelunasan" data-id="{{ $data->id_transaksi }}" class="dropdown-item pelunasan"
+                                type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan"
+                                href="#">
                                 <i class="fas fa-money-bill"></i> Pelunasan & Ambil Barang
                             </a>
-                        @endif
-                        @if ($data->status_pembayaran !== 'lunas')
-                            <a title="Ubah" id="ubah_transaksi" data-toggle="modal"
-                                data-target="#staticBackdrop_transaksi" data-id="{{ $data->id_transaksi }}"
-                                class="dropdown-item ubah_transaksi" href="#"><i
-                                    class="fas fa-edit"></i> Ubah
+                        @elseif($data->status_pembayaran === 'dp lunas')
+                            <a title="Ambil Barang" id="ambil_barang" data-toggle="modal"
+                                data-target="#staticBackdrop_ambil_barang" data-id="{{ $data->id_transaksi }}"
+                                class="dropdown-item ambil_barang" href="#"><i class="fas fa-people-carry"></i>
+                                Ambil Barang
                             </a>
                         @endif
+                        <a title="Ubah" id="ubah_transaksi" data-toggle="modal"
+                            data-target="#staticBackdrop_transaksi" data-id="{{ $data->id_transaksi }}"
+                            class="dropdown-item ubah_transaksi" href="#"><i class="fas fa-edit"></i> Ubah
+                        </a>
+                        {{-- @if ($data->status_pembayaran !== 'lunas')
+                        @endif --}}
 
                         <a title="Hapus" data-date="{{ $data->tgl_transaksi }}"
                             data-code="{{ $data->kode_transaksi }}" data-customer="{{ $data->nama_konsumen }}"

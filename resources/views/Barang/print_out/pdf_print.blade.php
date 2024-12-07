@@ -115,6 +115,8 @@
     .signature-container {
         text-align: right;
         margin-top: 50px;
+        font-family: Arial, sans-serif;
+
     }
 
     .date {
