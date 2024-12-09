@@ -91,9 +91,7 @@ class HomeController extends Controller
 
     public function income(Request $request)
     {
-        // $request->validate([
-        //     'query' => 'nullable|regex:/^\d{4}-\d{2}$/', // Validasi format
-        // ]);
+
         $getquery = explode('-', $request->get('query'));
 
         $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi',  '09')

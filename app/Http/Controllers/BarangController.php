@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
+use App\Traits\ValidateDataBarang;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -10,6 +11,7 @@ class BarangController extends Controller
     /**
      * Display a listing of the resource.
      */
+    use ValidateDataBarang;
     public function index()
     {
         $barang = BarangModel::latest()->paginate(10);
@@ -27,25 +29,15 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'nama_brg' => 'required|string|max:150',
-                'tipe_brg' => 'required|string|max:150',
-                'harga_brg' => 'required|string',
-            ],
-            [
-                'nama_brg.required' => 'Nama barang wajib diisi',
-                'nama_brg.max' => 'Nama barang maksimal 150 karakter',
-                'tipe_brg.required' => 'Tipe barang wajib diisi',
-                'tipe_brg.max' => 'Tipe barang maksimal 150 karakter',
-                'harga_brg.required' => 'Harga barang wajib diisi',
-            ]
-        );
-        $replace = str_replace(".", "", $request->input('harga_brg'));
+        // this alert will be displayed
+        $data = $this->validateDataBarang($request->all());
+
+        $replace = str_replace(".", "", $data['harga_brg']);
         $convert = floatval($replace);
+
         $barang = new BarangModel();
-        $barang->nama_barang = $request->input('nama_brg');
-        $barang->tipe_barang = $request->input('tipe_brg');
+        $barang->nama_barang = $data['nama_brg'];
+        $barang->tipe_barang = $data['tipe_brg'];
         $barang->harga_barang = $convert;
         $barang->save();
         return back()->with('success', 'Penambahan data ' . $barang->nama_barang . " - " . $barang->tipe_barang . " " . 'Berhasil Ditambahkan');
@@ -88,26 +80,14 @@ class BarangController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // this alert will be displayed
+        $data = $this->validateDataBarang($request->all());
 
-        $request->validate(
-            [
-                'nama_brg' => 'required|string|max:150',
-                'tipe_brg' => 'required|string|max:150',
-                'harga_brg' => 'required|string',
-            ],
-            [
-                'nama_brg.required' => 'Nama barang wajib diisi',
-                'nama_brg.max' => 'Nama barang maksimal 150 karakter',
-                'tipe_brg.required' => 'Tipe barang wajib diisi',
-                'tipe_brg.max' => 'Tipe barang maksimal 150 karakter',
-                'harga_brg.required' => 'Harga barang wajib diisi',
-            ]
-        );
-        $replace = str_replace(".", "", $request->input('harga_brg'));
+        $replace = str_replace(".", "", $data['harga_brg']);
 
         $barang = BarangModel::findOrFail($id);
-        $barang->nama_barang = $request->input('nama_brg');
-        $barang->tipe_barang = $request->input('tipe_brg');
+        $barang->nama_barang = $data['nama_brg'];
+        $barang->tipe_barang = $data['tipe_brg'];
         $barang->harga_barang = floatval($replace);
         $barang->update();
         return back()->with('success', 'Perubahan data ' . $barang->nama_barang . "-" . $barang->tipe_barang . " " . 'Berhasil');
