@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangKeluarModel;
-use App\Models\BarangMasukModel;
 use App\Models\BarangModel;
-use App\Models\StokBarangModel;
-use App\Models\TransaksiModel;
-use App\Traits\ValidateDataStokBarang;
 use Illuminate\Http\Request;
+use App\Models\TransaksiModel;
+use App\Models\StokBarangModel;
+use App\Models\BarangMasukModel;
+use App\Models\BarangKeluarModel;
+use App\Traits\Handles\handlesStokBarang;
+use App\Traits\Validate\ValidateDataStokBarang;
 
 class StokBarangController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    use ValidateDataStokBarang;
+    use ValidateDataStokBarang, handlesStokBarang;
     public function index()
     {
         $daftarBarang = BarangModel::all();
@@ -38,62 +39,8 @@ class StokBarangController extends Controller
     {
         // this validates the resource
         $this->ValidateDataStokBarang($request->all());
-
-        $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tgl_brg_masuk', $request->input('tgl'))
-            ->sum('jumlah_barang');
-
-        $barang_keluar = BarangKeluarModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tanggal', $request->input('tgl'))
-            ->sum('jumlah_barang');
-
-        $stokChek = StokBarangModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tanggal', $request->input('tgl'))
-            ->first();
-
-        if ($stokChek) {
-            $stokChek->barang_masuk = $barang_masuk ?? 0;
-            $stokChek->barang_keluar = $barang_keluar ?? 0;
-            $stokChek->stok_awal += $request->input('jumlah_barang');
-            $stokChek->stok_akhir = ($stokChek->stok_awal + $stokChek->barang_masuk) - $stokChek->barang_keluar;
-            $stokChek->keterangan = $request->input('keterangan') ?? $stokChek->keterangan;
-            $stokChek->save();
-        } else {
-            $stokTerakhir = StokBarangModel::where('id_barang', $request->input('id_barang'))
-                ->where('nama_barang', $request->input('nama_barang'))
-                ->where('tipe_barang', $request->input('tipe_barang'))
-                ->where('posisi', $request->input('posisi_barang'))
-                ->orderBy('tanggal', 'desc')
-                ->first();
-            $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
-
-            $stok = new StokBarangModel();
-            $stok->id_barang = $request->input('id_barang');
-            $stok->tanggal = $request->input('tgl');
-            $stok->nama_barang = $request->input('nama_barang');
-            $stok->tipe_barang = $request->input('tipe_barang');
-            $stok->barang_masuk = $barang_masuk ?? 0;
-            $stok->barang_keluar = $barang_keluar ?? 0;
-            if (empty($stokAwal)) {
-                $stok->stok_awal = $request->input('jumlah_barang');
-            } else {
-                $stok->stok_awal = $stokAwal + $request->input('jumlah_barang');
-            }
-            $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
-            $stok->posisi = $request->input('posisi_barang');
-            $stok->keterangan = $request->input('keterangan');
-            $stok->save();
-            // dd($stokAwal);
-        }
+        // simpan stok barang
+        $this->createStokBarang($request->all());
         return back()->with('success', 'Penambahan stok baru berhasil dibuat');
     }
 
@@ -124,63 +71,8 @@ class StokBarangController extends Controller
     {
         // this validates that the resource
         $this->ValidateDataStokBarang($request->all());
-
-        $barang_masuk = BarangMasukModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tgl_brg_masuk', $request->input('tgl'))
-            ->sum('jumlah_barang');
-
-        $barang_keluar = TransaksiModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tgl_transaksi', $request->input('tgl'))
-            ->sum('jumlah_barang');
-
-        $stokSebelumnya = StokBarangModel::where('id_barang',  $request->input('id_barang'))
-            ->where('nama_barang',  $request->input('nama_barang'))
-            ->where('tipe_barang', $request->input('tipe_barang'))
-            ->where('posisi', $request->input('posisi_barang'))
-            ->where('tanggal', $request->input('tgl'))
-            ->first();
-        if ($stokSebelumnya) {
-            $stokBarang = StokBarangModel::find($id);
-            $stokBarang->nama_barang = $request->input('nama_barang');
-            $stokBarang->tipe_barang = $request->input('tipe_barang');
-            $stokBarang->tanggal = $request->input('tgl');
-            $stokBarang->barang_masuk = $barang_masuk ?? 0;
-            $stokBarang->barang_keluar = $barang_keluar ?? 0;
-            $stokBarang->stok_awal = (int) $request->input('jumlah_barang');
-            $stokBarang->stok_akhir = (int) ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
-            $stokBarang->posisi = $request->input('posisi_barang');
-            $stokBarang->keterangan = $request->input('keterangan');
-            $stokBarang->save();
-        } else {
-            $stoklama = StokBarangModel::where('id_barang',  $request->input('id_barang'))
-                ->where('nama_barang',  $request->input('nama_barang'))
-                ->where('tipe_barang', $request->input('tipe_barang'))
-                ->where('posisi', $request->input('posisi_barang'))
-                ->orderBy('tanggal', 'desc')
-                ->first();
-
-            $stok_awal = $stoklama ? $stoklama->stok_akhir : 0;
-
-            $stokNew = new StokBarangModel();
-            $stokNew->id_barang = $request->input('id_barang');
-            $stokNew->nama_barang = $request->input('nama_barang');
-            $stokNew->tipe_barang = $request->input('tipe_barang');
-            $stokNew->tanggal = $request->input('tgl');
-            $stokNew->barang_masuk = $barang_masuk ?? 0;
-            $stokNew->barang_keluar = $barang_keluar ?? 0;
-            $stokNew->stok_awal = $request->input('jumlah_barang') + $stok_awal;
-            $stokNew->stok_akhir = ($stokNew->stok_awal + $stokNew->barang_masuk) - $stokNew->barang_keluar;
-            $stokNew->posisi = $request->input('posisi_barang');
-            $stokNew->keterangan = $request->input('keterangan');
-            $stokNew->save();
-            return back()->with('success', 'Data Stok' . ' ' . $stokNew->nama_barang . ' - ' . $stokNew->tipe_barang . ' ' . 'Berhasil Diupdate');
-        }
+        // update stok barang
+        $stokBarang = $this->updateStokBarang($request->all(), $id);
         return back()->with('success', 'Data Stok' . ' ' . $stokBarang->nama_barang . ' - ' . $stokBarang->tipe_barang . ' ' . 'Berhasil Diupdate');
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BarangModel;
-use App\Traits\ValidateDataBarang;
 use Illuminate\Http\Request;
+use App\Traits\Validate\ValidateDataBarang;
 
 class BarangController extends Controller
 {

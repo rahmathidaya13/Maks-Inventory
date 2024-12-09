@@ -133,6 +133,8 @@ $(document).on("click", "#add_stok_barang", function (e) {
     $("#stokBarangForm").attr("action", "/stok/store");
     $("input[name='_method']").remove();
     $(".simpan_stok").prop("disabled", true);
+    $("#tgl").attr("readonly", false);
+
 });
 
 $(document).on("change", "#nama_barang", function () {
@@ -195,9 +197,12 @@ $(document).on("click", ".ubah_stok", function (e) {
                 '<input type="hidden" name="_method" value="PUT">'
             );
 
-            $.getJSON(`/stok/detail/${id}`, function (data, textStatus, jqXHR) {
+            $.getJSON(`/stok/detail/${id}`, function (data) {
+                $(".select2").css({
+                    pointerEvents: "none",
+                });
                 $("#id_barang").val(data.result.id_barang);
-                $("#tgl").val(data.result.tanggal);
+                $("#tgl").val(data.result.tanggal).attr("readonly", true);
                 $("#nama_barang")
                     .val(data.result.nama_barang)
                     .trigger("change");

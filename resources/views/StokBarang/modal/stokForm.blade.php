@@ -18,7 +18,7 @@
                             <input type="date" class="form-control" name="tgl" id="tgl"
                                 value="{{ old('tgl') }}">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ">
                             <label for="nama_barang">Nama Barang</label>
                             <select class="form-control select2" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Nama Barang</option>
