@@ -50,7 +50,7 @@ trait handlesTransaksiPenjualan
         $transaksi->save();
         return $transaksi;
     }
-    public function updateTransaksiDB(array $dataParse, $request, string $id)
+    public function updateTransaksiDB($dataParse, $request, $id)
     {
         // update data
         $transaksi = TransaksiModel::findOrFail($id);
@@ -109,6 +109,7 @@ trait handlesTransaksiPenjualan
     }
     public function updateStok($dataParse, $request, $barang_masuk)
     {
+
         $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_brg_transaksi'))
             ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
@@ -201,14 +202,23 @@ trait handlesTransaksiPenjualan
             ->whereDate('tanggal', $transaksi->tgl_transaksi)
             ->first();
     }
-    public function checkBarangMasuk($request)
+    public function checkBarangMasuk($transaksi, $request, $operation)
     {
-        return BarangMasukModel::where('id_barang', $request->input('id_barang'))
-            ->where('nama_barang', $request->input('nama_brg_transaksi'))
-            ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
-            ->where('posisi', $request->input('posisi_brg_transaksi'))
-            ->where('tgl_brg_masuk', $request->input('transaksi'))
-            ->sum('jumlah_barang');
+        if ($operation === 'take_away_update') {
+            return BarangMasukModel::where('id_barang', $transaksi->id_barang)
+                ->where('nama_barang', $transaksi->nama_barang)
+                ->where('tipe_barang', $transaksi->tipe_barang)
+                ->where('posisi', $transaksi->posisi)
+                ->where('tgl_brg_masuk', $request->input('tanggal_ambil'))
+                ->sum('jumlah_barang');
+        } else if ($operation === 'create') {
+            return BarangMasukModel::where('id_barang', $request->input('id_barang'))
+                ->where('nama_barang', $request->input('nama_brg_transaksi'))
+                ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
+                ->where('posisi', $request->input('posisi_brg_transaksi'))
+                ->where('tgl_brg_masuk', $request->input('transaksi'))
+                ->sum('jumlah_barang');
+        }
     }
     public function checkTopProduct($transaksi)
     {

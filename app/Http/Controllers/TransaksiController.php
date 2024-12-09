@@ -45,7 +45,7 @@ class TransaksiController extends Controller
 
         $transaksi = $this->createTransaksiDB($dataParse, $request);
 
-        $barang_masuk = $this->checkBarangMasuk($request);
+        $barang_masuk = $this->checkBarangMasuk($transaksi, $request, 'create');
         if ($transaksi->status_pembayaran === 'lunas') {
             $this->updateStok($dataParse, $request, $barang_masuk);
             $this->updateBarangKeluar($transaksi);
@@ -237,12 +237,7 @@ class TransaksiController extends Controller
         $transaksiNew = $this->updateTakeAway($transaksi, $request);
 
         // cari barang masuk agar memperbarui tabel atau data stok barang
-        $barang_masuk = BarangMasukModel::where('id_barang', $transaksi->id_barang)
-            ->where('nama_barang', $transaksi->nama_barang)
-            ->where('tipe_barang', $transaksi->tipe_barang)
-            ->where('posisi', $transaksi->posisi)
-            ->where('tgl_brg_masuk', $request->input('tanggal_ambil'))
-            ->sum('jumlah_barang');
+        $barang_masuk = $this->checkBarangMasuk($transaksi, $request, 'take_away_update');
 
         if ($transaksiNew->status_pembayaran == 'lunas') {
             // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
