@@ -48,27 +48,6 @@ class ExportAction extends Controller
     }
     public function exportStokByPosition(Request $request)
     {
-        $validator = validator::make(
-            $request->only('nama_barang_filter'),
-            [
-                'nama_barang_filter' => 'required|string',
-            ],
-            [
-                'nama_barang_filter.required' => 'Nama Barang Harus Dipilih',
-            ]
-        );
-        $validator = Validator::make($request->only('posisi_barang_export'), [
-            'posisi_barang_export' => 'required|string',
-        ], [
-            'posisi_barang_export.required' => 'Posisi Barang Harus Dipilih.',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator) // Kirim pesan error ke session
-                ->withInput();
-        }
-
         $position = $request->get('posisi_barang_export');
         $get_id_barang = $request->get('nama_barang_filter');
         if ($position) {
