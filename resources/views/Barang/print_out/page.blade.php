@@ -9,10 +9,10 @@
         flex-wrap: wrap;
     }
 </style>
-<h1>Data Barang Toko Maksindo</h1>
-<h1>Cabang Pekanbaru</h1>
+<h1>Data Barang Toko Maksindo Cabang Pekanbaru</h1>
 <br>
-<table style="width:50%">
+<br>
+<table>
     <thead>
         <tr>
             <th>Nama Barang</th>

@@ -26,7 +26,7 @@
         <td class="align-middle text-center">
             @if ($data->status_pembayaran == 'lunas')
                 <span class="badge badge-success">{{ ucwords($data->status_pembayaran) }}</span>
-            @elseif($data->status_pembayaran == 'dp lunas')
+            @elseif($data->status_pembayaran == 'dana pertama - lunas')
                 <span class="badge badge-info">{{ ucwords($data->status_pembayaran) }}</span>
             @else
                 <span class="badge badge-danger">{{ ucwords($data->status_pembayaran) }}</span>

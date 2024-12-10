@@ -23,6 +23,7 @@
             </button>
         </div>
     @endif
+
     <div class="card">
         <div class="d-flex justify-content-between align-items-center p-3">
             <div class="d-flex align-items-center">
@@ -106,5 +107,4 @@
     @include('transaksi.modal.import')
     @include('transaksi.modal.print_date')
     @include('transaksi.modal.Form_ambil_barang')
-
 @endsection

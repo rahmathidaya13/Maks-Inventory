@@ -31,11 +31,12 @@ class HomeController extends Controller
         // transaksi in dashboard only
         // $getMonth = Carbon::now()->month;
         // $getYear = Carbon::now()->year;
-        $periode = Carbon::now()->isoFormat('MMMM Y');
+        // $periode = Carbon::now()->isoFormat('MMMM Y');
+        $periode = Carbon::createFromDate('2024', '09', '30 ')->isoFormat("MMMM YYYY");
 
         $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
             ->whereYear('tgl_transaksi', '2024')
-            ->whereIn('status_pembayaran',['lunas','belum lunas'])
+            ->whereIn('status_pembayaran', ['lunas', 'belum lunas'])
             ->sum('pembayaran');
 
         $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
@@ -67,7 +68,7 @@ class HomeController extends Controller
         //     ->take(5)
         //     ->get();
         $topProduct = TopProductModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(total_barang) AS total'))
-            ->whereBetween('tanggal', ['2024-09-01','2024-09-30'])
+            ->whereBetween('tanggal', ['2024-09-01', '2024-09-30'])
             ->groupBy('nama_barang', 'tipe_barang')
             ->orderBy('total', 'desc')
             ->take(5)

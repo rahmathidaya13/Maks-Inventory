@@ -125,8 +125,8 @@
                                 <div class="form-group col-md-6 status_pembayaran">
                                     <label for="status_pembayaran">Status Pembayaran</label>
                                     <select class="form-control" name="status_pembayaran" id="status_pembayaran">
-                                        <option value="belum lunas">Dana Pertaman - Belum Lunas</option>
-                                        <option value="dp lunas">Dana Pertama - Lunas</option>
+                                        <option value="dana pertama - belum lunas">Dana Pertama - Belum Lunas</option>
+                                        <option value="dana pertama - lunas">Dana Pertama - Lunas</option>
                                         <option value="lunas">Lunas</option>
                                     </select>
                                 </div>

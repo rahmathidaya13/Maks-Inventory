@@ -48,12 +48,14 @@ class BarangExport implements FromView, WithHeadings, WithStyles, ShouldAutoSize
 
     public function styles(Worksheet $sheet)
     {
-        //  Merge cell A1 sampai C1 untuk judul
-        $sheet->mergeCells('A1:C2');
-        // $sheet->mergeCells('A2:C2');
-
-        // // Set judul di A1
-        // // $sheet->setCellValue('A1', 'Daftar Barang Cabang Pekanbaru');
+        //  Merge cell A1 sampai C2 untuk judul
+        $sheet->mergeCells('A1:C2')
+            ->getStyle('A1')->applyFromArray([
+                'alignment' => [
+                    'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER, // Perataan vertikal ke bawah
+                ],
+            ]);
 
         // Styling untuk judul
         $sheet->getStyle('A1')->applyFromArray([
