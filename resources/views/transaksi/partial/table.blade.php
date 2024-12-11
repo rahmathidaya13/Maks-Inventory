@@ -41,13 +41,13 @@
                         <i class="fas fa-cog"></i>
                     </button>
                     <div class="dropdown-menu">
-                        @if ($data->status_pembayaran === 'belum lunas')
+                        @if ($data->status_pembayaran === 'dana pertama - belum lunas')
                             <a title="Pelunasan" data-id="{{ $data->id_transaksi }}" class="dropdown-item pelunasan"
                                 type="button" data-toggle="modal" data-target="#staticBackdrop_pelunasan"
                                 href="#">
                                 <i class="fas fa-money-bill"></i> Pelunasan & Ambil Barang
                             </a>
-                        @elseif($data->status_pembayaran === 'dp lunas')
+                        @elseif($data->status_pembayaran === 'dana pertama - lunas')
                             <a title="Ambil Barang" id="ambil_barang" data-toggle="modal"
                                 data-target="#staticBackdrop_ambil_barang" data-id="{{ $data->id_transaksi }}"
                                 class="dropdown-item ambil_barang" href="#"><i class="fas fa-people-carry"></i>

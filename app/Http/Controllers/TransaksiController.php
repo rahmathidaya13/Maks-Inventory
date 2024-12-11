@@ -51,9 +51,7 @@ class TransaksiController extends Controller
             $this->updateBarangKeluar($transaksi, 'create');
             $this->updateTopProduct($transaksi);
         }
-
-
-        return back()->with('success', 'Transaksi Berhasil Dibuat');
+        return back()->with('success', 'Transaksi Atas nama ' . ' ' . $transaksi->nama_konsumen . ' ' . ' Pembelian ' . $transaksi->nama_barang . ' - ' . $transaksi->tipe_barang . ' Berhasil Dibuat');
     }
 
     /**
