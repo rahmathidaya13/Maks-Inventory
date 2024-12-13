@@ -75,7 +75,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             {{-- chart bar income --}}
             <div class="card">
                 <div class="card-header p-0 px-3 pt-3">
@@ -98,7 +98,9 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        {{-- masih maintenance --}}
+
+        {{-- <div class="col-md-6">
             <div class="card" style="height: 440px">
                 <div class="card-header p-0 px-3 pt-3 d-flex align-items-center">
                     <div class="d-flex align-items-baseline">
@@ -146,7 +148,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
     </div>

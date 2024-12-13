@@ -61,7 +61,7 @@ $(document).on(
             $("#barangmasuk")[0].reset();
         }
         $("#nama_barang").trigger("change");
-        $("#tipe_barang_masuk").trigger("change");
+        // $("#tipe_barang_masuk").trigger("change");
         $("input[name='_method']").remove();
         $("#barangmasuk").attr("action", "#");
 
@@ -84,6 +84,7 @@ $(document).on("change", "#nama_barang", function (e) {
     let selected = $(this).find(":selected");
     let dataId = selected.data("id");
     $("#id_barang").val(dataId);
+    $("#tipe_barang_masuk").val(selected.data("type") ?? "-");
 });
 
 // set input hanya terima angka saja
@@ -139,7 +140,7 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
         $("#no_warehouse").val(data.result.no_warehouse);
         $("#kode_barang_brg_masuk").val(data.result.kode_barang);
         $("#nama_barang").val(data.result.nama_barang).trigger("change");
-        $("#tipe_barang_masuk").val(data.result.tipe_barang).trigger("change");
+        $("#tipe_barang_masuk").val(data.result.tipe_barang);
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);
         $("#posisi_brg_masuk").val(data.result.posisi).trigger("change");

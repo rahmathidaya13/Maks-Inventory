@@ -35,7 +35,8 @@
                             <select class="select2 form-control" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Barang</option>
                                 @foreach ($allItem as $row)
-                                    <option data-id="{{ $row->id_barang }}" value="{{ $row->nama_barang }}">
+                                    <option data-id="{{ $row->id_barang }}" data-type="{{ $row->tipe_barang }}"
+                                        value="{{ $row->nama_barang }}">
                                         <span>{{ $row->nama_barang }} - {{ $row->tipe_barang }}</span>
                                     </option>
                                 @endforeach
@@ -43,14 +44,16 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="tipe_barang_masuk">Tipe Barang</label>
-                            <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
+                            <input readonly type="text" class="form-control" name="tipe_barang_masuk"
+                                id="tipe_barang_masuk">
+                            {{-- <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
                                 <option value="">Pilih Tipe Barang</option>
                                 @foreach ($allItem as $row)
                                     <option value="{{ $row->tipe_barang }}">
                                         <span>{{ $row->tipe_barang }}</span>
                                     </option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                         </div>
                         <div class="form-group col-md-4">
                             <label for="asal_gdg">Asal Gudang</label>

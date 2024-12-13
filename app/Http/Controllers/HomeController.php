@@ -36,7 +36,7 @@ class HomeController extends Controller
 
         $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
             ->whereYear('tgl_transaksi', '2024')
-            ->whereIn('status_pembayaran', ['lunas', 'belum lunas'])
+            ->whereIn('status_pembayaran', ['lunas', 'dana pertama - belum lunas'])
             ->sum('pembayaran');
 
         $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
