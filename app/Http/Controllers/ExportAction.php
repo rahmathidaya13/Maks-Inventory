@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Exports\StokExport;
-use App\Models\BarangModel;
-use Illuminate\Http\Request;
 use App\Exports\BarangExport;
-use App\Exports\ExportStokAll;
-use App\Models\TransaksiModel;
-use App\Models\StokBarangModel;
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Exports\TransaksiExport;
-use App\Models\BarangMasukModel;
-use App\Models\BarangKeluarModel;
-use App\Exports\BarangMasukExport;
-use Illuminate\Support\Facades\DB;
 use App\Exports\BarangKeluarExport;
+use App\Exports\BarangMasukExport;
+use App\Exports\ExportStokAll;
 use App\Exports\exportStokByPosition;
+use App\Exports\StokExport;
+use App\Exports\TransaksiExport;
+use App\Models\BarangKeluarModel;
+use App\Models\BarangMasukModel;
+use App\Models\BarangModel;
+use App\Models\StokBarangModel;
+use App\Models\TransaksiModel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
 
 class ExportAction extends Controller
 {
@@ -98,7 +96,7 @@ class ExportAction extends Controller
         $pdf = PDF::loadView('transaksi.print.pdf_print', compact('transaksi'))
             ->setPaper('a4', 'landscape')
             ->setOption([
-                'dpi' => 170,  // set dpi untuk sesuaikan layout
+                'dpi' => 180, // set dpi untuk sesuaikan layout
                 'defaultFont' => 'sans-serif',
                 'margin-top' => 10,
                 'margin-right' => 10,
