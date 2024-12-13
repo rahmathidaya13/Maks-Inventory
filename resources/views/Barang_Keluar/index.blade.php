@@ -61,7 +61,7 @@
                     <table class="table table-borderless text-nowrap  table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th>#</th>
+                                <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Kode Transaksi</th>
                                 <th>Nama Konsumen</th>
@@ -70,8 +70,8 @@
                                 <th>Kode Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
-                                <th>Jumlah Barang</th>
                                 <th>Posisi Barang</th>
+                                <th>Jumlah Barang</th>
                             </tr>
                         </thead>
                         <tbody id="tableBarangKeluar">

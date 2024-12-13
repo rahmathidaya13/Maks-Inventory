@@ -120,9 +120,9 @@ class LiveAction extends Controller
     }
     public function homeSearch(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'query' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'salesQuery' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
+        ]);
 
         $query = $request->get('salesQuery');
         $transaksi = TransaksiModel::where(function ($q) use ($query) {
@@ -226,7 +226,8 @@ class LiveAction extends Controller
             ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
-            ->paginate( $offset);
+            ->orderBy('tgl_transaksi', 'desc')
+            ->paginate($offset);
         if ($request->ajax()) {
             // return view('transaksi.partial.table', compact('transaksi'))->render();
             return response()->json([

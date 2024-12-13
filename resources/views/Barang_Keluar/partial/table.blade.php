@@ -14,12 +14,12 @@
         <td class="kode_barang">{{ $data->kode_barang }}</td>
         <td class="nama_barang">{{ $data->nama_barang }}</td>
         <td class="tipe_barang">{{ $data->tipe_barang }}</td>
-        <td class="text-center">{{ $data->jumlah_barang }}</td>
         <td class="">{{ $data->posisi }}</td>
+        <td class="text-center">{{ $data->jumlah_barang }}</td>
     </tr>
 @endforeach
 @if ($barang_keluar->isEmpty())
     <tr>
-        <td colspan="15" class="text-center">Barang Keluar tidak ditemukan</td>
+        <td colspan="11" class="text-center">Barang Keluar tidak ditemukan</td>
     </tr>
 @endif

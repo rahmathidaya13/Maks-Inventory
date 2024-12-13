@@ -90,39 +90,6 @@ $(document).on("input", "#sales_keyword", function (e) {
     let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
     let url;
-    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
-    // if (query === "") {
-    //     $("#tabel_penjualan").load(
-    //         `/home/search?query=${query}`,
-    //         function () {
-    //             // Kembali ke halaman awal tanpa hasil pencarian
-    //             window.history.pushState({}, "", "/home");
-    //         }
-    //     );
-    // } else {
-    //     // encodeURIComponent(query): Digunakan untuk memastikan bahwa spasi dan karakter
-    //     $("#tabel_penjualan").load(
-    //         "/home/search?query=" + query,
-    //         function () {
-    //             $(
-    //                 "#tabel_penjualan .nama_sales,.nama-barang, .tipe-barang"
-    //             ).each(function () {
-    //                 let text = $(this).text();
-    //                 if (query) {
-    //                     // Ganti teks yang cocok dengan teks yang disorot
-    //                     let regex = new RegExp("(" + query + ")", "gi");
-    //                     let highlightedText = text.replace(
-    //                         regex,
-    //                         '<span class="highlight">$1</span>'
-    //                     );
-    //                     $(this).html(highlightedText); // Ganti dengan teks yang disorot
-    //                 } else {
-    //                     $(this).html(text); // Kembalikan ke teks asli
-    //                 }
-    //             });
-    //         }
-    //     );
-    // }
     if (!query) {
         url = "/penjualan/filter";
     } else {
@@ -155,7 +122,7 @@ $(document).on("input", "#sales_keyword", function (e) {
                 );
 
                 $(
-                    "tbody#tabel_penjualan .nama_sales,.nama-barang, .tipe-barang"
+                    "tbody#tabel_penjualan .nama_sales,.nama_barang, .tipe_barang"
                 ).each(function () {
                     let text = $(this).text();
                     if (query) {

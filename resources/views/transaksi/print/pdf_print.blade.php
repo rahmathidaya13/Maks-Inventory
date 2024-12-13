@@ -121,7 +121,7 @@
 
     .date {
         font-size: 16px;
-        margin-bottom: 60px;
+        margin-bottom: 30px;
     }
 
     .signature {
@@ -210,7 +210,7 @@
 <div class="divider"></div>
 {{-- validasi dan tanggal --}}
 <div class="signature-container">
-    <div class="date">Pekanbaru, {{ \Carbon\Carbon::now()->format('d-F-y') }}</div>
+    <div class="date">Pekanbaru, {{ \Carbon\Carbon::now()->translatedFormat('d-F-Y') }}</div>
     <div class="signature">
         <div class="username">{{ ucwords(Auth::user()->name) }}</div>
     </div>

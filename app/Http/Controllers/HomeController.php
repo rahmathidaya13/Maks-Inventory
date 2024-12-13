@@ -34,7 +34,7 @@ class HomeController extends Controller
         // $periode = Carbon::now()->isoFormat('MMMM Y');
         $periode = Carbon::createFromDate('2024', '09', '30 ')->isoFormat("MMMM YYYY");
 
-        $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
+        $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '9')
             ->whereYear('tgl_transaksi', '2024')
             ->whereIn('status_pembayaran', ['lunas', 'dana pertama - belum lunas'])
             ->sum('pembayaran');
@@ -58,6 +58,7 @@ class HomeController extends Controller
             ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
+            ->orderBy('tgl_transaksi', 'desc')
             ->paginate(10);
 
         // top prdouct

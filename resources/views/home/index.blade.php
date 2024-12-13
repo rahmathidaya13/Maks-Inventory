@@ -153,7 +153,7 @@
 
     </div>
 
-    {{-- table penjualan --}}
+    {{-- table penjualan unit sales --}}
     <div class="card ">
         <div class="card-header p-0 px-3 pt-3">
             <div class="row d-flex align-items-center">
