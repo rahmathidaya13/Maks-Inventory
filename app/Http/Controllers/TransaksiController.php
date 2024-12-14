@@ -41,13 +41,13 @@ class TransaksiController extends Controller
         // validate data
         $this->ValidateTransaksi($request->all());
 
-        $dataParse = $this->parseValue($request);
+        // $dataParse = $this->parseValue($request);
 
-        $transaksi = $this->createTransaksiDB($dataParse, $request);
+        $transaksi = $this->createTransaksiDB($request);
 
         $barang_masuk = $this->checkBarangMasuk($transaksi, $request, 'create');
         if ($transaksi->status_pembayaran === 'lunas') {
-            $this->updateStok($dataParse, $request, $barang_masuk);
+            $this->updateStok($request, $barang_masuk);
             $this->updateBarangKeluar($transaksi, 'create');
             $this->updateTopProduct($transaksi);
         }
@@ -100,9 +100,8 @@ class TransaksiController extends Controller
 
         // validate data
         $this->ValidateTransaksi($request->all());
-        $dataParse = $this->parseValue($request);
         // update data
-        $this->updateTransaksiDB($dataParse, $request, $id);
+        $this->updateTransaksiDB($request, $id);
 
         return back()->with('success', 'Perubahan Data Transaksi Berhasil');
     }

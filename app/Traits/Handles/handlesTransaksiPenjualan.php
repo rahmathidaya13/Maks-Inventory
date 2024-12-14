@@ -22,8 +22,16 @@ trait handlesTransaksiPenjualan
             'dana_pertama' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dp')),
         ];
     }
-    public function createTransaksiDB($dataParse, $request)
+    public function createTransaksiDB($request)
     {
+        $dataParse = [
+            'jumlah_barang' => (int) $request->input('jumlah_brg_transaksi'),
+            'harga_barang' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('harga_brg_transaksi')),
+            'total_pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran')),
+            'selisih_pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih')),
+            'pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran')),
+            'dana_pertama' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dp')),
+        ];
         // save data
         $transaksi = new TransaksiModel();
         $transaksi->id_barang = $request->input('id_barang');
@@ -50,8 +58,16 @@ trait handlesTransaksiPenjualan
         $transaksi->save();
         return $transaksi;
     }
-    public function updateTransaksiDB($dataParse, $request, $id)
+    public function updateTransaksiDB($request, $id)
     {
+        $dataParse = [
+            'jumlah_barang' => (int) $request->input('jumlah_brg_transaksi'),
+            'harga_barang' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('harga_brg_transaksi')),
+            'total_pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('total_pembayaran')),
+            'selisih_pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('selisih')),
+            'pembayaran' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('pembayaran')),
+            'dana_pertama' => (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('dp')),
+        ];
         // update data
         $transaksi = TransaksiModel::findOrFail($id);
         $transaksi->id_barang = $request->input('id_barang');
@@ -140,14 +156,17 @@ trait handlesTransaksiPenjualan
         $transaksiNew->save();
         return $transaksiNew;
     }
-    public function updateStok($dataParse, $request, $barang_masuk)
+    public function updateStok($request, $barang_masuk)
     {
+        $dataParse = $this->parseValue($request);
+        // dd($dataParse);
         $stokBarang = StokBarangModel::where('id_barang', $request->input('id_barang'))
             ->where('nama_barang', $request->input('nama_brg_transaksi'))
             ->where('tipe_barang', $request->input('tipe_brg_transaksi'))
             ->where('posisi', $request->input('posisi_brg_transaksi'))
             ->whereDate('tanggal', $request->input('transaksi'))
             ->first();
+
         if ($stokBarang) {
             // Cari stok berdasarkan tanggal pelunasan, bukan tanggal transaksi sebelumnya
             $stokBarang->barang_masuk = $barang_masuk ?? 0;
