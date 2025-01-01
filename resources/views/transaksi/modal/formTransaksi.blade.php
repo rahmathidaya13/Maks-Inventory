@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content bg-white">
             <div class="modal-header">
-                <h4 class="modal-title"><i></i> <span></span></h4>
+                <h4 class="modal-title font-weight-bold text-uppercase"><i></i> <span></span></h4>
                 <button id="act_close_keluar" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -34,17 +34,13 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="nohp">No Handphone</label>
                                     <input type="text" class="form-control" name="nohp" id="nohp"
                                         value="{{ old('nohp') }}" placeholder="ex: 081100000">
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="alamat">Alamat</label>
-                                    <input type="text" class="form-control" name="alamat" id="alamat"
-                                        value="{{ old('alamat') }}" placeholder="ex: Jl.A.yani">
-                                </div>
-                                <div class="form-group col-md-4">
+
+                                <div class="form-group col-md-6">
                                     <label for="sales">Nama Sales</label>
                                     <select class="form-control" name="sales" id="sales">
                                         <option value="">Pilih Sales</option>
@@ -53,6 +49,13 @@
                                         <option value="Muhammad Reza">Muhammad Reza</option>
                                         <option value="Rahmat Hidaya">Rahmat Hidaya</option>
                                     </select>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="alamat">Alamat</label>
+                                    <textarea class="form-control" cols="30" rows="3" name="alamat" id="alamat">{{ old('alamat') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +87,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="tipe_brg_transaksi">Tipe Barang</label>
-                                    <input readonly type="text" class="form-control tipe_brg_transaksi" name="tipe_brg_transaksi"
-                                        id="tipe_brg_transaksi">
+                                    <input readonly type="text" class="form-control tipe_brg_transaksi"
+                                        name="tipe_brg_transaksi" id="tipe_brg_transaksi">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="harga_brg_transaksi">Harga Barang</label>

@@ -3,7 +3,8 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <h4 class="modal-title"><i class="fas fa-upload"></i> <span>Upload File</span></h4>
+                <h4 class="modal-title font-weight-bold text-uppercase"><i class="fas fa-upload"></i> <span>Upload
+                        File</span></h4>
                 <button id="act_import_transaksi" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

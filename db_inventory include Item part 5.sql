@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 11, 2024 at 12:33 AM
+-- Generation Time: Dec 14, 2024 at 04:18 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `failed_jobs` (
   `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -45,7 +45,7 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -77,8 +77,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -89,8 +89,8 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -102,11 +102,11 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -120,9 +120,9 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 CREATE TABLE `tb_barang` (
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga_barang` decimal(12,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -375,18 +375,18 @@ INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `tipe_barang`, `harga_baran
 ('9db10eeb-6225-473e-979f-a82475786d53', 'Sparepart Sisir Cetak Mie MKS-220SS', 'MKS-220SS', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-63cc-4b20-8e36-e5bcf1e03366', 'Sparepart Roll Pan/Slonsong Egg Roll Listrik Grillo-GS10', 'Grillo-GS10', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-657a-407c-ab30-98e241f25502', 'Sparepart Heating Element MSP-300I', 'MSP-300I', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
-('9db10eeb-6721-42a8-8cfc-58cfa54492b9', 'Sparepart Kain Teflon MSP-300i', 'MSP-300I', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
+('9db10eeb-6721-42a8-8cfc-58cfa54492b9', 'Sparepart Kain Teflon MSP-300i', 'MSP-300I', '50000.00', '2024-12-10 13:37:30', '2024-12-13 21:16:19'),
 ('9db10eeb-68e3-41f4-94d4-dc50da97e0b8', 'Sparepart Pisau 4mm Vegetable\nCutter MKS-CT100\n', 'MKS-CT100', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-6a86-4a4e-9eae-171405837a87', 'Sparepart  Keramik Humidifier Tetas Telur AGR TT360', 'AGR TT360', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
-('9db10eeb-6c2c-488e-a910-66657da495fd', 'Sparepart Rak 1 Set Tetas Telur AGR-TT360', 'AGR TT360', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
+('9db10eeb-6c2c-488e-a910-66657da495fd', 'Sparepart Rak 1 Set Tetas Telur AGR-TT360', 'AGR TT360', '1000000.00', '2024-12-10 13:37:30', '2024-12-13 21:15:46'),
 ('9db10eeb-6dea-4214-bb91-748f6428a755', 'Sparepart Screw Giling Daging \nMHW-120\n', 'MHW-120', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-6fa8-4679-8024-a69447190ea6', 'Sparepart Penjepit Cetak Bakso MKS-MFC280', 'MKS-MFC280', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-714d-47f8-9e59-ba826c0f52bb', 'Sparepart Ring Cup Sealer Uk. 88mm 10-16 Oz CPS-959', 'CPS-959', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-72f3-4e2f-9b00-ba8245f19a17', 'Sparepat Per Cetak Bakso MKS-MFC280', 'MKS-MFC280', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
-('9db10eeb-74cb-4f12-8ee3-ee7206d549c5', 'Baut pengunci kecil cetak mie', 'CM-123', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
+('9db10eeb-74cb-4f12-8ee3-ee7206d549c5', 'Baut pengunci kecil cetak mie', 'CM-123', '50000.00', '2024-12-10 13:37:30', '2024-12-13 21:14:43'),
 ('9db10eeb-7687-4d2e-ae79-b18a71053cb3', 'Sparepart penutup bawah eggroll ERG-001,ARD-202,ARD-404', 'ERG-001,ARD-202,ARD-404', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
-('9db10eeb-7832-4f61-b1bd-c4b3e1aa54b5', 'Sparepart Ring moulding Uk.66mm 8 oz CPS-959', 'CPS-959', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
-('9db10eeb-79db-4fcd-85e5-902c4cd428fc', 'PCB KZB-1', 'KZB-1', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
+('9db10eeb-7832-4f61-b1bd-c4b3e1aa54b5', 'Sparepart Ring moulding Uk.66mm 8 oz CPS-959', 'CPS-959', '150000.00', '2024-12-10 13:37:30', '2024-12-13 21:17:17'),
+('9db10eeb-79db-4fcd-85e5-902c4cd428fc', 'PCB KZB-1', 'KZB-1', '1100000.00', '2024-12-10 13:37:30', '2024-12-13 21:14:18'),
 ('9db10eeb-7bb6-4d6b-86ce-fd193946bac3', 'Sparepart corong atas perajang rumput AGR-CH400B', 'AGR-CH400B', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-7d63-4203-bd3a-cb4d7177ee79', 'Pisau penyerut mesin giling daging MHW-G51B/Kecil', 'MHW-G51B/Kecil', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
 ('9db10eeb-7f0c-4d8d-b472-fbb85c2ef7ca', 'Sparepart Tray Food Dehidrator ARD-PM99', 'ARD-PM99', '0.00', '2024-12-10 13:37:30', '2024-12-10 13:37:30'),
@@ -415,9 +415,15 @@ INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `tipe_barang`, `harga_baran
 ('9db11627-256d-4d1a-acb0-b766200c7ce2', 'Sparepart Seal Oli 20.35.7 Blender Buah', 'MKS-BLD99', '130000.00', '2024-12-10 13:57:44', '2024-12-10 13:57:44'),
 ('9db123b1-4d94-4614-90b9-cb4ddac5e6f4', 'Sparepart Gear Hidrolik Cetak Sosis Manual', 'MKS-3V,MKS-5V,MKS-7V,MKS-10V', '260000.00', '2024-12-10 14:35:35', '2024-12-10 14:35:35'),
 ('9db127b9-7ec3-4d9d-9074-6b095b6bee6e', 'Sparepart Pully Kecil Cetak Mie', 'MKS-200,MKS-160,MKS-220SS,MKS-240SS', '60000.00', '2024-12-10 14:46:52', '2024-12-10 14:51:10'),
-('9db149e4-57e8-44bf-b2bf-eadc88ee3786', 'Sparepart Gear Kecil Besi 2 cm Cetak Mie', 'MKS-145', '0.00', '2024-12-10 16:22:24', '2024-12-10 16:22:24'),
+('9db149e4-57e8-44bf-b2bf-eadc88ee3786', 'Sparepart Gear Kecil Besi 2 cm Cetak Mie', 'MKS-145', '50000.00', '2024-12-10 16:22:24', '2024-12-13 07:38:25'),
 ('9db1da3e-2c82-4e6a-b032-b018ec64372d', 'Mesin Ice Tube', 'MKS-IM120', '29140000.00', '2024-12-10 23:06:02', '2024-12-10 23:06:02'),
-('9db1df73-fe81-44aa-a64c-bdfc318d0035', 'Mesin Tortila  (Diameter 30 CM)', 'MKS-TRT4430', '23330000.00', '2024-12-10 23:20:36', '2024-12-10 23:20:36');
+('9db1df73-fe81-44aa-a64c-bdfc318d0035', 'Mesin Tortila  (Diameter 30 CM)', 'MKS-TRT4430', '23330000.00', '2024-12-10 23:20:36', '2024-12-10 23:20:36'),
+('9db62ab4-6b86-4eab-884d-01ef345d1305', 'Mesin Gas Noodle Cooker', 'MKS-PC6', '4760000.00', '2024-12-13 02:34:20', '2024-12-13 02:34:20'),
+('9db656c1-9f7d-4ef5-bb3e-148c6eff7617', 'Sparepart Bearing 6205 MKS-BLD99', 'MKS-BLD99', '120000.00', '2024-12-13 04:37:31', '2024-12-13 04:37:52'),
+('9db65732-f44b-4670-b518-0e0368ab51b6', 'Sparepart Seal Oli 20.35.7 Blender Buah MKS-BLD99', 'MKS-BLD99', '130000.00', '2024-12-13 04:38:45', '2024-12-13 04:38:45'),
+('9db6876e-a178-4930-922e-1637aa4ac0ec', 'Sparepart PCB Vacum Sealer', 'MSP-290E', '770000.00', '2024-12-13 06:53:37', '2024-12-13 07:37:56'),
+('9db687a7-7fdf-42f8-afee-46e2cb8aa5b0', 'Sparepart Thermostat Pencair Peleleh Coklat', 'MKS-CKL62', '630000.00', '2024-12-13 06:54:15', '2024-12-13 07:37:25'),
+('9db687e1-cfef-4162-940f-17ec4f4bdaf4', 'Sparepart Pisau Penyerut Giling Daging', 'MHW-G51B', '80000.00', '2024-12-13 06:54:53', '2024-12-13 07:37:11');
 
 -- --------------------------------------------------------
 
@@ -426,19 +432,19 @@ INSERT INTO `tb_barang` (`id_barang`, `nama_barang`, `tipe_barang`, `harga_baran
 --
 
 CREATE TABLE `tb_barang_keluar` (
-  `id_barang_keluar` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_transaksi` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_barang_keluar` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_transaksi` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal` date NOT NULL,
-  `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_konsumen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_handphone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kode_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_transaksi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_konsumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_handphone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_barang` int NOT NULL,
-  `posisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `posisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -472,7 +478,20 @@ INSERT INTO `tb_barang_keluar` (`id_barang_keluar`, `id_transaksi`, `id_barang`,
 ('9db1ee2a-09c7-4c7e-baea-43c2da92f000', '9db1ee2a-046d-42da-b052-9499ca95f833', '9db11158-56ae-423f-8a44-5ffb5d0b39c5', '2024-09-14', 'SI.2024.09.00017', 'Bpk.Islan', '082299114774', 'Lubuk Terap, Bandar Petalangan, Kab.Pelalawan - Riau', '101297008', 'Mesin Pengupas Kelapa Manual', 'MKS-KLP01', 1, 'Kasir', '2024-12-11 00:01:45', '2024-12-11 00:01:45'),
 ('9db1f06b-9337-4aad-8603-234f24fe6f88', '9db1f06b-8e28-4cd2-acee-fbee2dc98d59', '9db0d1c9-01f3-4291-a5d4-a0be0922579e', '2024-09-17', 'SI.2024.09.00020', 'Ibu.Sri Wahyuni', '081275858959', 'Pangkalan Kerinci - Riau', '601018004', 'Cup Sealer', 'CPS-959', 1, 'Rak-4', '2024-12-11 00:08:03', '2024-12-11 00:08:03'),
 ('9db1f897-8cbf-4636-9b7b-a47883876697', '9db1f897-87fc-40b2-aa7e-10472a8d13bf', '9db0d1c9-57e7-4a84-b4d0-a8e9c7634277', '2024-09-17', 'SI.2024.09.00018', 'Bpk.Rama Aji Anggoro', '085175074336', 'Jalan Poros SP 1 - SP 2 Desa SP1 Kota Baru, Kec.Kunto Darussalam, Kab.Rokan Hulu, Riau 28556', '101158013', 'Mesin Ice Tube', 'MKS-IM100', 1, 'Kasir', '2024-12-11 00:30:54', '2024-12-11 00:30:54'),
-('9db1f8f5-ba24-438a-a407-5ada9051f0db', '9db1f8f5-b571-4a02-b68c-3b6298f03caf', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', 'SI.2024.09.00019', 'Bpk.Mokhroni', '082386360093', 'Sungai Alam RT/RW03, Jl.Lesing Kec.Bengkalis - Riau', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, 'Kasir', '2024-12-11 00:31:56', '2024-12-11 00:31:56');
+('9db1f8f5-ba24-438a-a407-5ada9051f0db', '9db1f8f5-b571-4a02-b68c-3b6298f03caf', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', 'SI.2024.09.00019', 'Bpk.Mokhroni', '082386360093', 'Sungai Alam RT/RW03, Jl.Lesing Kec.Bengkalis - Riau', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, 'Kasir', '2024-12-11 00:31:56', '2024-12-11 00:31:56'),
+('9db62826-18d7-4a5c-b254-54a138e6a3c1', '9db62826-0ac9-417f-8a25-9dbaafb05847', '9db0d1c9-1ea2-4093-b54d-e98905f1f449', '2024-09-18', 'SI.2024.09.00021', 'Ibu. Mimi Oslinda', '085271818000', 'Jl. Marpoyan ,Pekanbaru - Riau', '601019015', 'Mesin Deep Fryer Gas', 'MKS-71', 1, 'Rak-2', '2024-12-13 02:27:11', '2024-12-13 02:27:11'),
+('9db62cc9-75c4-4d20-88fb-9b46f0c7dca6', '9db62cc9-6e19-46c0-b0f1-85c0a41742f2', '9db0d1c9-1dca-427b-917a-4cae88a73e5c', '2024-09-18', 'SI.2024.09.00023', 'Ibu. Sri Utami', '082284595744', 'Delima Rt.003 SP TIga desa tri mulya jaya, Kec.Ukui , Kab.Pelalawan, Pekanbaru - Riau', '101031001', 'Mesin Penggiling Kopi', 'MKS-600B', 1, 'Rak-2', '2024-12-13 02:40:10', '2024-12-13 02:40:10'),
+('9db633e5-eb6e-4274-afe3-4115002d8018', '9db633e5-e3cb-402c-8b04-b2ed5c4047c3', '9db0d1c9-18e7-4a50-955f-7818d4068d24', '2024-09-20', 'SI.2024.09.00024', 'Bpk. Tona Muharom', '081266045158', 'Sungai Geringgi - Riau', '101063087', 'Pemanggang', 'ARD-GRL77', 1, 'Rak-2', '2024-12-13 03:00:03', '2024-12-13 03:00:03'),
+('9db6374e-80c3-40ec-b4c0-e7f607e406ac', '9db6374e-791a-41e6-b265-3e38da8cbe39', '9db11526-0199-44d4-9182-badf3286e3ba', '2024-09-24', 'SI.2024.09.00027', 'Ibu.Gledies', '082169820505', 'Jl.Marsan Sejahtera, Panam, Pekanbaru - Riau', '102225048', 'Sparepart Kabel Anti Panas Cone Baker', 'MKS-CIC21', 2, 'Kasir', '2024-12-13 03:09:35', '2024-12-13 03:09:35'),
+('9db637d8-fa34-4e33-b570-2ffeac3fd2be', '9db637d8-f27f-45fa-9353-d8330b8dc78d', '9db1156f-c7db-42da-a125-23b456716da3', '2024-09-24', 'SI.2024.09.00027', 'Ibu.Gledies', '082169820505', 'Jl.Marsan Sejahtera, Panam, Pekanbaru - Riau', '102252040', 'Sparepart Selongsong Anti Panas Pemanggang Ayam', 'GRILL-GR6', 1, 'Kasir', '2024-12-13 03:11:05', '2024-12-13 03:11:05'),
+('9db65a57-914a-4d68-92fc-2decd1b37914', '9db65a57-86b0-4acc-a249-6e80e89af400', '9db0d1c9-5050-41bd-a744-af2ebba86fdc', '2024-09-26', 'SI.2024.09.00028', 'Ibu. Indah', '085364847987', 'Toko MilsBread, Jl.M Boya , Lr Pepaya, No.12. Tembilahan Kota - Riau', '101001013', 'Mesin Giling Daging', 'MHW-G31B', 1, 'Rak-3', '2024-12-13 04:47:32', '2024-12-13 04:47:32'),
+('9db65f37-dd7b-4b0b-8638-b274548ff3b9', '9db65f37-d527-40fb-ac0c-7bb09d4a038e', '9db113e5-d66f-44c2-b44d-c42a8aed8c6a', '2024-09-27', 'SI.2024.09.00032', 'Bpk.Aswira', '082171306821', 'Kedai Kopi Paduko, Jl, A.Yani No 51, Kel.Nunang Dayabangun,Kec.Payakumbuh Barat ,Kota Payakumbuh - Sumatra Barat', '101052005', 'Mesin Juice Extractor', 'MKS-MK3000', 2, 'Kasir', '2024-12-13 05:01:11', '2024-12-13 05:01:11'),
+('9db6806b-ba44-4206-8b99-f83b868d032d', '9db6806b-b2a0-4524-ad1b-b653fea14bf8', '9db0d1c9-3905-47dc-b49a-fa81feffc93e', '2024-09-27', 'SI.2024.09.00033', 'Ibu. Erni Himsar', '081374343177', 'Bukittinggi - Sumatra Barat', '601006010', 'Mesin Cetak Mie', 'MKS-220SS', 1, 'Kasir', '2024-12-13 06:34:01', '2024-12-13 06:34:01'),
+('9db6823d-2d39-43c9-a7a8-462c7b225c06', '9db6823d-24ea-4f10-abde-43cb00389268', '9db11340-423c-4f99-8b83-1b6938811e94', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 10, 'Kasir', '2024-12-13 06:39:06', '2024-12-13 06:45:08'),
+('9db682d5-791f-41ef-945e-af5dab869ce9', '9db682d5-71db-4349-b363-639414a2bfa1', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 10, 'Kasir', '2024-12-13 06:40:46', '2024-12-13 06:46:27'),
+('9db6835a-bd60-47a3-860b-dabe4d586246', '9db6835a-b3ec-45ea-8681-43aed2ec355e', '9db110de-9ea1-4be5-9f44-40bddc2bdf09', '2024-09-27', 'SI.2024.09.00029', 'Bpk.Erwin Tandiawan', '082160815789', 'Jl.Teuku Umar No.95, Pekanbaru - Riau', '101289001', 'Alat Pemotong & Penusuk Daging Sate', 'MKS-089', 2, 'Kasir', '2024-12-13 06:42:13', '2024-12-13 06:42:13'),
+('9db68562-3394-41c5-83bc-2364974e1e75', '9db68562-2a38-4b9e-ac52-e4a6b0939697', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '2024-09-27', 'SI.2024.09.00030', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 4, 'Kasir', '2024-12-13 06:47:54', '2024-12-13 06:47:54'),
+('9db685a4-a807-435d-befa-f8276e497a18', '9db685a4-9e0f-4094-935b-78fbbdc79898', '9db11340-423c-4f99-8b83-1b6938811e94', '2024-09-27', 'SI.2024.09.00030', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 4, 'Kasir', '2024-12-13 06:48:37', '2024-12-13 06:48:37');
 
 -- --------------------------------------------------------
 
@@ -481,18 +500,18 @@ INSERT INTO `tb_barang_keluar` (`id_barang_keluar`, `id_transaksi`, `id_barang`,
 --
 
 CREATE TABLE `tb_barang_masuk` (
-  `id_brg_masuk` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_brg_masuk` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_brg_masuk` date NOT NULL,
-  `no_warehouse` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kode_barang` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `asal_gudang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_warehouse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_barang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `asal_gudang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_barang` int NOT NULL,
-  `posisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_konsumen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `posisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_konsumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -512,7 +531,24 @@ INSERT INTO `tb_barang_masuk` (`id_brg_masuk`, `id_barang`, `tgl_brg_masuk`, `no
 ('9db1eae7-29af-4e5a-81bb-77f81f64c617', '9db11158-56ae-423f-8a44-5ffb5d0b39c5', '2024-09-14', 'DO.2024.09.00103', '101297008', 'Mesin Pengupas Kelapa Manual', 'MKS-KLP01', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Bpk.Islan', '2024-12-10 23:52:37', '2024-12-10 23:52:37'),
 ('9db1eb35-0f0d-4c47-ab53-95df65ab86c8', '9db0d1c9-01f3-4291-a5d4-a0be0922579e', '2024-09-14', 'DO.2024.09.00103', '601018004', 'Cup Sealer', 'CPS-959', 'Gudang Pusat', 6, 'Rak-4', 'stok', '-', '2024-12-10 23:53:28', '2024-12-10 23:53:28'),
 ('9db1eb8e-313d-44d2-bf25-f0daa0679059', '9db0d1c9-02f9-4e03-a5d9-3f8fe027679e', '2024-09-14', 'DO.2024.09.00103', '601005019', 'Mesin Stand Mixer', 'ARD-MR7', 'Gudang Pusat', 3, 'Gudang-Lt1', 'stok', '-', '2024-12-10 23:54:27', '2024-12-10 23:54:27'),
-('9db1f7b1-0f5e-40df-b6db-9f8d69f6d056', '9db1df73-fe81-44aa-a64c-bdfc318d0035', '2024-09-17', 'DO.2024.09.00120', '101029009', 'Mesin Tortila  (Diameter 30 CM)', 'MKS-TRT4430', 'Gudang Pusat', 2, 'Kasir', 'customer', 'Bpk.M.Nur', '2024-12-11 00:28:23', '2024-12-11 00:28:23');
+('9db1f7b1-0f5e-40df-b6db-9f8d69f6d056', '9db1df73-fe81-44aa-a64c-bdfc318d0035', '2024-09-17', 'DO.2024.09.00120', '101029009', 'Mesin Tortila  (Diameter 30 CM)', 'MKS-TRT4430', 'Gudang Pusat', 2, 'Kasir', 'customer', 'Bpk.M.Nur', '2024-12-11 00:28:23', '2024-12-11 00:28:23'),
+('9db65cd9-a521-4845-82a4-5993081fcd72', '9db1146d-d24f-4bae-9901-ee4b786a5927', '2024-09-27', 'DO.2024.08.00236', '101007006', 'Mesin Gas Noodle Cooker', 'MKS-PC6', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Ibu. Mimi Oslinda', '2024-12-13 04:54:33', '2024-12-13 04:55:38'),
+('9db65e71-a8cd-45c0-a05e-8748acc2befb', '9db113e5-d66f-44c2-b44d-c42a8aed8c6a', '2024-09-27', 'DO.2024.09.00211', '101052005', 'Mesin Juice Extractor', 'MKS-MK3000', 'Gudang Pusat', 2, 'Kasir', 'customer', 'Bpk. Aswira', '2024-12-13 04:59:01', '2024-12-13 06:25:45'),
+('9db67a68-b917-4c9e-a51e-1c1289952f1c', '9db0d1c9-3905-47dc-b49a-fa81feffc93e', '2024-09-27', 'DO.2024.08.00236', '601006010', 'Mesin Cetak Mie', 'MKS-220SS', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Ibu. Emi Himsar', '2024-12-13 06:17:12', '2024-12-13 06:17:12'),
+('9db67b30-2a83-41f0-9c49-bb78a704af1b', '9db11340-423c-4f99-8b83-1b6938811e94', '2024-09-27', 'DO.2024.08.00236', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 'Gudang Pusat', 14, 'Kasir', 'customer', 'Ibu Mimi Afriani, Ibu Neneng dan Bpk. M. Nur', '2024-12-13 06:19:23', '2024-12-13 06:19:23'),
+('9db67bad-4b3e-4d9e-89e6-9529a12b32dd', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '2024-09-27', 'DO.2024.08.00236', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 'Gudang Pusat', 14, 'Kasir', 'customer', 'Ibu Mimi Afriani, Ibu Neneng dan Bpk. M. Nur', '2024-12-13 06:20:45', '2024-12-13 06:20:45'),
+('9db67d5e-3735-4187-90c9-6e35d0198b0a', '9db110de-9ea1-4be5-9f44-40bddc2bdf09', '2024-09-27', 'DO.2024.08.00211', '101289001', 'Alat Pemotong & Penusuk Daging Sate', 'MKS-089', 'Gudang Pusat', 2, 'Kasir', 'customer', 'Bpk. Erwin Tandiawan', '2024-12-13 06:25:29', '2024-12-13 06:27:37'),
+('9db67dee-33c6-4646-9f17-ce9f34edc178', '9db0d1c8-ea1b-40c8-830f-206c1c4daa7a', '2024-09-27', 'DO.2024.08.00211', '201046016', 'Mesin Cetak Pelet', 'AGR-PLT15', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Bpk. Gunawan Broto Sasmita', '2024-12-13 06:27:03', '2024-12-13 06:28:41'),
+('9db68920-302c-4e61-b9f9-aee5ca681328', '9db6876e-a178-4930-922e-1637aa4ac0ec', '2024-09-30', 'DO.2024.09.00278', '302027059', 'Sparepart PCB Vacum Sealer', 'MSP-290E', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Bpk. Amos', '2024-12-13 06:58:21', '2024-12-13 06:58:21'),
+('9db6897f-abc0-4b5e-b20d-375cf4e3d343', '9db687a7-7fdf-42f8-afee-46e2cb8aa5b0', '2024-09-30', 'DO.2024.09.00278', '102223009', 'Sparepart Thermostat Pencair Peleleh Coklat', 'MKS-CKL62', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Ibu. Dewi Sahara', '2024-12-13 06:59:24', '2024-12-13 07:01:12'),
+('9db689e7-cf1d-4fe0-9118-5c1118b91b06', '9db687e1-cfef-4162-940f-17ec4f4bdaf4', '2024-09-30', 'DO.2024.09.00278', '102240006', 'Sparepart Pisau Penyerut Giling Daging', 'MHW-G51B', 'Gudang Pusat', 1, 'Kasir', 'customer', 'Ibu. Neorika', '2024-12-13 07:00:32', '2024-12-13 07:02:52'),
+('9db68b92-2154-45a6-85bd-6c834cd1ede4', '9db0d1c9-556d-4fd7-b76f-df3105054536', '2024-09-30', 'DO.2024.09.00278', '101008015', 'Mesin Cetak Mie', 'MKS-CM180', 'Gudang Pusat', 2, 'Gudang-Lt1', 'stok', '-', '2024-12-13 07:05:12', '2024-12-13 07:05:12'),
+('9db68c2f-0e17-42f2-99b1-b088ad78f3b0', '9db0d1c9-27f9-42a1-aea2-bc2a8d68d78c', '2024-09-30', 'DO.2024.09.00278', '301007002', 'Mesin Hand Sealer', 'MSP-300i', 'Gudang Pusat', 5, 'Rak-3', 'stok', '-', '2024-12-13 07:06:55', '2024-12-13 07:06:55'),
+('9db69140-0a5e-4d37-b378-47094b43404a', '9db0d1c9-027d-40c9-ace2-7607979e6d9d', '2024-09-30', 'DO.2024.09.00278', '101055016', 'Ice Crusher', 'MKS-CRS30', 'Gudang Pusat', 2, 'Gudang-Lt1', 'stok', '-', '2024-12-13 07:21:05', '2024-12-13 07:21:05'),
+('9db691f0-9452-4964-b78a-5690de9bfce6', '9db0d1c8-f406-48ca-975b-cdfcebe910cc', '2024-09-30', 'DO.2024.09.00278', '601006009', 'Mesin Cetak Mie', 'MKS-160SS', 'Gudang Pusat', 1, 'Gudang-Lt1', 'stok', '-', '2024-12-13 07:23:00', '2024-12-13 07:23:00'),
+('9db692a2-6973-42bf-aac8-0eec4ec05371', '9db0d1c9-566d-4745-b66f-a288952f518a', '2024-09-30', 'DO.2024.09.00278', '601006011', 'Mesin Cetak Mie Stainless', 'MKS-240SS', 'Gudang Pusat', 1, 'Gudang-Lt1', 'stok', '-', '2024-12-13 07:24:57', '2024-12-13 07:24:57'),
+('9db692f2-a50e-46e5-854a-859cd62a04f4', '9db0d1c9-56ec-4081-8093-ba58e87694f7', '2024-09-30', 'DO.2024.09.00278', '601006013', 'Mesin Cetak Mie', 'ARD-125', 'Gudang Pusat', 2, 'Gudang-Lt1', 'stok', '-', '2024-12-13 07:25:49', '2024-12-13 07:25:49'),
+('9db693b6-5044-4e01-b317-fc913287770b', '9db0d1c9-277d-4d8e-949c-ba2f77d5b9bf', '2024-09-30', 'DO.2024.09.00278', '301007003', 'Mesin Hand Sealer', 'MSP-200A', 'Gudang Pusat', 5, 'Rak-3', 'stok', '-', '2024-12-13 07:27:58', '2024-12-13 07:27:58');
 
 -- --------------------------------------------------------
 
@@ -521,17 +557,17 @@ INSERT INTO `tb_barang_masuk` (`id_brg_masuk`, `id_barang`, `tgl_brg_masuk`, `no
 --
 
 CREATE TABLE `tb_stok_barang` (
-  `id_stok` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_stok` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tanggal` date NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `barang_masuk` int NOT NULL DEFAULT '0',
   `barang_keluar` int NOT NULL DEFAULT '0',
   `stok_awal` int NOT NULL DEFAULT '0',
   `stok_akhir` int NOT NULL DEFAULT '0',
-  `posisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `posisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -846,7 +882,35 @@ INSERT INTO `tb_stok_barang` (`id_stok`, `id_barang`, `tanggal`, `nama_barang`, 
 ('9db1f06b-91ed-4ae7-be26-f5fff0602e96', '9db0d1c9-01f3-4291-a5d4-a0be0922579e', '2024-09-17', 'Cup Sealer', 'CPS-959', 0, 1, 6, 5, 'Rak-4', 'stok', '2024-12-11 00:08:03', '2024-12-11 00:08:03'),
 ('9db1f7b1-1287-4ae0-9c3a-4fd5af838f3f', '9db1df73-fe81-44aa-a64c-bdfc318d0035', '2024-09-17', 'Mesin Tortila  (Diameter 30 CM)', 'MKS-TRT4430', 2, 0, 0, 2, 'Kasir', 'stok', '2024-12-11 00:28:23', '2024-12-11 00:28:23'),
 ('9db1f897-8b7f-4b92-bb0b-40255a7cecda', '9db0d1c9-57e7-4a84-b4d0-a8e9c7634277', '2024-09-17', 'Mesin Ice Tube', 'MKS-IM100', 0, 1, 1, 0, 'Kasir', 'stok', '2024-12-11 00:30:54', '2024-12-11 00:30:54'),
-('9db1f8f5-b8d4-4fea-b7c7-814b2d10935b', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', 'Mesin Ice Tube', 'MKS-IM120', 0, 1, 1, 0, 'Kasir', 'stok', '2024-12-11 00:31:56', '2024-12-11 00:31:56');
+('9db1f8f5-b8d4-4fea-b7c7-814b2d10935b', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', 'Mesin Ice Tube', 'MKS-IM120', 0, 1, 1, 0, 'Kasir', 'stok', '2024-12-11 00:31:56', '2024-12-11 00:31:56'),
+('9db62826-15e8-44bb-a38a-92e26a9e52b3', '9db0d1c9-1ea2-4093-b54d-e98905f1f449', '2024-09-18', 'Mesin Deep Fryer Gas', 'MKS-71', 0, 1, 1, 0, 'Rak-2', 'stok', '2024-12-13 02:27:11', '2024-12-13 02:27:11'),
+('9db62cc9-7397-4b91-9543-5b36b13681a5', '9db0d1c9-1dca-427b-917a-4cae88a73e5c', '2024-09-18', 'Mesin Penggiling Kopi', 'MKS-600B', 0, 1, 3, 2, 'Rak-2', 'stok', '2024-12-13 02:40:10', '2024-12-13 02:40:10'),
+('9db633e5-e95c-4090-88c0-b3cb4ac94c99', '9db0d1c9-18e7-4a50-955f-7818d4068d24', '2024-09-20', 'Pemanggang', 'ARD-GRL77', 0, 1, 2, 1, 'Rak-2', 'stok', '2024-12-13 03:00:03', '2024-12-13 03:00:03'),
+('9db63594-04c3-4fdb-9dac-cfb4dd47c0e9', '9db1156f-c7db-42da-a125-23b456716da3', '2024-09-24', 'Sparepart Selongsong Anti Panas Pemanggang Ayam', 'GRILL-GR6', 0, 1, 1, 0, 'Kasir', 'stok', '2024-12-13 03:04:45', '2024-12-13 03:11:05'),
+('9db635e9-ee68-4e80-a72c-abb75afc81d5', '9db11526-0199-44d4-9182-badf3286e3ba', '2024-09-24', 'Sparepart Kabel Anti Panas Cone Baker', 'MKS-CIC21', 0, 2, 2, 0, 'Kasir', 'stok', '2024-12-13 03:05:41', '2024-12-13 03:09:34'),
+('9db64ff9-5bb3-41ec-8b5b-11275eb6b05e', '9db115bf-fbe9-4a00-812f-2c96c7a74186', '2024-09-26', 'Sparepart Bearing 6204', 'ALL-Type', 0, 0, 1, 1, 'Kasir', 'Sparepart Stok', '2024-12-13 04:18:33', '2024-12-13 04:18:33'),
+('9db65023-d596-47d5-817c-5fa9e11dc10b', '9db11069-9f9c-49f6-ac10-99900d54e76d', '2024-09-26', 'Sparepart Bearing 6205', 'ALL-Type', 0, 0, 1, 1, 'Kasir', 'Sparepart Stok', '2024-12-13 04:19:01', '2024-12-13 04:19:01'),
+('9db65054-77f3-4828-bfe6-a92ce4a8131c', '9db11627-256d-4d1a-acb0-b766200c7ce2', '2024-09-26', 'Sparepart Seal Oli 20.35.7 Blender Buah', 'MKS-BLD99', 0, 0, 1, 1, 'Kasir', 'Sparepart Stok', '2024-12-13 04:19:33', '2024-12-13 04:19:33'),
+('9db6575c-cea7-4bd3-a12d-80c6dc7873ce', '9db656c1-9f7d-4ef5-bb3e-148c6eff7617', '2024-09-26', 'Sparepart Bearing 6205 MKS-BLD99', 'MKS-BLD99', 0, 0, 1, 1, 'Kasir', 'Sparepart Stok', '2024-12-13 04:39:13', '2024-12-13 04:39:13'),
+('9db65788-f784-4dde-89a2-1b96060d821a', '9db65732-f44b-4670-b518-0e0368ab51b6', '2024-09-26', 'Sparepart Seal Oli 20.35.7 Blender Buah MKS-BLD99', 'MKS-BLD99', 0, 0, 1, 1, 'Kasir', 'Sparepart Stok', '2024-12-13 04:39:42', '2024-12-13 04:39:42'),
+('9db65a57-8db7-44b4-89d1-c6bf15969f7d', '9db0d1c9-5050-41bd-a744-af2ebba86fdc', '2024-09-26', 'Mesin Giling Daging', 'MHW-G31B', 0, 1, 2, 1, 'Rak-3', 'stok', '2024-12-13 04:47:32', '2024-12-13 04:47:32'),
+('9db65d3c-4b64-44cb-82fd-65e95361b683', '9db1146d-d24f-4bae-9901-ee4b786a5927', '2024-09-27', 'Mesin Gas Noodle Cooker', 'MKS-PC6', 1, 0, 0, 1, 'Kasir', 'stok', '2024-12-13 04:55:38', '2024-12-13 04:55:38'),
+('9db65e71-adf9-4ba5-8f13-23d6b5d4dffc', '9db113e5-d66f-44c2-b44d-c42a8aed8c6a', '2024-09-27', 'Mesin Juice Extractor', 'MKS-MK3000', 2, 2, 0, 0, 'Kasir', 'stok', '2024-12-13 04:59:01', '2024-12-13 05:01:11'),
+('9db67a68-be43-46fc-8ef2-dba04c300a35', '9db0d1c9-3905-47dc-b49a-fa81feffc93e', '2024-09-27', 'Mesin Cetak Mie', 'MKS-220SS', 1, 1, 0, 0, 'Kasir', 'stok', '2024-12-13 06:17:12', '2024-12-13 06:34:01'),
+('9db67b30-2e8b-4365-8798-f5807b0bee38', '9db11340-423c-4f99-8b83-1b6938811e94', '2024-09-27', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 14, 14, 0, 0, 'Kasir', 'stok', '2024-12-13 06:19:23', '2024-12-13 06:48:37'),
+('9db67bad-5019-4304-8a07-f007ec71c203', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '2024-09-27', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 14, 14, 0, 0, 'Kasir', 'stok', '2024-12-13 06:20:45', '2024-12-13 06:47:54'),
+('9db67d5e-3c38-4b3d-8f24-8bbd70625195', '9db110de-9ea1-4be5-9f44-40bddc2bdf09', '2024-09-27', 'Alat Pemotong & Penusuk Daging Sate', 'MKS-089', 2, 2, 0, 0, 'Kasir', 'stok', '2024-12-13 06:25:29', '2024-12-13 06:42:13'),
+('9db67e83-6b88-47c2-a567-b8a13c2af0fc', '9db0d1c8-ea1b-40c8-830f-206c1c4daa7a', '2024-09-27', 'Mesin Cetak Pelet', 'AGR-PLT15', 1, 0, 0, 1, 'Kasir', 'stok', '2024-12-13 06:28:41', '2024-12-13 06:28:41'),
+('9db68920-35b5-4726-8d47-61919fa41d45', '9db6876e-a178-4930-922e-1637aa4ac0ec', '2024-09-30', 'Sparepart PCB Vacum Sealer', 'MSP-290E', 1, 0, 0, 1, 'Kasir', 'stok', '2024-12-13 06:58:21', '2024-12-13 06:58:21'),
+('9db68a57-ea29-4c14-9961-90ca28b77e60', '9db687a7-7fdf-42f8-afee-46e2cb8aa5b0', '2024-09-30', 'Sparepart Thermostat Pencair Peleleh Coklat', 'MKS-CKL62', 1, 0, 0, 1, 'Kasir', 'stok', '2024-12-13 07:01:46', '2024-12-13 07:01:46'),
+('9db68abd-18a7-4b17-8cda-996b4f57e4f2', '9db687e1-cfef-4162-940f-17ec4f4bdaf4', '2024-09-30', 'Sparepart Pisau Penyerut Giling Daging', 'MHW-G51B', 1, 0, 0, 1, 'Kasir', 'stok', '2024-12-13 07:02:52', '2024-12-13 07:02:52'),
+('9db68b92-26c9-4410-8d65-f7a6b0c98fae', '9db0d1c9-556d-4fd7-b76f-df3105054536', '2024-09-30', 'Mesin Cetak Mie', 'MKS-CM180', 2, 0, 0, 2, 'Gudang-Lt1', 'stok', '2024-12-13 07:05:12', '2024-12-13 07:05:12'),
+('9db68c2f-13b0-4c6a-8b8d-1df5b160e27f', '9db0d1c9-27f9-42a1-aea2-bc2a8d68d78c', '2024-09-30', 'Mesin Hand Sealer', 'MSP-300i', 5, 0, 0, 5, 'Rak-3', 'stok', '2024-12-13 07:06:55', '2024-12-13 07:06:55'),
+('9db69140-10f9-4292-a143-3fb90811c3b0', '9db0d1c9-027d-40c9-ace2-7607979e6d9d', '2024-09-30', 'Ice Crusher', 'MKS-CRS30', 2, 0, 1, 3, 'Gudang-Lt1', 'stok', '2024-12-13 07:21:05', '2024-12-13 07:21:05'),
+('9db691f0-9ac4-4f5a-b0b8-c4e60851bba5', '9db0d1c8-f406-48ca-975b-cdfcebe910cc', '2024-09-30', 'Mesin Cetak Mie', 'MKS-160SS', 1, 0, 0, 1, 'Gudang-Lt1', 'stok', '2024-12-13 07:23:00', '2024-12-13 07:23:00'),
+('9db692a2-6d80-432b-bdd1-3041765fdf82', '9db0d1c9-566d-4745-b66f-a288952f518a', '2024-09-30', 'Mesin Cetak Mie Stainless', 'MKS-240SS', 1, 0, 0, 1, 'Gudang-Lt1', 'stok', '2024-12-13 07:24:57', '2024-12-13 07:24:57'),
+('9db692f2-a92b-46e7-9f13-b87b6b28cd32', '9db0d1c9-56ec-4081-8093-ba58e87694f7', '2024-09-30', 'Mesin Cetak Mie', 'ARD-125', 2, 0, 0, 2, 'Gudang-Lt1', 'stok', '2024-12-13 07:25:49', '2024-12-13 07:25:49'),
+('9db693b6-5624-4491-9df8-a68b381e6aaf', '9db0d1c9-277d-4d8e-949c-ba2f77d5b9bf', '2024-09-30', 'Mesin Hand Sealer', 'MSP-200A', 5, 0, 1, 6, 'Rak-3', 'stok', '2024-12-13 07:27:58', '2024-12-13 07:27:58');
 
 -- --------------------------------------------------------
 
@@ -855,12 +919,12 @@ INSERT INTO `tb_stok_barang` (`id_stok`, `id_barang`, `tanggal`, `nama_barang`, 
 --
 
 CREATE TABLE `tb_top_product` (
-  `id_top_product` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_top_product` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tanggal` date NOT NULL,
-  `kode_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_barang` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -893,7 +957,18 @@ INSERT INTO `tb_top_product` (`id_top_product`, `id_barang`, `tanggal`, `kode_ba
 ('9db1ee2a-0b0c-4a2c-a9c9-ce78e6162538', '9db11158-56ae-423f-8a44-5ffb5d0b39c5', '2024-09-14', '101297008', 'Mesin Pengupas Kelapa Manual', 'MKS-KLP01', 1, '2024-12-11 00:01:45', '2024-12-11 00:01:45'),
 ('9db1f06b-9473-48ff-b60f-249b7cad9461', '9db0d1c9-01f3-4291-a5d4-a0be0922579e', '2024-09-17', '601018004', 'Cup Sealer', 'CPS-959', 1, '2024-12-11 00:08:03', '2024-12-11 00:08:03'),
 ('9db1f897-8e0d-4c78-900d-fe36f19cc4b4', '9db0d1c9-57e7-4a84-b4d0-a8e9c7634277', '2024-09-17', '101158013', 'Mesin Ice Tube', 'MKS-IM100', 1, '2024-12-11 00:30:54', '2024-12-11 00:30:54'),
-('9db1f8f5-bb7d-469e-8d1b-3e92223ed05b', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, '2024-12-11 00:31:56', '2024-12-11 00:31:56');
+('9db1f8f5-bb7d-469e-8d1b-3e92223ed05b', '9db1da3e-2c82-4e6a-b032-b018ec64372d', '2024-09-17', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, '2024-12-11 00:31:56', '2024-12-11 00:31:56'),
+('9db62826-1b19-429a-ab45-8f8827a7c282', '9db0d1c9-1ea2-4093-b54d-e98905f1f449', '2024-09-18', '601019015', 'Mesin Deep Fryer Gas', 'MKS-71', 1, '2024-12-13 02:27:11', '2024-12-13 02:27:11'),
+('9db62cc9-780d-4fd0-b433-a8c9ddc259d2', '9db0d1c9-1dca-427b-917a-4cae88a73e5c', '2024-09-18', '101031001', 'Mesin Penggiling Kopi', 'MKS-600B', 1, '2024-12-13 02:40:10', '2024-12-13 02:40:10'),
+('9db633e5-ed8a-4711-b5b5-4056a553aa53', '9db0d1c9-18e7-4a50-955f-7818d4068d24', '2024-09-20', '101063087', 'Pemanggang', 'ARD-GRL77', 1, '2024-12-13 03:00:03', '2024-12-13 03:00:03'),
+('9db6374e-82d7-4a2a-be72-76c6d9c0dfa8', '9db11526-0199-44d4-9182-badf3286e3ba', '2024-09-24', '102225048', 'Sparepart Kabel Anti Panas Cone Baker', 'MKS-CIC21', 2, '2024-12-13 03:09:35', '2024-12-13 03:09:35'),
+('9db637d8-fc78-4804-9b15-e6ca5d078227', '9db1156f-c7db-42da-a125-23b456716da3', '2024-09-24', '102252040', 'Sparepart Selongsong Anti Panas Pemanggang Ayam', 'GRILL-GR6', 1, '2024-12-13 03:11:05', '2024-12-13 03:11:05'),
+('9db65a57-93b0-40a1-af3e-daf6f6c2b362', '9db0d1c9-5050-41bd-a744-af2ebba86fdc', '2024-09-26', '101001013', 'Mesin Giling Daging', 'MHW-G31B', 1, '2024-12-13 04:47:32', '2024-12-13 04:47:32'),
+('9db65f37-e05c-4308-99e9-e800794515fe', '9db113e5-d66f-44c2-b44d-c42a8aed8c6a', '2024-09-27', '101052005', 'Mesin Juice Extractor', 'MKS-MK3000', 2, '2024-12-13 05:01:11', '2024-12-13 05:01:11'),
+('9db6806b-bc9b-41fe-b742-315f83f94f92', '9db0d1c9-3905-47dc-b49a-fa81feffc93e', '2024-09-27', '601006010', 'Mesin Cetak Mie', 'MKS-220SS', 1, '2024-12-13 06:34:01', '2024-12-13 06:34:01'),
+('9db6823d-2f4c-42fd-8d8c-0eacbd0d4c16', '9db11340-423c-4f99-8b83-1b6938811e94', '2024-09-27', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 14, '2024-12-13 06:39:06', '2024-12-13 06:48:37'),
+('9db682d5-7b06-4873-b4d9-9d1f27667573', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '2024-09-27', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 14, '2024-12-13 06:40:46', '2024-12-13 06:47:54'),
+('9db6835a-bf54-48f2-9ab4-b7eae5440a37', '9db110de-9ea1-4be5-9f44-40bddc2bdf09', '2024-09-27', '101289001', 'Alat Pemotong & Penusuk Daging Sate', 'MKS-089', 2, '2024-12-13 06:42:13', '2024-12-13 06:42:13');
 
 -- --------------------------------------------------------
 
@@ -902,23 +977,23 @@ INSERT INTO `tb_top_product` (`id_top_product`, `id_barang`, `tanggal`, `kode_ba
 --
 
 CREATE TABLE `tb_transaksi_penjualan` (
-  `id_transaksi` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_barang` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_stok` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_transaksi` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_barang` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_stok` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_transaksi` date NOT NULL,
-  `kode_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_konsumen` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_handphone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_sales` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kode_barang` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tipe_barang` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_transaksi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_konsumen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_handphone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_sales` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `kode_barang` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipe_barang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah_barang` int NOT NULL,
   `harga_barang` decimal(12,2) NOT NULL,
-  `posisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status_pembayaran` enum('dana pertama - belum lunas','dana pertama - lunas','lunas') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'dana pertama - belum lunas',
-  `status_transaksi` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `posisi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_pembayaran` enum('dana pertama - belum lunas','dana pertama - lunas','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'dana pertama - belum lunas',
+  `status_transaksi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `dana_pertama` decimal(12,2) NOT NULL,
   `pembayaran` decimal(12,2) NOT NULL,
   `diskon` int NOT NULL,
@@ -966,7 +1041,28 @@ INSERT INTO `tb_transaksi_penjualan` (`id_transaksi`, `id_barang`, `id_stok`, `t
 ('9db1f5fa-1665-4859-a706-45b88e322e91', '9db11340-423c-4f99-8b83-1b6938811e94', NULL, '2024-09-17', 'SO.2024.09.00017', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', 'Muhammad Reza', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 4, '260000.00', 'Kasir', 'dana pertama - lunas', 'non tunai', '1040000.00', '1040000.00', 0, '1040000.00', '0.00', '2024-12-11 00:23:35', '2024-12-11 00:23:35'),
 ('9db1f6c7-9d32-41fe-800f-4285a7bfc70c', '9db1139b-bf9b-4640-9cc4-2e880a10099a', NULL, '2024-09-17', 'SO.2024.09.00017', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', 'Tia Saputri', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 4, '370000.00', 'Kasir', 'dana pertama - lunas', 'non tunai', '1480000.00', '1480000.00', 0, '1480000.00', '0.00', '2024-12-11 00:25:50', '2024-12-11 00:25:50'),
 ('9db1f897-87fc-40b2-aa7e-10472a8d13bf', '9db0d1c9-57e7-4a84-b4d0-a8e9c7634277', NULL, '2024-09-17', 'SI.2024.09.00018', 'Bpk.Rama Aji Anggoro', '085175074336', 'Jalan Poros SP 1 - SP 2 Desa SP1 Kota Baru, Kec.Kunto Darussalam, Kab.Rokan Hulu, Riau 28556', 'Muhammad Reza', '101158013', 'Mesin Ice Tube', 'MKS-IM100', 1, '26970000.00', 'Kasir', 'lunas', 'non tunai', '13485000.00', '13485000.00', 0, '26970000.00', '0.00', '2024-12-11 00:30:54', '2024-12-11 00:30:54'),
-('9db1f8f5-b571-4a02-b68c-3b6298f03caf', '9db1da3e-2c82-4e6a-b032-b018ec64372d', NULL, '2024-09-17', 'SI.2024.09.00019', 'Bpk.Mokhroni', '082386360093', 'Sungai Alam RT/RW03, Jl.Lesing Kec.Bengkalis - Riau', 'Tia Saputri', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, '29140000.00', 'Kasir', 'lunas', 'non tunai', '20000000.00', '9140000.00', 0, '29140000.00', '0.00', '2024-12-11 00:31:56', '2024-12-11 00:31:56');
+('9db1f8f5-b571-4a02-b68c-3b6298f03caf', '9db1da3e-2c82-4e6a-b032-b018ec64372d', NULL, '2024-09-17', 'SI.2024.09.00019', 'Bpk.Mokhroni', '082386360093', 'Sungai Alam RT/RW03, Jl.Lesing Kec.Bengkalis - Riau', 'Tia Saputri', '101158014', 'Mesin Ice Tube', 'MKS-IM120', 1, '29140000.00', 'Kasir', 'lunas', 'non tunai', '20000000.00', '9140000.00', 0, '29140000.00', '0.00', '2024-12-11 00:31:56', '2024-12-11 00:31:56'),
+('9db62826-0ac9-417f-8a25-9dbaafb05847', '9db0d1c9-1ea2-4093-b54d-e98905f1f449', '9db0d1df-e4af-438a-a97b-02f44c7c1bd7', '2024-09-18', 'SI.2024.09.00021', 'Ibu. Mimi Oslinda', '085271818000', 'Jl. Marpoyan ,Pekanbaru - Riau', 'Tia Saputri', '601019015', 'Mesin Deep Fryer Gas', 'MKS-71', 1, '1540000.00', 'Rak-2', 'lunas', 'non tunai', '0.00', '1540000.00', 0, '1540000.00', '0.00', '2024-12-13 02:27:11', '2024-12-13 02:27:11'),
+('9db629ee-f482-41a2-b2c0-85d2fbe81dc8', '9db1143a-5685-4962-9534-50b99dcb46d1', NULL, '2024-09-18', 'SO.2024.09.00022', 'Bpk. Gunawan Broto Sasmito', '085363902387', 'Desa Seresam,Kec.Seberida, Kab.Indragiri Hulu - Riau', 'Tia Saputri', '201046016', 'Mesin Cetak Pelet', 'AGR-PLT15', 1, '3340000.00', 'Kasir', 'dana pertama - belum lunas', 'non tunai', '1700000.00', '1700000.00', 0, '3340000.00', '1640000.00', '2024-12-13 02:32:11', '2024-12-13 02:32:11'),
+('9db62b64-7fe1-4e38-9dba-4a3ab9251296', '9db1146d-d24f-4bae-9901-ee4b786a5927', NULL, '2024-09-18', 'SO.2024.09.00023', 'Ibu. Mimi Oslinda', '085271818000', 'Jl. Marpoyan ,Pekanbaru - Riau', 'Tia Saputri', '101007006', 'Mesin Gas Noodle Cooker', 'MKS-PC6', 1, '4760000.00', 'Kasir', 'dana pertama - lunas', 'non tunai', '4760000.00', '4760000.00', 0, '4760000.00', '0.00', '2024-12-13 02:36:16', '2024-12-13 02:36:16'),
+('9db62cc9-6e19-46c0-b0f1-85c0a41742f2', '9db0d1c9-1dca-427b-917a-4cae88a73e5c', '9db0d1df-e2e6-40fa-8ec2-bf54c3472c3b', '2024-09-18', 'SI.2024.09.00023', 'Ibu. Sri Utami', '082284595744', 'Delima Rt.003 SP TIga desa tri mulya jaya, Kec.Ukui , Kab.Pelalawan, Pekanbaru - Riau', 'Tia Saputri', '101031001', 'Mesin Penggiling Kopi', 'MKS-600B', 1, '1250000.00', 'Rak-2', 'lunas', 'non tunai', '0.00', '562500.00', 55, '562500.00', '0.00', '2024-12-13 02:40:10', '2024-12-13 02:40:10'),
+('9db630e6-002a-4c01-8b0b-6be25dc1ae05', '9db114b2-7651-425a-87f0-643f2bc49738', NULL, '2024-09-19', 'SO.2024.09.00025', 'Bpk. Amat Maksum', '081365082631', 'Tenayan Raya, Pekanbaru -  Riau', 'Tia Saputri', '201001004', 'Mesin Vacum Frying', 'PV-10', 1, '33290000.00', 'Kasir', 'dana pertama - belum lunas', 'non tunai', '8350000.00', '16645000.00', 0, '33290000.00', '16645000.00', '2024-12-13 02:51:39', '2024-12-13 04:07:35'),
+('9db633e5-e3cb-402c-8b04-b2ed5c4047c3', '9db0d1c9-18e7-4a50-955f-7818d4068d24', '9db0d1df-cc1b-408d-9507-50f7966041a5', '2024-09-20', 'SI.2024.09.00024', 'Bpk. Tona Muharom', '081266045158', 'Sungai Geringgi - Riau', 'Muhammad Reza', '101063087', 'Pemanggang', 'ARD-GRL77', 1, '710000.00', 'Rak-2', 'lunas', 'tunai', '0.00', '610600.00', 14, '610600.00', '0.00', '2024-12-13 03:00:03', '2024-12-13 03:00:03'),
+('9db6374e-791a-41e6-b265-3e38da8cbe39', '9db11526-0199-44d4-9182-badf3286e3ba', '9db635e9-ee68-4e80-a72c-abb75afc81d5', '2024-09-24', 'SI.2024.09.00027', 'Ibu.Gledies', '082169820505', 'Jl.Marsan Sejahtera, Panam, Pekanbaru - Riau', 'Ade Yolanda', '102225048', 'Sparepart Kabel Anti Panas Cone Baker', 'MKS-CIC21', 2, '10000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '20000.00', 0, '20000.00', '0.00', '2024-12-13 03:09:34', '2024-12-13 03:09:34'),
+('9db637d8-f27f-45fa-9353-d8330b8dc78d', '9db1156f-c7db-42da-a125-23b456716da3', '9db63594-04c3-4fdb-9dac-cfb4dd47c0e9', '2024-09-24', 'SI.2024.09.00027', 'Ibu.Gledies', '082169820505', 'Jl.Marsan Sejahtera, Panam, Pekanbaru - Riau', 'Ade Yolanda', '102252040', 'Sparepart Selongsong Anti Panas Pemanggang Ayam', 'GRILL-GR6', 1, '10000.00', 'Kasir', 'lunas', 'tunai', '0.00', '10000.00', 0, '10000.00', '0.00', '2024-12-13 03:11:05', '2024-12-13 03:11:05'),
+('9db65530-a44e-4199-b167-392bfa8b1cf0', '9db115bf-fbe9-4a00-812f-2c96c7a74186', '9db64ff9-5bb3-41ec-8b5b-11275eb6b05e', '2024-09-26', 'SO.2024.09.0029', 'Ibu. Netti Herawati', '081266300405', 'Ladang Cakiah Tigo Baleh, Kel. Ladang, Cakiah, Kec. Aur Birugo Tigo Baleh, Sumatra Barat', 'Tia Saputri', '102263009', 'Sparepart Bearing 6204', 'ALL-Type', 1, '110000.00', 'Kasir', 'dana pertama - lunas', 'tunai', '110000.00', '110000.00', 0, '110000.00', '0.00', '2024-12-13 04:33:08', '2024-12-13 04:33:08'),
+('9db65810-0c14-4340-b3cd-c9b78cbb998b', '9db656c1-9f7d-4ef5-bb3e-148c6eff7617', '9db6575c-cea7-4bd3-a12d-80c6dc7873ce', '2024-09-26', 'SO.2024.09.00029', 'Ibu. Netti Herawati', '081266300405', 'Ladang Cakiah Tigo Baleh, Kel. Ladang, Cakiah, Kec. Aur Birugo Tigo Baleh, Sumatra Barat', 'Tia Saputri', '102263010', 'Sparepart Bearing 6205 MKS-BLD99', 'MKS-BLD99', 1, '120000.00', 'Kasir', 'dana pertama - lunas', 'tunai', '120000.00', '120000.00', 0, '120000.00', '0.00', '2024-12-13 04:41:10', '2024-12-13 04:41:10'),
+('9db65881-fffb-44ad-9d66-e0508eece261', '9db11627-256d-4d1a-acb0-b766200c7ce2', '9db65054-77f3-4828-bfe6-a92ce4a8131c', '2024-09-26', 'SO.2024.09.00029', 'Ibu. Netti Herawati', '081266300405', 'Ladang Cakiah Tigo Baleh, Kel. Ladang, Cakiah, Kec. Aur Birugo Tigo Baleh, Sumatra Barat', 'Tia Saputri', '102259168', 'Sparepart Seal Oli 20.35.7 Blender Buah', 'MKS-BLD99', 1, '130000.00', 'Kasir', 'dana pertama - lunas', 'tunai', '130000.00', '130000.00', 0, '130000.00', '0.00', '2024-12-13 04:42:25', '2024-12-13 04:42:25'),
+('9db65a57-86b0-4acc-a249-6e80e89af400', '9db0d1c9-5050-41bd-a744-af2ebba86fdc', '9db0d1e0-02a3-4bac-92d5-d27efe5ac003', '2024-09-26', 'SI.2024.09.00028', 'Ibu. Indah', '085364847987', 'Toko MilsBread, Jl.M Boya , Lr Pepaya, No.12. Tembilahan Kota - Riau', 'Tia Saputri', '101001013', 'Mesin Giling Daging', 'MHW-G31B', 1, '960000.00', 'Rak-3', 'lunas', 'non tunai', '0.00', '960000.00', 0, '960000.00', '0.00', '2024-12-13 04:47:32', '2024-12-13 04:47:32'),
+('9db65f37-d527-40fb-ac0c-7bb09d4a038e', '9db113e5-d66f-44c2-b44d-c42a8aed8c6a', NULL, '2024-09-27', 'SI.2024.09.00032', 'Bpk.Aswira', '082171306821', 'Kedai Kopi Paduko, Jl, A.Yani No 51, Kel.Nunang Dayabangun,Kec.Payakumbuh Barat ,Kota Payakumbuh - Sumatra Barat', 'Tia Saputri', '101052005', 'Mesin Juice Extractor', 'MKS-MK3000', 2, '4760000.00', 'Kasir', 'lunas', 'non tunai', '4760000.00', '4760000.00', 0, '9520000.00', '0.00', '2024-12-13 05:01:11', '2024-12-13 05:01:11'),
+('9db6806b-b2a0-4524-ad1b-b653fea14bf8', '9db0d1c9-3905-47dc-b49a-fa81feffc93e', '9db67a68-be43-46fc-8ef2-dba04c300a35', '2024-09-27', 'SI.2024.09.00033', 'Ibu. Erni Himsar', '081374343177', 'Bukittinggi - Sumatra Barat', 'Muhammad Reza', '601006010', 'Mesin Cetak Mie', 'MKS-220SS', 1, '3390000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '3390000.00', 0, '3390000.00', '0.00', '2024-12-13 06:34:01', '2024-12-13 06:34:01'),
+('9db6823d-24ea-4f10-abde-43cb00389268', '9db11340-423c-4f99-8b83-1b6938811e94', '9db67b30-2e8b-4365-8798-f5807b0bee38', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', 'Tia Saputri', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 5, '260000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '1300000.00', 0, '1300000.00', '0.00', '2024-12-13 06:39:06', '2024-12-13 06:39:06'),
+('9db682d5-71db-4349-b363-639414a2bfa1', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '9db67bad-5019-4304-8a07-f007ec71c203', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', 'Tia Saputri', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 5, '370000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '1850000.00', 0, '1850000.00', '0.00', '2024-12-13 06:40:46', '2024-12-13 06:40:46'),
+('9db6835a-b3ec-45ea-8681-43aed2ec355e', '9db110de-9ea1-4be5-9f44-40bddc2bdf09', NULL, '2024-09-27', 'SI.2024.09.00029', 'Bpk.Erwin Tandiawan', '082160815789', 'Jl.Teuku Umar No.95, Pekanbaru - Riau', 'Tia Saputri', '101289001', 'Alat Pemotong & Penusuk Daging Sate', 'MKS-089', 2, '250000.00', 'Kasir', 'lunas', 'non tunai', '500000.00', '500000.00', 0, '500000.00', '0.00', '2024-12-13 06:42:13', '2024-12-13 06:42:13'),
+('9db68465-853a-4b14-b492-d1b7389f7f94', '9db11340-423c-4f99-8b83-1b6938811e94', '9db67b30-2e8b-4365-8798-f5807b0bee38', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', 'Tia Saputri', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 5, '260000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '1300000.00', 0, '1300000.00', '0.00', '2024-12-13 06:45:08', '2024-12-13 06:45:08'),
+('9db684dd-6820-4d29-bc49-4b7cc42645c9', '9db1139b-bf9b-4640-9cc4-2e880a10099a', '9db67bad-5019-4304-8a07-f007ec71c203', '2024-09-27', 'SI.2024.09.00031', 'Ibu. Mimi Afriani', '08127550431', 'Jln.Ronggo Warsito No.51, Pekanbaru - Riau', 'Tia Saputri', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 5, '370000.00', 'Kasir', 'lunas', 'non tunai', '0.00', '1850000.00', 0, '1850000.00', '0.00', '2024-12-13 06:46:27', '2024-12-13 06:46:27'),
+('9db68562-2a38-4b9e-ac52-e4a6b0939697', '9db1139b-bf9b-4640-9cc4-2e880a10099a', NULL, '2024-09-27', 'SI.2024.09.00030', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', 'Tia Saputri', '102262007', 'Sparepart Heater U Roti Tortila', 'MKS-TRT44', 4, '370000.00', 'Kasir', 'lunas', 'non tunai', '1480000.00', '1480000.00', 0, '1480000.00', '0.00', '2024-12-13 06:47:54', '2024-12-13 06:47:54'),
+('9db685a4-9e0f-4094-935b-78fbbdc79898', '9db11340-423c-4f99-8b83-1b6938811e94', '9db67b30-2e8b-4365-8798-f5807b0bee38', '2024-09-27', 'SI.2024.09.00030', 'Bpk.M.Nur', '081276347234', 'Jl.Ronggowarsito No.53, Kel.Cinta Raja , Kec.Sail, Pekanbaru - Riau', 'Muhammad Reza', '102262022', 'Sparepart Heater Lurus Roti Tortila', 'MKS-TRT44', 4, '260000.00', 'Kasir', 'lunas', 'non tunai', '1040000.00', '1040000.00', 0, '1040000.00', '0.00', '2024-12-13 06:48:37', '2024-12-13 20:48:50');
 
 -- --------------------------------------------------------
 
@@ -975,14 +1071,14 @@ INSERT INTO `tb_transaksi_penjualan` (`id_transaksi`, `id_barang`, `id_stok`, `t
 --
 
 CREATE TABLE `users` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('admin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'admin',
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'admin',
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -992,7 +1088,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `photo`, `remember_token`, `created_at`, `updated_at`) VALUES
-('9db0d17e-31d8-4dc6-bcde-c07bd4df4f51', 'admin', 'admin@gmail.com', '2024-12-10 10:45:44', '$2y$12$tClle4YNKgSTPmo7R5IaRud1aEgAW7oj5TYUBrmf/2KIUAoVV2fyq', 'admin', NULL, 'k9Qd8M6mSh', '2024-12-10 10:45:45', '2024-12-10 10:45:45'),
+('9db0d17e-31d8-4dc6-bcde-c07bd4df4f51', 'admin', 'admin@gmail.com', '2024-12-10 10:45:44', '$2y$12$tClle4YNKgSTPmo7R5IaRud1aEgAW7oj5TYUBrmf/2KIUAoVV2fyq', 'admin', NULL, 'CSkwCWTtm6CSJogeceSLFrzNYEpZ8nUPY1XUlG73IcyJnpoM6BjaY8ZXk27i', '2024-12-10 10:45:45', '2024-12-10 10:45:45'),
 ('9db0d17e-3673-4cf1-9b0f-a06fa99a1651', 'admin2', 'admin2@example.com', '2024-12-10 10:45:45', '$2y$12$/FmR86qCm5TnkD6yLTds0e/sU/NhlmWJDGFZiZACKELGfbtCuhl2u', 'admin', NULL, 'sEXHUTbpiZ', '2024-12-10 10:45:45', '2024-12-10 10:45:45');
 
 --

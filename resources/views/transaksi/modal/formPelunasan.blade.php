@@ -3,7 +3,8 @@
     <div class="modal-dialog">
         <div class="modal-content bg-light">
             <div class="modal-header">
-                <h4 class="modal-title"><i></i> <span>Pelunasan & Ambil Barang</span></h4>
+                <h4 class="modal-title font-weight-bold text-uppercase"><i></i> <span>Pelunasan & Ambil Barang</span>
+                </h4>
                 <button id="act_close_pelunasan" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -40,8 +41,8 @@
 
                     <div class="form-group">
                         <label for="nama_brg_lunas">Nama Barang</label>
-                        <input readonly type="text" class="form-control" name="nama_brg_lunas"
-                            id="nama_brg_lunas" value="{{ old('nama_brg_lunas') }}">
+                        <input readonly type="text" class="form-control" name="nama_brg_lunas" id="nama_brg_lunas"
+                            value="{{ old('nama_brg_lunas') }}">
                     </div>
                     <div class="form-group">
                         <label for="tipe_brg_lunas">Tipe Barang</label>
