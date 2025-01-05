@@ -458,7 +458,7 @@ $(document).on("input", "#keyword_transaksi", function (e) {
     let query = $(this).val();
     let token = $('meta[name="csrf-token"]').attr("content");
 
-    // cek url jika ada kembali ke method pencarian jika tidak kembali ke metok filter saja
+    // cek url jika ada kembali ke method pencarian jika tidak kembali ke method filter saja
     let url;
     if (!query) {
         url = "/transaksi/filter";
@@ -622,4 +622,36 @@ $(document).on("click", ".ambil_barang", function (e) {
         }
     );
 
+});
+
+$(document).on("change", "#stts_pembayaran", function (e) {
+    e.preventDefault();
+    let query = $(this).val();
+    let token = $('meta[name="csrf-token"]').attr("content");
+
+    let url ;
+    if (!query) {
+        url = "/transaksi/filter";
+    } else {
+        url = "/transaksi/filter/pembayaran";
+    }
+
+     $.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            value: query,
+            _token: token,
+            transaksiLimit: 10,
+        },
+         success: function (data) {
+            $("tbody#tableTransaksi").html(data.table);
+            $(".pagination-wrapper").html(data.pagination);
+            $("#info-transaksi-page").html(
+                `Menampilkan <b>${data.info.firstItem ?? 0}</b> sampai <b>${
+                    data.info.lastItem ?? 0
+                }</b> dari <b>${data.info.total ?? 0}</b> item`
+            );
+        },
+    });
 });

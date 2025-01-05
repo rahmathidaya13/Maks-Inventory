@@ -72,6 +72,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get("/transaksi/search", [LiveAction::class, 'transaksiSearch'])->name('transaksi.search');
     Route::get("/barang_keluar/search", [LiveAction::class, 'barangKeluarSearch'])->name('barang_keluar.search');
     Route::get("/home/search", [LiveAction::class, 'homeSearch'])->name('home.search');
+    Route::get("/transaksi/filter/pembayaran", [LiveAction::class, 'filterPembayaran'])->name('filter.pembayaran');
 
     // live action all stok by id_barang
     Route::get("/stok_barang", [LiveAction::class, 'selectStok'])->name('stokByIdBarang.search');

@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangModel;
-use Illuminate\Http\Request;
-use App\Models\TransaksiModel;
-use App\Models\StokBarangModel;
-use App\Models\BarangMasukModel;
 use App\Models\BarangKeluarModel;
+use App\Models\BarangMasukModel;
+use App\Models\BarangModel;
+use App\Models\StokBarangModel;
+use App\Models\TransaksiModel;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use PhpOffice\PhpSpreadsheet\Calculation\TextData\Search;
-use Carbon\Carbon;
 
 class LiveAction extends Controller
 {
@@ -22,7 +21,7 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('itemQuery', 10);
-        $barang =  BarangModel::where("nama_barang", "like", "%" . $query . "%")
+        $barang = BarangModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->latest()->paginate(10);
         if ($request->ajax()) {
@@ -32,7 +31,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang->firstItem(),
                     'lastItem' => $barang->lastItem(),
-                    'total' => $barang->total()
+                    'total' => $barang->total(),
                 ],
             ]);
         } else {
@@ -47,7 +46,7 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('stokKeyword', 10);
-        $stok =  StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
+        $stok = StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("posisi", "like", "%" . $query . "%")
             ->latest('tanggal')->paginate(10);
@@ -58,7 +57,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $stok->firstItem(),
                     'lastItem' => $stok->lastItem(),
-                    'total' => $stok->total()
+                    'total' => $stok->total(),
                 ],
             ]);
         } else {
@@ -73,7 +72,7 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('itemInQuery', 10);
-        $barang_masuk =  BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
+        $barang_masuk = BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->latest('tgl_brg_masuk')->paginate(10);
         if ($request->ajax()) {
@@ -83,7 +82,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang_masuk->firstItem(),
                     'lastItem' => $barang_masuk->lastItem(),
-                    'total' => $barang_masuk->total()
+                    'total' => $barang_masuk->total(),
                 ],
             ]);
         } else {
@@ -98,7 +97,7 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('transaksiQuery', 10);
-        $transaksi =  TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
+        $transaksi = TransaksiModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("nama_konsumen", "like", "%" . $query . "%")
             ->orWhere("nama_sales", "like", "%" . $query . "%")
@@ -110,13 +109,13 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $transaksi->firstItem(),
                     'lastItem' => $transaksi->lastItem(),
-                    'total' => $transaksi->total()
+                    'total' => $transaksi->total(),
                 ],
             ]);
         } else {
             $transaksi = TransaksiModel::latest('tgl_transaksi')->paginate(10);
         }
-        return view('transaksi.partial.table',  compact('transaksi', 'query'));
+        return view('transaksi.partial.table', compact('transaksi', 'query'));
     }
     public function homeSearch(Request $request)
     {
@@ -150,7 +149,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $transaksi->firstItem(),
                     'lastItem' => $transaksi->lastItem(),
-                    'total' => $transaksi->total()
+                    'total' => $transaksi->total(),
                 ],
             ]);
         } else {
@@ -169,7 +168,7 @@ class LiveAction extends Controller
                 ->paginate(10);
         }
 
-        return view('home.partial.table',  compact('transaksi'));
+        return view('home.partial.table', compact('transaksi'));
     }
     public function barangKeluarSearch(Request $request)
     {
@@ -178,7 +177,7 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('itemOutKeyword', 10);
-        $barang_keluar =  BarangKeluarModel::where("nama_barang", "like", "%" . $query . "%")
+        $barang_keluar = BarangKeluarModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("nama_konsumen", "like", "%" . $query . "%")
             ->orWhere("no_handphone", "like", "%" . $query . "%")
@@ -190,13 +189,13 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang_keluar->firstItem(),
                     'lastItem' => $barang_keluar->lastItem(),
-                    'total' => $barang_keluar->total()
+                    'total' => $barang_keluar->total(),
                 ],
             ]);
         } else {
             $barang_keluar = BarangKeluarModel::latest('tanggal')->paginate(10);
         }
-        return view('Barang_Keluar.partial.table',  compact('barang_keluar', 'query'));
+        return view('Barang_Keluar.partial.table', compact('barang_keluar', 'query'));
     }
 
     public function filterData(Request $request)
@@ -211,7 +210,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang->firstItem(),
                     'lastItem' => $barang->lastItem(),
-                    'total' => $barang->total()
+                    'total' => $barang->total(),
                 ],
             ]);
         }
@@ -236,7 +235,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $transaksi->firstItem(),
                     'lastItem' => $transaksi->lastItem(),
-                    'total' => $transaksi->total()
+                    'total' => $transaksi->total(),
                 ],
             ]);
         }
@@ -253,7 +252,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang_masuk->firstItem(),
                     'lastItem' => $barang_masuk->lastItem(),
-                    'total' => $barang_masuk->total()
+                    'total' => $barang_masuk->total(),
                 ],
             ]);
         }
@@ -271,7 +270,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $transaksi->firstItem(),
                     'lastItem' => $transaksi->lastItem(),
-                    'total' => $transaksi->total()
+                    'total' => $transaksi->total(),
                 ],
             ]);
         }
@@ -288,7 +287,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $barang_keluar->firstItem(),
                     'lastItem' => $barang_keluar->lastItem(),
-                    'total' => $barang_keluar->total()
+                    'total' => $barang_keluar->total(),
                 ],
             ]);
         }
@@ -344,7 +343,7 @@ class LiveAction extends Controller
                 'info' => [
                     'firstItem' => $stok->firstItem(),
                     'lastItem' => $stok->lastItem(),
-                    'total' => $stok->total()
+                    'total' => $stok->total(),
                 ],
             ]);
         }
@@ -395,7 +394,6 @@ class LiveAction extends Controller
 
     public function selectStok(Request $request)
     {
-
         $id_barang = $request->input('id_barang');
         $nama_barang = $request->input('nama_barang');
         $tipe_barang = $request->input('tipe_barang');
@@ -407,5 +405,25 @@ class LiveAction extends Controller
             ->orderBy('tanggal', 'desc')
             ->first();
         return response()->json(['result' => $stok]);
+    }
+
+    public function filterPembayaran(Request $request)
+    {
+        $query = $request->get('value');
+        $transaksi = TransaksiModel::where('status_pembayaran', $query)
+            ->latest()
+            ->paginate(250);
+        if ($request->ajax()) {
+            return response()->json([
+                'table' => view('transaksi.partial.table', compact('transaksi'))->render(),
+                'pagination' => view('transaksi.partial.paginate', compact('transaksi'))->render(),
+                'info' => [
+                    'firstItem' => $transaksi->firstItem(),
+                    'lastItem' => $transaksi->lastItem(),
+                    'total' => $transaksi->total(),
+                ],
+            ]);
+        }
+        return view('transaksi.index', compact('transaksi'));
     }
 }

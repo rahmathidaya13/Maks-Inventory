@@ -25,7 +25,7 @@
     <link rel="canonical" href="https://maksinventory.shop/">
     <link rel="icon" href="{{ asset('assets/icon/logo2.png') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> --}}
 
 
     <!-- Fonts -->
@@ -49,7 +49,7 @@
     <!-- jQuery -->
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    {{-- <script src="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

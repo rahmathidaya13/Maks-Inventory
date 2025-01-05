@@ -12,7 +12,9 @@
     </div>
     {{-- end effect --}}
 
+    {{-- dynamic navbar --}}
     @include('layouts.navbar')
+    {{-- dynamic sidebar --}}
     @include('layouts.sidebar')
     <div class="content-wrapper">
         @include('layouts.breadcrumb')

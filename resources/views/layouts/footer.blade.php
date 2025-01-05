@@ -12,7 +12,7 @@
 <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('assets/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script> --}}
 
 <script>
     $(document).ready(function() {
@@ -56,6 +56,12 @@
 
         // effect loading
         $("#loading").fadeOut();
+
+        window.setTimeout(() => {
+            $(".alert").fadeTo(500, 0).slideUp(500, () => {
+                $(this).remove();
+            })
+        }, 5000);
     });
 </script>
 </body>

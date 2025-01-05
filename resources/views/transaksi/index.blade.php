@@ -55,6 +55,16 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-end px-3">
+            <div class="">
+                <select class="form-control form-control-sm" name="stts_pembayaran" id="stts_pembayaran">
+                    <option value="">Filter Pembayaran</option>
+                    <option value="lunas">Lunas</option>
+                    <option value="dana pertama - belum lunas">Dp - belum lunas</option>
+                    <option value="dana pertama - lunas">Dp - lunas</option>
+                </select>
+            </div>
+        </div>
         <div class="px-3 mb-2">
             <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                 Hapus</button>
