@@ -60,6 +60,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::put('/transaksi/takeAway/{id}', 'takeAway')->name('takeaway.repayment');
         Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
         Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
+        Route::put('/transaksi/spareparts/{id}', 'updateSparepart')->name('transaksi.update.sparepart');
     });
     Route::controller(UserController::class)->group(function () {
         Route::put('/profile/update/{id}', 'update')->name('profile.update');

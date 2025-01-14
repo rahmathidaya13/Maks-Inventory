@@ -23,6 +23,7 @@ class TransaksiModel extends Model
         'kode_barang',
         'nama_barang',
         'tipe_barang',
+        'status_barang',
         'jumlah_barang',
         'harga_barang',
         'posisi',

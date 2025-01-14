@@ -45,6 +45,7 @@ trait handlesTransaksiPenjualan
         $transaksi->kode_barang = $request->input('kode_barang');
         $transaksi->nama_barang = $request->input('nama_brg_transaksi');
         $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
+        $transaksi->status_barang = $request->input('stts_barang');
         $transaksi->diskon = (int) $request->input('diskon');
         $transaksi->jumlah_barang = $dataParse['jumlah_barang'];
         $transaksi->harga_barang = $dataParse['harga_barang'];
@@ -81,6 +82,7 @@ trait handlesTransaksiPenjualan
         $transaksi->kode_barang = $request->input('kode_barang');
         $transaksi->nama_barang = $request->input('nama_brg_transaksi');
         $transaksi->tipe_barang = $request->input('tipe_brg_transaksi');
+        $transaksi->status_barang = $request->input('stts_barang');
         $transaksi->diskon = (int) $request->input('diskon');
         $transaksi->jumlah_barang = $dataParse['jumlah_barang'];
         $transaksi->harga_barang = $dataParse['harga_barang'];
@@ -122,6 +124,42 @@ trait handlesTransaksiPenjualan
 
         $transaksiNew->save();
         return $transaksiNew;
+    }
+
+    public function updatedSparepart($request, $transaksiUp)
+    {
+
+        $harga_barang = (int) str_replace(['Rp', "\u{A0}", '.'], '', $request->input('harga_cs_sparepart'));
+
+
+
+        $transaksi = new TransaksiModel();
+
+        $transaksi->id_barang = $transaksiUp->id_barang;
+        $transaksi->id_stok = $transaksiUp->id_stok;
+        $transaksi->nama_sales = $transaksiUp->nama_sales;
+        $transaksi->posisi = $transaksiUp->posisi;
+        $transaksi->diskon = $transaksiUp->diskon;
+        $transaksi->total_pembayaran = $transaksiUp->total_pembayaran;
+        $transaksi->status_transaksi = $transaksiUp->status_transaksi;
+        $transaksi->dana_pertama = $transaksiUp->dana_pertama;
+        $transaksi->selisih_pembayaran = $transaksiUp->selisih_pembayaran;
+        $transaksi->pembayaran = $transaksiUp->pembayaran;
+        $transaksi->status_barang = $transaksiUp->status_barang;
+
+        $transaksi->tgl_transaksi = $request->input('tanggal_sparepart');
+        $transaksi->kode_transaksi = $request->input('kode_transaksi_sparepart');
+        $transaksi->nama_konsumen = $request->input('nama_cs_sparepart');
+        $transaksi->no_handphone = $request->input('nohp_cs_sparepart');
+        $transaksi->alamat = $request->input('alamat_cs_sparepart');
+        $transaksi->kode_barang = $request->input('kode_cs_sparepart');
+        $transaksi->nama_barang = $request->input('barang_cs_sparepart');
+        $transaksi->tipe_barang = $request->input('tipe_cs_sparepart');
+        $transaksi->jumlah_barang = $request->input('jumlah_cs_sparepart');
+        $transaksi->harga_barang = $harga_barang;
+        $transaksi->status_pembayaran = $request->input('pembayaran_cs_sparepart');
+        $transaksi->save();
+        return $transaksi;
     }
     public function repaymentUpdated($transaksi, $request)
     {
@@ -285,6 +323,8 @@ trait handlesTransaksiPenjualan
             $tanggal = $request->input('tanggal_ambil');
         } else if ($operations === 'update_repayment') {
             $tanggal = $transaksi->tgl_transaksi;
+        } elseif ($operations === 'update_sparepart') {
+            $tanggal = $request->input('tanggal_sparepart');
         }
         // Update stok barang di barang_keluar
         $barangKeluar = $this->checkBarangKeluar($transaksi);

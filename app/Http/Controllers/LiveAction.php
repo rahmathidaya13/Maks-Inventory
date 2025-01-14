@@ -20,10 +20,10 @@ class LiveAction extends Controller
             'itemQuery' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('itemQuery', 10);
+        $query = $request->get('itemQuery', '');
         $barang = BarangModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
-            ->latest()->paginate(10);
+            ->latest()->paginate(1000);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('Barang.partials.table_item', compact('barang'))->render(),
@@ -45,11 +45,11 @@ class LiveAction extends Controller
             'stokKeyword' => 'nullable|string|min:1|max:255|regex:/^[a-zA-Z0-9\s\-]+$/', // Hanya izinkan huruf, angka, spasi, dan simbol '-'
         ]);
 
-        $query = $request->get('stokKeyword', 10);
+        $query = $request->get('stokKeyword', '');
         $stok = StokBarangModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("posisi", "like", "%" . $query . "%")
-            ->latest('tanggal')->paginate(10);
+            ->latest('tanggal')->paginate(1000);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('StokBarang.table_partial.tableStok', compact('stok'))->render(),
@@ -74,7 +74,7 @@ class LiveAction extends Controller
         $query = $request->get('itemInQuery', 10);
         $barang_masuk = BarangMasukModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
-            ->latest('tgl_brg_masuk')->paginate(10);
+            ->latest('tgl_brg_masuk')->paginate(1000);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('BarangMasuk.partial.table_item', compact('barang_masuk'))->render(),
@@ -101,7 +101,7 @@ class LiveAction extends Controller
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("nama_konsumen", "like", "%" . $query . "%")
             ->orWhere("nama_sales", "like", "%" . $query . "%")
-            ->latest()->paginate(10);
+            ->latest()->paginate(1000);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('transaksi.partial.table', compact('transaksi'))->render(),
@@ -140,7 +140,7 @@ class LiveAction extends Controller
                 DB::raw('DATE(tgl_transaksi) AS tanggal')
             )
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', DB::raw('DATE(tgl_transaksi)'))
-            ->paginate(10);
+            ->paginate(1000);
 
         if ($request->ajax()) {
             return response()->json([
@@ -165,7 +165,7 @@ class LiveAction extends Controller
                 )
                 ->where('status_pembayaran', 'lunas')
                 ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', DB::raw('DATE(tgl_transaksi)'))
-                ->paginate(10);
+                ->paginate(1000);
         }
 
         return view('home.partial.table', compact('transaksi'));
@@ -181,7 +181,7 @@ class LiveAction extends Controller
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
             ->orWhere("nama_konsumen", "like", "%" . $query . "%")
             ->orWhere("no_handphone", "like", "%" . $query . "%")
-            ->latest('tanggal')->paginate(10);
+            ->latest('tanggal')->paginate(1000);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('Barang_Keluar.partial.table', compact('barang_keluar'))->render(),

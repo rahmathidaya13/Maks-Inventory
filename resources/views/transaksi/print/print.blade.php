@@ -43,6 +43,7 @@
             <th>Kode Barang</th>
             <th>Nama Barang</th>
             <th>Tipe Barang</th>
+            <th>Status Barang</th>
             <th>Jumlah Barang</th>
             <th>Posisi Barang</th>
             <th>Harga Barang</th>
@@ -67,13 +68,14 @@
                 <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
+                <td>{{ $data->status_barang }}</td>
                 <td>{{ $data->jumlah_barang }}</td>
                 <td>{{ $data->posisi }}</td>
                 <td>{{ $data->harga_barang }}</td>
                 <td>{{ $data->status_pembayaran }}</td>
                 <td>{{ $data->status_transaksi }}</td>
                 <td>{{ $data->dana_pertama }}</td>
-                <td>{{ $data->diskon }}</td>
+                <td>{{ $data->diskon . '%' }}</td>
                 <td>{{ $data->pembayaran }}</td>
                 <td>{{ $data->total_pembayaran }}</td>
                 <td>{{ $data->selisih_pembayaran }}</td>

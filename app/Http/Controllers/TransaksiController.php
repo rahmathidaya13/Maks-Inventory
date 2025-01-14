@@ -46,10 +46,12 @@ class TransaksiController extends Controller
         $transaksi = $this->createTransaksiDB($request);
 
         $barang_masuk = $this->checkBarangMasuk($transaksi, $request, 'create');
-        if ($transaksi->status_pembayaran === 'lunas') {
+        if ($transaksi->status_barang === 'mesin' && $transaksi->status_pembayaran === 'lunas') {
             $this->updateStok($request, $barang_masuk);
             $this->updateBarangKeluar($transaksi, 'create');
             $this->updateTopProduct($transaksi);
+        } elseif ($transaksi->status_barang === 'sparepart' && $transaksi->status_pembayaran === 'lunas') {
+            $this->updateStok($request, $barang_masuk);
         }
         return back()->with('success', 'Transaksi Atas nama ' . ' ' . $transaksi->nama_konsumen . ' ' . ' Pembelian ' . $transaksi->nama_barang . ' - ' . $transaksi->tipe_barang . ' Berhasil Dibuat');
     }
@@ -108,6 +110,19 @@ class TransaksiController extends Controller
 
     public function takeAway(Request $request, string $id)
     {
+        $request->validate(
+            [
+                'tanggal_ambil' => 'required | date',
+                'kode_transaksi_ambil_brg' => 'required | string',
+            ],
+            [
+                'tanggal_ambil.required' => 'Tanggal ambil wajib diisi',
+                'tanggal_ambil.date' => 'Tanggal ambil harus dalam format tanggal',
+                'kode_transaksi_ambil_brg.required' => 'Kode transaksi barang wajib diisi',
+                'kode_transaksi_ambil_brg.string' => 'Kode transaksi  barang harus berupa karakter yang sesuai',
+            ]
+        );
+
         $transaksi = TransaksiModel::findOrFail($id);
 
         $transaksiNew = $this->updateTakeAway($transaksi, $request);
@@ -120,6 +135,19 @@ class TransaksiController extends Controller
             $this->updateTopProduct($transaksiNew);
         }
         return back()->with('success', 'Barang' . ' ' . $transaksiNew->nama_barang . '-' . $transaksiNew->tipe_barang . ' ' . 'Berhasil Keluar');
+    }
+
+    public function updateSparepart(Request $request, string $id)
+    {
+        $transaksiUp = TransaksiModel::findOrFail($id);
+
+        $sparepart = $this->updatedSparepart($request, $transaksiUp);
+        if ($sparepart->status_barang === 'sparepart' && $sparepart->status_pembayaran === 'lunas') {
+            $this->updateBarangKeluar($sparepart, 'update_sparepart', $request);
+            $this->updateTopProduct($sparepart);
+        }
+
+        return back()->with('success', 'Perubahan Data Transaksi Berhasil');
     }
     /**
      * Remove the specified resource from storage.

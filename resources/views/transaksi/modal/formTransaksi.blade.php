@@ -117,6 +117,14 @@
                                     <input readonly type="text" class="form-control" name="stok"
                                         id="stok" value="{{ old('stok') }}">
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label for="stts_barang">Status Barang</label>
+                                    <select class="form-control" name="stts_barang" id="stts_barang">
+                                        <option value="">Pilih Status Barang</option>
+                                        <option value="sparepart">Sparepart</option>
+                                        <option value="mesin">Mesin</option>
+                                    </select>
+                                </div>
                             </div>
 
                         </div>

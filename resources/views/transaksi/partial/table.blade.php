@@ -20,6 +20,13 @@
         <td class="align-middle">{{ $data->kode_barang }}</td>
         <td class="align-middle nama_barang_transaksi">{{ $data->nama_barang }}</td>
         <td class="align-middle tipe_barang_transaksi">{{ $data->tipe_barang }}</td>
+        <td class="align-middle text-center">
+            @if ($data->status_barang === 'mesin')
+                <span class="badge badge-primary">{{ ucwords($data->status_barang) }}</span>
+            @else
+                <span class="badge badge-info">{{ ucwords($data->status_barang) }}</span>
+            @endif
+        </td>
         <td class="text-center align-middle">{{ $data->jumlah_barang }}</td>
         <td class="text-center align-middle">{{ $data->posisi }}</td>
         <td class="align-middle">{{ 'Rp ' . number_format((int) $data->harga_barang, 0, ',', '.') }}</td>
@@ -53,11 +60,19 @@
                                 class="dropdown-item ambil_barang" href="#"><i class="fas fa-people-carry"></i>
                                 Ambil Barang
                             </a>
+                        @elseif($data->status_barang === 'sparepart' && $data->status_pembayaran === 'lunas')
+                            <a title="Perbarui Data" id="perbarui_data_sparepart" data-toggle="modal"
+                                data-target="#staticBackdrop_data_sparepart" data-id="{{ $data->id_transaksi }}"
+                                class="dropdown-item data_sparepart" href="#"><i class="fas fa-tools"></i>
+                                Perbarui Data
+                            </a>
                         @endif
-                        <a title="Ubah" id="ubah_transaksi" data-toggle="modal"
-                            data-target="#staticBackdrop_transaksi" data-id="{{ $data->id_transaksi }}"
-                            class="dropdown-item ubah_transaksi" href="#"><i class="fas fa-edit"></i> Ubah
-                        </a>
+                        @if ($data->status_barang !== 'sparepart')
+                            <a title="Ubah" id="ubah_transaksi" data-toggle="modal"
+                                data-target="#staticBackdrop_transaksi" data-id="{{ $data->id_transaksi }}"
+                                class="dropdown-item ubah_transaksi" href="#"><i class="fas fa-edit"></i> Ubah
+                            </a>
+                        @endif
                         {{-- @if ($data->status_pembayaran !== 'lunas')
                         @endif --}}
 

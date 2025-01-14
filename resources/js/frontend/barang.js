@@ -85,6 +85,7 @@ $(document).on("input", "#keyword", function (e) {
             barangLimit: 10,
         },
         success: function (data) {
+            console.log(data);
             if (!query) {
                 $("tbody#tableBarang").html(data.table);
                 $(".pagination-wrapper").html(data.pagination);

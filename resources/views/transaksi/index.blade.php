@@ -42,10 +42,10 @@
                 <div class="mx-3">
                     <div class="input-group input-group-sm">
                         <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
-                            class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                            class="form-control mx-2">
                         <span> <i class="fas fa-sort"></i></span>
                         <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
-                            class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                            class="form-control mx-2">
                         <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
         </div>
         <div class="d-flex justify-content-end px-3">
             <div class="">
-                <select class="form-control form-control-sm" name="stts_pembayaran" id="stts_pembayaran">
+                <select class="form-control" name="stts_pembayaran" id="stts_pembayaran">
                     <option value="">Filter Pembayaran</option>
                     <option value="lunas">Lunas</option>
                     <option value="dana pertama - belum lunas">Dp - belum lunas</option>
@@ -89,6 +89,7 @@
                         <th class="align-middle">Kode Barang</th>
                         <th class="align-middle">Nama Barang</th>
                         <th class="align-middle">Tipe Barang</th>
+                        <th class="align-middle">Status Barang</th>
                         <th class="align-middle">Jumlah Barang</th>
                         <th class="align-middle">Posisi Barang</th>
                         <th class="align-middle">Harga Barang</th>
@@ -117,4 +118,5 @@
     @include('transaksi.modal.import')
     @include('transaksi.modal.print_date')
     @include('transaksi.modal.Form_ambil_barang')
+    @include('transaksi.modal.formSparepart')
 @endsection

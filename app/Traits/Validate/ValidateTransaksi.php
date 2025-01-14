@@ -20,6 +20,7 @@ trait ValidateTransaksi
                 'sales' => 'required|string|max:100',
                 'nama_brg_transaksi' => 'required|string|max:255',
                 'tipe_brg_transaksi' => 'required|string|max:100',
+                'stts_barang' => 'required|string',
                 'diskon' => 'nullable|integer|min:0|max:100',
                 'jumlah_brg_transaksi' => 'required|integer',
                 'harga_brg_transaksi' => 'required|string', // validasi string karena akan diformat ulang
@@ -50,6 +51,7 @@ trait ValidateTransaksi
                 'nama_brg_transaksi.max' => 'Nama barang maksimal 255 karakter.',
                 'tipe_brg_transaksi.required' => 'Tipe barang wajib diisi.',
                 'tipe_brg_transaksi.max' => 'Tipe barang maksimal 100 karakter.',
+                'stts_barang.required' => 'Status barang wajid dipilih.',
                 'diskon.integer' => 'Diskon harus berupa angka.',
                 'diskon.min' => 'Diskon tidak boleh kurang dari 0%.',
                 'diskon.max' => 'Diskon tidak boleh lebih dari 100%.',

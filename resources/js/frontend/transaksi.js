@@ -82,6 +82,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#kode_barang").val(data.result.kode_barang);
         $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
         $("#posisi_brg_transaksi").val(data.result.posisi).trigger("change");
+        $("#stts_barang").val(data.result.status_barang).trigger("change");
 
         $(".nama_brg_transaksi,.status_pembayaran").css({
             pointerEvents: "none",
@@ -118,7 +119,7 @@ $(document).on("click", ".hapus_transaksi", function () {
     // Show SweetAlert confirmation dialog
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: `Data transaksi ( ${tanggal} - ${kode} - ${customer} ) akan dihapus!`,
+        text: `Data transaksi ${tanggal} - ${kode} - ${customer} akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -585,7 +586,6 @@ $(document).on("click", ".ambil_barang", function (e) {
     let id = $(this).data("id");
     $("#form_transaksi")[0].reset();
     $("#pelunasan")[0].reset();
-    $("#form_transaksi")[0].reset();
 
     $(".modal-title span").text("Ambil Barang");
     $(".modal-title i").removeClass("fas fa-edit");
@@ -609,7 +609,6 @@ $(document).on("click", ".ambil_barang", function (e) {
     // ambil data saja
     $.getJSON(`/transaksi/detail/${id}`,
         function (data) {
-            console.log(data);
             $("#konsumen_ambil_barang").val(data.result.nama_konsumen)
             $("#hp_ambil_barang").val(data.result.no_handphone)
             $("#alamat_ambil_barang").val(data.result.alamat)
@@ -654,4 +653,46 @@ $(document).on("change", "#stts_pembayaran", function (e) {
             );
         },
     });
+});
+
+$(document).on("click", ".data_sparepart", function (e) {
+    e.preventDefault();
+    let id = $(this).data("id");
+    console.log(id);
+
+     $("#form_transaksi")[0].reset();
+    $("#pelunasan")[0].reset();
+
+    $(".modal-title span").text("Data Sparepart");
+    $(".modal-title i").removeClass("fas fa-plus-square");
+    $(".modal-title i").removeClass("fas fa-money-bill-wave");
+    $(".modal-title i").remove("fas fa-people-carry");
+    $(".modal-title i").addClass("fas fa-edit");
+
+    $("#submit_data_sparepart i").removeClass("fas fa-save");
+    $("#submit_data_sparepart i").removeClass("fas fa-money-bill-wave");
+    $("#submit_data_sparepart i").removeClass("fas fa-save");
+    $("#submit_data_sparepart i").addClass("fas fa-edit");
+
+    // button action
+    $("#submit_data_sparepart span").text("Ubah");
+    $("#form_data_sparepart").attr("action", `/transaksi/spareparts/${id}`);
+    $("#form_data_sparepart").prepend(
+        '<input type="hidden" name="_method" value="PUT">'
+    );
+    // ambil data saja
+    $.getJSON(`/transaksi/detail/${id}`,
+        function (data) {
+            $("#nama_cs_sparepart").val(data.result.nama_konsumen)
+            $("#nohp_cs_sparepart").val(data.result.no_handphone)
+            $("#alamat_cs_sparepart").val(data.result.alamat)
+            $("#kode_cs_sparepart").val(data.result.kode_barang)
+            $("#barang_cs_sparepart").val(data.result.nama_barang)
+            $("#tipe_cs_sparepart").val(data.result.tipe_barang)
+            $("#jumlah_cs_sparepart").val(data.result.jumlah_barang)
+            $("#harga_cs_sparepart").val(Currency(data.result.harga_barang))
+            $("#pembayaran_cs_sparepart").val(data.result.status_pembayaran)
+
+        }
+    );
 });
