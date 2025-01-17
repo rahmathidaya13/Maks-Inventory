@@ -5,7 +5,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Cg8X3WPT.js",
+    "file": "assets/app-DR1L9Qry.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -51,7 +51,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/stok_barang.js": {
-    "file": "assets/stok_barang-CZav3tcG.js",
+    "file": "assets/stok_barang-DMtZox4E.js",
     "name": "stok_barang",
     "src": "resources/js/frontend/stok_barang.js",
     "isDynamicEntry": true

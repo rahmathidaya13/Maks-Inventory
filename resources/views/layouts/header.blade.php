@@ -27,10 +27,6 @@
 
     <link rel="canonical" href="https://maksinventory.shop/">
     <link rel="icon" href="{{ asset('assets/icon/logo2.png') }}" type="image/x-icon">
-
-    {{-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}"> --}}
-
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">

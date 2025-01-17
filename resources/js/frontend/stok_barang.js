@@ -230,7 +230,7 @@ $(document).on("click", ".hapus_stok", function (e) {
     let getDate = ConvertDate(stokFieldSplit[0]);
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: `Data [ ${
+        text: `Data  ${
             getDate +
             " / " +
             stokFieldSplit[1] +
@@ -238,7 +238,7 @@ $(document).on("click", ".hapus_stok", function (e) {
             stokFieldSplit[2] +
             " / " +
             stokFieldSplit[3]
-        } ] Akan dihapus!`,
+        } Akan dihapus!`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
