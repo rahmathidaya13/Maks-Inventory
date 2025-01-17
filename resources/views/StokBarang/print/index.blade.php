@@ -29,7 +29,7 @@
     <tbody>
         @foreach ($stok as $data)
             <tr>
-                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
                 <td>{{ $data->nama_barang }}</td>
                 <td>{{ $data->tipe_barang }}</td>
                 <td>{{ $data->stok_awal }}</td>

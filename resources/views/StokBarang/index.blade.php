@@ -55,10 +55,10 @@
                         <div class="mx-3">
                             <div class="input-group input-group-sm ">
                                 <input type="date" name="start_date_filter_stok" id="start_date_filter_stok"
-                                    class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                    class="form-control mx-2">
                                 <span><i class="fas fa-sort"></i></span>
                                 <input type="date" name="end_date_filter_stok" id="end_date_filter_stok"
-                                    class="form-control mx-2" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                    class="form-control mx-2">
                                 <button id="set_filter_stok" type="submit" class="btn btn-sm btn-primary">Set</button>
                             </div>
                         </div>

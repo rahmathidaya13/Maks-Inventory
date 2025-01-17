@@ -56,7 +56,7 @@
     <tbody>
         @foreach ($barang_keluar as $data)
             <tr>
-                <td>{{ \Carbon\Carbon::parse($data->tanggal)->format('d-M-y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tanggal)->translatedFormat('d F Y') }}</td>
                 <td>{{ $data->kode_transaksi }}</td>
                 <td>{{ $data->nama_konsumen }}</td>
                 <td>{{ $data->no_handphone }}</td>

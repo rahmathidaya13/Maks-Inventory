@@ -144,7 +144,7 @@
     <img src="{{ public_path('assets/icon/logo.jpg') }}" alt="">
     <div class="title">
         <h1>Laporan Barang Masuk Toko Maksindo</h1>
-        <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->format('F Y') }}</h1>
+        <h1>Cabang Pekanbaru {{ \Carbon\Carbon::parse($start_date)->translatedFormat('F Y') }}</h1>
         <h2>Jl. Arifin Ahmad, Ruko No.99, Sidomulyo Timur </h2>
         <h2>Kec. Marpoyan Damai, Kota Pekanbaru</h2>
     </div>
@@ -171,7 +171,7 @@
         @foreach ($barang_masuk as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->format('d-M-y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_brg_masuk)->translatedFormat('d F Y') }}</td>
                 <td>{{ $data->no_warehouse }}</td>
                 <td>{{ $data->kode_barang }}</td>
                 <td>{{ $data->nama_barang }}</td>

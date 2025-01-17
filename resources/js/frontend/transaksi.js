@@ -658,12 +658,11 @@ $(document).on("change", "#stts_pembayaran", function (e) {
 $(document).on("click", ".data_sparepart", function (e) {
     e.preventDefault();
     let id = $(this).data("id");
-    console.log(id);
 
      $("#form_transaksi")[0].reset();
     $("#pelunasan")[0].reset();
 
-    $(".modal-title span").text("Data Sparepart");
+    $(".modal-title span").text("Form Ubah Data Sparepart");
     $(".modal-title i").removeClass("fas fa-plus-square");
     $(".modal-title i").removeClass("fas fa-money-bill-wave");
     $(".modal-title i").remove("fas fa-people-carry");

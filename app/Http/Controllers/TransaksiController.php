@@ -37,12 +37,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // validate data
         $this->ValidateTransaksi($request->all());
-
-        // $dataParse = $this->parseValue($request);
-
         $transaksi = $this->createTransaksiDB($request);
 
         $barang_masuk = $this->checkBarangMasuk($transaksi, $request, 'create');
@@ -71,7 +66,6 @@ class TransaksiController extends Controller
             ]
         );
     }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -98,8 +92,6 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd( $request->all());
-
         // validate data
         $this->ValidateTransaksi($request->all());
         // update data
@@ -110,19 +102,7 @@ class TransaksiController extends Controller
 
     public function takeAway(Request $request, string $id)
     {
-        $request->validate(
-            [
-                'tanggal_ambil' => 'required | date',
-                'kode_transaksi_ambil_brg' => 'required | string',
-            ],
-            [
-                'tanggal_ambil.required' => 'Tanggal ambil wajib diisi',
-                'tanggal_ambil.date' => 'Tanggal ambil harus dalam format tanggal',
-                'kode_transaksi_ambil_brg.required' => 'Kode transaksi barang wajib diisi',
-                'kode_transaksi_ambil_brg.string' => 'Kode transaksi  barang harus berupa karakter yang sesuai',
-            ]
-        );
-
+        $this->validateTakeAway($request->all());
         $transaksi = TransaksiModel::findOrFail($id);
 
         $transaksiNew = $this->updateTakeAway($transaksi, $request);
@@ -139,6 +119,7 @@ class TransaksiController extends Controller
 
     public function updateSparepart(Request $request, string $id)
     {
+        $this->validateSparepart($request->all());
         $transaksiUp = TransaksiModel::findOrFail($id);
 
         $sparepart = $this->updatedSparepart($request, $transaksiUp);

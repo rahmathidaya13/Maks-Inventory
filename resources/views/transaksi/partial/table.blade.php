@@ -22,7 +22,7 @@
         <td class="align-middle tipe_barang_transaksi">{{ $data->tipe_barang }}</td>
         <td class="align-middle text-center">
             @if ($data->status_barang === 'mesin')
-                <span class="badge badge-primary">{{ ucwords($data->status_barang) }}</span>
+                <span class="badge badge-warning">{{ ucwords($data->status_barang) }}</span>
             @else
                 <span class="badge badge-info">{{ ucwords($data->status_barang) }}</span>
             @endif

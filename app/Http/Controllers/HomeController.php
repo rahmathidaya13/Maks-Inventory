@@ -36,12 +36,13 @@ class HomeController extends Controller
 
         $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '9')
             ->whereYear('tgl_transaksi', '2024')
-            ->whereIn('status_pembayaran', ['lunas', 'dana pertama - belum lunas'])
+            ->whereIn('status_pembayaran', ['lunas', 'dana pertama - belum lunas', 'dana pertama - lunas'])
             ->sum('pembayaran');
 
         $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
             ->whereYear('tgl_transaksi', '2024')
-            ->where('status_pembayaran', 'lunas')
+            ->whereIn('status_pembayaran', ['lunas', 'dana pertama - lunas'])
+            ->distinct('nama_konsumen')
             ->count('nama_konsumen');
 
         $countInBox = BarangMasukModel::whereMonth('tgl_brg_masuk', '09')
@@ -133,6 +134,5 @@ class HomeController extends Controller
                 ->get();
         }
         return view('home.partial.table', compact('transaksi'));
-        // return view('home.index', compact('transaksi'));
     }
 }

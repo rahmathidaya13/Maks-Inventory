@@ -105,6 +105,7 @@ trait handlesTransaksiPenjualan
         $transaksiNew->nama_barang = $transaksi->nama_barang;
         $transaksiNew->nama_sales = $transaksi->nama_sales;
         $transaksiNew->tipe_barang = $transaksi->tipe_barang;
+        $transaksiNew->status_barang = $transaksi->status_barang;
         $transaksiNew->jumlah_barang = $transaksi->jumlah_barang;
         $transaksiNew->posisi = $transaksi->posisi;
         $transaksiNew->diskon = $transaksi->diskon;
@@ -175,6 +176,7 @@ trait handlesTransaksiPenjualan
         $transaksiNew->nama_barang = $transaksi->nama_barang;
         $transaksiNew->nama_sales = $transaksi->nama_sales;
         $transaksiNew->tipe_barang = $transaksi->tipe_barang;
+        $transaksiNew->status_barang = $transaksi->status_barang;
         $transaksiNew->jumlah_barang = $transaksi->jumlah_barang;
         $transaksiNew->posisi = $transaksi->posisi;
         $transaksiNew->diskon = $transaksi->diskon;

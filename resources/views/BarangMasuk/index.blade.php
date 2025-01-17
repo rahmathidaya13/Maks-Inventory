@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Daftar Barang Masuk')
+@section('title', 'Barang Masuk')
 @section('breadcrumb', 'Barang Masuk')
 @section('icon', 'fas fa-clipboard-check')
 @section('content')

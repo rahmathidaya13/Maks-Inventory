@@ -109,4 +109,59 @@ trait ValidateTransaksi
             ]
         )->validate();
     }
+    public function validateTakeAway(array $data)
+    {
+        return Validator::make(
+            $data,
+            [
+                'tanggal_ambil' => 'required | date',
+                'kode_transaksi_ambil_brg' => 'required | string',
+            ],
+            [
+                'tanggal_ambil.required' => 'Tanggal ambil wajib diisi',
+                'tanggal_ambil.date' => 'Tanggal ambil harus dalam format tanggal',
+                'kode_transaksi_ambil_brg.required' => 'Kode transaksi barang wajib diisi',
+                'kode_transaksi_ambil_brg.string' => 'Kode transaksi  barang harus berupa karakter yang sesuai',
+            ]
+        )->validate();
+    }
+    public function validateSparepart(array $data)
+    {
+        return Validator::make($data, [
+            'tanggal_sparepart' => 'required | date',
+            'kode_transaksi_sparepart' => 'required',
+            'nama_cs_sparepart' => 'required|string|max:50',
+            'nohp_cs_sparepart' => 'required|string|regex:/^[\d\s-]+$/',
+            'alamat_cs_sparepart' => 'required|string',
+            'kode_cs_sparepart' => 'required|string',
+            'barang_cs_sparepart' => 'required|string',
+            'tipe_cs_sparepart' => 'required|string',
+            'jumlah_cs_sparepart' => 'required|integer|min:1',
+            'harga_cs_sparepart' => 'required|string',
+            'pembayaran_cs_sparepart' => 'required|string',
+        ], [
+            'tanggal_sparepart.required' => 'Tanggal wajib diisi',
+            'tanggal_sparepart.date' => 'Tanggal  harus dalam format tanggal',
+            'kode_transaksi_sparepart.required' => 'Kode transaksi wajib diisi',
+            'nama_cs_sparepart.required' => 'Nama pelanggan wajib diisi',
+            'nama_cs_sparepart.string' => 'Nama pelanggan harus berupa karakter yang sesuai',
+            'nama_cs_sparepart.max' => 'Nama pelanggan maksimal 50 karakter',
+            'nohp_cs_sparepart.required' => 'Nomor handphone wajib diisi',
+            'nohp_cs_sparepart.regex' => 'No pelanggan harus berupa angka, spasi, atau tanda minus',
+            'alamat_cs_sparepart.required' => 'Alamat pelanggan wajib diisi',
+            'alamat_cs_sparepart.string' => 'Alamat pelanggan harus berupa karakter yang sesuai',
+            'kode_cs_sparepart.required' => 'Kode barang wajib diisi',
+            'kode_cs_sparepart.string' => 'Kode barang harus berupa karakter yang sesuai',
+            'barang_cs_sparepart.required' => 'Nama barang wajib diisi',
+            'tipe_cs_sparepart.required' => 'Tipe barang wajib diisi',
+            'tipe_cs_sparepart.string' => 'Tipe barang harus berupa karakter yang sesuai',
+            'jumlah_cs_sparepart.required' => 'Jumlah barang wajib diisi',
+            'jumlah_cs_sparepart.integer' => 'Jumlah barang harus berupa angka',
+            'jumlah_cs_sparepart.min' => 'Jumlah barang minimal 1',
+            'harga_cs_sparepart.required' => 'Harga barang wajib diisi',
+            'harga_cs_sparepart.string' => 'Harga barang harus berupa angka',
+            'pembayaran_cs_sparepart.required' => 'Pembayaran  wajib diisi',
+            'pembayaran_cs_sparepart.string' => 'Pembayaran harus berupa karakter yang sesuai',
+        ])->validate();
+    }
 }

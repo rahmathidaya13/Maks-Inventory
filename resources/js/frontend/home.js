@@ -64,7 +64,7 @@ $.ajax({
 $(document).on("change", ".filter_month", function (e) {
     e.preventDefault();
     let value = $(this).val();
-    if (value == "") {
+    if (!value) {
         $("#tabel_penjualan").load(
             "/home/penjualan/unit?query=" + value,
             function (data) {

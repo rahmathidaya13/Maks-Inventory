@@ -180,7 +180,7 @@
         @foreach ($transaksi as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ \Carbon\Carbon::parse($data->tgl_transaksi)->format('d-M-y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($data->tgl_transaksi)->translatedFormat('d F Y') }}</td>
                 <td>{{ $data->kode_transaksi }}</td>
                 <td>{{ $data->nama_konsumen }}</td>
                 <td>{{ $data->no_handphone }}</td>
