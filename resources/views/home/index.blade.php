@@ -193,7 +193,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Tanggal Penjualan</th>
+                            <th scope="col">Tgl.Penjualan</th>
                             <th scope="col">Nama Sales</th>
                             <th scope="col">Nama Barang</th>
                             <th scope="col">Tipe Barang</th>
