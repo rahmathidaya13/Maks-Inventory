@@ -12,15 +12,18 @@
     <meta name="robots" content="index, follow">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>@yield('title')</title>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta property="og:title" content="Maks-Inventory - Solusi Sistem Manajemen Persediaan Terbaik">
     <meta property="og:description"
         content="Maks-Inventory membantu bisnis Anda mengelola stok, pembelian, dan penjualan dengan mudah dan efisien.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maksinventory.shop/login">
-    <meta property="og:image" content="https://maksinventory.shop/">
+    <meta property="og:image" content="https://maksinventory.shop/assets/images/logo.png">
+    <meta property="og:site_name" content="Maks-Inventory">
+    <meta property="og:locale" content="id_ID">
+
+    <link rel="canonical" href="https://maksinventory.shop/login">
 
     <link rel="canonical" href="https://maksinventory.shop/">
     <link rel="icon" href="{{ asset('assets/icon/logo2.png') }}" type="image/x-icon">
