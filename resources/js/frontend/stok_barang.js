@@ -199,12 +199,11 @@ $(document).on("click", ".ubah_stok", function (e) {
             $("#stokBarangForm").prepend(
                 '<input type="hidden" name="_method" value="PUT">'
             );
-
+            $(".nama_barang").css({
+                pointerEvents: "none",
+            });
             $.getJSON(`/stok/detail/${id}`, function (data) {
                     let idBarang = data.result.id_barang;
-                $(".nama_barang").css({
-                    pointerEvents: "none",
-                });
                 $("#id_barang").val(data.result.id_barang);
                 $("#tgl").val(data.result.tanggal).attr("readonly", true);
 
