@@ -23,27 +23,22 @@
                             <select class="form-control select2" name="nama_barang" id="nama_barang">
                                 <option value="">Pilih Nama Barang</option>
                                 @foreach ($daftarBarang as $data)
-                                    <option data-id="{{ $data->id_barang }}" value="{{ $data->nama_barang }}"
-                                        @foreach ($data->stokBarang as $data)
-                                            data-id-stok="{{ $data->id_stok }}"
-                                            data-first-stok="{{ $data->stok_awal }}"
-                                            data-last-stok="{{ $data->stok_akhir }}"
-                                            data-stok-in="{{ $data->barang_masuk }}"
-                                            data-stok-out="{{ $data->barang_keluar }}" @endforeach>
-                                        {{ $data->nama_barang }} -
-                                        {{ $data->tipe_barang }}</option>
+                                    <option data-type="{{ $data->tipe_barang }}" data-id="{{ $data->id_barang }}"
+                                        value="{{ $data->nama_barang }}"
+                                        @foreach ($data->stokBarang as $rows)
+                                            data-id-stok="{{ $rows->id_stok }}"
+                                            data-first-stok="{{ $rows->stok_awal }}"
+                                            data-last-stok="{{ $rows->stok_akhir }}"
+                                            data-stok-in="{{ $rows->barang_masuk }}"
+                                            data-stok-out="{{ $rows->barang_keluar }}" @endforeach>
+                                        {{ $data->nama_barang . ' - ' . $data->tipe_barang }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="tipe_barang">Tipe Barang</label>
-                            <select class="form-control select2" name="tipe_barang" id="tipe_barang">
-                                <option value="">Pilih Tipe Barang</option>
-                                @foreach ($daftarBarang as $data)
-                                    <option data-id="{{ $data->id_barang }}" value="{{ $data->tipe_barang }}">
-                                        {{ $data->tipe_barang }}</option>
-                                @endforeach
-                            </select>
+                            <input readonly type="text" class="form-control" name="tipe_barang" id="tipe_barang"
+                                value="{{ old('tipe_barang') }}">
                         </div>
 
                         <div class="form-group">
@@ -76,7 +71,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button id="stok_out" type="button" class="btn btn-default stok_out" data-dismiss="modal">Keluar</button>
+                <button id="stok_out" type="button" class="btn btn-default stok_out"
+                    data-dismiss="modal">Keluar</button>
                 <button disabled onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
                     id="stok_save" type="button" class="btn btn-primary simpan_stok"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>

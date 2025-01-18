@@ -135,11 +135,18 @@ $(document).on("click", ".ubah_barang_masuk", function (e) {
     );
     $("#barangmasuk").attr("action", "/barang_masuk/update/" + id);
     $.getJSON("/barang_masuk/detail/" + id, function (data, textStatus, jqXHR) {
+        let idBarang = data.result.id_barang;
         $("#id_barang").val(data.result.id_barang);
         $("#tgl_brg_masuk").val(data.result.tgl_brg_masuk);
         $("#no_warehouse").val(data.result.no_warehouse);
         $("#kode_barang_brg_masuk").val(data.result.kode_barang);
-        $("#nama_barang").val(data.result.nama_barang).trigger("change");
+
+        $("#nama_barang").val(null);
+        $('#nama_barang option').filter(function() {
+            return $(this).data('id') == idBarang;
+        }).prop('selected', true);
+        $('#nama_barang').trigger('change');
+
         $("#tipe_barang_masuk").val(data.result.tipe_barang);
         $("#asal_gdg").val(data.result.asal_gudang);
         $("#jumlah_brg").val(data.result.jumlah_barang);

@@ -139,6 +139,7 @@ $(document).on("click", "#add_stok_barang", function (e) {
 
 $(document).on("change", "#nama_barang", function () {
     let selected = $(this).find("option:selected");
+    let getType =selected.data("type");
     let getId = selected.data("id");
     let getFirstStok = selected.data("first-stok");
     let getLastStok = selected.data("last-stok");
@@ -146,12 +147,12 @@ $(document).on("change", "#nama_barang", function () {
     let stok_out = selected.data("stok-out");
     // $("input[name='id_barang']").val(selected.data("id"));
 
-    $("#tipe_barang").val("");
-    $("#tipe_barang option").each(function () {
-        if ($(this).data("id") === getId) {
-            $(this).prop("selected", true).trigger("change");
-        }
-    });
+    $("#tipe_barang").val(getType);
+    // $("#tipe_barang option").each(function () {
+    //     if ($(this).data("id") === getId) {
+    //         $(this).prop("selected", true).trigger("change");
+    //     }
+    // });
     $("#stok_awal").val(getFirstStok ?? 0);
     $("#stok_akhir").val(getLastStok ?? 0);
     $("#brg_masuk").val(stok_in ?? 0);
@@ -198,17 +199,21 @@ $(document).on("click", ".ubah_stok", function (e) {
             );
 
             $.getJSON(`/stok/detail/${id}`, function (data) {
+                    let idBarang = data.result.id_barang;
                 $(".select2").css({
                     pointerEvents: "none",
                 });
                 $("#id_barang").val(data.result.id_barang);
                 $("#tgl").val(data.result.tanggal).attr("readonly", true);
-                $("#nama_barang")
-                    .val(data.result.nama_barang)
-                    .trigger("change");
+
+                $("#nama_barang").val(null);
+                $('#nama_barang option').filter(function() {
+                    return $(this).data('id') == idBarang;
+                }).prop('selected', true);
+                $('#nama_barang').trigger('change');
+
                 $("#tipe_barang")
-                    .val(data.result.tipe_barang)
-                    .trigger("change");
+                    .val(data.result.tipe_barang);
                 $("#posisi_barang").val(data.result.posisi).trigger("change");
                 $("#jumlah_barang").val(data.result.stok_awal);
                 $("#keterangan").val(data.result.keterangan);

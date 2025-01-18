@@ -46,14 +46,6 @@
                             <label for="tipe_barang_masuk">Tipe Barang</label>
                             <input readonly type="text" class="form-control" name="tipe_barang_masuk"
                                 id="tipe_barang_masuk">
-                            {{-- <select class="select2 form-control" name="tipe_barang_masuk" id="tipe_barang_masuk">
-                                <option value="">Pilih Tipe Barang</option>
-                                @foreach ($allItem as $row)
-                                    <option value="{{ $row->tipe_barang }}">
-                                        <span>{{ $row->tipe_barang }}</span>
-                                    </option>
-                                @endforeach
-                            </select> --}}
                         </div>
                         <div class="form-group col-md-4">
                             <label for="asal_gdg">Asal Gudang</label>

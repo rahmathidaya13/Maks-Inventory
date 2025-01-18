@@ -71,6 +71,7 @@ $(document).on("click", ".ubah_transaksi", function (e) {
     );
 
     $.getJSON(`/transaksi/detail/${id}`, function (data) {
+        let idBarang = data.result.id_barang
         $("#id_barang").val(data.result.id_barang);
         $("#id_stok").val(data.result.id_stok);
         $("#transaksi").val(data.result.tgl_transaksi).prop("readonly", true);
@@ -80,7 +81,14 @@ $(document).on("click", ".ubah_transaksi", function (e) {
         $("#alamat").val(data.result.alamat);
         $("#sales").val(data.result.nama_sales).trigger("change");
         $("#kode_barang").val(data.result.kode_barang);
-        $("#nama_brg_transaksi").val(data.result.nama_barang).trigger("change");
+
+        $("#nama_brg_transaksi").val(null);
+        $('#nama_brg_transaksi option').filter(function() {
+            return $(this).data('id') == idBarang;
+        }).prop('selected', true);
+        $('#nama_brg_transaksi').trigger('change');
+
+
         $("#posisi_brg_transaksi").val(data.result.posisi).trigger("change");
         $("#stts_barang").val(data.result.status_barang).trigger("change");
 
