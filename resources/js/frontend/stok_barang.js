@@ -134,7 +134,9 @@ $(document).on("click", "#add_stok_barang", function (e) {
     $("input[name='_method']").remove();
     $(".simpan_stok").prop("disabled", true);
     $("#tgl").attr("readonly", false);
-
+    $(".nama_barang").css({
+        pointerEvents: "all",
+    });
 });
 
 $(document).on("change", "#nama_barang", function () {
@@ -200,7 +202,7 @@ $(document).on("click", ".ubah_stok", function (e) {
 
             $.getJSON(`/stok/detail/${id}`, function (data) {
                     let idBarang = data.result.id_barang;
-                $(".select2").css({
+                $(".nama_barang").css({
                     pointerEvents: "none",
                 });
                 $("#id_barang").val(data.result.id_barang);
