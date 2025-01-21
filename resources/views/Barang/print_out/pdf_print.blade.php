@@ -179,6 +179,8 @@
 <div class="signature-container">
     <div class="date">Pekanbaru, {{ \Carbon\Carbon::now()->translatedFormat('d-F-Y') }}</div>
     <div class="signature">
-        <div class="username">{{ ucwords(Auth::user()->name) }}</div>
+        <div class="username">
+            {{ ucwords(Auth::user()->name) }}
+        </div>
     </div>
 </div>
