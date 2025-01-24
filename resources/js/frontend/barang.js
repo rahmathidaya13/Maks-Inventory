@@ -61,6 +61,7 @@ $(document).on("click", "#keluar, .close", function (e) {
     }
     $("#preview").attr("src", "assets/icon/iconupload.jpg");
     $("#file-name").text("File not found");
+
 });
 
 // live search
