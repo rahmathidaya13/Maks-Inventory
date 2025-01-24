@@ -23,9 +23,9 @@ function validateForm(form, button) {
         });
     $(button).prop("disabled", !isValid);
 }
-$("#barangmasuk").on("input", function () {
-    validateForm("#barangmasuk", ".simpan_barang_masuk");
-});
+// $("#barangmasuk").on("input", function () {
+//     validateForm("#barangmasuk", ".simpan_barang_masuk");
+// });
 $("#filter_date").on("input", function () {
     validateForm("#filter_date", ".act_filter");
 });
@@ -48,7 +48,7 @@ $(document).on("click", "#add_item_list", function (e) {
     $("#aksi_brg_masuk i").removeClass("fas fa-edit").addClass("fas fa-save");
     $("#barangmasuk").attr("action", "/barang_masuk/store");
     $("input[name='_method']").remove();
-    $(".simpan_barang_masuk").prop("disabled", true);
+    // $(".simpan_barang_masuk").prop("disabled", true);
 });
 
 // fungsi untuk button keluar modal dan mereset form
@@ -95,7 +95,7 @@ $("#jumlah_brg,#kode_barang_brg_masuk").on("input", function () {
 // include action add item from file barang
 $(document).on("click", "#add_item", function (e) {
     e.preventDefault();
-    $(".simpan_barang_masuk").prop("disabled", true);
+    // $(".simpan_barang_masuk").prop("disabled", true);
     $("#form_item")[0].reset();
     if ($("#brg_masuk").length > 0) {
         $("#brg_masuk")[0].reset();
@@ -119,7 +119,7 @@ $(document).on("click", "#add_item", function (e) {
 $(document).on("click", ".ubah_barang_masuk", function (e) {
     e.preventDefault();
     // this variable data
-    $(".simpan_barang_masuk").prop("disabled", false);
+    // $(".simpan_barang_masuk").prop("disabled", false);
     let id = $(this).data("id");
     if ($("#barangmasuk").length > 0) {
         $("#barangmasuk")[0].reset();
