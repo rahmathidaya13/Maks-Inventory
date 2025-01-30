@@ -18,9 +18,9 @@
               </div>
               <div class="info">
                   <a id="profile-action" data-toggle="modal" data-target="#modal-default-profile" href="#"
-                      data-id="{{ Auth::user()->id }}" class="d-block"><small></small> {{ ucwords(Auth::user()->name) }}
+                      data-id="{{ Auth::user()->id }}" class="d-block text-white"><small></small> {{ ucwords(Auth::user()->name) }}
                     </a>
-                    <small class="d-block text-white" >{{ Auth::user()->role }}</small>
+                    <small class="d-block text-white" >{{ ucwords(Auth::user()->role) }}</small>
 
               </div>
           </div>
