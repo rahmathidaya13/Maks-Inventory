@@ -15,9 +15,9 @@ return new class extends Migration
             $table->uuid('id_top_product')->primary();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
             $table->date('tanggal');
-            $table->string('kode_barang');
-            $table->string('nama_barang');
-            $table->string('tipe_barang');
+            $table->string('kode_barang',50);
+            $table->string('nama_barang',100);
+            $table->string('tipe_barang',100);
             $table->integer('total_barang');
             $table->timestamps();
         });

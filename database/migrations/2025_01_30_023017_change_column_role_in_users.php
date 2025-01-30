@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_barang', function (Blueprint $table) {
-            $table->uuid('id_barang')->primary();
-            $table->string('nama_barang', 100);
-            $table->string('tipe_barang', 100);
-            $table->decimal('harga_barang', 12, 2);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['admin', 'spv'])->default('admin')->change();
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_barang');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['admin', 'spv'])->default('admin')->change();
+        });
     }
 };

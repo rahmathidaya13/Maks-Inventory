@@ -49,9 +49,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    public function hasRole(string $role)
-    {
-        return $this->role === $role;
-    }
 }

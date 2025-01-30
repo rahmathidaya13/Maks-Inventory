@@ -40,56 +40,68 @@ class StokImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             ]);
         }
 
-        $barang_masuk = BarangMasukModel::where('id_barang', $barang->id_barang)
-            ->where('nama_barang', $row['nama_barang'])
-            ->where('tipe_barang', $row['tipe_barang'])
-            ->where('posisi', $row['posisi_barang'])
-            ->where('tgl_brg_masuk', $formatedDate)
-            ->sum('jumlah_barang') ?? 0;
+        // $barang_masuk = BarangMasukModel::where('id_barang', $barang->id_barang)
+        //     ->where('nama_barang', $row['nama_barang'])
+        //     ->where('tipe_barang', $row['tipe_barang'])
+        //     ->where('posisi', $row['posisi_barang'])
+        //     ->where('tgl_brg_masuk', $formatedDate)
+        //     ->sum('jumlah_barang') ?? 0;
 
-        $barang_keluar = TransaksiModel::where('id_barang', $barang->id_barang)
-            ->where('nama_barang', $row['nama_barang'])
-            ->where('tipe_barang', $row['tipe_barang'])
-            ->where('tgl_transaksi', $formatedDate)
-            ->sum('jumlah_barang') ?? 0;
+        // $barang_keluar = TransaksiModel::where('id_barang', $barang->id_barang)
+        //     ->where('nama_barang', $row['nama_barang'])
+        //     ->where('tipe_barang', $row['tipe_barang'])
+        //     ->where('tgl_transaksi', $formatedDate)
+        //     ->sum('jumlah_barang') ?? 0;
 
-        $stokBarang = StokBarangModel::where('id_barang', $barang->id_barang)
-            ->where('nama_barang', $row['nama_barang'])
-            ->where('tipe_barang', $row['tipe_barang'])
-            ->where('posisi', $row['posisi_barang'])
-            ->where('tanggal', $formatedDate)
-            ->first();
+        // $stokBarang = StokBarangModel::where('id_barang', $barang->id_barang)
+        //     ->where('nama_barang', $row['nama_barang'])
+        //     ->where('tipe_barang', $row['tipe_barang'])
+        //     ->where('posisi', $row['posisi_barang'])
+        //     ->where('tanggal', $formatedDate)
+        //     ->first();
 
-        if ($stokBarang) {
-            $stokBarang->barang_masuk = $barang_masuk;
-            $stokBarang->barang_keluar = $barang_keluar;
-            $stokBarang->stok_awal += $row['stok_awal'];
-            $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
-            $stokBarang->keterangan = $row['keterangan'];
-            $stokBarang->save();
-        } else {
-            // $stokTerakhir = StokBarangModel::where('id_barang', $barang->id_barang)
-            //     ->where('nama_barang', $row['nama_barang'])
-            //     ->where('tipe_barang', $row['tipe_barang'])
-            //     ->where('posisi', $row['posisi_barang'])
-            //     ->orderBy('tanggal', 'desc')
-            //     ->first();
+        // if ($stokBarang) {
+        //     $stokBarang->barang_masuk = $barang_masuk;
+        //     $stokBarang->barang_keluar = $barang_keluar;
+        //     $stokBarang->stok_awal += $row['stok_awal'];
+        //     $stokBarang->stok_akhir = ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
+        //     $stokBarang->keterangan = $row['keterangan'];
+        //     $stokBarang->save();
+        // } else {
+        //     // $stokTerakhir = StokBarangModel::where('id_barang', $barang->id_barang)
+        //     //     ->where('nama_barang', $row['nama_barang'])
+        //     //     ->where('tipe_barang', $row['tipe_barang'])
+        //     //     ->where('posisi', $row['posisi_barang'])
+        //     //     ->orderBy('tanggal', 'desc')
+        //     //     ->first();
 
-            // $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
+        //     // $stokAwal = $stokTerakhir ? $stokTerakhir->stok_akhir : 0;
 
-            $stok = new StokBarangModel();
-            $stok->id_barang = $barang->id_barang;
-            $stok->tanggal = $formatedDate;
-            $stok->nama_barang = $row['nama_barang'];
-            $stok->tipe_barang = $row['tipe_barang'];
-            $stok->barang_masuk = $barang_masuk;
-            $stok->barang_keluar = $barang_keluar;
-            $stok->stok_awal = $row['stok_awal'];
-            $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
-            $stok->posisi = $row['posisi_barang'];
-            $stok->keterangan = $row['keterangan'];
-            $stok->save();
-        }
+        //     $stok = new StokBarangModel();
+        //     $stok->id_barang = $barang->id_barang;
+        //     $stok->tanggal = $formatedDate;
+        //     $stok->nama_barang = $row['nama_barang'];
+        //     $stok->tipe_barang = $row['tipe_barang'];
+        //     $stok->barang_masuk = $barang_masuk;
+        //     $stok->barang_keluar = $barang_keluar;
+        //     $stok->stok_awal = $row['stok_awal'];
+        //     $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
+        //     $stok->posisi = $row['posisi_barang'];
+        //     $stok->keterangan = $row['keterangan'];
+        //     $stok->save();
+        // }
+        $stok = new StokBarangModel();
+        $stok->id_barang = $barang->id_barang;
+        $stok->tanggal = $formatedDate;
+        $stok->nama_barang = $row['nama_barang'];
+        $stok->tipe_barang = $row['tipe_barang'];
+        $stok->barang_masuk = $row['barang_masuk'];
+        $stok->barang_keluar = $row['barang_keluar'];
+        $stok->stok_awal = $row['stok_awal'];
+        $stok->stok_akhir =  ($stok->stok_awal + $stok->barang_masuk) - $stok->barang_keluar;
+        $stok->posisi = $row['posisi_barang'];
+        $stok->keterangan = $row['keterangan'];
+        $stok->save();
     }
     public function headingRow(): int
     {

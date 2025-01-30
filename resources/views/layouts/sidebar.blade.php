@@ -10,7 +10,7 @@
       <!-- Sidebar -->
       <div class="sidebar">
           <!-- Sidebar user panel (optional) -->
-          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
               <div class="image">
                   {{-- Storage::url('assets/profile/' . $user->photo) --}}
                   <img src="{{ asset(Auth::user()->photo ? 'assets/profile/' . Auth::user()->photo : 'assets/icon/user.svg') }}"
@@ -18,7 +18,10 @@
               </div>
               <div class="info">
                   <a id="profile-action" data-toggle="modal" data-target="#modal-default-profile" href="#"
-                      data-id="{{ Auth::user()->id }}" class="d-block">{{ ucwords(Auth::user()->name) }}</a>
+                      data-id="{{ Auth::user()->id }}" class="d-block"><small></small> {{ ucwords(Auth::user()->name) }}
+                    </a>
+                    <small class="d-block text-white" >{{ Auth::user()->role }}</small>
+
               </div>
           </div>
           <!-- Sidebar Menu -->

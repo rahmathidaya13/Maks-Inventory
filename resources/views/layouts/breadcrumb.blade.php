@@ -15,10 +15,13 @@
                             <a href="{{ route('export.barang') }}" id="export_barang" class="btn btn-primary btn-sm"><i
                                     class="fas fa-download"></i>
                                 Export</a>
-                            <button data-toggle="modal" data-target="#staticBackdrop2" id="import"
-                                class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
-                            <button data-toggle="modal" data-target="#staticBackdrop" id="add_item"
-                                class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang</button>
+                            @can('onlyAdmin')
+                                <button data-toggle="modal" data-target="#staticBackdrop2" id="import"
+                                    class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button>
+
+                                <button data-toggle="modal" data-target="#staticBackdrop" id="add_item"
+                                    class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang</button>
+                            @endcan
                         @elseif (Route::is('barang_masuk.index'))
                             <a class="btn btn-secondary btn-sm" href="{{ route('barang_masuk.pdf') }}"><i
                                     class="fas fa-print"></i>
@@ -29,10 +32,11 @@
 
                             {{-- <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk" id="import_item_list"
                                 class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button> --}}
-
-                            <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" id="add_item_list"
-                                class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang
-                                Masuk</button>
+                            @can('onlyAdmin')
+                                <button data-toggle="modal" data-target="#staticBackdrop-brg_masuk1" id="add_item_list"
+                                    class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Tambah Barang
+                                    Masuk</button>
+                            @endcan
                         @elseif (Route::is('stok.index'))
                             <a class="btn btn-secondary btn-sm" href="{{ route('stok.pdf') }}"><i
                                     class="fas fa-print"></i>
@@ -40,14 +44,15 @@
                             <button data-toggle="modal" data-target="#staticBackdrop_filter_date_stok"
                                 id="export_stok_barang" class="btn btn-primary btn-sm"><i class="fas fa-download"></i>
                                 Export</button>
+                            @can('onlyAdmin')
+                                <button data-toggle="modal" data-target="#staticBackdrop_stok_barang_import"
+                                    id="import_stok" class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i>
+                                    Import</button>
 
-                            <button data-toggle="modal" data-target="#staticBackdrop_stok_barang_import"
-                                id="import_stok" class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i>
-                                Import</button>
-
-                            <button data-toggle="modal" data-target="#staticBackdrop_stok_barang" id="add_stok_barang"
-                                class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat stok
-                                baru</button>
+                                <button data-toggle="modal" data-target="#staticBackdrop_stok_barang" id="add_stok_barang"
+                                    class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat stok
+                                    baru</button>
+                            @endcan
                         @elseif (Route::is('transaksi.index'))
                             <a class="btn btn-secondary btn-sm" href="{{ route('transaksi.pdf') }}"><i
                                     class="fas fa-print"></i>
@@ -59,10 +64,11 @@
 
                             {{-- <button data-toggle="modal" data-target="#staticBackdrop_transaksi_import" id="transaksi_import"
                                 class="btn btn-primary btn-sm"> <i class="fas fa-upload"></i> Import</button> --}}
-
-                            <button data-toggle="modal" data-target="#staticBackdrop_transaksi" id="add_transaksi"
-                                class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat
-                                Transaksi</button>
+                            @can('onlyAdmin')
+                                <button data-toggle="modal" data-target="#staticBackdrop_transaksi" id="add_transaksi"
+                                    class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i> Buat
+                                    Transaksi</button>
+                            @endcan
                         @elseif (Route::is('barang_keluar.index'))
                             <a class="btn btn-secondary btn-sm" href="{{ route('barang_keluar.pdf') }}"><i
                                     class="fas fa-print"></i> Print</a>

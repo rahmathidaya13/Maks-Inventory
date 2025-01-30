@@ -16,15 +16,15 @@ return new class extends Migration
             $table->foreignUuid('id_transaksi')->references('id_transaksi')->on('tb_transaksi_penjualan')->cascadeOnDelete();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
             $table->date('tanggal');
-            $table->string('kode_transaksi');
-            $table->string('nama_konsumen');
-            $table->string('no_handphone');
-            $table->string('alamat');
-            $table->string('kode_barang');
-            $table->string('nama_barang');
-            $table->string('tipe_barang');
+            $table->string('kode_transaksi', 50);
+            $table->string('nama_konsumen', 50);
+            $table->string('no_handphone', 13);
+            $table->string('alamat', 150);
+            $table->string('kode_barang', 50);
+            $table->string('nama_barang', 100);
+            $table->string('tipe_barang', 100);
             $table->integer('jumlah_barang');
-            $table->string('posisi');
+            $table->string('posisi', 50);
             $table->timestamps();
         });
     }

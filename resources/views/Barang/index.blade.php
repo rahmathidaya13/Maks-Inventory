@@ -49,24 +49,30 @@
                     </div>
                 </div>
                 <div class="px-3 d-flex mb-2">
-                    <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
-                        Hapus</button>
+                    @can('onlyAdmin')
+                        <button disabled id="delete_all" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+                            Hapus</button>
+                    @endcan
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table id="myTable" class="table text-nowrap table-borderless table-striped">
                         <thead class="table-dark">
                             <tr>
-                                <th>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll">
-                                        <label class="form-check-label"></label>
-                                    </div>
-                                </th>
+                                @can('onlyAdmin')
+                                    <th>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="selectAll" id="selectAll">
+                                            <label class="form-check-label"></label>
+                                        </div>
+                                    </th>
+                                @endcan
                                 <th>No</th>
                                 <th>Nama Barang</th>
                                 <th>Tipe Barang</th>
                                 <th>Harga</th>
-                                <th>Aksi</th>
+                                @can('onlyAdmin')
+                                    <th>Aksi</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody id="tableBarang">

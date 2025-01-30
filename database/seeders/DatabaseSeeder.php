@@ -26,6 +26,12 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin2@example.com',
                 'password' => Hash::make('admin1234'),
                 'role' => 'admin',
+            ],
+            [
+                'name' => 'supervisior',
+                'email' => 'spv@example.com',
+                'password' => Hash::make('spv12345'),
+                'role' => 'spv',
             ]
         ];
         foreach ($data as $rows) {

@@ -15,14 +15,14 @@ return new class extends Migration
             $table->uuid('id_brg_masuk')->primary();
             $table->foreignUuid('id_barang')->references('id_barang')->on('tb_barang')->cascadeOnDelete();
             $table->date('tgl_brg_masuk');
-            $table->string('no_warehouse');
-            $table->string('nama_barang');
-            $table->string('tipe_barang');
-            $table->string('asal_gudang',);
+            $table->string('no_warehouse', 50);
+            $table->string('nama_barang', 100);
+            $table->string('tipe_barang', 100);
+            $table->string('asal_gudang', 50);
             $table->integer('jumlah_barang');
-            $table->string('posisi');
-            $table->string('status');
-            $table->string('nama_konsumen');
+            $table->string('posisi', 50);
+            $table->string('status', 50);
+            $table->string('nama_konsumen', 50);
             $table->timestamps();
         });
     }

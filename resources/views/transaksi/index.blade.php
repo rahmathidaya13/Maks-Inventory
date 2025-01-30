@@ -66,21 +66,25 @@
             </div>
         </div>
         <div class="px-3 mb-2">
-            <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
-                Hapus</button>
+            @can('onlyAdmin')
+                <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+                    Hapus</button>
+            @endcan
         </div>
 
         <div class="card-body table-responsive p-0">
             <table id="" class="table text-nowrap table-borderless table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-center align-middle">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="select_all_transaksi"
-                                    id="select_all_transaksi">
-                                <label class="form-check-label"></label>
-                            </div>
-                        </th>
+                        @can('onlyAdmin')
+                            <th class="text-center align-middle">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="select_all_transaksi"
+                                        id="select_all_transaksi">
+                                    <label class="form-check-label"></label>
+                                </div>
+                            </th>
+                        @endcan
                         <th class="align-middle">No</th>
                         <th class="align-middle">Tanggal</th>
                         <th class="align-middle">Kode Transaksi</th>
@@ -95,7 +99,9 @@
                         <th class="align-middle">Harga Barang</th>
                         <th class="align-middle">Status Pembayaran</th>
                         <th class="align-middle">Pembayaran</th>
-                        <th class="text-center align-middle">Aksi</th>
+                        @can('onlyAdmin')
+                            <th class="text-center align-middle">Aksi</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody id="tableTransaksi">

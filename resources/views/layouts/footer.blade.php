@@ -33,20 +33,21 @@
         $(document).on("click", ".logout", function(e) {
             e.preventDefault();
             let form = $("#logout-form")
-            Swal.fire({
-                title: 'Anda yakin ingin keluar?',
-                text: "Pastikan data yang telah diinput sudah benar!",
-                icon: 'warning',
-                showCancelButton: true,
-                cancelButtonText: "Batal",
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Keluar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
+            form.submit();
+            // Swal.fire({
+            //     title: 'Anda yakin ingin keluar?',
+            //     text: "Pastikan data yang telah diinput sudah benar!",
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     cancelButtonText: "Batal",
+            //     confirmButtonColor: '#3085d6',
+            //     cancelButtonColor: '#d33',
+            //     confirmButtonText: 'Keluar'
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         form.submit();
+            //     }
+            // });
         });
 
         //Initialize Select2 Elements

@@ -51,6 +51,7 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             'kode_barang' => $row['kode_barang'],
             'nama_barang' => $row['nama_barang'],
             'tipe_barang' => $row['tipe_barang'],
+            'status_barang' => $row['status_barang'],
             'jumlah_barang' => $row['jumlah_barang'],
             'posisi' => $row['posisi_barang'],
             'harga_barang' => $row['harga_barang'],
@@ -62,38 +63,38 @@ class TransaksiImport implements ToModel, WithHeadingRow, WithCalculatedFormulas
             'total_pembayaran' => $row['total_pembayaran'],
             'selisih_pembayaran' => $row['selisih_pembayaran'],
         ]);
-
+        // return $transaksi;
         // set untuk data barang keluar
-        if ($row && $row['status_pembayaran'] === 'lunas') {
-            $barangkeluar = BarangKeluarModel::where('id_barang', $barang->id_barang)
-                ->where('nama_barang', $row['nama_barang'])
-                ->where('tipe_barang', $row['tipe_barang'])
-                ->where('nama_konsumen', $row['nama_konsumen'])
-                ->where('posisi', $row['posisi_barang'])
-                ->whereDate('tanggal', $formatedDate)
-                ->first();
+        // if ($row && $row['status_pembayaran'] === 'lunas') {
+        //     $barangkeluar = BarangKeluarModel::where('id_barang', $barang->id_barang)
+        //         ->where('nama_barang', $row['nama_barang'])
+        //         ->where('tipe_barang', $row['tipe_barang'])
+        //         ->where('nama_konsumen', $row['nama_konsumen'])
+        //         ->where('posisi', $row['posisi_barang'])
+        //         ->whereDate('tanggal', $formatedDate)
+        //         ->first();
 
-            if ($barangkeluar) {
-                $barangkeluar->jumlah_barang += $row['jumlah_barang'];
-                $barangkeluar->posisi = $row['posisi_barang'];
-                $barangkeluar->save();
-            } else {
-                $barangkeluar = new BarangKeluarModel();
-                $barangkeluar->id_barang = $barang->id_barang;
-                $barangkeluar->id_transaksi = $transaksi->id_transaksi;
-                $barangkeluar->tanggal = $formatedDate;
-                $barangkeluar->kode_transaksi = $row['kode_transaksi'];
-                $barangkeluar->nama_konsumen = $row['nama_konsumen'];
-                $barangkeluar->no_handphone = $row['no_handphone'];
-                $barangkeluar->alamat = $row['alamat'];
-                $barangkeluar->kode_barang = $row['kode_barang'];
-                $barangkeluar->nama_barang = $row['nama_barang'];
-                $barangkeluar->tipe_barang = $row['tipe_barang'];
-                $barangkeluar->jumlah_barang = $row['jumlah_barang'];
-                $barangkeluar->posisi = $row['posisi_barang'];
-                $barangkeluar->save();
-            }
-        }
+        //     if ($barangkeluar) {
+        //         $barangkeluar->jumlah_barang += $row['jumlah_barang'];
+        //         $barangkeluar->posisi = $row['posisi_barang'];
+        //         $barangkeluar->save();
+        //     } else {
+        //         $barangkeluar = new BarangKeluarModel();
+        //         $barangkeluar->id_barang = $barang->id_barang;
+        //         $barangkeluar->id_transaksi = $transaksi->id_transaksi;
+        //         $barangkeluar->tanggal = $formatedDate;
+        //         $barangkeluar->kode_transaksi = $row['kode_transaksi'];
+        //         $barangkeluar->nama_konsumen = $row['nama_konsumen'];
+        //         $barangkeluar->no_handphone = $row['no_handphone'];
+        //         $barangkeluar->alamat = $row['alamat'];
+        //         $barangkeluar->kode_barang = $row['kode_barang'];
+        //         $barangkeluar->nama_barang = $row['nama_barang'];
+        //         $barangkeluar->tipe_barang = $row['tipe_barang'];
+        //         $barangkeluar->jumlah_barang = $row['jumlah_barang'];
+        //         $barangkeluar->posisi = $row['posisi_barang'];
+        //         $barangkeluar->save();
+        //     }
+        // }
     }
     public function headingRow(): int
     {

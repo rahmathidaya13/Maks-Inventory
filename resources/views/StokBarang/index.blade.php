@@ -26,18 +26,21 @@
                 </div>
             @endif
             {{-- call out in here --}}
-            <div class="callout callout-info">
-                <h5><i class="fas fa-info-circle"></i> Informasi </h5>
-                <h6 class="w-75">
-                    Pastikan sebelum melakukan penambahan stok, Barang sudah terdaftar di data barang, Jika belum tambahkan
-                    pada link dibawah ini.
-                    <div class="mt-2">
-                        <a id="add_item" data-toggle="modal" data-target="#staticBackdrop" class="text-primary"
-                            href="#">
-                            Tambah Barang</a>
-                    </div>
-                </h6>
-            </div>
+            @can('onlyAdmin')
+                <div class="callout callout-info">
+                    <h5><i class="fas fa-info-circle"></i> Informasi </h5>
+                    <h6 class="w-75">
+                        Pastikan sebelum melakukan penambahan stok, Barang sudah terdaftar di data barang, Jika belum tambahkan
+                        pada link dibawah ini.
+                        <div class="mt-2">
+                            <a id="add_item" data-toggle="modal" data-target="#staticBackdrop" class="text-primary"
+                                href="#">
+                                Tambah Barang</a>
+                        </div>
+                    </h6>
+                </div>
+            @endcan
+
             <div class="card">
                 <div class="d-flex justify-content-between align-items-center p-3">
                     <div class="d-flex align-items-center">
@@ -69,21 +72,26 @@
                     </div>
                 </div>
                 <div class="mb-2 px-3">
-                    <button disabled id="delete_all_stok" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
-                        Hapus</button>
+                    @can('onlyAdmin')
+                        <button disabled id="delete_all_stok" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
+                            Hapus</button>
+                    @endcan
+
                 </div>
 
                 <div class="card-body table-responsive p-0">
                     <table class="table table-striped text-nowrap">
                         <thead class="table-dark">
                             <tr>
-                                <th class="align-middle">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="select_all_stok"
-                                            id="select_all_stok">
-                                        <label class="form-check-label"></label>
-                                    </div>
-                                </th>
+                                @can('onlyAdmin')
+                                    <th class="align-middle">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="select_all_stok"
+                                                id="select_all_stok">
+                                            <label class="form-check-label"></label>
+                                        </div>
+                                    </th>
+                                @endcan
                                 <th class="align-middle">No</th>
                                 <th class="align-middle">Tanggal</th>
                                 <th class="align-middle">Nama Barang</th>
@@ -94,7 +102,9 @@
                                 <th class="align-middle">Stok Akhir</th>
                                 <th class="align-middle">Posisi Barang</th>
                                 <th class="align-middle">Keterangan</th>
-                                <th class="align-middle">Aksi</th>
+                                @can('onlyAdmin')
+                                    <th class="align-middle">Aksi</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody id="tableStokBarang">

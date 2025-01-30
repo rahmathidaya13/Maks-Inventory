@@ -21,7 +21,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin,spv'])->group(function () {
     Route::controller(HomeController::class)->group(function () {
         Route::get('/home', 'index')->name('dashboard');
         Route::get('/home/income', 'income')->name('income.home');
@@ -29,38 +29,38 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
     Route::controller(BarangController::class)->group(function () {
         Route::get('/list-item', 'index')->name('list.index');
-        Route::post('/list-item/store', 'store')->name('list.store');
-        Route::put('/list-item/update/{id}', 'update')->name('list.update');
-        Route::get('/list-item/show/{id}', 'show')->name('list.show');
-        Route::get('/list-item/show', 'showAll')->name('listAll.show');
-        Route::delete('/list-item/delete/{id}', 'destroy')->name('list.delete');
+        Route::post('/list-item/store', 'store')->name('list.store')->middleware('role:admin');
+        Route::put('/list-item/update/{id}', 'update')->name('list.update')->middleware('role:admin');
+        Route::get('/list-item/show/{id}', 'show')->name('list.show')->middleware('role:admin');
+        Route::get('/list-item/show', 'showAll')->name('listAll.show')->middleware('role:admin');
+        Route::delete('/list-item/delete/{id}', 'destroy')->name('list.delete')->middleware('role:admin');
     });
     Route::controller(BarangMasuk::class)->group(function () {
         Route::get('/barang_masuk', 'index')->name('barang_masuk.index');
-        Route::post('/barang_masuk/store', 'store')->name('barang_masuk.store');
-        Route::put('/barang_masuk/update/{id}', 'update')->name('barang_masuk.update');
-        Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show');
-        Route::delete('/barang_masuk/delete/{id}/{date}', 'destroy')->name('barang_masuk.delete');
+        Route::post('/barang_masuk/store', 'store')->name('barang_masuk.store')->middleware('role:admin');
+        Route::put('/barang_masuk/update/{id}', 'update')->name('barang_masuk.update')->middleware('role:admin');
+        Route::get('/barang_masuk/detail/{id}', 'show')->name('barang_masuk.show')->middleware('role:admin');
+        Route::delete('/barang_masuk/delete/{id}/{date}', 'destroy')->name('barang_masuk.delete')->middleware('role:admin');
     });
     Route::controller(BarangKeluarController::class)->group(function () {
         Route::get('/barang_keluar', 'index')->name('barang_keluar.index');
     });
     Route::controller(StokBarangController::class)->group(function () {
         Route::get('/stok', 'index')->name('stok.index');
-        Route::post('/stok/store', 'store')->name('stok.store');
-        Route::put('/stok/update/{id}', 'update')->name('stok.update');
-        Route::get('/stok/detail/{id}', 'show')->name('stok.show');
-        Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete');
+        Route::post('/stok/store', 'store')->name('stok.store')->middleware('role:admin');
+        Route::put('/stok/update/{id}', 'update')->name('stok.update')->middleware('role:admin');
+        Route::get('/stok/detail/{id}', 'show')->name('stok.show')->middleware('role:admin');
+        Route::delete('/stok/delete/{id}', 'destroy')->name('stok.delete')->middleware('role:admin');
     });
     Route::controller(TransaksiController::class)->group(function () {
         Route::get('/transaksi', 'index')->name('transaksi.index');
-        Route::post('/transaksi/store', 'store')->name('transaksi.store');
-        Route::put('/transaksi/update/{id}', 'update')->name('transaksi.update');
-        Route::put('/transaksi/repayment/{id}', 'repayment')->name('transaksi.repayment');
-        Route::put('/transaksi/takeAway/{id}', 'takeAway')->name('takeaway.repayment');
-        Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show');
-        Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete');
-        Route::put('/transaksi/spareparts/{id}', 'updateSparepart')->name('transaksi.update.sparepart');
+        Route::post('/transaksi/store', 'store')->name('transaksi.store')->middleware('role:admin');
+        Route::put('/transaksi/update/{id}', 'update')->name('transaksi.update')->middleware('role:admin');
+        Route::put('/transaksi/repayment/{id}', 'repayment')->name('transaksi.repayment')->middleware('role:admin');
+        Route::put('/transaksi/takeAway/{id}', 'takeAway')->name('takeaway.repayment')->middleware('role:admin');
+        Route::get('/transaksi/detail/{id}', 'show')->name('transaksi.show')->middleware('role:admin');
+        Route::delete('/transaksi/delete/{id}', 'destroy')->name('transaksi.delete')->middleware('role:admin');
+        Route::put('/transaksi/spareparts/{id}', 'updateSparepart')->name('transaksi.update.sparepart')->middleware('role:admin');
     });
     Route::controller(UserController::class)->group(function () {
         Route::put('/profile/update/{id}', 'update')->name('profile.update');
@@ -92,16 +92,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post("/barang_keluar/filter/date", [LiveAction::class, 'filterDateBarangKeluar'])->name('date.filter.barang_keluar');
     Route::post("/transaksi/filter/date", [LiveAction::class, 'filterDateTransaksi'])->name('date.filter.transaksi');
 
-    Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll');
-    Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk');
-    Route::delete("/delete/transaksi", [LiveAction::class, 'deleteAllTransactions'])->name('deleteAllTransactions');
-    Route::delete("/delete/all/stok", [LiveAction::class, 'deleteAllStok'])->name('deleteAllStok');
+    Route::delete("/delete_all", [LiveAction::class, 'deletedAll'])->name('deleteAll')->middleware('role:admin');
+    Route::delete("/delete/barang_masuk", [LiveAction::class, 'deletedAllBrgMasuk'])->name('deletedAllBrgMasuk')->middleware('role:admin');
+    Route::delete("/delete/transaksi", [LiveAction::class, 'deleteAllTransactions'])->name('deleteAllTransactions')->middleware('role:admin');
+    Route::delete("/delete/all/stok", [LiveAction::class, 'deleteAllStok'])->name('deleteAllStok')->middleware('role:admin');
 
     // khusus untuk import file
-    Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file');
-    Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk');
-    Route::post("/import/stok", [ImportAction::class, 'importStokBarang'])->name('import.stok');
-    Route::post("/import/transaksi", [ImportAction::class, 'importTransaksi'])->name('import.transaksi');
+    Route::post("/import/file", [ImportAction::class, 'importFile'])->name('import.file')->middleware('role:admin');
+    Route::post("/import/barang_masuk", [ImportAction::class, 'importBarangMasuk'])->name('import.barangMasuk')->middleware('role:admin');
+    Route::post("/import/stok", [ImportAction::class, 'importStokBarang'])->name('import.stok')->middleware('role:admin');
+    Route::post("/import/transaksi", [ImportAction::class, 'importTransaksi'])->name('import.transaksi')->middleware('role:admin');
 
     // khusus untuk export file
     Route::get('/export/daftar_barang', [ExportAction::class, 'exportBarang'])->name('export.barang');

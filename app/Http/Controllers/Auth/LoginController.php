@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -51,14 +52,12 @@ class LoginController extends Controller
             'password.string' => 'Password harus berupa Alphabet.',
         ]);
     }
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->role === 'admin') {
-            return redirect()->intended('/home');
-        }
-
-        // Jika user bukan admin
-        Auth::logout();
-        return redirect('/login')->with('error', 'Anda tidak memiliki akses.');
-    }
+    // protected function authenticated(User $user)
+    // {
+    //     // if ($user->role === 'admin' || $user->role === 'spv') {
+    //     //     return redirect()->intended('/home');
+    //     // }
+    //     Auth::logout();
+    //     return redirect('/login')->with('error', 'Anda tidak memiliki akses.');
+    // }
 }
