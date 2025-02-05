@@ -29,7 +29,7 @@
                     </div>
                     <input type="email" class="form-control @error('email')
                         is-invalid
-                    @enderror" name="email" id="email" placeholder="Email" value="{{ old('email') }}">
+                    @enderror" name="email" id="email" placeholder="Email" value="{{ old('email') }}" autocomplete="email">
                     @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
                     </div>
                     <input type="password" class="form-control @error('password')
                         is-invalid
-                    @enderror" name="password" id="password" placeholder="Password">
+                    @enderror" name="password" id="password" placeholder="Password" autocomplete="current-password">
                     <div class="input-group-append">
                         <div class="input-group-text password-text">
                             <span class="fas fa-eye password"></span>

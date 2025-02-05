@@ -52,12 +52,5 @@ class LoginController extends Controller
             'password.string' => 'Password harus berupa Alphabet.',
         ]);
     }
-    // protected function authenticated(User $user)
-    // {
-    //     // if ($user->role === 'admin' || $user->role === 'spv') {
-    //     //     return redirect()->intended('/home');
-    //     // }
-    //     Auth::logout();
-    //     return redirect('/login')->with('error', 'Anda tidak memiliki akses.');
-    // }
+
 }

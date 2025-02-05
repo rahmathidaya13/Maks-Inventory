@@ -5,7 +5,7 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CvTjVz85.js",
+    "file": "assets/app-Beoo4LH7.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -39,7 +39,7 @@
     "isDynamicEntry": true
   },
   "resources/js/frontend/home.js": {
-    "file": "assets/home-DhXhEmug.js",
+    "file": "assets/home-CuBrMTN3.js",
     "name": "home",
     "src": "resources/js/frontend/home.js",
     "isDynamicEntry": true
