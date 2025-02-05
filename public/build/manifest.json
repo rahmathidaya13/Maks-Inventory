@@ -5,65 +5,59 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Beoo4LH7.js",
+    "file": "assets/app-CVPwRQPz.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
     "dynamicImports": [
-      "resources/js/frontend/barang.js",
-      "resources/js/frontend/barang_keluar.js",
-      "resources/js/frontend/barang_masuk.js",
       "resources/js/frontend/home.js",
-      "resources/js/frontend/profile.js",
-      "resources/js/frontend/stok_barang.js",
+      "resources/js/frontend/barang.js",
       "resources/js/frontend/transaksi.js",
+      "resources/js/frontend/stok_barang.js",
+      "resources/js/frontend/barang_masuk.js",
+      "resources/js/frontend/barang_keluar.js",
+      "resources/js/frontend/view_password.js",
       "resources/js/frontend/view_password.js"
     ]
   },
   "resources/js/frontend/barang.js": {
-    "file": "assets/barang-2HPYpI69.js",
+    "file": "assets/barang-BTx-qHj_.js",
     "name": "barang",
     "src": "resources/js/frontend/barang.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/barang_keluar.js": {
-    "file": "assets/barang_keluar-CJhjyQGf.js",
+    "file": "assets/barang_keluar-oHFpJdIn.js",
     "name": "barang_keluar",
     "src": "resources/js/frontend/barang_keluar.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/barang_masuk.js": {
-    "file": "assets/barang_masuk-DMwRSQAh.js",
+    "file": "assets/barang_masuk-Ce7XjuXH.js",
     "name": "barang_masuk",
     "src": "resources/js/frontend/barang_masuk.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/home.js": {
-    "file": "assets/home-CuBrMTN3.js",
+    "file": "assets/home-D1-6KL7e.js",
     "name": "home",
     "src": "resources/js/frontend/home.js",
     "isDynamicEntry": true
   },
-  "resources/js/frontend/profile.js": {
-    "file": "assets/profile-DIAfgQuc.js",
-    "name": "profile",
-    "src": "resources/js/frontend/profile.js",
-    "isDynamicEntry": true
-  },
   "resources/js/frontend/stok_barang.js": {
-    "file": "assets/stok_barang-CqqCgfyB.js",
+    "file": "assets/stok_barang-CYqZ6WRx.js",
     "name": "stok_barang",
     "src": "resources/js/frontend/stok_barang.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/transaksi.js": {
-    "file": "assets/transaksi-CwObL4cg.js",
+    "file": "assets/transaksi-BnhU9hv1.js",
     "name": "transaksi",
     "src": "resources/js/frontend/transaksi.js",
     "isDynamicEntry": true
   },
   "resources/js/frontend/view_password.js": {
-    "file": "assets/view_password-saf80BD7.js",
+    "file": "assets/view_password-HWXizHOv.js",
     "name": "view_password",
     "src": "resources/js/frontend/view_password.js",
     "isDynamicEntry": true
