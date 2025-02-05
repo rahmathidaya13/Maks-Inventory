@@ -62,7 +62,7 @@
             $(".alert").fadeTo(500, 0).slideUp(500, () => {
                 $(this).remove();
             })
-        }, 5000);
+        }, 3000);
     });
 </script>
 </body>

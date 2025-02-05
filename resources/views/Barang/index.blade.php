@@ -3,9 +3,6 @@
 @section('breadcrumb', 'Daftar Barang')
 @section('icon', 'fas fa-box')
 @section('content')
-    <style>
-
-    </style>
     <!-- Small boxes (Stat box) -->
     <div class="row">
         <div class="col-lg-12 col-12">
