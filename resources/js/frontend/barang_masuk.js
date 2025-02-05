@@ -284,6 +284,7 @@ export default function barang_masuk() {
             $.ajax({
                 type: "GET",
                 url: url,
+                cache: true,
                 data: {
                     itemInQuery: query,
                     _token: token,
@@ -334,6 +335,7 @@ export default function barang_masuk() {
             $.ajax({
                 type: "GET",
                 url: "/barang_masuk/filter",
+                cache: true,
                 data: {
                     barangMasukLimit: offset,
                     _token: token,
@@ -362,6 +364,7 @@ export default function barang_masuk() {
             $.ajax({
                 url: url.toString(),
                 type: "GET",
+                cache: true,
                 success: function (data) {
                     // Perbarui tabel dan pagination
                     $("tbody#tableBarangMasuk").html(data.table);

@@ -45,6 +45,7 @@ export default function barang_keluar() {
             $.ajax({
                 type: "GET",
                 url: url,
+                cache:true,
                 data: {
                     itemOutKeyword: query,
                     _token: token,
@@ -94,6 +95,7 @@ export default function barang_keluar() {
             $.ajax({
                 type: "GET",
                 url: "/barang_keluar/filter",
+                cache: true,
                 data: {
                     barangKeluarLimit: offset,
                     _token: token,
@@ -121,6 +123,7 @@ export default function barang_keluar() {
             $.ajax({
                 url: url.toString(),
                 type: "GET",
+                cache: true,
                 success: function (data) {
                     // Perbarui tabel dan pagination
                     $("tbody#tableBarangKeluar").html(data.table);

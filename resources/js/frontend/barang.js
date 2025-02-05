@@ -82,6 +82,7 @@ export default function barang() {
             $.ajax({
                 method: "GET",
                 url: url,
+                cache: true,
                 data: {
                     itemQuery: query,
                     _token: token,
@@ -237,6 +238,7 @@ export default function barang() {
             $.ajax({
                 type: "GET",
                 url: "/item/offset",
+                cache: true,
                 data: {
                     barangLimit: offset,
                     _token: token,
@@ -264,6 +266,7 @@ export default function barang() {
             $.ajax({
                 url: url.toString(),
                 type: "GET",
+                cache: true,
                 success: function (data) {
                     // Perbarui tabel dan pagination
                     $("tbody#tableBarang").html(data.table);

@@ -279,6 +279,7 @@ export default function stok() {
             $.ajax({
                 type: "GET",
                 url: "/stok/filter",
+                cache:true,
                 data: {
                     stokLimit: offset,
                 },
@@ -303,6 +304,7 @@ export default function stok() {
             $.ajax({
                 url: url.toString(),
                 type: "GET",
+                cache: true,
                 success: function (data) {
                     // Perbarui tabel dan pagination
                     $("tbody#tableStokBarang").html(data.table);
@@ -335,6 +337,7 @@ export default function stok() {
                     _token: token,
                     stokLimit: 10,
                 },
+                cache: true,
                 success: function (data) {
                     if (!query) {
                         $("tbody#tableStokBarang").html(data.table);

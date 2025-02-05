@@ -256,7 +256,9 @@ export default function transaksi() {
                     nama_barang: nama_barang,
                     tipe_barang: tipe_barang,
                 },
+                contentType: "application/json",
                 dataType: "json",
+                cache:true,
                 success: function (data) {
                     // Cek apakah data ditemukan
                     if (data && data.result) {
@@ -426,6 +428,7 @@ export default function transaksi() {
                     transaksiLimit: offset,
                     _token: token,
                 },
+                cache:true,
                 success: function (data) {
                     $("tbody#tableTransaksi").html(data.table);
                     $(".pagination-wrapper").html(data.pagination);
@@ -449,6 +452,7 @@ export default function transaksi() {
             $.ajax({
                 type: "GET",
                 url: url.toString(),
+                cache:true,
                 success: function (data) {
                     // Perbarui tabel dan pagination
                     $("tbody#tableTransaksi").html(data.table);
@@ -482,6 +486,7 @@ export default function transaksi() {
                     _token: token,
                     transaksiLimit: 10,
                 },
+                cache:true,
                 success: function (data) {
                     if (!query) {
                         $("tbody#tableTransaksi").html(data.table);
@@ -649,6 +654,7 @@ export default function transaksi() {
                     _token: token,
                     transaksiLimit: 10,
                 },
+                cache:true,
                 success: function (data) {
                     $("tbody#tableTransaksi").html(data.table);
                     $(".pagination-wrapper").html(data.pagination);
