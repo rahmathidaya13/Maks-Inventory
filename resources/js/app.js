@@ -14,22 +14,23 @@ const routes = {
     '/login': () => import('@/frontend/view_password.js'),
     '/register': () => import('@/frontend/view_password.js'),
 }
-if (routes[path]) {
-    // Jalankan fungsi default dari file yang di-load
-    routes[path]().then((module) => {
-        module.default();
-        // console.log(module);
-    })
-}
-// for (const route in routes) {
-//     // Cocokkan dengan semua variasi jika menggunakan method startwith
-//     if (path.startsWith(route)) {
-//         routes[path]().then((module) => {
-//             module.default();
-//         });
-//         break;
-//     }
+// if (routes[path]) {
+//     // Jalankan fungsi default dari file yang di-load
+//     routes[path]().then((module) => {
+//         module.default();
+//         // console.log(module);
+//     })
 // }
+for (const route in routes) {
+    // Cocokkan dengan semua variasi jika menggunakan method startwith
+    if (path.startsWith(route)) {
+        routes[route]().then((module) => {
+            module.default();
+            // console.log(module.default);
+        });
+        break;
+    }
+}
 
 
 // $(document).ready(function () {
