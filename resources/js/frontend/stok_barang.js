@@ -24,14 +24,14 @@ export default function stok() {
             $(button).prop("disabled", !isValid);
         }
         // form untuk stok barang
-        $("#stokBarangForm").on("input", function () {
-            validateForm("#stokBarangForm", ".simpan_stok");
-        });
+        // $("#stokBarangForm").on("input", function () {
+        //     validateForm("#stokBarangForm", ".simpan_stok");
+        // });
 
         // form untuk filter data barang by date
-        $("#filter_date_stok").on("input", function () {
-            validateForm("#filter_date_stok", ".act_filter_stok");
-        });
+        // $("#filter_date_stok").on("input", function () {
+        //     validateForm("#filter_date_stok", ".act_filter_stok");
+        // });
 
         $(document).on("click", "#select_all_stok", function () {
             $(".selected").prop("checked", $(this).prop("checked"));
@@ -115,8 +115,8 @@ export default function stok() {
                 $("#import_stok_file")[0].reset();
                 $("#preview").attr("src", "assets/icon/iconupload.jpg");
                 $("#file-name").text("File not found");
-                $(".simpan_stok").prop("disabled", true);
-                $(".act_filter_stok").prop("disabled", true);
+                // $(".simpan_stok").prop("disabled", true);
+                // $(".act_filter_stok").prop("disabled", true);
             }
         );
 
@@ -134,7 +134,7 @@ export default function stok() {
             $("#stok_save i").removeClass("fas fa-edit").addClass("fas fa-save");
             $("#stokBarangForm").attr("action", "/stok/store");
             $("input[name='_method']").remove();
-            $(".simpan_stok").prop("disabled", true);
+            // $(".simpan_stok").prop("disabled", true);
             $("#tgl").attr("readonly", false);
             $(".nama_barang").css({
                 pointerEvents: "all",
@@ -176,7 +176,7 @@ export default function stok() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menunggu konfirmasi dan kemudian menampilkan modal
-                    $(".simpan_stok").prop("disabled", false);
+                    // $(".simpan_stok").prop("disabled", false);
                     $("#staticBackdrop_stok_barang").modal("show");
                     $(".stok_out,.stok_close").click(function (e) {
                         e.preventDefault();
@@ -279,7 +279,7 @@ export default function stok() {
             $.ajax({
                 type: "GET",
                 url: "/stok/filter",
-                cache:true,
+                cache: true,
                 data: {
                     stokLimit: offset,
                 },
@@ -415,6 +415,29 @@ export default function stok() {
                     }
                 },
             });
+        });
+
+        // include action add item from file barang
+        $(document).on("click", "#add_item", function (e) {
+            e.preventDefault();
+            // $(".simpan_barang_masuk").prop("disabled", true);
+            $("#form_item")[0].reset();
+            if ($("#brg_masuk").length > 0) {
+                $("#brg_masuk")[0].reset();
+            }
+            if ($("#barangmasuk").length > 0) {
+                $("#barangmasuk")[0].reset();
+            }
+            if ($("#filter_date").length > 0) {
+                $("#filter_date")[0].reset();
+            }
+
+            $(".modal-title span").text("Tambah Barang");
+            $(".modal-title i").removeClass("fas fa-edit").addClass("fas fa-box");
+            $("#aksi_brg_masuk span").text("Simpan");
+            $("#aksi_brg_masuk i").removeClass("fas fa-edit").addClass("fas fa-save");
+            $("#form_item").attr("action", "/list-item/store");
+            $("input[name='_method']").remove();
         });
 
         $(document).on("click", "#export_stok_barang", function (e) {

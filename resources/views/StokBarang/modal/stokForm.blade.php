@@ -73,7 +73,7 @@
             <div class="modal-footer justify-content-between">
                 <button id="stok_out" type="button" class="btn btn-default stok_out"
                     data-dismiss="modal">Keluar</button>
-                <button disabled onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
+                <button onclick="event.preventDefault();document.getElementById('stokBarangForm').submit();"
                     id="stok_save" type="button" class="btn btn-primary simpan_stok"><i class="fas fa-save"></i>
                     <span>Simpan</span></button>
             </div>

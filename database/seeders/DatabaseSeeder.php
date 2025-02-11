@@ -18,19 +18,19 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('admin1234'),
+                'password' => bcrypt('admin1234'),
                 'role' => 'admin',
             ],
             [
                 'name' => 'admin2',
                 'email' => 'admin2@example.com',
-                'password' => Hash::make('admin1234'),
+                'password' => bcrypt('admin1234'),
                 'role' => 'admin',
             ],
             [
                 'name' => 'supervisior',
                 'email' => 'spv@example.com',
-                'password' => Hash::make('spv12345'),
+                'password' => bcrypt('spv12345'),
                 'role' => 'spv',
             ]
         ];

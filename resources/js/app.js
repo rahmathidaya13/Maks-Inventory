@@ -1,6 +1,7 @@
 import "./bootstrap";
 import profile from "@/frontend/profile.js";
 profile(); // load profile agar bisa disemua halaman
+
 // Agar kode tetap bisa berjalan di semua halaman tanpa terpengaruh query string, ubah kode menjadi:
 const path = new URL(window.location.href).pathname;
 // Sesuaikan path jika pakai alias dengan routes
@@ -31,12 +32,3 @@ for (const route in routes) {
     }
 }
 
-
-// $(document).ready(function () {
-//     const modules = import.meta.glob('./frontend/*.js');
-//     for (const path in modules) {
-//         modules[path]().then((module) => {
-//             // console.log(`Module ${path} loaded`);
-//         });
-//     }
-// });

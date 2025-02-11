@@ -34,9 +34,9 @@ export default function barang() {
                 .format(angka)
                 .replace(/Rp\s/g, "");
         }
-        $("#form_item").on("input", function () {
-            validateForm("#form_item input", ".simpan_barang");
-        });
+        // $("#form_item").on("input", function () {
+        //     validateForm("#form_item input", ".simpan_barang");
+        // });
         $(document).on("click", "#add_item", function (e) {
             e.preventDefault();
             $("#form_item")[0].reset();
@@ -46,7 +46,7 @@ export default function barang() {
             $("#action i").removeClass("fas fa-edit").addClass("fas fa-save");
             $("#form_item").attr("action", "/list-item/store");
             $("input[name='_method']").remove();
-            $(".simpan_barang").prop("disabled", true);
+            // $(".simpan_barang").prop("disabled", true);
         });
 
         $(document).on("click", "#keluar, .close", function (e) {
@@ -140,7 +140,7 @@ export default function barang() {
             $("#action i").removeClass("fas fa-save").addClass("fas fa-edit");
             $("#form_item").prepend('<input type="hidden" name="_method" value="PUT">');
             $("#form_item").attr("action", "/list-item/update/" + id);
-            $(".simpan_barang").prop("disabled", false);
+            // $(".simpan_barang").prop("disabled", false);
 
             $.getJSON("/list-item/show/" + id, function (data, textStatus, jqXHR) {
                 $("#nama_brg").val(data.result.nama_barang);

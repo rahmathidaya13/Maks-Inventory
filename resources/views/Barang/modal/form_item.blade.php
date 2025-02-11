@@ -27,7 +27,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button id="keluar" type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-                <button disabled onclick="event.preventDefault();document.getElementById('form_item').submit();" id="action"
+                <button onclick="event.preventDefault();document.getElementById('form_item').submit();" id="action"
                     type="button" class="btn btn-primary simpan_barang"><i class="fas fa-save"></i> <span>Simpan</span></button>
             </div>
         </div>
