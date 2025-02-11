@@ -8,12 +8,12 @@
                 </button>
             </div> --}}
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-3">
+                <div class="row d-flex row-cols-1 row-cols-lg-2">
+                    <div class="col col-lg-3">
                         <img class="img-fluid img-thumbnail modal-profile" src="#"
                             alt="">
                     </div>
-                    <div class="col-9">
+                    <div class="col col-lg-9">
                         <div class="bg-transparent">
                             <h4 class=" text-uppercase">Profile</h4>
 
