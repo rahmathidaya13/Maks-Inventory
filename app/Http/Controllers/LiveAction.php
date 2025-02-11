@@ -21,9 +21,10 @@ class LiveAction extends Controller
         ]);
 
         $query = $request->get('itemQuery', '');
+        $limit = $request->get('barangLimit');
         $barang = BarangModel::where("nama_barang", "like", "%" . $query . "%")
             ->orWhere("tipe_barang", "like", "%" . $query . "%")
-            ->latest()->paginate(1000);
+            ->latest()->paginate(1000)->appends(['barangLimit' => $limit, 'itemQuery' => $query]);
         if ($request->ajax()) {
             return response()->json([
                 'table' => view('Barang.partials.table_item', compact('barang'))->render(),

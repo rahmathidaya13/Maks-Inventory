@@ -1,3 +1,3 @@
 <div class="pagination-wrapper">
-    {{ $barang->appends(['barangLimit' => request('barangLimit')])->links() }}
+    {{ $barang->links() }}
 </div>

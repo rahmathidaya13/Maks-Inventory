@@ -24,10 +24,9 @@ const routes = {
 for (const route in routes) {
     // Cocokkan dengan semua variasi jika menggunakan method startwith
     if (path.startsWith(route)) {
-        routes[route]().then((module) => {
-            module.default();
-            // console.log(module.default);
-        });
+        routes[route]().then((module) =>
+            module.default()
+        );
         break;
     }
 }
