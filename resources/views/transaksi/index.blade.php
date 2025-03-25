@@ -24,53 +24,54 @@
         </div>
     @endif
 
-    <div class="card">
-        <div class="d-flex justify-content-between align-items-center p-3">
-            <div class="d-flex align-items-center">
-                <span class="mr-2">Tampilkan hasil: </span>
-                <div class="input-group input-group-sm" style="width: 75px">
-                    <select class="form-control form-control-sm" name="filter_transaksi" id="filter_transaksi">
-                        <option value="10" selected>10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="mx-3">
-                    <div class="input-group input-group-sm">
-                        <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
-                            class="form-control mx-2">
-                        <span> <i class="fas fa-sort"></i></span>
-                        <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
-                            class="form-control mx-2">
-                        <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
-                    </div>
-                </div>
-                <div class="input-group input-group-sm w-50">
-                    <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control"
-                        placeholder="Search">
-                </div>
-            </div>
-        </div>
-        <div class="d-flex justify-content-end px-3">
-            <div class="">
-                <select class="form-control" name="stts_pembayaran" id="stts_pembayaran">
-                    <option value="">Filter Pembayaran</option>
-                    <option value="lunas">Lunas</option>
-                    <option value="dana pertama - belum lunas">Dp - belum lunas</option>
-                    <option value="dana pertama - lunas">Dp - lunas</option>
+    <div class="d-flex justify-content-between align-items-center p-3">
+        <div class="d-flex align-items-center">
+            <span class="mr-2">Tampilkan hasil: </span>
+            <div class="input-group input-group-sm" style="width: 75px">
+                <select class="form-control form-control-sm" name="filter_transaksi" id="filter_transaksi">
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
                 </select>
             </div>
+
         </div>
-        <div class="px-3 mb-2">
+        <div class="d-flex align-items-center">
+            <div class="mx-3">
+                <div class="input-group input-group-sm">
+                    <input type="date" name="start_date_filter_transaksi" id="start_date_filter_transaksi"
+                        class="form-control mx-2">
+                    <span> <i class="fas fa-sort"></i></span>
+                    <input type="date" name="end_date_filter_transaksi" id="end_date_filter_transaksi"
+                        class="form-control mx-2">
+                    <button id="set_filter_transaksi" type="submit" class="btn btn-sm btn-primary">Set</button>
+                </div>
+            </div>
+            <div class="input-group input-group-sm w-50">
+                <input type="search" name="keyword_transaksi" id="keyword_transaksi" class="form-control"
+                    placeholder="Search">
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between p-3 align-items-center position-relative">
+        <div class="flex-auto d-flex">
             @can('onlyAdmin')
                 <button disabled id="delete_all_transaksi" class="btn btn-sm btn-danger"> <i class="fas fa-trash"></i>
                     Hapus</button>
             @endcan
         </div>
+        <div class="flex-auto d-flex">
+            <select class="form-control" name="stts_pembayaran" id="stts_pembayaran">
+                <option value="">Filter Pembayaran</option>
+                <option value="lunas">Lunas</option>
+                <option value="dana pertama - belum lunas">Dp - belum lunas</option>
+                <option value="dana pertama - lunas">Dp - lunas</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="card">
 
         <div class="card-body table-responsive p-0">
             <table id="" class="table text-nowrap table-borderless table-striped">

@@ -20,11 +20,7 @@
         @include('layouts.breadcrumb')
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12 col">
-                        @yield('content')
-                    </div>
-                </div>
+                @yield('content')
             </div>
         </section>
     </div>

@@ -53,8 +53,8 @@ trait handlesStokBarang
         $stokBarang->nama_barang = $data['nama_barang'];
         $stokBarang->tipe_barang = $data['tipe_barang'];
         $stokBarang->tanggal = $data['tgl'];
-        $stokBarang->barang_masuk = $barang_masuk ? $barang_masuk->barang_masuk : 0;
-        $stokBarang->barang_keluar = $barang_keluar ? $barang_keluar->barang_keluar : 0;
+        $stokBarang->barang_masuk = $barang_masuk ?? 0;
+        $stokBarang->barang_keluar = $barang_keluar ?? 0;
         $stokBarang->stok_awal = (int) $data['jumlah_barang'];
         $stokBarang->stok_akhir = (int) ($stokBarang->stok_awal + $stokBarang->barang_masuk) - $stokBarang->barang_keluar;
         $stokBarang->posisi = $data['posisi_barang'];

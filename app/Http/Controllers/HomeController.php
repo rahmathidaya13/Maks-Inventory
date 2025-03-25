@@ -29,33 +29,33 @@ class HomeController extends Controller
     public function index()
     {
         // transaksi in dashboard only
-        // $getMonth = Carbon::now()->month;
-        // $getYear = Carbon::now()->year;
-        // $periode = Carbon::now()->isoFormat('MMMM Y');
-        $periode = Carbon::createFromDate('2024', '09', '30 ')->isoFormat("MMMM YYYY");
+        $getMonth = Carbon::now()->month;
+        $getYear = Carbon::now()->year;
+        $periode = Carbon::now()->isoFormat('MMMM Y');
+        $periode = Carbon::createFromDate($getYear, $getMonth, Carbon::now()->day)->isoFormat("MMMM YYYY");
 
-        $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', '9')
-            ->whereYear('tgl_transaksi', '2024')
+        $countTransaksi = TransaksiModel::whereMonth('tgl_transaksi', Carbon::now()->month)
+            ->whereYear('tgl_transaksi', Carbon::now()->year)
             ->whereIn('status_pembayaran', ['lunas', 'dana pertama - belum lunas', 'dana pertama - lunas'])
             ->sum('pembayaran');
 
-        $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
-            ->whereYear('tgl_transaksi', '2024')
+        $konsumen_transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
             ->whereIn('status_pembayaran', ['lunas', 'dana pertama - lunas'])
             ->distinct('nama_konsumen')
             ->count('nama_konsumen');
 
-        $countInBox = BarangMasukModel::whereMonth('tgl_brg_masuk', '09')
-            ->whereYear('tgl_brg_masuk', '2024')
+        $countInBox = BarangMasukModel::whereMonth('tgl_brg_masuk', $getMonth)
+            ->whereYear('tgl_brg_masuk', $getYear)
             ->sum('jumlah_barang');
 
-        $countOutBox = BarangKeluarModel::whereMonth('tanggal', '09')
-            ->whereYear('tanggal', '2024')
+        $countOutBox = BarangKeluarModel::whereMonth('tanggal', $getMonth)
+            ->whereYear('tanggal', $getYear)
             ->sum('jumlah_barang');
 
 
-        $transaksi = TransaksiModel::whereMonth('tgl_transaksi', '09')
-            ->whereYear('tgl_transaksi', '2024')
+        $transaksi = TransaksiModel::whereMonth('tgl_transaksi', $getMonth)
+            ->whereYear('tgl_transaksi', $getYear)
             ->select('nama_sales', DB::raw('SUM(jumlah_barang) AS total_barang'), DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), 'nama_barang', 'tipe_barang', 'tgl_transaksi')
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales', 'nama_barang', 'tipe_barang', 'tgl_transaksi')
@@ -70,7 +70,7 @@ class HomeController extends Controller
         //     ->take(5)
         //     ->get();
         $topProduct = TopProductModel::select('nama_barang', 'tipe_barang', DB::raw('SUM(total_barang) AS total'))
-            ->whereBetween('tanggal', ['2024-09-01', '2024-09-30'])
+            ->whereBetween('tanggal', [now()->startOfMonth(), now()->endOfMonth()])
             ->groupBy('nama_barang', 'tipe_barang')
             ->orderBy('total', 'desc')
             ->take(5)
@@ -97,8 +97,8 @@ class HomeController extends Controller
 
         $getquery = explode('-', $request->get('query'));
 
-        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi',  '09')
-            ->whereYear('tgl_transaksi',  '2024')
+        $pendapatanTransaksi = TransaksiModel::whereMonth('tgl_transaksi',  Carbon::now()->month)
+            ->whereYear('tgl_transaksi',  Carbon::now()->year)
             ->select('nama_sales', DB::raw('SUM(jumlah_barang * harga_barang) AS total_pendapatan'), DB::raw('SUM(jumlah_barang) AS total_barang'))
             ->where('status_pembayaran', 'lunas')
             ->groupBy('nama_sales')
